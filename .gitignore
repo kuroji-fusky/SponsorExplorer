@@ -11,7 +11,7 @@ node_modules
 /build
 
 .env*
-.env*.local
+!.env.local.example
 
 *.log*
 *.tsbuildinfo
