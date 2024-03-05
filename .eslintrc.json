@@ -1,0 +1,10 @@
+{
+  "extends": ["next/core-web-vitals", "@kuro-utils/base"],
+  "ignorePatterns": [
+    ".next/",
+    "public/sw.js",
+    "public/workbox-*",
+    "public/worker-*",
+    ".tsbuildinfo"
+  ]
+}

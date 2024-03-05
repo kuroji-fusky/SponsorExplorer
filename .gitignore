@@ -1,2 +1,17 @@
 node_modules
+.DS_Store
+*.pem
+.vercel/
+
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+/.next/
+/out/
+/build
+
 .env*
+.env*.local
+
+*.log*
+*.tsbuildinfo
