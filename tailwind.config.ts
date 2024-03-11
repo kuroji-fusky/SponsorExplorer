@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss"
+import kuroTwPreset from "@kuro-utils/tailwind"
 import typographyPlugin from "@tailwindcss/typography"
 
 export default {
@@ -6,25 +7,26 @@ export default {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}"
   ],
   theme: {
     extend: {
       colors: {
         sb: {
-          sponsor: "#00d400",
-          "self-promo": "#ffff00",
-          "exclusive-access": "#008a5c",
-          interaction: "#cc00ff",
-          highlight: "#ff1684",
-          intermission: "#00ffff",
-          endcards: "#0202ed",
-          preview: "#008fd6",
-          filler: "#7300FF",
-          "non-music": "#ff9900",
-        },
-      },
-    },
+          sponsor: "var(--sb-sponsor)",
+          "self-promo": "var(--sb-self-promo)",
+          "exclusive-access": "var(--sb-exclusive-access)",
+          interaction: "var(--sb-interaction)",
+          highlight: "var(--sb-highlight)",
+          intermission: "var(--sb-intermission)",
+          endcards: "var(--sb-endcards)",
+          preview: "var(--sb-preview)",
+          filler: "var(--sb-filler)",
+          "non-music": "var(--sb-non-music)"
+        }
+      }
+    }
   },
   plugins: [typographyPlugin],
+  presets: [kuroTwPreset]
 } satisfies Config

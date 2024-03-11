@@ -10,7 +10,7 @@
     {
       "files": ["tailwind.config.ts"],
       "options": {
-        "printWidth": 180
+        "printWidth": 120
       }
     }
   ],
