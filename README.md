@@ -1,6 +1,6 @@
 # SponsorExplorer
 
-A frontend to explore submitted SponsorBlock segments, inspired by [SBBrowser][sbb].
+A modern rewrite of Lanrza's [SBBrowser][sbb] and with more features!
 
 ## Installation
 

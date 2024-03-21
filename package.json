@@ -53,6 +53,7 @@
 		},
 		"type": "module",
 		"dependencies": {
-				"@fontsource/inter": "^5.0.17"
+				"@fontsource/inter": "^5.0.17",
+				"lucide-svelte": "^0.359.0"
 		}
 }
