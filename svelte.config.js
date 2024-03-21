@@ -10,10 +10,6 @@ const config = {
   kit: {
     adapter: adapter({
       isr: true,
-      images: {
-        formats: ["image/avif", "image/webp"],
-        minimumCacheTTL: 300
-      }
     }),
     csp: {
       directives: {
