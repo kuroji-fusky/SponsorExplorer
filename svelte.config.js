@@ -1,7 +1,9 @@
 import adapter from "@sveltejs/adapter-vercel"
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte"
 
-/** @type {import('@sveltejs/adapter-vercel').Config} */
+const trustedDomains = ["https://www.youtube.com/", "https://sponsor.ajay.app/"]
+
+/** @type {import('@sveltejs/kit').Config} */
 const config = {
   preprocess: vitePreprocess(),
 
@@ -12,7 +14,14 @@ const config = {
         formats: ["image/avif", "image/webp"],
         minimumCacheTTL: 300
       }
-    })
+    }),
+    csp: {
+      directives: {
+        "script-src": ["self", "unsafe-eval", ...trustedDomains],
+        "connect-src": ["self", ...trustedDomains],
+        "frame-src": [trustedDomains[0]]
+      }
+    }
   }
 }
 

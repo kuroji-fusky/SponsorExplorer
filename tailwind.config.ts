@@ -10,7 +10,7 @@ export default {
       colors: {
         sb: {
           sponsor: "var(--sb-sponsor)",
-          "self-promo": "var(--sb-self-promo)",
+          "selfpromo": "var(--sb-selfpromo)",
           "exclusive-access": "var(--sb-exclusive-access)",
           interaction: "var(--sb-interaction)",
           highlight: "var(--sb-highlight)",
