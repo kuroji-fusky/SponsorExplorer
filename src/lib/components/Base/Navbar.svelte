@@ -1,6 +1,19 @@
 <script lang="ts">
-  import { BookmarkIcon, SlidersIcon, SearchIcon } from "lucide-svelte"
+  import BookmarkIcon from "lucide-svelte/icons/bookmark"
+  import SearchIcon from "lucide-svelte/icons/search"
+  import SlidersIcon from "lucide-svelte/icons/sliders-vertical"
   import Button from "../Button.svelte"
+  import { onMount } from "svelte"
+
+  let suggestionField = false
+  let searchInput: HTMLInputElement | null
+
+  onMount(() => {
+    const suggestion = {
+      show: () => (suggestionField = true),
+      hide: () => (suggestionField = false)
+    }
+  })
 </script>
 
 <nav class="px-8 flex justify-between py-4 items-center">
@@ -10,7 +23,9 @@
       <SearchIcon size={19} />
     </span>
     <input
-      type="search"
+      bind:this={searchInput}
+      role="searchbox"
+      type="text"
       placeholder="Search"
       class="relative z-[2] px-9 py-2 rounded-lg border w-full border-slate-400"
     />
