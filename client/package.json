@@ -23,8 +23,6 @@
     "lucide-svelte": "^0.359.0"
   },
   "devDependencies": {
-    "@kuro-utils/eslint-config-base": "*",
-    "@kuro-utils/types": "*",
     "@sveltejs/adapter-auto": "^3.0.0",
     "@sveltejs/adapter-vercel": "^5.1.1",
     "@sveltejs/kit": "^2.0.0",
