@@ -1,22 +1,12 @@
 <script lang="ts">
   import Badge from "./Badge.svelte"
   import { cn } from "$lib/utils/cn"
-
-  type Segments =
-    | "sponsor"
-    | "selfpromo"
-    | "intermission"
-    | "interaction"
-    | "preview"
-    | "highlight"
-    | "endcards"
-    | "filler"
-    | "exclusive-access"
-    | "non-music"
+  import type { Segments } from "$lib/types"
 
   export let segment: Segments
+  export let chapterLabel: string = ""
 
-  const segments = {
+  const segmentObj: Record<Segments, { bg: string; label: string }> = {
     sponsor: {
       bg: "bg-sb-sponsor",
       label: "Sponsor"
@@ -25,7 +15,7 @@
       bg: "bg-sb-selfpromo",
       label: "Unpaid/Self Promotion"
     },
-    intermission: {
+    intro: {
       bg: "bg-sb-intermission",
       label: "Intro/Intermission"
     },
@@ -35,21 +25,27 @@
     },
     preview: { bg: "bg-sb-preview", label: "Preview/Recap/Hook" },
     highlight: { bg: "bg-sb-highlight", label: "Highlight" },
-    endcards: { bg: "bg-sb-endcards", label: "Endcards/Credits" },
+    outro: { bg: "bg-sb-endcards", label: "Endcards/Credits" },
     filler: { bg: "bg-sb-filler", label: "Filler" },
-    "exclusive-access": {
+    exclusive_access: {
       bg: "bg-sb-exclusive-access",
-
       label: "Exclusive Access"
     },
-    "non-music": { bg: "bg-sb-non-music", label: "Non-Music" }
+    non_music: { bg: "bg-sb-non-music", label: "Non-Music" },
+    chapter: {
+      bg: "bg-slate-300",
+      label: "Chapter"
+    }
   }
 
-  const s = segments[segment]
+  const s = segmentObj[segment]
 </script>
 
-<Badge class="relative inline-flex items-center gap-x-1.5 rounded-2xl">
+<Badge class="relative inline-flex items-center gap-x-1.5 rounded-2xl cursor-help">
   <span class={cn(s.bg, "rounded-full size-3 flex-shrink-0")} aria-hidden />
-  <span class="text-sm font-semibold">{s.label}</span>
+  <span
+    class={cn("text-sm font-semibold", chapterLabel ? "underline decoration-dashed" : "")}
+    >{s.label}</span
+  >
   <div class={cn(s.bg, "-z-[1] absolute inset-0 opacity-25")} />
 </Badge>

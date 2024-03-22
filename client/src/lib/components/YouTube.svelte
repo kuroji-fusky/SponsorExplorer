@@ -8,6 +8,7 @@
   const ytId = "player-shell"
 
   onMount(() => {
+    // TODO: add setInterval for 100ms if iframe mounting fails, then clearInterval if it successfully mounts
     const loadPlayer = () => {
       const ytIframeMount = new YT.Player(ytId, {
         height: "100%",

@@ -23,11 +23,11 @@
 
 <SegmentBadge segment="sponsor" />
 <SegmentBadge segment="selfpromo" />
-<SegmentBadge segment="intermission" />
+<SegmentBadge segment="intro" />
 <SegmentBadge segment="interaction" />
 <SegmentBadge segment="highlight" />
 <SegmentBadge segment="preview" />
-<SegmentBadge segment="endcards" />
-<SegmentBadge segment="exclusive-access" />
-<SegmentBadge segment="non-music" />
+<SegmentBadge segment="outro" />
+<SegmentBadge segment="exclusive_access" />
+<SegmentBadge segment="non_music" />
 <SegmentBadge segment="filler" />

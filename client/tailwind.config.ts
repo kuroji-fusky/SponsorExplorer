@@ -23,4 +23,4 @@ export default {
     }
   },
   plugins: [typographyPlugin]
-} satisfies Config
+} as const satisfies Config
