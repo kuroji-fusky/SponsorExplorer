@@ -6,6 +6,10 @@
   import { Navbar, Footer } from "$lib/components/Base"
 </script>
 
+<svelte:head>
+  <script src="https://www.youtube.com/iframe_api"></script>
+</svelte:head>
+
 <Navbar />
 <div class="mx-auto max-w-screen-2xl px-6">
   <slot />

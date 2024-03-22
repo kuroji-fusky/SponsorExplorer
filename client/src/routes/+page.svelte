@@ -1,14 +1,13 @@
 <script>
   import { SegmentBadge } from "$lib/components/Badges"
+  import SEO from "$lib/components/SEO.svelte"
   import YouTube from "$lib/components/YouTube.svelte"
 </script>
 
-<svelte:head>
-  <title>testing</title>
-</svelte:head>
+<SEO title="Yes" />
 
 <div class="flex gap-y-4 gap-x-6 mt-8">
-  <YouTube id="3KPY-gjmHWA" />
+  <YouTube id="3Vsd6zPChIU" />
   <div class="flex flex-col gap-y-3">
     <!-- Title -->
     <div>
@@ -24,6 +23,7 @@
 
 <SegmentBadge segment="sponsor" />
 <SegmentBadge segment="selfpromo" />
+<SegmentBadge segment="intermission" />
 <SegmentBadge segment="interaction" />
 <SegmentBadge segment="highlight" />
 <SegmentBadge segment="preview" />

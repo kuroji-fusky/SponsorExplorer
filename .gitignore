@@ -3,7 +3,8 @@ node_modules
 .DS_Store
 
 client/build
-client/.svelte-kit
+client/.vercel/
+client/.svelte-kit/
 client/package
 
 .env
