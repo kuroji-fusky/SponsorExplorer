@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss"
-import kuroTwPreset from "@kuro-utils/tailwind"
 import typographyPlugin from "@tailwindcss/typography"
 
 export default {
@@ -10,7 +9,7 @@ export default {
       colors: {
         sb: {
           sponsor: "var(--sb-sponsor)",
-          "selfpromo": "var(--sb-selfpromo)",
+          selfpromo: "var(--sb-selfpromo)",
           "exclusive-access": "var(--sb-exclusive-access)",
           interaction: "var(--sb-interaction)",
           highlight: "var(--sb-highlight)",
@@ -23,6 +22,5 @@ export default {
       }
     }
   },
-  plugins: [typographyPlugin],
-  presets: [kuroTwPreset]
+  plugins: [typographyPlugin]
 } satisfies Config
