@@ -10,10 +10,6 @@
       <p>
         <strong>SponsorExplorer</strong> is a modern rewrite of
         <Link href="https://sb.ltn.fi" external>SBbrowser</Link> with additional features!
-        Uses SponsorBlock data licensed under CC BY-NC-SA from <Link
-          href="https://sponsor.ajay.app"
-          external>https://sponsor.ajay.app</Link
-        >.
       </p>
     </article>
     <div class="pt-3 border-t border-slate-400 mt-4 flex items-center gap-x-2">
