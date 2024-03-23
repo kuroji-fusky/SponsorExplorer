@@ -11,7 +11,13 @@
 </div>
 <div>
   {#each data.items as item}
-    <div class={cn(item.votes <= -2 ? "opacity-50" : "")}>
+    <div
+      class={cn(
+        item.votes <= -2 || item.isHidden || item.isShadowHidden
+          ? "opacity-50 hover:opacity-100"
+          : ""
+      )}
+    >
       <span>{item.submittedDate}</span>
       <SegmentBadge segment={item.segmentLabel} />
       <span>{item.segmentAction}</span>

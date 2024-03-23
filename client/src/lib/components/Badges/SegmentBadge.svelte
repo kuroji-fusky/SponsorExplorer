@@ -6,7 +6,12 @@
   export let segment: Segments
   export let chapterLabel: string = ""
 
-  const segmentObj: Record<Segments, { bg: string; label: string }> = {
+  interface SegmentProperties {
+    bg: string
+    label: string
+  }
+
+  const segmentObj: Record<Segments, SegmentProperties> = {
     sponsor: {
       bg: "bg-sb-sponsor",
       label: "Sponsor"
@@ -24,7 +29,7 @@
       label: "Interaction Reminder"
     },
     preview: { bg: "bg-sb-preview", label: "Preview/Recap/Hook" },
-    highlight: { bg: "bg-sb-highlight", label: "Highlight" },
+    poi_highlight: { bg: "bg-sb-highlight", label: "Highlight" },
     outro: { bg: "bg-sb-endcards", label: "Endcards/Credits" },
     filler: { bg: "bg-sb-filler", label: "Filler" },
     exclusive_access: {

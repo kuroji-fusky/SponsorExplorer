@@ -4,7 +4,7 @@ export type Segments =
   | "intro"
   | "interaction"
   | "preview"
-  | "highlight"
+  | "poi_highlight"
   | "outro"
   | "filler"
   | "exclusive_access"

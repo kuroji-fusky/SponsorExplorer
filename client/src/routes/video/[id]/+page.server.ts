@@ -14,18 +14,24 @@ interface SBSegments {
   uuid: string
 }
 
-export const load: PageServerLoad = async ({ params }) => {
-  const res = await fetch(
-    `https://sponsor.ajay.app/api/searchSegments?videoID=${params.id}`
-  )
+const SB_BASE_URL = "https://sponsor.ajay.app/api"
 
-  let contents: SBSegments[] | never[] = []
+export const load: PageServerLoad = async ({ params }) => {
+  const segmentRes = await fetch(`${SB_BASE_URL}/skipSegments?videoID=${params.id}`)
+  const lockedRes = await fetch(`${SB_BASE_URL}/lockCategories?videoID=${params.id}`)
+
+  let parsedSegments: SBSegments[] | never[] = []
+  let lockedSegments = {}
 
   try {
-    const rawResponse = await res.json()
-    const parsedSegments = rawResponse.segments
+    const segmentJSONRes = await segmentRes.json()
+    const lockedJSONRes = await lockedRes.json()
 
-    contents = parsedSegments.map((segmentItem) => {
+    console.log(segmentJSONRes)
+
+    // lockedSegments = {}
+
+    parsedSegments = segmentJSONRes.segments.map((segmentItem) => {
       const {
         timeSubmitted,
         UUID,
@@ -50,17 +56,17 @@ export const load: PageServerLoad = async ({ params }) => {
         isLocked: !!locked,
         isHidden: !!hidden,
         isShadowHidden: !!shadowHidden,
-        // description,
-        // uuid: UUID
+        uuid: UUID,
         description
       }
     })
   } catch {
-    contents = []
+    parsedSegments = []
   }
 
   return {
     id: params.id,
-    items: contents
+    // segCount:,
+    items: parsedSegments
   }
 }
