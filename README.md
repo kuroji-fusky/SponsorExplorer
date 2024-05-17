@@ -2,6 +2,18 @@
 
 A modern rewrite of Lanrza's [SBBrowser][sbb] and with more features and an intuitive UI!
 
+## Features
+
+- ✅ Display submitted segments
+- 🚧 Play and filter segments
+- 🚧 Watchlist for YT videos, playlist, as well as usernames/userIDs
+- 🚧 In-depth stats about submitted segments in videos, channels, and from usernames/userIDs
+- 🚧 Browse segments on YouTube channels
+
+## Inspiration
+
+While I was the middle of writing a [Tampermonkey script for sb.ltn.fi][tm-script] to append titles and thumbnails using the YouTube API, along with other enchancements, I had this idea to remake SBbrowser but with an approach to a modern redesign and all the other features such as segment playback, a watchlist, etc.
+
 ## Installation and Setup
 
 Requires Node.js v20 and the Yarn package manager - install dependencies with
@@ -36,3 +48,4 @@ Optionally, as an added layer of security, you can add restrict the API key you 
 [MIT](/LICENSE)
 
 [sbb]: https://github.com/Lartza/SBbrowser
+[tm-script]: https://gist.github.com/kurojifusky/fa875e94799a6d9f1d40c76c1f6c20ec
