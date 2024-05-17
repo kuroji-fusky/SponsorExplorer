@@ -2,7 +2,6 @@
   import { SegmentBadge } from "$lib/components/Badges"
   import SEO from "$lib/components/SEO.svelte"
   import VideoHeader from "$lib/components/VideoHeader.svelte"
-  import YouTube from "$lib/components/YouTube.svelte"
 </script>
 
 <SEO title="Yes" />

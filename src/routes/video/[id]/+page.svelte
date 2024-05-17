@@ -1,9 +1,9 @@
 <script lang="ts">
   import { SegmentBadge, LengthBadge } from "$lib/components/Badges"
   import { SegmentTable } from "$lib/components/Table"
-  import VideoHeader from "$lib/components/VideoHeader.svelte"
+  import { VideoHeader } from "$lib/components"
   import SEO from "$lib/components/SEO.svelte"
-  import { cn } from "$lib/utils/cn.js"
+  import { cn } from "$lib/utils"
 
   export let data
 
