@@ -1,3 +1,3 @@
-import Col from "./Col.svelte"
+import SegmentTable from "./SegmentTable.svelte"
 
-export { Col }
+export { SegmentTable }

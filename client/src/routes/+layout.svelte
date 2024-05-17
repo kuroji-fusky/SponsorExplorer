@@ -6,7 +6,6 @@
   import { Navbar, Footer } from "$lib/components/Base"
 </script>
 
-
 <Navbar />
 <div class="mx-auto max-w-screen-2xl px-6">
   <slot />
