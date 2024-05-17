@@ -9,7 +9,7 @@
   onMount(() => {
     if (browser) {
       const loadPlayer = () => {
-        const ytIframeMount = new YT.Player(ytId, {
+        new YT.Player(ytId, {
           host: "https://www.youtube-nocookie.com",
           height: "100%",
           width: "100%",
@@ -36,15 +36,15 @@
               }
 
               console.log(playbackStates[currentPlaybackState])
-            }
+            },
+
+            onError: (e) => console.error("There was an error", e)
           }
         })
-
-        console.log(ytIframeMount)
       }
 
       // This is a hacky way to get the player to mount client-side
-      setTimeout(loadPlayer, 25)
+      setTimeout(loadPlayer, 10)
     }
   })
 </script>

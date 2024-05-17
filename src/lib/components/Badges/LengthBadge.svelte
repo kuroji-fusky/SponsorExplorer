@@ -3,6 +3,7 @@
   import FastForwardIcon from "lucide-svelte/icons/fast-forward"
   import VolumeXIcon from "lucide-svelte/icons/volume-x"
   import SparklesIcon from "lucide-svelte/icons/sparkles"
+  import Tags from "lucide-svelte/icons/tags"
 
   export let actionType: string = "skip"
   export let startTime: number = 0
@@ -19,21 +20,27 @@
 
   const displayLength = `${roundNum(startTime)} – ${roundNum(endTime)}`
   const displayLengthHighlight = `${roundNum(startTime)}s`
-  const displayCalculatedLength = `${roundNum(calculatedLength)}s`
+  const displayCalculatedLength = `(${roundNum(calculatedLength)}s)`
+
+  const ICON_SIZE = 18
 </script>
 
 <Badge
-  class="bg-gray-200 rounded-2xl inline-flex items-center gap-x-1 py-0.5 [&_span]:text-sm"
+  class="bg-gray-200 rounded-2xl inline-flex items-center gap-x-1.5 py-0.5 [&_span]:text-sm"
 >
   {#if actionType === "skip" || actionType === "mute"}
-    <svelte:component this={actionTypeIcons[actionType]} size={18} />
+    <svelte:component this={actionTypeIcons[actionType]} size={ICON_SIZE} />
     <span>{displayLength}</span>
     <span class="opacity-75">{displayCalculatedLength}</span>
   {:else if actionType === "full"}
-    <SparklesIcon size={18} />
+    <SparklesIcon size={ICON_SIZE} />
     <span class="font-bold">Full Label</span>
   {:else if actionType === "poi"}
-    <SparklesIcon size={18} class="stroke-sb-highlight" />
+    <SparklesIcon size={ICON_SIZE} class="stroke-sb-highlight" />
     <span>{displayLengthHighlight}</span>
+  {:else if actionType === "chapter"}
+    <Tags size={ICON_SIZE} />
+    <span>{displayLength}</span>
+    <span class="opacity-75">{displayCalculatedLength}</span>
   {/if}
 </Badge>

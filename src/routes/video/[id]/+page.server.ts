@@ -3,6 +3,7 @@ import type { PageServerLoad } from "./$types"
 import { parseDateStr } from "$lib/utils"
 import { SECRET_YT_DATA_API_KEY } from "$env/static/private"
 import { youtube } from "@googleapis/youtube"
+
 interface SBSegments {
   submittedDate: string
   submittedDateReadable: string
@@ -30,19 +31,19 @@ const endpoints = {
 }
 
 export const load: PageServerLoad = async ({ params }) => {
-  // YouTube Data API
-  const yt = youtube("v3")
+  const { id } = params
 
-  yt.videos.list({
-    id: params.id,
-    key: SECRET_YT_DATA_API_KEY
-  })
+  // YouTube Data API
+  // const yt = youtube("v3")
+
+  // yt.videos.list({
+  //   id: params.id,
+  //   key: SECRET_YT_DATA_API_KEY
+  // })
 
   // SponsorBlock
   // I'll clean this up sometime, this is an eyesore lol
-  const segmentRes = await fetch(
-    `${endpoints.segments.search}?videoID=${params.id}`
-  )
+  const segmentRes = await fetch(`${endpoints.segments.search}?videoID=${id}`)
   // const lockedRes = await fetch(
   //   `${SB_BASE_URL}/lockCategories?videoID=${params.id}&service=YouTube&actionTypes=["skip","poi","chapter","mute","full"]`
   // )
@@ -99,8 +100,10 @@ export const load: PageServerLoad = async ({ params }) => {
     }
   }
 
+  console.log("Parsed segments =>", parsedSegments)
+
   return {
-    id: params.id,
+    id,
     sponsorblock: {
       statusCode: segmentRes.status,
       items: parsedSegments,

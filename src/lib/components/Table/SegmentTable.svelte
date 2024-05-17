@@ -8,7 +8,7 @@
   <colgroup>
     <Col id="submitted-date" width={15} />
     <Col id="username-userid" width={20} />
-    <Col id="length" width={15} />
+    <Col id="length" width={20} />
     <Col id="segment" width={15} />
     <Col id="votes" width={8} />
     <Col id="views" width={8} />
@@ -26,7 +26,7 @@
       <th id="is-hidden">Hidden?</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="hover:[&_tr]:bg-gray-100">
     <slot />
   </tbody>
 </table>

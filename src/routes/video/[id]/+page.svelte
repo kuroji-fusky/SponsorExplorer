@@ -46,7 +46,10 @@
             />
           </td>
           <td id="segment">
-            <SegmentBadge segment={item?.segmentLabel} />
+            <SegmentBadge
+              segment={item.segmentLabel}
+              chapterLabel={item.description}
+            />
           </td>
           <td id="votes">{item.votes}</td>
           <td id="views">{item.views}</td>
