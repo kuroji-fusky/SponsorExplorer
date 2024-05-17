@@ -29,7 +29,9 @@ export const load: PageServerLoad = async ({ params }) => {
 
   // SponsorBlock
   // I'll clean this up sometime, this is an eyesore lol
-  const segmentRes = await fetch(`${endpoints.segments.search}?videoID=${params.id}`)
+  const segmentRes = await fetch(
+    `${endpoints.segments.search}?videoID=${params.id}`
+  )
   // const lockedRes = await fetch(
   //   `${SB_BASE_URL}/lockCategories?videoID=${params.id}&service=YouTube&actionTypes=["skip","poi","chapter","mute","full"]`
   // )

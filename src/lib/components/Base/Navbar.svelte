@@ -16,8 +16,12 @@
   })
 </script>
 
-<nav class="px-8 flex justify-between py-4 items-center sticky top-0 bg-slate-50 z-10">
-  <a href="/"><span class="font-bold text-xl" translate="no">SponsorExplorer</span></a>
+<nav
+  class="px-8 flex justify-between py-4 items-center sticky top-0 bg-slate-50 z-10"
+>
+  <a href="/"
+    ><span class="font-bold text-xl" translate="no">SponsorExplorer</span></a
+  >
   <div class="relative flex-shrink-0 w-[32rem]">
     <span class="absolute z-[3] left-0 inset-y-0 py-2 pl-3 pointer-events-none">
       <SearchIcon size={19} />

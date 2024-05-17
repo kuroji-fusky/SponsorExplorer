@@ -41,11 +41,15 @@
   const _seg = segmentObj[segment]
 </script>
 
-<Badge class="relative inline-flex items-center gap-x-1.5 rounded-2xl cursor-help">
+<Badge
+  class="relative inline-flex items-center gap-x-1.5 rounded-2xl cursor-help"
+>
   <span class={cn(_seg.bg, "rounded-full size-3 flex-shrink-0")} aria-hidden />
   <span
-    class={cn("text-sm font-semibold", chapterLabel ? "underline decoration-dashed" : "")}
-    >{chapterLabel ? chapterLabel : _seg.label}</span
+    class={cn(
+      "text-sm font-semibold",
+      chapterLabel ? "underline decoration-dashed" : ""
+    )}>{chapterLabel ? chapterLabel : _seg.label}</span
   >
   <div class={cn(_seg.bg, "-z-[1] absolute inset-0 opacity-25")} />
 </Badge>

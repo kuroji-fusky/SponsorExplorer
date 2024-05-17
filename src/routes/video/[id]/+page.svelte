@@ -26,7 +26,9 @@
           )}
         >
           <td id="submitted-date">
-            <time datetime={item.submittedDate}>{item.submittedDateReadable}</time>
+            <time datetime={item.submittedDate}
+              >{item.submittedDateReadable}</time
+            >
           </td>
           <td id="username-userid"></td>
           <td id="length"></td>
@@ -43,8 +45,8 @@
     <div class="px-4 py-2.5 rounded-md bg-blue-200">
       <h2 class="text-xl mb-1">No segments found</h2>
       <span
-        >Either there aren't any submissions yet or wait for the database to be updated
-        for any segments to show up here.</span
+        >Either there aren't any submissions yet or wait for the database to be
+        updated for any segments to show up here.</span
       >
     </div>
   {/if}

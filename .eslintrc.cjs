@@ -1,10 +1,7 @@
 /** @type { import("eslint").Linter.Config } */
 module.exports = {
   root: true,
-  extends: [
-    "plugin:svelte/recommended",
-    "prettier"
-  ],
+  extends: ["plugin:svelte/recommended", "prettier"],
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint"],
   parserOptions: {

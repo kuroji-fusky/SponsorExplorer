@@ -1,7 +1,10 @@
 import adapter from "@sveltejs/adapter-vercel"
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte"
 
-const trustedDomains = ["https://www.youtube-nocookie.com", "https://sponsor.ajay.app/"]
+const trustedDomains = [
+  "https://www.youtube-nocookie.com",
+  "https://sponsor.ajay.app/"
+]
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
