@@ -4,7 +4,7 @@
   export let data: object[] = [{}]
 </script>
 
-<table data-segment-table="" class="w-full text-base">
+<table class="w-full text-base *:[&_tr]:py-2.5 *:[&_tr]:px-3">
   <colgroup>
     <Col id="submitted-date" width={15} />
     <Col id="username-userid" width={20} />
@@ -30,9 +30,3 @@
     <slot />
   </tbody>
 </table>
-
-<style lang="postcss">
-  :global([data-segment-table] :is(th, td)) {
-    @apply py-2.5 px-3;
-  }
-</style>

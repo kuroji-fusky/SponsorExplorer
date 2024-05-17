@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { SegmentBadge } from "$lib/components/Badges"
+  import { SegmentBadge, LengthBadge } from "$lib/components/Badges"
   import { SegmentTable } from "$lib/components/Table"
   import VideoHeader from "$lib/components/VideoHeader.svelte"
-  import YouTube from "$lib/components/YouTube.svelte"
+  import SEO from "$lib/components/SEO.svelte"
   import { cn } from "$lib/utils/cn.js"
 
   export let data
@@ -10,19 +10,22 @@
   const { id, sponsorblock } = data
 </script>
 
+<SEO title={`Segments for "Never Gonna Give You Up"`} />
+
 <section class="mb-4">
   <VideoHeader {id} />
 </section>
 <section>
   {#if sponsorblock.statusCode === 200 && sponsorblock.items.length !== 0}
+    <div>Filter segments</div>
     <SegmentTable>
       {#each sponsorblock.items as item}
         <tr
           class={cn(
+            "border-b border-slate-300",
             item.votes <= -2 || item.isHidden || item.isShadowHidden
-              ? "opacity-60 hover:opacity-100 grayscale-[.75] hover:grayscale-0 transition-[opacity,filter]"
-              : "",
-            "border-b border-slate-300"
+              ? "opacity-30 hover:opacity-100 grayscale-[.75] hover:grayscale-0"
+              : ""
           )}
         >
           <td id="submitted-date">
@@ -30,8 +33,18 @@
               >{item.submittedDateReadable}</time
             >
           </td>
-          <td id="username-userid"></td>
-          <td id="length"></td>
+          <td id="username-userid">
+            <div class="overflow-ellipsis overflow-hidden w-48">
+              {item.userid}
+            </div>
+          </td>
+          <td id="length">
+            <LengthBadge
+              actionType={item.segmentAction}
+              startTime={item.startTime}
+              endTime={item.endTime}
+            />
+          </td>
           <td id="segment">
             <SegmentBadge segment={item?.segmentLabel} />
           </td>

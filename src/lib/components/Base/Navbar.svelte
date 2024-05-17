@@ -37,11 +37,11 @@
       <!-- WIP auto suggest  -->
     </div>
   </div>
-  <div class="flex gap-x-2">
-    <Button iconOnly>
+  <div class="flex gap-x-1">
+    <Button iconOnly title="Watchlist">
       <BookmarkIcon size={20} />
     </Button>
-    <Button iconOnly>
+    <Button iconOnly title="Options">
       <SlidersIcon size={20} />
     </Button>
   </div>

@@ -1,11 +1,15 @@
 import type { Segments } from "$lib/types"
 import type { PageServerLoad } from "./$types"
+import { SECRET_YT_DATA_API_KEY } from "$env/static/private"
+import { youtube } from "@googleapis/youtube"
 
 interface SBSegments {
   submittedDate: string
   submittedDateReadable: string
   segmentLabel: Segments
   segmentAction: string
+  startTime: number
+  endTime: number
   views: number
   votes: number
   isLocked: boolean
@@ -13,6 +17,7 @@ interface SBSegments {
   isShadowHidden: boolean
   description: string
   uuid: string
+  userid: string
 }
 
 const SB_BASE_URL = "https://sponsor.ajay.app/api"
@@ -26,6 +31,12 @@ const endpoints = {
 
 export const load: PageServerLoad = async ({ params }) => {
   // YouTube Data API
+  const yt = youtube("v3")
+
+  yt.videos.list({
+    id: params.id,
+    key: SECRET_YT_DATA_API_KEY
+  })
 
   // SponsorBlock
   // I'll clean this up sometime, this is an eyesore lol
@@ -50,6 +61,8 @@ export const load: PageServerLoad = async ({ params }) => {
         UUID,
         category,
         actionType,
+        startTime,
+        endTime,
         votes,
         views,
         locked,
@@ -80,6 +93,8 @@ export const load: PageServerLoad = async ({ params }) => {
         submittedDateReadable: readableDate,
         segmentLabel: category,
         segmentAction: actionType,
+        startTime,
+        endTime,
         votes,
         views,
         isLocked: Boolean(locked),
