@@ -25,7 +25,7 @@
 <SegmentBadge segment="selfpromo" />
 <SegmentBadge segment="intro" />
 <SegmentBadge segment="interaction" />
-<SegmentBadge segment="highlight" />
+<SegmentBadge segment="poi_highlight" />
 <SegmentBadge segment="preview" />
 <SegmentBadge segment="outro" />
 <SegmentBadge segment="exclusive_access" />

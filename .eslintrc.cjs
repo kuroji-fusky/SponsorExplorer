@@ -2,7 +2,6 @@
 module.exports = {
   root: true,
   extends: [
-    "@kuro-utils/base",
     "plugin:svelte/recommended",
     "prettier"
   ],

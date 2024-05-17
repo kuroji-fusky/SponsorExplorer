@@ -1,17 +1,12 @@
 <script lang="ts">
   import Badge from "./Badge.svelte"
-  import { cn } from "$lib/utils/cn"
+  import { cn } from "$lib/utils"
   import type { Segments } from "$lib/types"
 
   export let segment: Segments
   export let chapterLabel: string = ""
 
-  interface SegmentProperties {
-    bg: string
-    label: string
-  }
-
-  const segmentObj: Record<Segments, SegmentProperties> = {
+  const segmentObj = {
     sponsor: {
       bg: "bg-sb-sponsor",
       label: "Sponsor"
@@ -36,21 +31,21 @@
       bg: "bg-sb-exclusive-access",
       label: "Exclusive Access"
     },
-    non_music: { bg: "bg-sb-non-music", label: "Non-Music" },
+    music_offtopic: { bg: "bg-sb-non-music", label: "Non-Music" },
     chapter: {
       bg: "bg-slate-300",
       label: "Chapter"
     }
   }
 
-  const s = segmentObj[segment]
+  const _seg = segmentObj[segment]
 </script>
 
 <Badge class="relative inline-flex items-center gap-x-1.5 rounded-2xl cursor-help">
-  <span class={cn(s.bg, "rounded-full size-3 flex-shrink-0")} aria-hidden />
+  <span class={cn(_seg.bg, "rounded-full size-3 flex-shrink-0")} aria-hidden />
   <span
     class={cn("text-sm font-semibold", chapterLabel ? "underline decoration-dashed" : "")}
-    >{s.label}</span
+    >{chapterLabel ? chapterLabel : _seg.label}</span
   >
-  <div class={cn(s.bg, "-z-[1] absolute inset-0 opacity-25")} />
+  <div class={cn(_seg.bg, "-z-[1] absolute inset-0 opacity-25")} />
 </Badge>

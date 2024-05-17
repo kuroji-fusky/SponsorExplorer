@@ -8,5 +8,5 @@ export type Segments =
   | "outro"
   | "filler"
   | "exclusive_access"
-  | "non_music"
+  | "music_offtopic"
   | "chapter"
