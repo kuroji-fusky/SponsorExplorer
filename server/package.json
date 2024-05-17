@@ -1,8 +1,0 @@
-{
-  "name": "sponsorexplorer-server",
-  "private": true,
-  "version": "0.0.1",
-  "devDependencies": {
-    "fastify": "^4.26.2"
-  }
-}
