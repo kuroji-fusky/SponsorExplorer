@@ -26,7 +26,7 @@
     preview: { bg: "bg-sb-preview", label: "Preview/Recap/Hook" },
     poi_highlight: { bg: "bg-sb-highlight", label: "Highlight" },
     outro: { bg: "bg-sb-endcards", label: "Endcards/Credits" },
-    filler: { bg: "bg-sb-filler", label: "Filler" },
+    filler: { bg: "bg-sb-filler", label: "Filler Tangent" },
     exclusive_access: {
       bg: "bg-sb-exclusive-access",
       label: "Exclusive Access"

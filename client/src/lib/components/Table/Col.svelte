@@ -1,5 +1,6 @@
 <script lang="ts">
   export let width: number = 0
+  export let id: string = ""
 </script>
 
-<col style={`width:${width}%;`} />
+<col {id} style={`width:${width}%;`} />

@@ -42,7 +42,6 @@ export const load: PageServerLoad = async ({ params }) => {
     const segmentJSONRes = await segmentRes.json()
     // const lockedJSONRes = await lockedRes.json()
 
-    console.log({ seggs: segmentJSONRes.segments })
     parsedSegments = segmentJSONRes.segments.map((segment) => {
       const {
         timeSubmitted,
@@ -63,6 +62,12 @@ export const load: PageServerLoad = async ({ params }) => {
       const isoDate = _date.toISOString()
       const readableDate = _date
         .toLocaleString("en-US", {
+          month: "2-digit",
+          day: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
           hourCycle: "h23"
         })
         .replace(", ", " ")
