@@ -9,11 +9,12 @@
     <article class="last:prose-p:mb-0 prose-p:mb-1.5">
       <p>
         <strong>SponsorExplorer</strong> is a modern rewrite of
-        <Link href="https://sb.ltn.fi" external>SBbrowser</Link> with additional features!
+        <Link href="https://sb.ltn.fi" external>SBbrowser</Link> with additional features and
+        an intuitive UI!
       </p>
     </article>
     <div class="pt-3 border-t border-slate-400 mt-4 flex items-center gap-x-2">
-      <span>{`© ${currentYear} Kerby Keith Aquino; licensed under MIT License`}</span>
+      <span>{`© ${currentYear} Kerby Keith Aquino; licensed under MIT`}</span>
       <Link href="https://github.com/kuroji-fusky/SponsorExplorer" external
         >Source code</Link
       >
