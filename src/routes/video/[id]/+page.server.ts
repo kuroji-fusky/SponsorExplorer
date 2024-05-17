@@ -1,8 +1,8 @@
 import type { Segments } from "$lib/types"
 import type { PageServerLoad } from "./$types"
+import { parseDateStr } from "$lib/utils"
 import { SECRET_YT_DATA_API_KEY } from "$env/static/private"
 import { youtube } from "@googleapis/youtube"
-
 interface SBSegments {
   submittedDate: string
   submittedDateReadable: string
@@ -72,21 +72,7 @@ export const load: PageServerLoad = async ({ params }) => {
         userID
       } = segment
 
-      const _date = new Date(timeSubmitted)
-
-      const isoDate = _date.toISOString()
-      const readableDate = _date
-        .toLocaleString("en-US", {
-          month: "2-digit",
-          day: "2-digit",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hourCycle: "h23"
-        })
-        .replace(", ", " ")
-        .replace(/\//g, "-")
+      const { isoDate, readableDate } = parseDateStr(timeSubmitted)
 
       return {
         submittedDate: isoDate,
