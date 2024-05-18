@@ -1,6 +1,7 @@
 <script lang="ts">
   import { browser } from "$app/environment"
   import { onMount } from "svelte"
+  import { ytCurrentTime, ytPlayerState } from "$lib/stores"
 
   export let id: string
 
@@ -9,7 +10,7 @@
   onMount(() => {
     if (browser) {
       const loadPlayer = () => {
-        new YT.Player(ytId, {
+        const ytPlayer = new YT.Player(ytId, {
           host: "https://www.youtube-nocookie.com",
           height: "100%",
           width: "100%",
@@ -27,18 +28,16 @@
               const currentPlaybackState = e.data
 
               const playbackStates = {
-                "-1": "UNSTARTED",
-                "0": "ENDED",
-                "1": "PLAYING",
-                "2": "PAUSED",
-                "3": "BUFFERING",
-                "5": "CUED"
-              }
+                "-1": "Not started",
+                "0": "Ended",
+                "1": "Playing",
+                "2": "Paused",
+                "3": "Buffering",
+                "5": "Cued"
+              } as const
 
-              console.log(playbackStates[currentPlaybackState])
-            },
-
-            onError: (e) => console.error("There was an error", e)
+              $ytPlayerState = playbackStates[currentPlaybackState]
+            }
           }
         })
       }

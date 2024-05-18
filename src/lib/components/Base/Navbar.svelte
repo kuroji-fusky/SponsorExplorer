@@ -5,6 +5,10 @@
   import SlidersIcon from "lucide-svelte/icons/sliders-vertical"
   import Button from "../Button.svelte"
 
+  import Watchlist from "./Sidebar/Watchlist.svelte"
+  import Options from "./Sidebar/Options.svelte"
+  import { optionToggle, watchlistToggle } from "$lib/stores"
+
   let suggestionField = false
   let searchInput: HTMLInputElement | null
 
@@ -38,11 +42,14 @@
     </div>
   </div>
   <div class="flex gap-x-1">
-    <Button iconOnly title="Watchlist">
+    <Button iconOnly title="Watchlist" clickEvent={watchlistToggle.toggleState}>
       <BookmarkIcon size={20} />
     </Button>
-    <Button iconOnly title="Options">
+    <Button iconOnly title="Options" clickEvent={optionToggle.toggleState}>
       <SlidersIcon size={20} />
     </Button>
   </div>
 </nav>
+
+<Watchlist />
+<Options />

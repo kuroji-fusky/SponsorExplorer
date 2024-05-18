@@ -23,9 +23,15 @@ const parseURL = (baseUrl: string, params: AnyObjectString): string => {
 
 export const sb = {
   getSegments: (videoId: string): Promise<SponsorBlock.SkipSegments> => {
-    return fetch(parseURL(`${SB_BASE_URL}/searchSegments`, { videoID: videoId }))
+    return fetch(
+      parseURL(`${SB_BASE_URL}/searchSegments`, { videoID: videoId })
+    )
   },
-  getLockedSegments: (videoId: string): Promise<SponsorBlock.LockedSegments> => {
-    return fetch(parseURL(`${SB_BASE_URL}/lockCategories`, { videoID: videoId }))
+  getLockedSegments: (
+    videoId: string
+  ): Promise<SponsorBlock.LockedSegments> => {
+    return fetch(
+      parseURL(`${SB_BASE_URL}/lockCategories`, { videoID: videoId })
+    )
   }
 }

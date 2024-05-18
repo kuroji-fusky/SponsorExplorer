@@ -1,19 +1,21 @@
 <script lang="ts">
+  import type { PageData } from "./$types"
   import { SegmentBadge, LengthBadge } from "$lib/components/Badges"
   import { SegmentTable } from "$lib/components/Table"
   import { VideoHeader } from "$lib/components"
-  import SEO from "$lib/components/SEO.svelte"
   import { cn } from "$lib/utils"
+  import SEO from "$lib/components/SEO.svelte"
 
-  export let data
-
+  export let data: PageData
   const { id, sponsorblock } = data
+
+  const tempTitle = "temp"
 </script>
 
-<SEO title={`Segments for "Never Gonna Give You Up"`} />
+<SEO title={`Segments for "${tempTitle}"`} />
 
 <section class="mb-4">
-  <VideoHeader {id} />
+  <VideoHeader {id} title={tempTitle} />
 </section>
 <section>
   {#if sponsorblock.statusCode === 200 && sponsorblock.items.length !== 0}
@@ -25,13 +27,13 @@
             "border-b border-slate-300",
             item.votes <= -2 || item.isHidden || item.isShadowHidden
               ? "opacity-30 hover:opacity-100 grayscale-[.75] hover:grayscale-0"
-              : ""
+              : null
           )}
         >
           <td id="submitted-date">
-            <time datetime={item.submittedDate}
-              >{item.submittedDateReadable}</time
-            >
+            <time datetime={item.submittedDate}>
+              {item.submittedDateReadable}
+            </time>
           </td>
           <td id="username-userid">
             <div class="overflow-ellipsis overflow-hidden w-48">
@@ -52,7 +54,7 @@
             />
           </td>
           <td id="votes">{item.votes}</td>
-          <td id="views">{item.views}</td>
+          <td id="views">{item.segmentAction !== "full" ? item.views : "—"}</td>
           <td id="is-hidden"></td>
         </tr>
       {/each}

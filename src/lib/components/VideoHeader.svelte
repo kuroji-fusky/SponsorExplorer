@@ -1,8 +1,8 @@
 <script lang="ts">
   import YouTube from "./YouTube.svelte"
 
-  export let id: string = "3Vsd6zPChIU"
-  export let title: string = "Never Gonna Give You Up"
+  export let id: string
+  export let title: string
   export let channelName: string = "RickAstleyVEVO"
 </script>
 

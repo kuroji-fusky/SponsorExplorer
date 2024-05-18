@@ -3,7 +3,7 @@
   import FastForwardIcon from "lucide-svelte/icons/fast-forward"
   import VolumeXIcon from "lucide-svelte/icons/volume-x"
   import SparklesIcon from "lucide-svelte/icons/sparkles"
-  import Tags from "lucide-svelte/icons/tags"
+  import Bookmark from "lucide-svelte/icons/bookmark"
 
   export let actionType: string = "skip"
   export let startTime: number = 0
@@ -29,17 +29,18 @@
   class="bg-gray-200 rounded-2xl inline-flex items-center gap-x-1.5 py-0.5 [&_span]:text-sm"
 >
   {#if actionType === "skip" || actionType === "mute"}
+    <!--  -->
     <svelte:component this={actionTypeIcons[actionType]} size={ICON_SIZE} />
     <span>{displayLength}</span>
     <span class="opacity-75">{displayCalculatedLength}</span>
   {:else if actionType === "full"}
     <SparklesIcon size={ICON_SIZE} />
-    <span class="font-bold">Full Label</span>
+    <span class="font-bold">Full Video Label</span>
   {:else if actionType === "poi"}
     <SparklesIcon size={ICON_SIZE} class="stroke-sb-highlight" />
     <span>{displayLengthHighlight}</span>
   {:else if actionType === "chapter"}
-    <Tags size={ICON_SIZE} />
+    <Bookmark size={ICON_SIZE} />
     <span>{displayLength}</span>
     <span class="opacity-75">{displayCalculatedLength}</span>
   {/if}
