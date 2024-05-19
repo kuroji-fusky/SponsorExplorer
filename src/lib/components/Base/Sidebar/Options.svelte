@@ -3,6 +3,7 @@
   import OptionItem from "./OptionItem.svelte"
   import PortalView from "../../PortalView.svelte"
   import options from "./OptionList"
+  import { Button } from "$lib/components"
 </script>
 
 <PortalView
@@ -16,5 +17,10 @@
         <svelte:component this={slot} />
       </OptionItem>
     {/each}
+  </div>
+  <div class="flex gap-x-2 my-2">
+    <Button>Reset</Button>
+    <Button>Import options</Button>
+    <Button>Export options</Button>
   </div>
 </PortalView>

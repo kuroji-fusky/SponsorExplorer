@@ -77,3 +77,9 @@
     </div>
   {/if}
 </section>
+
+<style lang="postcss">
+  td:is(#username-userid, #length, #segment) {
+    @apply overflow-hidden;
+  }
+</style>
