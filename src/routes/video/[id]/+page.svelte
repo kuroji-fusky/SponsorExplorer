@@ -2,9 +2,8 @@
   import type { PageData } from "./$types"
   import { SegmentBadge, LengthBadge } from "$lib/components/Badges"
   import { SegmentTable } from "$lib/components/Table"
-  import { VideoHeader } from "$lib/components"
+  import { VideoHeader, SEO } from "$lib/components"
   import { cn } from "$lib/utils"
-  import SEO from "$lib/components/SEO.svelte"
 
   export let data: PageData
   const { id, sponsorblock } = data
