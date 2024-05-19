@@ -1,7 +1,7 @@
 <script lang="ts">
   import { CopyIcon } from "lucide-svelte"
 
-  export let overrideField: string
+  export const overrideField: string = ""
 </script>
 
 <div class="flex">

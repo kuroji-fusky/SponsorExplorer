@@ -1,25 +1,8 @@
-import type { Segments } from "$lib/types"
+import type { SBSegmentData } from "$lib/types"
 import type { PageServerLoad } from "./$types"
 import { parseDateStr } from "$lib/utils"
 import { SECRET_YT_DATA_API_KEY } from "$env/static/private"
 import { youtube } from "@googleapis/youtube"
-
-interface SBSegments {
-  submittedDate: string
-  submittedDateReadable: string
-  segmentLabel: Segments
-  segmentAction: string
-  startTime: number
-  endTime: number
-  views: number
-  votes: number
-  isLocked: boolean
-  isHidden: boolean
-  isShadowHidden: boolean
-  description: string
-  uuid: string
-  userid: string
-}
 
 const SB_BASE_URL = "https://sponsor.ajay.app/api"
 
@@ -42,6 +25,7 @@ export const load: PageServerLoad = async ({ params }) => {
   // })
 
   // SponsorBlock
+  // TODO wrap this into it's own file
   // I'll clean this up sometime, this is an eyesore lol
   const segmentRes = await fetch(`${endpoints.segments.search}?videoID=${id}`)
   // const lockedRes = await fetch(
@@ -49,14 +33,15 @@ export const load: PageServerLoad = async ({ params }) => {
   // )
 
   let errorMsg = ""
-  let parsedSegments: SBSegments[] | never[] = []
+  let parsedSegments: object[] = []
   // let lockedSegments = {}
 
   try {
+    // TODO add a check for more segments, by default it gets recent segments up to 10
     const segmentJSONRes = await segmentRes.json()
     // const lockedJSONRes = await lockedRes.json()
 
-    parsedSegments = segmentJSONRes.segments.map((segment) => {
+    segmentJSONRes.segments.forEach((segment) => {
       const {
         timeSubmitted,
         UUID,
@@ -75,7 +60,7 @@ export const load: PageServerLoad = async ({ params }) => {
 
       const { isoDate, readableDate } = parseDateStr(timeSubmitted)
 
-      return {
+      parsedSegments.push({
         submittedDate: isoDate,
         submittedDateReadable: readableDate,
         segmentLabel: category,
@@ -90,8 +75,8 @@ export const load: PageServerLoad = async ({ params }) => {
         uuid: UUID,
         userid: userID,
         actionType,
-        description
-      }
+        chapterLabel: description
+      })
     })
   } catch {
     if (segmentRes.status === 404) {
@@ -106,7 +91,7 @@ export const load: PageServerLoad = async ({ params }) => {
     id,
     sponsorblock: {
       statusCode: segmentRes.status,
-      items: parsedSegments,
+      items: parsedSegments as SBSegmentData[],
       errors: errorMsg
     }
   }

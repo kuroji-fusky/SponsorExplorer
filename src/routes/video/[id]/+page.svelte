@@ -49,7 +49,7 @@
           <td id="segment">
             <SegmentBadge
               segment={item.segmentLabel}
-              chapterLabel={item.description}
+              chapterLabel={item.chapterLabel}
             />
           </td>
           <td id="votes">{item.votes}</td>

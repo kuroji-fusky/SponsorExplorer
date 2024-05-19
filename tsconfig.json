@@ -11,5 +11,5 @@
     "strict": true,
     "moduleResolution": "bundler"
   },
-  "include": ["../node_modules/@types/youtube"]
+  "include": ["./node_modules/@types/youtube"]
 }

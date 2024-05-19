@@ -2,9 +2,9 @@
   import { onMount } from "svelte"
   import BookmarkIcon from "lucide-svelte/icons/bookmark"
   import SearchIcon from "lucide-svelte/icons/search"
-  import SlidersIcon from "lucide-svelte/icons/sliders-vertical"
-  import Button from "../Button.svelte"
+  import SettingsIcon from "lucide-svelte/icons/settings"
 
+  import Button from "../Button.svelte"
   import Watchlist from "./Sidebar/Watchlist.svelte"
   import Options from "./Sidebar/Options.svelte"
   import { optionToggle, watchlistToggle } from "$lib/stores"
@@ -46,7 +46,7 @@
       <BookmarkIcon size={20} />
     </Button>
     <Button iconOnly title="Options" clickEvent={optionToggle.toggleState}>
-      <SlidersIcon size={20} />
+      <SettingsIcon size={20} />
     </Button>
   </div>
 </nav>

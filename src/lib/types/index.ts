@@ -10,3 +10,24 @@ export type Segments =
   | "exclusive_access"
   | "music_offtopic"
   | "chapter"
+
+export interface SBSegmentData {
+  submittedDate: string
+  submittedDateReadable: string
+  segmentLabel: Segments
+  segmentAction: string
+  startTime: number
+  endTime: number
+  views: number
+  votes: number
+  isLocked: boolean
+  isHidden: boolean
+  isShadowHidden: boolean
+  /**
+   * Whether `votes` are less or equal than -2, `isHidden`, or `isShadowHidden` are true
+   */
+  hideSegment: boolean
+  chapterLabel: string
+  uuid: string
+  userid: string
+}

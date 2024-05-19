@@ -5,6 +5,7 @@ import MultiProgressBar from "./MultiProgressBar.svelte"
 import Notice from "./Notice.svelte"
 import VideoHeader from "./VideoHeader.svelte"
 import SEO from "./SEO.svelte"
+import Toggle from "./Toggle.svelte"
 
 export {
   Button,
@@ -13,5 +14,6 @@ export {
   MultiProgressBar,
   Notice,
   SEO,
+  Toggle,
   VideoHeader
 }
