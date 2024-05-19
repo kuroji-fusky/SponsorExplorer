@@ -43,12 +43,13 @@
     </div>
   </div>
 
-  {#if sidebarState}
-    <div
-      aria-hidden="true"
-      class="fixed inset-0 bg-black/15 z-50"
-      use:moveDom={"body"}
-      on:click={eventToggler}
-    />
-  {/if}
+  <div
+    aria-hidden="true"
+    class={cn(
+      "fixed inset-0 bg-black/50 z-50 transition-opacity",
+      !sidebarState ? "opacity-0 pointer-events-none" : null
+    )}
+    use:moveDom={"body"}
+    on:click={eventToggler}
+  />
 {/if}
