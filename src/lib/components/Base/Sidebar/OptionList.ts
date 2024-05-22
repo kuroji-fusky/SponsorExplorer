@@ -16,6 +16,12 @@ const options = [
     ]
   },
   {
+    title: "Group segments",
+    description:
+      "Separate between full video labels and skip/mute segments by grouping them respectively",
+    slot: Toggle
+  },
+  {
     title: "Periodically fetch new segments",
     description:
       "Update new segments per if enabled. Only applicable if server is set to https://sponsor.ajay.app/.",

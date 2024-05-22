@@ -6,6 +6,7 @@ A modern rewrite of Lanrza's [SBBrowser][sbb] and with more features and an intu
 
 - ✅ Display submitted segments
 - 🚧 Play and filter segments
+- 🚧 Group skip/mute segments and full video labels
 - 🚧 Watchlist for YT videos, playlist, as well as usernames/userIDs
 - 🚧 In-depth stats about submitted segments in videos, channels, and from usernames/userIDs
 - 🚧 Browse segments on YouTube channels
