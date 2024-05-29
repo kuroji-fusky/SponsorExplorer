@@ -9,8 +9,7 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --check . && eslint --quiet .",
-    "format": "prettier --write .",
-    "prepare": "husky || true"
+    "format": "prettier --write ."
   },
   "lint-staged": {
     "**/*.{svelte,ts,js,md}": [
@@ -39,8 +38,6 @@
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.35.1",
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.2",
     "postcss": "^8.4.35",
     "prettier": "^3.1.1",
     "prettier-plugin-svelte": "^3.1.2",
