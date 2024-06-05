@@ -13,3 +13,5 @@ export const watchlistToggle = togglerStore(false)
 
 export const ytPlayerState = writable("Not started")
 export const ytCurrentTime = writable("0")
+
+export const segmentCollection = writable<unknown[]>([])

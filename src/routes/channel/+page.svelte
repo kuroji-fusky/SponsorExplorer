@@ -5,6 +5,7 @@
   import VideoItem from "$lib/components/VideoItem.svelte"
   import { XIcon } from "lucide-svelte"
   import Button from "$lib/components/Button.svelte"
+  import { segmentCollection } from "$lib/stores"
 
   export let data: PageData
   const { details, videos, channelIdQuery, channelHandleQuery } = data
