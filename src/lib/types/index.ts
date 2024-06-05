@@ -31,3 +31,11 @@ export interface SBSegmentData {
   uuid: string
   userid: string
 }
+
+export type SBColDataConstants =
+  | "submitted-date"
+  | "username-userid"
+  | "length"
+  | "segment"
+  | "votes"
+  | "views"

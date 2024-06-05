@@ -1,3 +1,5 @@
 import SegmentTable from "./SegmentTable.svelte"
+import SegmentTableRow from "./SegmentTableRow.svelte"
 
-export { SegmentTable }
+
+export { SegmentTable, SegmentTableRow }

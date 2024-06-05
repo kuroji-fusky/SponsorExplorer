@@ -13,8 +13,12 @@ const endpoints = {
   }
 }
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load = (async ({ params, url }) => {
   const { id } = params
+
+  const fromPlaylistIdQuery = url.searchParams.get("fromPlaylistId")
+  const fromUsernameQuery = url.searchParams.get("fromUsername")
+  const fromChannelIdQuery = url.searchParams.get("fromChannelId")
 
   // YouTube Data API
   const yt = youtube("v3")
@@ -42,6 +46,15 @@ export const load: PageServerLoad = async ({ params }) => {
     thumbnails,
     publishedAt: channelJoinDate
   } = ytChannelDetails.data.items![0].snippet!
+
+  const ytData = {
+    channelId,
+    channelTitle,
+    channelHandle,
+    channelJoinDate,
+    channelAvatar: thumbnails?.medium?.url!,
+    videoTitle
+  }
 
   // SponsorBlock
   // TODO wrap this into it's own file
@@ -109,14 +122,10 @@ export const load: PageServerLoad = async ({ params }) => {
 
   const data = {
     id,
-    yt: {
-      channelId,
-      channelTitle,
-      channelJoinDate,
-      channelHandle,
-      channelAvatar: thumbnails?.medium?.url!,
-      videoTitle
-    },
+    fromPlaylistIdQuery,
+    fromUsernameQuery,
+    fromChannelIdQuery,
+    yt: ytData,
     sponsorblock: {
       statusCode: segmentRes.status,
       segmentCount,
@@ -125,7 +134,7 @@ export const load: PageServerLoad = async ({ params }) => {
     }
   }
 
-  console.log(data)
+  console.log("Response =>", data)
 
   return data
-}
+}) satisfies PageServerLoad

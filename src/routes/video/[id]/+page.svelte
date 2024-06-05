@@ -1,15 +1,13 @@
 <script lang="ts">
   import type { PageData } from "./$types"
-  import { SegmentBadge, LengthBadge } from "$lib/components/Badges"
-  import { SegmentTable } from "$lib/components/Table"
+  import { SegmentTable, SegmentTableRow } from "$lib/components/Table"
   import { VideoHeader, SEO } from "$lib/components"
-  import { cn } from "$lib/utils"
 
   export let data: PageData
   const { id, sponsorblock, yt } = data
 </script>
 
-<SEO title={`Segments for "${yt.videoTitle}"`} />
+<SEO title={`Segments for "${yt.videoTitle}" by ${yt.channelTitle}`} />
 
 <section class="mb-4">
   <VideoHeader
@@ -25,41 +23,7 @@
     <div>Filter segments</div>
     <SegmentTable>
       {#each sponsorblock.items as item}
-        <tr
-          class={cn(
-            "border-b border-slate-300",
-            item.votes <= -2 || item.isHidden || item.isShadowHidden
-              ? "opacity-30 hover:opacity-100 grayscale-[.75] hover:grayscale-0"
-              : null
-          )}
-        >
-          <td id="submitted-date">
-            <time datetime={item.submittedDate}>
-              {item.submittedDateReadable}
-            </time>
-          </td>
-          <td id="username-userid">
-            <div class="overflow-ellipsis overflow-hidden w-48">
-              {item.userid}
-            </div>
-          </td>
-          <td id="length">
-            <LengthBadge
-              actionType={item.segmentAction}
-              startTime={item.startTime}
-              endTime={item.endTime}
-            />
-          </td>
-          <td id="segment">
-            <SegmentBadge
-              segment={item.segmentLabel}
-              chapterLabel={item.chapterLabel}
-            />
-          </td>
-          <td id="votes">{item.votes}</td>
-          <td id="views">{item.segmentAction !== "full" ? item.views : "—"}</td>
-          <td id="is-hidden"></td>
-        </tr>
+        <SegmentTableRow {item} />
       {/each}
     </SegmentTable>
   {:else}
