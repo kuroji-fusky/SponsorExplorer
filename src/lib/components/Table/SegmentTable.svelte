@@ -24,8 +24,8 @@
 <table class="w-full text-base *:[&_tr]:py-2.5 *:[&_tr]:px-3">
   <colgroup>
     <Col id="submitted-date" width={15} />
-    <Col id="votes" width={7} />
-    <Col id="views" width={7} />
+    <Col id="votes" width={5} />
+    <Col id="views" width={10} />
     <Col id="length" width={18} />
     <Col id="segment" width={18} />
     <Col id="username-userid" width={15} />

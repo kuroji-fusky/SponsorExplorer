@@ -11,7 +11,7 @@
   {title}
   class={cn(
     iconOnly ? "p-2" : "px-2.5 py-1",
-    "rounded-md bg-red-300 hover:bg-red-400"
+    "rounded-md bg-red-800 hover:bg-red-900"
   )}
   aria-label={ariaLabel}
   on:click={clickEvent}

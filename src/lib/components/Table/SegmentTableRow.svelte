@@ -2,9 +2,9 @@
   import type { SBSegmentData } from "$lib/types"
   import { cn } from "$lib/utils"
   import {
-    AlarmClockOffIcon,
     EyeOffIcon,
     LockIcon,
+    TimerOffIcon,
     XCircleIcon
   } from "lucide-svelte"
   import { LengthBadge, SegmentBadge } from "../Badges"
@@ -40,24 +40,33 @@
     </div>
   </td>
 
-  <td id="views" class="flex items-center gap-x-1.5">
-    <span>
-      {item.segmentAction !== "full" ? item.views : "—"}
-    </span>
-    <div class="text-red-500 cursor-help">
-      {#if item.isShadowHidden}
-        <div title="Segment has been shadowhidden">
-          <EyeOffIcon size={18} />
-        </div>
-      {/if}
+  <td id="views">
+    <div class="flex items-center gap-x-1.5">
+      <span>
+        {item.segmentAction !== "full" ? item.views : "—"}
+      </span>
       {#if isDownvoted}
-        <div title="Segment not shown from downvotes">
+        <div
+          class="text-red-500 cursor-help"
+          title="Segment not shown from downvotes"
+        >
           <XCircleIcon size={18} />
         </div>
       {/if}
+      {#if item.isShadowHidden}
+        <div
+          class="text-red-500 cursor-help"
+          title="Segment has been shadowhidden"
+        >
+          <EyeOffIcon size={18} />
+        </div>
+      {/if}
       {#if item.isHidden}
-        <div title="Segment is hidden from video duration change">
-          <AlarmClockOffIcon size={18} />
+        <div
+          class="text-red-500 cursor-help"
+          title="Segment is hidden from video duration change"
+        >
+          <TimerOffIcon size={18} />
         </div>
       {/if}
     </div>

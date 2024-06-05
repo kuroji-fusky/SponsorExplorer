@@ -21,7 +21,7 @@
 </script>
 
 <nav
-  class="px-8 flex justify-between py-4 items-center sticky top-0 bg-slate-50 z-10"
+  class="px-8 flex justify-between py-4 items-center sticky top-0 bg-neutral-950 z-10"
 >
   <a href="/"
     ><span class="font-bold text-xl" translate="no">SponsorExplorer</span></a
@@ -35,7 +35,7 @@
       role="searchbox"
       type="text"
       placeholder="Search"
-      class="relative z-[2] px-9 py-2 rounded-lg border w-full border-slate-400"
+      class="relative z-[2] px-9 py-2 rounded-lg border w-full border-neutral-400 bg-neutral-900"
     />
     <div>
       <!-- WIP auto suggest  -->

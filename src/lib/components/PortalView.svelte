@@ -25,7 +25,7 @@
   <div
     use:moveDom={"body"}
     class={cn(
-      "bg-white px-6 rounded-tl-xl rounded-bl-xl border z-[9999] fixed inset-y-0 right-0 transition-all",
+      "bg-neutral-950  border-neutral-600 px-6 rounded-tl-xl rounded-bl-xl border z-[9999] fixed inset-y-0 right-0 transition-all",
       sidebarState
         ? "opacity-100"
         : "opacity-0 translate-x-4 pointer-events-none"
