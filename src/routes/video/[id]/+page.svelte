@@ -6,15 +6,19 @@
   import { cn } from "$lib/utils"
 
   export let data: PageData
-  const { id, sponsorblock } = data
-
-  const tempTitle = "temp"
+  const { id, sponsorblock, yt } = data
 </script>
 
-<SEO title={`Segments for "${tempTitle}"`} />
+<SEO title={`Segments for "${yt.videoTitle}"`} />
 
 <section class="mb-4">
-  <VideoHeader {id} title={tempTitle} />
+  <VideoHeader
+    {id}
+    title={yt.videoTitle}
+    channelName={yt.channelTitle}
+    channelAvatar={yt.channelAvatar}
+    channelId={yt.channelId}
+  />
 </section>
 <section>
   {#if sponsorblock.statusCode === 200 && sponsorblock.items.length !== 0}

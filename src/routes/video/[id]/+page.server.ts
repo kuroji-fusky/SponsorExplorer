@@ -17,12 +17,31 @@ export const load: PageServerLoad = async ({ params }) => {
   const { id } = params
 
   // YouTube Data API
-  // const yt = youtube("v3")
+  const yt = youtube("v3")
 
-  // yt.videos.list({
-  //   id: params.id,
-  //   key: SECRET_YT_DATA_API_KEY
-  // })
+  const ytVideoDetails = await yt.videos.list({
+    id: params.id,
+    part: ["snippet"],
+    key: SECRET_YT_DATA_API_KEY
+  })
+
+  const {
+    channelId,
+    channelTitle,
+    title: videoTitle
+  } = ytVideoDetails.data.items![0].snippet!
+
+  const ytChannelDetails = await yt.channels.list({
+    id: [channelId] as string[],
+    part: ["snippet"],
+    key: SECRET_YT_DATA_API_KEY
+  })
+
+  const {
+    customUrl: channelHandle,
+    thumbnails,
+    publishedAt: channelJoinDate
+  } = ytChannelDetails.data.items![0].snippet!
 
   // SponsorBlock
   // TODO wrap this into it's own file
@@ -33,6 +52,7 @@ export const load: PageServerLoad = async ({ params }) => {
   // )
 
   let errorMsg = ""
+  let segmentCount = 0
   let parsedSegments: object[] = []
   // let lockedSegments = {}
 
@@ -40,6 +60,8 @@ export const load: PageServerLoad = async ({ params }) => {
     // TODO add a check for more segments, by default it gets recent segments up to 10
     const segmentJSONRes = await segmentRes.json()
     // const lockedJSONRes = await lockedRes.json()
+
+    segmentCount = segmentJSONRes.segmentCount
 
     segmentJSONRes.segments.forEach((segment) => {
       const {
@@ -85,14 +107,25 @@ export const load: PageServerLoad = async ({ params }) => {
     }
   }
 
-  console.log("Parsed segments =>", parsedSegments)
-
-  return {
+  const data = {
     id,
+    yt: {
+      channelId,
+      channelTitle,
+      channelJoinDate,
+      channelHandle,
+      channelAvatar: thumbnails?.medium?.url!,
+      videoTitle
+    },
     sponsorblock: {
       statusCode: segmentRes.status,
+      segmentCount,
       items: parsedSegments as SBSegmentData[],
       errors: errorMsg
     }
   }
+
+  console.log(data)
+
+  return data
 }
