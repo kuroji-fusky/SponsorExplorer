@@ -3,7 +3,7 @@
   export let avatar: string = ""
 </script>
 
-<div class="flex gap-y-4 gap-x-6 mt-9">
+<div class="flex gap-y-4 gap-x-6 px-6 py-7 rounded-md bg-neutral-900">
   <img
     src={avatar}
     alt={`Channel avatar for ${name}`}

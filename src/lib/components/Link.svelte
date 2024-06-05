@@ -7,7 +7,7 @@
   {href}
   target={external ? "_blank" : undefined}
   rel={external ? "noopenner noreferrer" : undefined}
-  class="text-blue-500 hover:text-blue-600 hover:underline"
+  class="text-blue-400 hover:text-blue-500 hover:underline"
 >
   <slot />
 </a>

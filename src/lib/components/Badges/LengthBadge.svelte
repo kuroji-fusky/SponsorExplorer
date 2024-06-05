@@ -26,7 +26,7 @@
 </script>
 
 <Badge
-  class="bg-gray-200 rounded-2xl inline-flex items-center gap-x-1.5 py-0.5 [&_span]:text-sm"
+  class="bg-neutral-900 rounded-2xl inline-flex items-center gap-x-1.5 py-0.5 [&_span]:text-sm"
 >
   {#if actionType === "skip" || actionType === "mute"}
     <!--  -->

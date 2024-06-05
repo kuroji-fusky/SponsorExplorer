@@ -17,7 +17,7 @@
 
 <tr
   class={cn(
-    "border-b border-slate-300",
+    "border-b border-neutral-800",
     hiddenIndicator
       ? "opacity-30 hover:opacity-100 grayscale-[.75] hover:grayscale-0"
       : null
@@ -34,7 +34,7 @@
       <span>{item.votes}</span>
       {#if item.isLocked}
         <div class="cursor-help" title="Segment has been locked by a VIP">
-          <LockIcon class="text-yellow-700" size={18} />
+          <LockIcon class="text-yellow-500" size={18} />
         </div>
       {/if}
     </div>

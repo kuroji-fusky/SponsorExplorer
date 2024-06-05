@@ -54,7 +54,7 @@ export const load = (async ({ url }) => {
     playlistId: idUploads,
     part: ["contentDetails"],
     key: SECRET_YT_DATA_API_KEY,
-    maxResults: 25
+    maxResults: 40
   })
 
   const videoIterable = channelUploads.data.items?.map(
@@ -69,8 +69,8 @@ export const load = (async ({ url }) => {
     channelHandleQuery,
     channelIdQuery,
     details: {
-      title: _items.snippet?.title,
-      avatar: _items.snippet?.thumbnails?.high?.url
+      title: _items.snippet?.title!,
+      avatar: _items.snippet?.thumbnails?.high?.url!
     },
     videos: videoContents.data.items!.map(({ snippet, contentDetails, id }) => {
       const publishDate = new Date(snippet?.publishedAt!).toLocaleDateString(

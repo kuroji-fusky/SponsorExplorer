@@ -2,10 +2,12 @@
   import type { PageData } from "./$types"
   import { SEO } from "$lib/components"
   import ChannelHeader from "$lib/components/ChannelHeader.svelte"
-  import { Divide } from "lucide-svelte"
+  import VideoItem from "$lib/components/VideoItem.svelte"
+  import { XIcon } from "lucide-svelte"
+  import Button from "$lib/components/Button.svelte"
 
   export let data: PageData
-  const { details, videos, channelIdQuery } = data
+  const { details, videos, channelIdQuery, channelHandleQuery } = data
 </script>
 
 <SEO title={`Channel segments for "${details.title}"`} />
@@ -14,29 +16,38 @@
   <ChannelHeader avatar={details.avatar} name={details.title} />
 </section>
 
-<section>
-  {#each videos as boom}
-    <div class="flex gap-x-2">
-      <a
-        class="block overflow-hidden rounded-md"
-        href={`/video/${boom.id}?fromChannelId=${channelIdQuery}`}
-      >
-        <img
-          src={boom.thumbnail}
-          alt=""
-          class="aspect-video object-cover w-52"
+<section class="flex gap-x-6">
+  <!-- Video stuff -->
+  <div>
+    <div class="grid grid-cols-3 gap-3">
+      {#each videos as video}
+        <VideoItem
+          id={video.id}
+          publishDate={video.publishDate}
+          thumbnail={video.thumbnail}
+          title={video.title}
+          fromChannelId={channelIdQuery}
+          fromChannelHandle={channelHandleQuery}
         />
-      </a>
-      <div>
-        <h2 class="text-lg">
-          <a href={`/video/${boom.id}?fromChannelId=${channelIdQuery}`}>
-            {boom.title}
-          </a>
-        </h2>
-        <span>
-          {boom.publishDate}
-        </span>
-      </div>
+      {/each}
     </div>
-  {/each}
+  </div>
+  <!-- Filters and stuff -->
+  <aside
+    class="flex-shrink-0 w-80 sticky top-20 [align-self:flex-start] flex flex-col gap-y-3"
+  >
+    <div class="flex justify-between items-center">
+      <h1 class="text-2xl">Statistics</h1>
+      <Button iconOnly>
+        <XIcon size={18} />
+      </Button>
+    </div>
+    <section>
+      <span class="font-semibold text-base">Recent segments submitted</span>
+    </section>
+    <section>
+      <span class="font-semibold text-base">Recent submitters</span>
+      <div></div>
+    </section>
+  </aside>
 </section>

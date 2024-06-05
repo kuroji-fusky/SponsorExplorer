@@ -41,7 +41,7 @@
       <th id="username-userid">Username/UserID</th>
     </tr>
   </thead>
-  <tbody class="hover:[&_tr]:bg-gray-100">
+  <tbody class="hover:[&_tr]:bg-neutral-800 hover:[&_tr]:bg-opacity-70">
     <slot />
   </tbody>
 </table>
