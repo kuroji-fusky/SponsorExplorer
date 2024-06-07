@@ -1,12 +1,10 @@
 <script lang="ts">
   import type { SBSegmentData } from "$lib/types"
   import { cn } from "$lib/utils"
-  import {
-    EyeOffIcon,
-    LockIcon,
-    TimerOffIcon,
-    XCircleIcon
-  } from "lucide-svelte"
+  import EyeOffIcon from "lucide-svelte/icons/eye-off"
+  import LockIcon from "lucide-svelte/icons/lock"
+  import TimerOffIcon from "lucide-svelte/icons/timer-off"
+  import XCircleIcon from "lucide-svelte/icons/circle-x"
   import { LengthBadge, SegmentBadge } from "../Badges"
 
   export let item: SBSegmentData

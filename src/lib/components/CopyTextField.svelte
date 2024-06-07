@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CopyIcon } from "lucide-svelte"
+  import CopyIcon from "lucide-svelte/icons/copy"
 
   export const overrideField: string = ""
 </script>

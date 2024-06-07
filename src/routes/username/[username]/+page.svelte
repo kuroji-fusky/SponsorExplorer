@@ -3,8 +3,6 @@
   import { SEO } from "$lib/components"
 
   export let data: PageData
-
-  const { id, playlistName } = data
 </script>
 
-<SEO title={`Segments from playlist ${playlistName}`} />
+<SEO title={`Submissions from ${data.username}`} />

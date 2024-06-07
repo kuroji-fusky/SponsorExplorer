@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { PageData } from "./$types"
+  import XIcon from "lucide-svelte/icons/x"
   import { SEO } from "$lib/components"
   import ChannelHeader from "$lib/components/ChannelHeader.svelte"
   import VideoItem from "$lib/components/VideoItem.svelte"
-  import { XIcon } from "lucide-svelte"
   import Button from "$lib/components/Button.svelte"
   import { segmentCollection } from "$lib/stores"
 

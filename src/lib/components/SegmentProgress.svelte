@@ -12,13 +12,13 @@
     endLength: number
   }
 
-  export let data: MultiProgressBarProps[] | never[] = []
-  export let barOnly = true
+  interface _RelativeSegments {
+    className: string
+    relativeDuration: number
+  }
 
-  const allSegmentSum = data.reduce(
-    (acc, cur) => (acc += cur.endLength - cur.startLength),
-    0
-  )
+  export let segmentData: MultiProgressBarProps[] | never[] = []
+  export let barOnly = false
 
   const segmentTwClass = {
     sponsor: "bg-sb-sponsor",
@@ -31,7 +31,16 @@
     music_offtopic: "bg-sb-non-music"
   }
 
-  const parsedRelativeSegment = data.map((dp) => {
+  console.log("segmentData", segmentData)
+
+  let parsedRelativeSegment: _RelativeSegments[]
+
+  const allSegmentSum = segmentData.reduce(
+    (acc, cur) => (acc += cur.endLength - cur.startLength),
+    0
+  )
+
+  parsedRelativeSegment = segmentData.map((dp) => {
     const segmentDuration = dp.endLength - dp.startLength
 
     return {

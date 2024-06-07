@@ -3,7 +3,7 @@ import { SECRET_YT_DATA_API_KEY } from "$env/static/private"
 import { youtube, type youtube_v3 } from "@googleapis/youtube"
 import type { GaxiosResponse } from "../../../node_modules/gaxios/build/src"
 
-interface GagoMo {
+interface ChannelDetails {
   title: string
   handle: string
   avatar: string
@@ -23,7 +23,7 @@ export const load = (async ({ url }) => {
   // YouTube Data API
   const yt = youtube("v3")
 
-  let channelDetails: Partial<GagoMo> = {}
+  let channelDetails: Partial<ChannelDetails> = {}
   let fetchContents: GaxiosResponse<youtube_v3.Schema$ChannelListResponse>
 
   const COMMON_PARAMS = {

@@ -1,13 +1,12 @@
 <script lang="ts">
   import { onMount } from "svelte"
   import { writable } from "svelte/store"
-  import { cn } from "$lib/utils"
   import SegmentProgress from "./SegmentProgress.svelte"
 
-  export let id: string
-  export let title: string
-  export let thumbnail: string
-  export let publishDate: string
+  export let id: string = ""
+  export let title: string = ""
+  export let thumbnail: string = ""
+  export let publishDate: string = ""
 
   export let fromChannelId: string | undefined = undefined
   export let fromChannelHandle: string | undefined = undefined
@@ -21,43 +20,39 @@
 
   let segmentCountRef: HTMLLIElement
 
-  const parsedRelativeSegments = writable([])
+  const segmentCountFetch = async () => {
+    const res = await fetch(
+      `https://sponsor.ajay.app/api/skipSegments?videoID=${id}&categories=["sponsor","intro","outro","selfpromo","interaction","preview","filler","music_offtopic"]`
+    )
 
-  onMount(() => {
-    const segmentCountFetch = async () => {
-      const res = await fetch(
-        `https://sponsor.ajay.app/api/skipSegments?videoID=${id}&categories=["sponsor","intro","outro","selfpromo","interaction","preview","filler","music_offtopic"]`
-      )
-
-      if (res.status === 404) {
-        segmentCountRef.textContent = "No segments"
-        return
-      }
-
-      const skipSegments = await res.json()
-      const skipSegLen = skipSegments.length
-
-      segmentCountRef.textContent =
-        skipSegLen <= 1 ? `${skipSegLen} segment` : `${skipSegLen} segments`
-
-      $parsedRelativeSegments = skipSegments.map((item: unknown) => {
-        return {
-          startLength: item.segment[0],
-          endLength: item.segment[1],
-          segment: item.category
-        }
-      })
+    if (res.status === 404) {
+      segmentCountRef.textContent = "No segments"
+      return
     }
 
-    segmentCountFetch()
-  })
+    const skipSegments = await res.json()
+    const skipSegLen = skipSegments.length
+
+    segmentCountRef.textContent =
+      skipSegLen <= 1 ? `${skipSegLen} segment` : `${skipSegLen} segments`
+
+    return skipSegments.map((item: unknown) => ({
+      startLength: item.segment[0],
+      endLength: item.segment[1],
+      segment: item.category
+    }))
+  }
 </script>
 
 <div class="flex flex-col gap-y-3 p-3 rounded-md hover:bg-neutral-900">
   <a class="block overflow-hidden rounded-md relative" href={parsedUrl}>
     <img src={thumbnail} alt="" class="aspect-video object-cover w-full" />
-    <div class="absolute inset-x-0 bottom-0 h-3">
-      <SegmentProgress data={$parsedRelativeSegments} />
+    <div
+      class="absolute inset-x-0 bottom-0 h-1.5 empty:translate-y-4 translate-y-0 duration-200"
+    >
+      {#await segmentCountFetch() then segmentData}
+        <SegmentProgress {segmentData} barOnly />
+      {/await}
     </div>
   </a>
   <div>

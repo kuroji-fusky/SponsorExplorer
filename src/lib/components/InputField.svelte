@@ -1,5 +1,21 @@
 <script lang="ts">
-  export let placeholder: string
+  import type { ComponentType } from "svelte"
+  import type { Icon } from "lucide-svelte"
+  import SearchIcon from "lucide-svelte/icons/search"
+
+  export let icon: ComponentType<Icon> = SearchIcon
+  export let inputField: HTMLInputElement | null = null
+  export let placeholder: string = "Filter segments"
 </script>
 
-<input class="px-3 py-2.5 rounded-md" {placeholder} />
+<div class="relative flex-shrink-0 w-[32rem]">
+  <span class="absolute z-[3] left-0 inset-y-0 py-2 pl-3 pointer-events-none">
+    <svelte:component this={icon} size={18} />
+  </span>
+  <input
+    bind:this={inputField}
+    {placeholder}
+    type="text"
+    class="relative z-[2] px-9 py-2 rounded-lg border w-full border-neutral-400 bg-neutral-900"
+  />
+</div>
