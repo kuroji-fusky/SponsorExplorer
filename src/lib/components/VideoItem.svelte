@@ -11,6 +11,8 @@
   export let fromChannelId: string | undefined = undefined
   export let fromChannelHandle: string | undefined = undefined
 
+  export let autoFetchSegments = true
+
   const url = [`/video/${id}`]
 
   if (fromChannelId) url.push(`?fromChannelId=${fromChannelId}`)
@@ -50,9 +52,11 @@
     <div
       class="absolute inset-x-0 bottom-0 h-1.5 empty:translate-y-4 translate-y-0 duration-200"
     >
-      {#await segmentCountFetch() then segmentData}
-        <SegmentProgress {segmentData} barOnly />
-      {/await}
+      {#if autoFetchSegments}
+        {#await segmentCountFetch() then segmentData}
+          <SegmentProgress {segmentData} barOnly />
+        {/await}
+      {/if}
     </div>
   </a>
   <div>
@@ -62,12 +66,11 @@
     <ul
       class="mt-2.5 opacity-75 flex flex-wrap list-disc *:pr-5 last:*:pr-0 first:*:list-none"
     >
-      <li>{publishDate}</li>
-      <!-- <li bind:this={lockRef}></li> -->
-      <li
-        bind:this={segmentCountRef}
-        class="empty:opacity-0 opacity-100 transition-all"
-      ></li>
+      {#if autoFetchSegments}
+        <li>{publishDate}</li>
+        <!-- <li bind:this={lockRef}></li> -->
+        <li bind:this={segmentCountRef}>Loading segments...</li>
+      {/if}
     </ul>
   </div>
 </div>

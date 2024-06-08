@@ -31,8 +31,6 @@
     music_offtopic: "bg-sb-non-music"
   }
 
-  console.log("segmentData", segmentData)
-
   let parsedRelativeSegment: _RelativeSegments[]
 
   const allSegmentSum = segmentData.reduce(

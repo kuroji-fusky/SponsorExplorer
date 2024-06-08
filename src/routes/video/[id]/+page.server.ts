@@ -20,14 +20,23 @@ export const load = (async ({ params, url }) => {
   const fromUsernameQuery = url.searchParams.get("fromUsername")
   const fromChannelIdQuery = url.searchParams.get("fromChannelId")
 
+  const CACHE_HEADERS = {
+    headers: {
+      "cache-control": "public, max-age=1800"
+    }
+  }
+
   // YouTube Data API
   const yt = youtube("v3")
 
-  const ytVideoDetails = await yt.videos.list({
-    id: params.id,
-    part: ["snippet"],
-    key: SECRET_YT_DATA_API_KEY
-  })
+  const ytVideoDetails = await yt.videos.list(
+    {
+      id: params.id,
+      part: ["snippet"],
+      key: SECRET_YT_DATA_API_KEY
+    },
+    CACHE_HEADERS
+  )
 
   const {
     channelId,
@@ -35,11 +44,14 @@ export const load = (async ({ params, url }) => {
     title: videoTitle
   } = ytVideoDetails.data.items![0].snippet!
 
-  const ytChannelDetails = await yt.channels.list({
-    id: [channelId] as string[],
-    part: ["snippet"],
-    key: SECRET_YT_DATA_API_KEY
-  })
+  const ytChannelDetails = await yt.channels.list(
+    {
+      id: [channelId] as string[],
+      part: ["snippet"],
+      key: SECRET_YT_DATA_API_KEY
+    },
+    CACHE_HEADERS
+  )
 
   const {
     customUrl: channelHandle,
@@ -59,7 +71,10 @@ export const load = (async ({ params, url }) => {
   // SponsorBlock
   // TODO wrap this into it's own file
   // I'll clean this up sometime, this is an eyesore lol
-  const segmentRes = await fetch(`${endpoints.segments.search}?videoID=${id}`)
+  const segmentRes = await fetch(
+    `${endpoints.segments.search}?videoID=${id}`,
+    CACHE_HEADERS
+  )
   // const lockedRes = await fetch(
   //   `${SB_BASE_URL}/lockCategories?videoID=${params.id}&service=YouTube&actionTypes=["skip","poi","chapter","mute","full"]`
   // )

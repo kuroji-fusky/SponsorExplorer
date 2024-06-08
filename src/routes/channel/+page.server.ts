@@ -31,6 +31,11 @@ export const load = (async ({ url }) => {
     maxResults: 30,
     key: SECRET_YT_DATA_API_KEY
   }
+  const CACHE_HEADERS = {
+    headers: {
+      "cache-control": "public, max-age=1800"
+    }
+  }
 
   if (channelIdQuery) {
     fetchContents = await yt.channels.list({
@@ -50,20 +55,26 @@ export const load = (async ({ url }) => {
   const _items = fetchContents.data.items![0]
   const idUploads = _items.contentDetails?.relatedPlaylists?.uploads!
 
-  const channelUploads = await yt.playlistItems.list({
-    playlistId: idUploads,
-    part: ["contentDetails"],
-    key: SECRET_YT_DATA_API_KEY,
-    maxResults: 40
-  })
+  const channelUploads = await yt.playlistItems.list(
+    {
+      playlistId: idUploads,
+      part: ["contentDetails"],
+      key: SECRET_YT_DATA_API_KEY,
+      maxResults: 40
+    },
+    CACHE_HEADERS
+  )
 
   const videoIterable = channelUploads.data.items?.map(
     (i) => i.contentDetails!.videoId!
   )
-  const videoContents = await yt.videos.list({
-    id: videoIterable,
-    ...COMMON_PARAMS
-  })
+  const videoContents = await yt.videos.list(
+    {
+      id: videoIterable,
+      ...COMMON_PARAMS
+    },
+    CACHE_HEADERS
+  )
 
   const queryData = {
     channelHandleQuery,
