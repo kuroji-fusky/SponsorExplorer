@@ -7,6 +7,8 @@
   export let channelName: string
   export let channelId: string
   export let channelAvatar: string
+
+  export let publishDate: string
 </script>
 
 <div
@@ -42,9 +44,11 @@
       </ul>
     </div>
     <!-- Stats -->
-    <div>stats</div>
+    <div>
+      <span>{`Published on ${publishDate}`}</span>
+    </div>
     <!-- Actions -->
-    <div>actions</div>
+    <!-- <div>actions</div> -->
   </div>
 </div>
 <div id="scroll-wrapper"></div>

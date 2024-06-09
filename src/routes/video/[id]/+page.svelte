@@ -16,6 +16,7 @@
     channelName={yt.channelTitle}
     channelAvatar={yt.channelAvatar}
     channelId={yt.channelId}
+    publishDate={yt.videoPublishDate}
   />
 </section>
 <section>
@@ -27,7 +28,7 @@
       {/each}
     </SegmentTable>
   {:else}
-    <div class="px-4 py-2.5 rounded-md bg-blue-200">
+    <div class="px-4 py-2.5 rounded-md bg-blue-800">
       <h2 class="text-xl mb-1">No segments found</h2>
       <span
         >Either there aren't any submissions yet or wait for the database to be
@@ -37,7 +38,7 @@
   {/if}
 
   {#if sponsorblock.statusCode > 500}
-    <div class="px-4 py-2.5 rounded-md bg-red-200">
+    <div class="px-4 py-2.5 rounded-md bg-red-800">
       <h2 class="text-xl mb-1">SponsorBlock: Server Error</h2>
       <span
         >{`Recieved status code ${sponsorblock.statusCode}: ${sponsorblock.errors}`}</span
@@ -45,9 +46,3 @@
     </div>
   {/if}
 </section>
-
-<style lang="postcss">
-  td:is(#username-userid, #length, #segment) {
-    @apply overflow-hidden;
-  }
-</style>

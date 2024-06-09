@@ -2,6 +2,7 @@ import type { SBSegmentData } from "$lib/types"
 import type { PageServerLoad } from "./$types"
 import { parseDateStr } from "$lib/utils"
 import { SECRET_YT_DATA_API_KEY } from "$env/static/private"
+import { error, redirect } from "@sveltejs/kit"
 import { youtube } from "@googleapis/youtube"
 
 const SB_BASE_URL = "https://sponsor.ajay.app/api"
@@ -15,6 +16,10 @@ const endpoints = {
 
 export const load = (async ({ params, url }) => {
   const { id } = params
+
+  if (id === "rickroll") {
+    redirect(307, "/video/dQw4w9WgXcQ?isRickrollEasterEgg=1")
+  }
 
   const fromPlaylistIdQuery = url.searchParams.get("fromPlaylistId")
   const fromUsernameQuery = url.searchParams.get("fromUsername")
@@ -38,11 +43,20 @@ export const load = (async ({ params, url }) => {
     CACHE_HEADERS
   )
 
+  const { items } = ytVideoDetails.data
+
+  if (items!.length === 0) {
+    error(404, {
+      message: "Video not found; check if URL is a vaild YouTube video"
+    })
+  }
+
   const {
     channelId,
     channelTitle,
-    title: videoTitle
-  } = ytVideoDetails.data.items![0].snippet!
+    title: videoTitle,
+    publishedAt
+  } = items![0].snippet!
 
   const ytChannelDetails = await yt.channels.list(
     {
@@ -65,7 +79,12 @@ export const load = (async ({ params, url }) => {
     channelHandle,
     channelJoinDate,
     channelAvatar: thumbnails?.medium?.url!,
-    videoTitle
+    videoTitle,
+    videoPublishDate: new Date(publishedAt!).toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric"
+    })
   }
 
   // SponsorBlock
@@ -131,7 +150,7 @@ export const load = (async ({ params, url }) => {
   } catch {
     if (segmentRes.status === 404) {
       errorMsg =
-        "Couldn't fetch segments, either the video ID is invalid, the main server (https://sponsor.ajay.app/) is temporarily unavailable or couldn't handle request. Switch to a different server as they have cached segments at this time."
+        "Couldn't fetch segments, either the video ID is invalid, or there are no submitted segments available for this video."
     }
   }
 
