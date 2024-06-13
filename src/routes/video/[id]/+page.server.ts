@@ -1,7 +1,6 @@
-import type { SBSegmentData } from "$lib/types"
+import type { SBSegmentData, Segments } from "$lib/types"
 import type { PageServerLoad } from "./$types"
-import { parseDateStr } from "$lib/utils"
-import { SECRET_YT_DATA_API_KEY } from "$env/static/private"
+import { parseDateStr, ytApiKey } from "$lib/utils"
 import { error, redirect } from "@sveltejs/kit"
 import { youtube } from "@googleapis/youtube"
 
@@ -18,7 +17,7 @@ export const load = (async ({ params, url }) => {
   const { id } = params
 
   if (id === "rickroll") {
-    redirect(307, "/video/dQw4w9WgXcQ?isRickrollEasterEgg=1")
+    redirect(308, "/video/dQw4w9WgXcQ?isRickrollEasterEgg=1")
   }
 
   const fromPlaylistIdQuery = url.searchParams.get("fromPlaylistId")
@@ -38,7 +37,7 @@ export const load = (async ({ params, url }) => {
     {
       id: params.id,
       part: ["snippet"],
-      key: SECRET_YT_DATA_API_KEY
+      key: ytApiKey
     },
     CACHE_HEADERS
   )
@@ -62,7 +61,7 @@ export const load = (async ({ params, url }) => {
     {
       id: [channelId] as string[],
       part: ["snippet"],
-      key: SECRET_YT_DATA_API_KEY
+      key: ytApiKey
     },
     CACHE_HEADERS
   )
@@ -90,25 +89,65 @@ export const load = (async ({ params, url }) => {
   // SponsorBlock
   // TODO wrap this into it's own file
   // I'll clean this up sometime, this is an eyesore lol
-  const segmentRes = await fetch(
-    `${endpoints.segments.search}?videoID=${id}`,
-    CACHE_HEADERS
+
+  const lockedRes = await fetch(
+    `${SB_BASE_URL}/lockCategories?videoID=${params.id}&actionType=["skip"]`
   )
-  // const lockedRes = await fetch(
-  //   `${SB_BASE_URL}/lockCategories?videoID=${params.id}&service=YouTube&actionTypes=["skip","poi","chapter","mute","full"]`
-  // )
+
+  interface LockedSegmentActionType {
+    reason?: string
+    categories?: Segments
+  }
+
+  interface LockedSegments {
+    skip: LockedSegmentActionType
+    mute: LockedSegmentActionType
+    fullLabel: LockedSegmentActionType
+  }
 
   let errorMsg = ""
   let segmentCount = 0
   let parsedSegments: object[] = []
-  // let lockedSegments = {}
+  let lockedSegments: LockedSegments
 
+  // Locked segments
   try {
-    // TODO add a check for more segments, by default it gets recent segments up to 10
+    const lockedJSONRes = await lockedRes.json()
+
+    console.log("lockedJSONRes =>", lockedJSONRes)
+
+    lockedSegments = {
+      skip: {
+        reason: lockedJSONRes.reason,
+        categories: lockedJSONRes.categories
+      },
+      mute: {},
+      fullLabel: {}
+    }
+  } catch {
+    if (lockedRes.status == 404) {
+      lockedSegments = {
+        skip: {},
+        mute: {},
+        fullLabel: {}
+      }
+    }
+  }
+
+  const segmentRes = await fetch(
+    `${endpoints.segments.search}?videoID=${id}`,
+    CACHE_HEADERS
+  )
+  // Video segments
+  try {
     const segmentJSONRes = await segmentRes.json()
-    // const lockedJSONRes = await lockedRes.json()
 
     segmentCount = segmentJSONRes.segmentCount
+
+    // TODO add a check for more segments, by default it gets recent segments up to 10
+    if (segmentCount > 10) {
+      console.log("loop that shit")
+    }
 
     segmentJSONRes.segments.forEach((segment) => {
       const {
@@ -150,7 +189,7 @@ export const load = (async ({ params, url }) => {
   } catch {
     if (segmentRes.status === 404) {
       errorMsg =
-        "Couldn't fetch segments, either the video ID is invalid, or there are no submitted segments available for this video."
+        "Couldn't fetch segments, either the video ID may be invalid, or there are no submitted segments available for this video."
     }
   }
 
@@ -164,6 +203,7 @@ export const load = (async ({ params, url }) => {
       statusCode: segmentRes.status,
       segmentCount,
       items: parsedSegments as SBSegmentData[],
+      lockedSegments,
       errors: errorMsg
     }
   }
