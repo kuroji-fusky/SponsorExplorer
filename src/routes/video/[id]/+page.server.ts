@@ -20,6 +20,10 @@ export const load = (async ({ params, url }) => {
     redirect(308, "/video/dQw4w9WgXcQ?isRickrollEasterEgg=1")
   }
 
+  if (!ytApiKey) {
+    error(500, { message: "YouTube API key missing or undefined." })
+  }
+
   const fromPlaylistIdQuery = url.searchParams.get("fromPlaylistId")
   const fromUsernameQuery = url.searchParams.get("fromUsername")
   const fromChannelIdQuery = url.searchParams.get("fromChannelId")

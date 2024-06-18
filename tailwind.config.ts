@@ -3,6 +3,9 @@ import typographyPlugin from "@tailwindcss/typography"
 
 export default {
   darkMode: "class",
+  experimental: {
+    optimizeUniversalDefaults: true
+  },
   content: ["./src/**/*.{html,svelte,ts}"],
   theme: {
     extend: {
