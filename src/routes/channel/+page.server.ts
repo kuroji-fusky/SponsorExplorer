@@ -4,19 +4,6 @@ import type { GaxiosResponse } from "../../../node_modules/gaxios/build/src"
 import { ytApiKey } from "$lib/utils"
 import { error } from "@sveltejs/kit"
 
-interface ChannelDetails {
-  title: string
-  handle: string
-  avatar: string
-  videos?: {
-    id: string
-    title: string
-    publishDate: string
-    thumbnail: string
-    duration: string
-  }[]
-}
-
 export const load = (async ({ url }) => {
   const channelIdQuery = url.searchParams.get("id")
   const channelHandleQuery = url.searchParams.get("handle")
@@ -99,11 +86,11 @@ export const load = (async ({ url }) => {
           })
 
           return {
-            id,
-            title: snippet?.title,
-            thumbnail: snippet?.thumbnails?.medium?.url,
-            publishDate,
-            duration: contentDetails?.duration
+            id: id!,
+            title: snippet?.title!,
+            thumbnail: snippet?.thumbnails?.medium?.url!,
+            publishDate: publishDate!,
+            duration: contentDetails?.duration!
           }
         }
       )

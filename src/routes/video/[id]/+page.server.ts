@@ -16,6 +16,7 @@ const endpoints = {
 export const load = (async ({ params, url }) => {
   const { id } = params
 
+  // TODO rewrite url and strip ?from* query params if channel, handle, or username don't match to the video
   if (id === "rickroll") {
     redirect(308, "/video/dQw4w9WgXcQ?isRickrollEasterEgg=1")
   }

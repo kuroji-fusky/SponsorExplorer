@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { onMount } from "svelte"
-  import { writable } from "svelte/store"
   import SegmentProgress from "./SegmentProgress.svelte"
 
   export let id: string = ""

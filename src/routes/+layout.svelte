@@ -4,13 +4,12 @@
   import "@fontsource/inter/600.css"
   import "@fontsource/inter/700.css"
   import { Navbar, Footer } from "$lib/components/Base"
-  import { browser } from "$app/environment"
 </script>
 
 <Navbar />
-<div class="mx-auto max-w-screen-2xl px-6 min-h-[calc(100dvh-7.5rem)]">
+<main class="min-h-[calc(100dvh-4.75rem)] px-6 mx-auto max-w-screen-2xl">
   <slot />
-</div>
+</main>
 <Footer />
 
 <style lang="postcss">

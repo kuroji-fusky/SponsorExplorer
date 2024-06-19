@@ -1,51 +1,67 @@
 <script lang="ts">
+  import type { SBSegmentData } from "$lib/types"
   import Link from "./Link.svelte"
   import YouTube from "./YouTube.svelte"
 
   export let id: string
-  export let title: string
-  export let channelName: string
-  export let channelId: string
-  export let channelAvatar: string
 
-  export let publishDate: string
+  export let ytData: {
+    channelId: string
+    channelTitle: string
+    channelHandle: string | null | undefined
+    channelJoinDate: string | null | undefined
+    channelAvatar: string
+    videoTitle: unknown
+    videoPublishDate: string
+  }
+
+  export let sponsorblockData: {
+    statusCode: number
+    segmentCount: number
+    items: SBSegmentData[]
+    errors: string
+  }
 </script>
 
 <div
-  class="flex gap-y-4 gap-x-6 mt-9 bg-neutral-900 rounded-md"
-  aria-label={`Segments for "${title}" by ${channelName}`}
+  class="flex gap-y-4 gap-x-6 bg-neutral-900 rounded-md"
+  aria-label={`Segments for "${ytData.videoTitle}" by ${ytData.channelTitle}`}
 >
-  <YouTube {id} />
-  <div class="flex flex-col gap-y-3 py-5">
+  <div class="flex-shrink-0">
+    <YouTube {id} />
+  </div>
+  <div class="flex flex-col gap-y-3 py-5 pr-6">
     <!-- Title -->
     <div>
       <div class="text-sm opacity-75 uppercase mb-1">Segments for</div>
-      <h1 class="text-2xl mb-1">{title}</h1>
+      <h1 class="text-2xl mb-1">{ytData.videoTitle}</h1>
       <ul class="flex items-center mt-2 gap-x-2">
         <a
-          href={`/channel?id=${channelId}`}
+          href={`/channel?id=${ytData.channelId}`}
           class="inline-flex items-center gap-x-2 group"
         >
           <img
-            src={channelAvatar}
+            src={ytData.channelAvatar}
             width="30"
             height="30"
             class="rounded-full overflow-hidden"
-            alt={`Channel avatar for ${channelName}`}
+            alt={`Channel avatar for ${ytData.channelTitle}`}
           />
           <span class="font-medium group-hover:underline">
-            {channelName}
+            {ytData.channelTitle}
           </span>
         </a>
         <div aria-hidden class="h-4 border border-neutral-700" />
-        <Link external href={`https://www.youtube.com/channel/${channelId}`}
+        <Link
+          external
+          href={`https://www.youtube.com/channel/${ytData.channelId}`}
           >Visit channel</Link
         >
       </ul>
     </div>
     <!-- Stats -->
     <div>
-      <span>{`Published on ${publishDate}`}</span>
+      <span>{`Published on ${ytData.videoPublishDate}`}</span>
     </div>
     <!-- Actions -->
     <!-- <div>actions</div> -->

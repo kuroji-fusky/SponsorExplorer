@@ -8,10 +8,13 @@ import SegmentProgress from "./SegmentProgress.svelte"
 import VideoHeader from "./VideoHeader.svelte"
 import SEO from "./SEO.svelte"
 import Toggle from "./Toggle.svelte"
+import FilterSegments from "./FilterSegments.svelte"
+import VideoItem from "./VideoItem.svelte"
 
 export {
   Button,
   CopyTextField,
+  FilterSegments,
   Link,
   Notice,
   SEO,
@@ -19,5 +22,6 @@ export {
   VideoHeader,
   InputField,
   ChannelHeader,
-  SegmentProgress
+  SegmentProgress,
+  VideoItem
 }
