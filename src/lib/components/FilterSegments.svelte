@@ -1,20 +1,33 @@
 <script>
-  import { ChevronDownIcon, HelpCircleIcon, RadioIcon } from "lucide-svelte"
+  import {
+    ChevronDownIcon,
+    FilterIcon,
+    HelpCircleIcon,
+    Lollipop,
+    PauseIcon,
+    PlayIcon,
+    RadioIcon
+  } from "lucide-svelte"
   import Button from "./Button.svelte"
+  import Badge from "./Badges/Badge.svelte"
 
   import { isLiveFetchSegments } from "$lib/stores"
   import { cn } from "$lib/utils"
 </script>
 
 <div class="flex gap-x-2 mb-3">
-  <span class="opacity-75 my-auto">Filter segments</span>
-  <input
-    type="text"
-    name="Filter segments"
-    placeholder="Filter username/userIDs, segments, etc..."
-    id="filter-segments"
-    class="py-1 px-3 rounded-md bg-neutral-900 border border-neutral-500 flex-1"
-  />
+  <div class="relative flex-1">
+    <span class="absolute z-[3] left-0 inset-y-0 py-2 pl-3 pointer-events-none">
+      <FilterIcon size={18} />
+    </span>
+    <input
+      type="text"
+      name="Filter segments"
+      placeholder="Filter username/userIDs, segments, etc..."
+      id="filter-segments"
+      class="py-1 pl-9 pr-3 rounded-md bg-neutral-900 border border-neutral-500 w-full h-full"
+    />
+  </div>
   <Button iconOnly>
     <HelpCircleIcon size={18} />
   </Button>
@@ -27,18 +40,21 @@
     )}
   >
     <Button
+      title="Periodically fetch for new and updated segments in realtime; only applicable if server is set to https://sponsor.ajay.app/."
       clickEvent={isLiveFetchSegments.toggleState}
       class={cn(
         "flex gap-x-1.5 items-center rounded-tr-none rounded-br-none border-r border-r-neutral-500"
       )}
     >
-      <RadioIcon
-        size={18}
-        class={cn(
-          $isLiveFetchSegments && "animate-spin [animation-duration:3.5s]"
-        )}
-      />
+      {#if !$isLiveFetchSegments}
+        <PlayIcon size={18} />
+      {:else}
+        <PauseIcon size={18} />
+      {/if}
       <span>Live changes</span>
+      {#if $isLiveFetchSegments}
+        <Badge class="bg-red-800 text-xs px-1.5">10s</Badge>
+      {/if}
     </Button>
     <Button class="rounded-tl-none rounded-bl-none" iconOnly>
       <ChevronDownIcon size={18} />

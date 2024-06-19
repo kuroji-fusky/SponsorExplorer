@@ -22,12 +22,6 @@ const options = [
     slot: Toggle
   },
   {
-    title: "Periodically fetch new segments",
-    description:
-      "Update new segments per if enabled. Only applicable if server is set to https://sponsor.ajay.app/.",
-    choiceItems: ["5m", "2m", "1m", "30s", "Off"]
-  },
-  {
     title: "Hidden segments",
     description: "Configure how hidden or downvoted segments are displayed",
     choiceItems: [
