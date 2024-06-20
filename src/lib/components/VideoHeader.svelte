@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { SBSegmentData } from "$lib/types"
+  import { ExternalLinkIcon } from "lucide-svelte"
   import Link from "./Link.svelte"
   import YouTube from "./YouTube.svelte"
 
@@ -24,13 +25,13 @@
 </script>
 
 <div
-  class="flex gap-y-4 gap-x-6 bg-neutral-900 rounded-md"
+  class="flex lg:flex-row flex-col gap-y-4 gap-x-6 bg-neutral-900 rounded-md"
   aria-label={`Segments for "${ytData.videoTitle}" by ${ytData.channelTitle}`}
 >
   <div class="flex-shrink-0">
     <YouTube {id} />
   </div>
-  <div class="flex flex-col gap-y-3 py-5 pr-6">
+  <div class="flex flex-col gap-y-3 lg:py-5 pb-5 lg:pr-6 lg:pl-0 pl-6">
     <!-- Title -->
     <div>
       <div class="text-sm opacity-75 uppercase mb-1">Segments for</div>
@@ -55,8 +56,12 @@
         <Link
           external
           href={`https://www.youtube.com/channel/${ytData.channelId}`}
-          >Visit channel</Link
         >
+          <div class="inline-flex gap-x-1.5">
+            <span>Visit channel</span>
+            <ExternalLinkIcon size={18} />
+          </div>
+        </Link>
       </ul>
     </div>
     <!-- Stats -->
@@ -64,7 +69,17 @@
       <span>{`Published on ${ytData.videoPublishDate}`}</span>
     </div>
     <!-- Actions -->
-    <!-- <div>actions</div> -->
+    <div>
+      <a
+        href={`https://sb.ltn.fi/video/${id}`}
+        target="_blank"
+        rel="noopenner noreferer"
+        class="inline-flex gap-x-1.5 hover:underline"
+      >
+        <span>View on SBbrowser</span>
+        <ExternalLinkIcon size={18} />
+      </a>
+    </div>
   </div>
 </div>
 <div id="scroll-wrapper"></div>

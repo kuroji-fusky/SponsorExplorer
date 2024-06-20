@@ -10,7 +10,7 @@
   onMount(() => {
     if (browser) {
       const loadPlayer = () => {
-        const ytPlayer = new YT.Player(ytId, {
+        new YT.Player(ytId, {
           host: "https://www.youtube-nocookie.com",
           height: "100%",
           width: "100%",
@@ -48,7 +48,7 @@
   })
 </script>
 
-<div class="aspect-video w-[38rem] rounded-lg overflow-hidden">
+<div class="aspect-video xl:w-[38rem] lg:w-[32rem] w-full rounded-lg overflow-hidden">
   {#if browser}
     <div id={ytId} />
   {/if}

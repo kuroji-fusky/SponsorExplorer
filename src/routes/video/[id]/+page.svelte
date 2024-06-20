@@ -9,8 +9,9 @@
 
 <SEO title={`Segments for "${yt.videoTitle}" by ${yt.channelTitle}`} />
 
+<!-- <div class="z-10 fixed left-0 bg-neutral-400 bottom-0 top-0">xdddddddddddddd</div> -->
+
 <main class="flex">
-  <div>xd</div>
   <div class="flex-1 flex flex-col gap-y-3">
     <div class="flex flex-col gap-y-2">
       <section class="flex">

@@ -8,11 +8,12 @@
     PlayIcon,
     RadioIcon
   } from "lucide-svelte"
-  import Button from "./Button.svelte"
-  import Badge from "./Badges/Badge.svelte"
 
   import { isLiveFetchSegments } from "$lib/stores"
   import { cn } from "$lib/utils"
+
+  import Button from "./Button.svelte"
+  import Badge from "./Badges/Badge.svelte"
 </script>
 
 <div class="flex gap-x-2 mb-3">
@@ -23,7 +24,7 @@
     <input
       type="text"
       name="Filter segments"
-      placeholder="Filter username/userIDs, segments, etc..."
+      placeholder="Filter segments"
       id="filter-segments"
       class="py-1 pl-9 pr-3 rounded-md bg-neutral-900 border border-neutral-500 w-full h-full"
     />
@@ -43,7 +44,7 @@
       title="Periodically fetch for new and updated segments in realtime; only applicable if server is set to https://sponsor.ajay.app/."
       clickEvent={isLiveFetchSegments.toggleState}
       class={cn(
-        "flex gap-x-1.5 items-center rounded-tr-none rounded-br-none border-r border-r-neutral-500"
+        "flex gap-x-1.5 items-center rounded-tr-none rounded-br-none border-r border-r-neutral-300"
       )}
     >
       {#if !$isLiveFetchSegments}
