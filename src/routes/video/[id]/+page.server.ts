@@ -13,16 +13,21 @@ const endpoints = {
   }
 }
 
-export const load = (async ({ params, url }) => {
+export const load = (async ({ params, url, request }) => {
   const { id } = params
+
+  // TODO add to sessionStorage for `keepChannelReferer` to persist state
+  // Get the referer header if the route was coming from a channel or whatever
+  const headers = request.headers
+  const refererHeader = headers.get("referer")
 
   // TODO rewrite url and strip ?from* query params if channel, handle, or username don't match to the video
   if (id === "rickroll") {
-    redirect(308, "/video/dQw4w9WgXcQ?isRickrollEasterEgg=1")
+    redirect(308, "/video/dQw4w9WgXcQ")
   }
 
   if (!ytApiKey) {
-    error(500, { message: "YouTube API key missing or undefined." })
+    error(401, { message: "YouTube API key missing or undefined" })
   }
 
   const fromPlaylistIdQuery = url.searchParams.get("fromPlaylistId")
@@ -95,49 +100,9 @@ export const load = (async ({ params, url }) => {
   // TODO wrap this into it's own file
   // I'll clean this up sometime, this is an eyesore lol
 
-  const lockedRes = await fetch(
-    `${SB_BASE_URL}/lockCategories?videoID=${params.id}&actionType=["skip"]`
-  )
-
-  interface LockedSegmentActionType {
-    reason?: string
-    categories?: Segments
-  }
-
-  interface LockedSegments {
-    skip: LockedSegmentActionType
-    mute: LockedSegmentActionType
-    fullLabel: LockedSegmentActionType
-  }
-
   let errorMsg = ""
   let segmentCount = 0
   let parsedSegments: object[] = []
-  let lockedSegments: LockedSegments
-
-  // Locked segments
-  try {
-    const lockedJSONRes = await lockedRes.json()
-
-    console.log("lockedJSONRes =>", lockedJSONRes)
-
-    lockedSegments = {
-      skip: {
-        reason: lockedJSONRes.reason,
-        categories: lockedJSONRes.categories
-      },
-      mute: {},
-      fullLabel: {}
-    }
-  } catch {
-    if (lockedRes.status == 404) {
-      lockedSegments = {
-        skip: {},
-        mute: {},
-        fullLabel: {}
-      }
-    }
-  }
 
   const segmentRes = await fetch(
     `${endpoints.segments.search}?videoID=${id}`,
@@ -200,6 +165,7 @@ export const load = (async ({ params, url }) => {
 
   const data = {
     id,
+    refererHeader,
     fromPlaylistIdQuery,
     fromUsernameQuery,
     fromChannelIdQuery,
@@ -208,7 +174,6 @@ export const load = (async ({ params, url }) => {
       statusCode: segmentRes.status,
       segmentCount,
       items: parsedSegments as SBSegmentData[],
-      lockedSegments,
       errors: errorMsg
     }
   }
