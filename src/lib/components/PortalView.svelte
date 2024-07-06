@@ -1,8 +1,10 @@
 <script lang="ts">
+  import { onMount } from "svelte"
   import { browser } from "$app/environment"
   import { cn } from "$lib/utils"
-  import { onMount } from "svelte"
+
   import Button from "./Button.svelte"
+
   import XIcon from "lucide-svelte/icons/x"
 
   export let heading: string

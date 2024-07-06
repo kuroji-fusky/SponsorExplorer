@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { SBSegmentData } from "$lib/types"
-  import { ExternalLinkIcon } from "lucide-svelte"
+
+  import ExternalLinkIcon from "lucide-svelte/icons/external-link"
+
   import Link from "./Link.svelte"
   import YouTube from "./YouTube.svelte"
 

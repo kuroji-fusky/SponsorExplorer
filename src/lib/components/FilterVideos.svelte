@@ -1,5 +1,5 @@
 <script>
-  import { PanelRightOpenIcon } from "lucide-svelte"
+  import PanelRightOpenIcon from "lucide-svelte/icons/panel-right-open"
 
   import Button from "./Button.svelte"
 </script>

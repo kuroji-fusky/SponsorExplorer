@@ -1,13 +1,9 @@
 <script>
-  import {
-    ChevronDownIcon,
-    FilterIcon,
-    HelpCircleIcon,
-    Lollipop,
-    PauseIcon,
-    PlayIcon,
-    RadioIcon
-  } from "lucide-svelte"
+  import ChevronDownIcon from "lucide-svelte/icons/chevron-down"
+  import FilterIcon from "lucide-svelte/icons/filter"
+  import HelpCircleIcon from "lucide-svelte/icons/circle-help"
+  import PauseIcon from "lucide-svelte/icons/pause"
+  import PlayIcon from "lucide-svelte/icons/play"
 
   import { isLiveFetchSegments } from "$lib/stores"
   import { cn } from "$lib/utils"
