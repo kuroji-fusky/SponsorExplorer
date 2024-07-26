@@ -12,7 +12,10 @@ const config = {
 
   kit: {
     adapter: adapter({
-      isr: true
+      isr: {
+        expiration: 60,
+        allowQuery: ["search", "handle", "id"]
+      }
     }),
     csp: {
       directives: {

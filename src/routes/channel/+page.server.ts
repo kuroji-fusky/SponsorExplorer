@@ -4,9 +4,11 @@ import type { GaxiosResponse } from "../../../node_modules/gaxios/build/src"
 import { ytApiKey } from "$lib/utils"
 import { error } from "@sveltejs/kit"
 
+export const ssr = true
+
 export const load = (async ({ url }) => {
-  const channelIdQuery = url.searchParams.get("id")
-  const channelHandleQuery = url.searchParams.get("handle")
+  const channelIdQuery = url.searchParams.get("id") as string
+  const channelHandleQuery = url.searchParams.get("handle") as string
 
   if (!ytApiKey) {
     error(500, { message: "YouTube API key missing or undefined." })

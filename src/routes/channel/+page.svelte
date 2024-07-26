@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { PageData } from "./$types"
   import { ChannelHeader, SEO, VideoCollection } from "$lib/components"
+  import { page } from "$app/stores"
   import { onMount } from "svelte"
 
-  export let data: PageData
-  const { details, videos, channelIdQuery, channelHandleQuery, errors } = data
+  const { channelIdQuery, channelHandleQuery, details, videos, errors } =
+    $page.data
 
   onMount(() => {})
 </script>
