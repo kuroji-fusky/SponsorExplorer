@@ -1,4 +1,4 @@
-import Toggle from "$lib/components/Toggle.svelte"
+import Toggle from "../../Toggle.svelte"
 
 const options = [
   {

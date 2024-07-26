@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { PageData } from "./$types"
-  import { ChannelHeader, SEO } from "$lib/components"
-  import VideoCollection from "$lib/components/VideoCollection.svelte"
+  import { ChannelHeader, SEO, VideoCollection } from "$lib/components"
   import { onMount } from "svelte"
 
   export let data: PageData

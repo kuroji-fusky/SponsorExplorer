@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { SEO } from "$lib/components"
-  import Link from "$lib/components/Link.svelte"
-  import Notice from "$lib/components/Notice.svelte"
+  import { Notice, Link, SEO } from "$lib/components"
 </script>
 
 <SEO title="Submissions from [username]" />

@@ -5,11 +5,12 @@ import Notice from "./Notice.svelte"
 import ChannelHeader from "./ChannelHeader.svelte"
 import InputField from "./InputField.svelte"
 import SegmentProgress from "./SegmentProgress.svelte"
-import VideoHeader from "./VideoHeader.svelte"
 import SEO from "./SEO.svelte"
 import Toggle from "./Toggle.svelte"
 import FilterSegments from "./FilterSegments.svelte"
 import VideoItem from "./VideoItem.svelte"
+import VideoHeader from "./VideoHeader.svelte"
+import VideoCollection from "./VideoCollection.svelte"
 
 export {
   Button,
@@ -23,5 +24,6 @@ export {
   InputField,
   ChannelHeader,
   SegmentProgress,
-  VideoItem
+  VideoItem,
+  VideoCollection
 }

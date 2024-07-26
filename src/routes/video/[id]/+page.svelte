@@ -1,8 +1,7 @@
 <script lang="ts">
   import type { PageData } from "./$types"
   import { SegmentTable, SegmentTableRow } from "$lib/components/Table"
-  import { VideoHeader, SEO, FilterSegments } from "$lib/components"
-  import Notice from "$lib/components/Notice.svelte"
+  import { Notice, VideoHeader, SEO, FilterSegments } from "$lib/components"
 
   export let data: PageData
   const { id, sponsorblock, yt } = data
