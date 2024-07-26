@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte"
   import SegmentProgress from "./SegmentProgress.svelte"
+  import { pluralFormatter } from "$lib/utils"
 
   export let id: string = ""
   export let title: string = ""
@@ -50,10 +51,13 @@
         const skipSegments = await res.json()
         const skipSegLen = skipSegments.length
 
-        segmentCountRef.textContent =
-          skipSegLen <= 1 ? `${skipSegLen} segment` : `${skipSegLen} segments`
+        segmentCountRef.textContent = pluralFormatter(
+          skipSegLen,
+          "segment",
+          "segments"
+        )
 
-        segmentData = skipSegments.map((item: unknown) => ({
+        segmentData = skipSegments.map((item: any) => ({
           startLength: item.segment[0],
           endLength: item.segment[1],
           segment: item.category

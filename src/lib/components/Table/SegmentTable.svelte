@@ -13,14 +13,14 @@
 
 <table class="w-full text-base *:[&_tr]:py-2.5 *:[&_tr]:px-3">
   <colgroup>
-    {#each colData as lol}
-      <Col id={lol.id} width={lol.width} />
+    {#each colData as { id, width }}
+      <Col {id} {width} />
     {/each}
   </colgroup>
   <thead>
     <tr class="border-b border-slate-500 *:text-left">
-      {#each colData as lol}
-        <th id={lol.id}>{lol.label}</th>
+      {#each colData as { id, label }}
+        <th {id}>{label}</th>
       {/each}
     </tr>
   </thead>

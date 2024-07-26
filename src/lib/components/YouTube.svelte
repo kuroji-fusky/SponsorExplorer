@@ -48,7 +48,7 @@
   })
 </script>
 
-<div class="aspect-video xl:w-[38rem] lg:w-[32rem] w-full rounded-lg overflow-hidden">
+<div class="aspect-video xl:w-[38rem] lg:w-[32rem] w-full overflow-hidden">
   {#if browser}
     <div id={ytId} />
   {/if}

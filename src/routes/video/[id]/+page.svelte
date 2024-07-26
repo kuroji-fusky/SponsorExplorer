@@ -2,6 +2,7 @@
   import type { PageData } from "./$types"
   import { SegmentTable, SegmentTableRow } from "$lib/components/Table"
   import { VideoHeader, SEO, FilterSegments } from "$lib/components"
+  import Notice from "$lib/components/Notice.svelte"
 
   export let data: PageData
   const { id, sponsorblock, yt } = data
@@ -30,19 +31,16 @@
           {/each}
         </SegmentTable>
       {:else}
-        <div class="px-4 py-2.5 rounded-md bg-blue-800">
-          <h2 class="text-xl mb-1">No segments found</h2>
-          <span>{sponsorblock.errors}</span>
-        </div>
+        <Notice heading="No segments found">
+          {sponsorblock.errors}
+        </Notice>
       {/if}
 
       {#if sponsorblock.statusCode > 500}
-        <div class="px-4 py-2.5 rounded-md bg-red-800">
-          <h2 class="text-xl mb-1">SponsorBlock: Server Error</h2>
-          <span
-            >{`Recieved status code ${sponsorblock.statusCode}: ${sponsorblock.errors}`}</span
-          >
-        </div>
+        <!-- TODO: fallback to sb.ltn.fi -->
+        <Notice heading="SponsorBlock: Server Error">
+          {`Recieved status code ${sponsorblock.statusCode}: ${sponsorblock.errors}`}
+        </Notice>
       {/if}
     </section>
   </div>

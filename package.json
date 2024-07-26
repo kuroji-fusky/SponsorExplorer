@@ -11,12 +11,6 @@
     "lint": "prettier --check . && eslint --quiet .",
     "format": "prettier --write ."
   },
-  "lint-staged": {
-    "**/*.{svelte,ts,js,md}": [
-      "prettier --write .",
-      "eslint . --quiet --fix"
-    ]
-  },
   "dependencies": {
     "@fontsource/inter": "^5.0.17",
     "lucide-svelte": "^0.359.0"

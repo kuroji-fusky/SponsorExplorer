@@ -49,9 +49,7 @@
         <PauseIcon size={18} />
       {/if}
       <span>Live changes</span>
-      {#if $isLiveFetchSegments}
-        <Badge class="bg-red-800 text-xs px-1.5">10s</Badge>
-      {/if}
+      <Badge class="bg-red-800 text-xs px-1.5">10s</Badge>
     </Button>
     <Button class="rounded-tl-none rounded-bl-none" iconOnly>
       <ChevronDownIcon size={18} />

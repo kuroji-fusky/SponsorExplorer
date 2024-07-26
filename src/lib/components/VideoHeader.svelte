@@ -20,12 +20,12 @@
     videoPublishDate: string
   }
 
-  // export let sponsorblockData: {
-  //   statusCode: number
-  //   segmentCount: number
-  //   items: SBSegmentData[]
-  //   errors: string
-  // }
+  export let sponsorblockData: {
+    statusCode: number
+    segmentCount: number
+    items: SBSegmentData[]
+    errors: string
+  }
 </script>
 
 <div

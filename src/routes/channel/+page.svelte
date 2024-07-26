@@ -6,6 +6,8 @@
 
   export let data: PageData
   const { details, videos, channelIdQuery, channelHandleQuery, errors } = data
+
+  onMount(() => {})
 </script>
 
 <SEO title={`Channel segments for "${details?.title}"`} />
