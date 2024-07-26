@@ -2,9 +2,11 @@
   import type { SBSegmentData } from "$lib/types"
 
   import ExternalLinkIcon from "lucide-svelte/icons/external-link"
+  import HelpIcon from "lucide-svelte/icons/circle-help"
 
   import Link from "./Link.svelte"
   import YouTube from "./YouTube.svelte"
+  import LockedIndicator from "./LockedIndicator.svelte"
 
   export let id: string
 
@@ -18,12 +20,12 @@
     videoPublishDate: string
   }
 
-  export let sponsorblockData: {
-    statusCode: number
-    segmentCount: number
-    items: SBSegmentData[]
-    errors: string
-  }
+  // export let sponsorblockData: {
+  //   statusCode: number
+  //   segmentCount: number
+  //   items: SBSegmentData[]
+  //   errors: string
+  // }
 </script>
 
 <div
@@ -33,11 +35,13 @@
   <div class="flex-shrink-0">
     <YouTube {id} />
   </div>
-  <div class="flex flex-col gap-y-3 lg:py-5 pb-5 lg:pr-6 lg:pl-0 pl-6">
+  <div
+    class="flex flex-col gap-y-3 lg:py-5 pb-5 lg:pr-6 lg:pl-0 pl-6 w-full relative"
+  >
     <!-- Title -->
-    <div>
+    <section>
       <div class="text-sm opacity-75 uppercase mb-1">Segments for</div>
-      <h1 class="text-2xl mb-1">{ytData.videoTitle}</h1>
+      <h1 class="text-2xl mb-1 sticky top-0">{ytData.videoTitle}</h1>
       <ul class="flex items-center mt-2 gap-x-2">
         <a
           href={`/channel?id=${ytData.channelId}`}
@@ -64,24 +68,44 @@
             <ExternalLinkIcon size={18} />
           </div>
         </Link>
+        <div aria-hidden class="h-4 border border-neutral-700" />
+        <span>{ytData.videoPublishDate}</span>
       </ul>
-    </div>
+    </section>
     <!-- Stats -->
-    <div>
-      <span>{`Published on ${ytData.videoPublishDate}`}</span>
-    </div>
-    <!-- Actions -->
-    <div>
-      <a
-        href={`https://sb.ltn.fi/video/${id}`}
-        target="_blank"
-        rel="noopenner noreferer"
-        class="inline-flex gap-x-1.5 hover:underline"
+    <section class="pt-2.5 grid gap-y-2">
+      <LockedIndicator />
+      <span
+        class="inline-flex flex-wrap gap-x-2 gap-y-1 items-center px-3 py-2 rounded-md border border-neutral-600"
       >
-        <span>View on SBbrowser</span>
-        <ExternalLinkIcon size={18} />
-      </a>
-    </div>
+        <span class="inline-flex items-center gap-1">
+          <div>
+            <strong>69</strong>
+            <span class="opacity-75">{" submissions"}</span>
+            <span class="opacity-75">{" (34 downvotes + 35 hidden)"}</span>
+          </div>
+          <button class="opacity-75 hover:opacity-100">
+            <HelpIcon size={16} />
+          </button>
+        </span>
+        <div aria-hidden class="h-4 border border-neutral-700" />
+        <div>
+          <strong>2m 1s</strong><span class="opacity-75">
+            {" of segments submitted"}</span
+          >
+        </div>
+        <div aria-hidden class="h-4 border border-neutral-700" />
+        <a
+          href={`https://sb.ltn.fi/video/${id}`}
+          target="_blank"
+          rel="noopenner noreferer"
+          class="inline-flex gap-x-1.5 hover:underline"
+        >
+          <span>View on SBbrowser</span>
+          <ExternalLinkIcon size={18} />
+        </a>
+      </span>
+    </section>
   </div>
 </div>
 <div id="scroll-wrapper"></div>

@@ -3,45 +3,42 @@
   import BookmarkIcon from "lucide-svelte/icons/bookmark"
   import SearchIcon from "lucide-svelte/icons/search"
   import SettingsIcon from "lucide-svelte/icons/settings"
+  import ChevronDownIcon from "lucide-svelte/icons/chevron-down"
 
   import Button from "../Button.svelte"
   import Watchlist from "./Sidebar/Watchlist.svelte"
   import Options from "./Sidebar/Options.svelte"
   import { optionToggle, watchlistToggle } from "$lib/stores"
-
-  let suggestionField = false
-  let searchInput: HTMLInputElement | null
-
-  onMount(() => {
-    const suggestion = {
-      show: () => (suggestionField = true),
-      hide: () => (suggestionField = false)
-    }
-  })
 </script>
 
 <nav
-  class="px-8 flex justify-between py-4 items-center sticky top-0 bg-neutral-950 z-10"
+  class="px-8 flex justify-between py-4 items-center sticky top-0 bg-neutral-950 z-10 *:flex"
 >
-  <a href="/"
-    ><span class="font-bold text-xl" translate="no">SponsorExplorer</span></a
-  >
-  <div class="relative flex-shrink-0 w-[32rem]">
-    <span class="absolute z-[3] left-0 inset-y-0 py-2 pl-3 pointer-events-none">
-      <SearchIcon size={19} />
-    </span>
-    <input
-      bind:this={searchInput}
-      role="searchbox"
-      type="text"
-      placeholder="Search"
-      class="relative z-[2] px-9 py-2 rounded-lg border w-full border-neutral-400 bg-neutral-900"
-    />
-    <div>
-      <!-- WIP auto suggest  -->
-    </div>
+  <div class="items-center gap-x-4">
+    <a href="/"
+      ><span class="font-bold text-xl" translate="no">SponsorExplorer</span></a
+    >
+    <Button
+      title="Search"
+      class="flex items-center gap-x-1.5 py-1.5 px-3 !bg-transparent !border border-neutral-500 hover:border-neutral-300 w-48"
+    >
+      <SearchIcon size={18} />
+      <span class="opacity-50">Search...</span>
+    </Button>
   </div>
-  <div class="flex gap-x-1">
+
+  <div class="gap-x-1">
+    <Button
+      iconOnly
+      title="Server"
+      class="flex items-center gap-x-1 px-3 bg-neutral-700 hover:bg-neutral-800"
+    >
+      <div>
+        <span>{"Server: "}</span>
+        <strong>SponsorBlock</strong>
+      </div>
+      <ChevronDownIcon size={18} />
+    </Button>
     <Button iconOnly title="Watchlist" clickEvent={watchlistToggle.toggleState}>
       <BookmarkIcon size={20} />
     </Button>

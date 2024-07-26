@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte"
   import SegmentProgress from "./SegmentProgress.svelte"
 
   export let id: string = ""
@@ -6,8 +7,8 @@
   export let thumbnail: string = ""
   export let publishDate: string = ""
 
-  export let fromChannelId: string | undefined = undefined
-  export let fromChannelHandle: string | undefined = undefined
+  export let fromChannelId: string | null = null
+  export let fromChannelHandle: string | null = null
 
   export let autoFetchSegments = true
 
@@ -19,41 +20,122 @@
   const parsedUrl = url.join("")
 
   let segmentCountRef: HTMLLIElement
+  let segmentData: any
 
-  const segmentCountFetch = async () => {
-    const res = await fetch(
-      `https://sponsor.ajay.app/api/skipSegments?videoID=${id}&categories=["sponsor","intro","outro","selfpromo","interaction","preview","filler","music_offtopic"]`
-    )
+  let fullLabelDetails: {
+    cls: string
+    label: string
+  }
 
-    if (res.status === 404) {
-      segmentCountRef.textContent = "No segments"
-      return
+  onMount(() => {
+    const segmentCountFetch = async () => {
+      try {
+        const res = await fetch(
+          `https://sponsor.ajay.app/api/skipSegments?videoID=${id}&categories=["sponsor","intro","outro","selfpromo","interaction","preview","filler","music_offtopic"]&actionTypes=["skip","mute"]`
+        )
+
+        const rawResponse = res.text.toString()
+
+        if (!rawResponse.startsWith("{")) {
+          if (res.status === 404) {
+            segmentCountRef.textContent = "No segments"
+            return
+          }
+
+          if (res.status === 502 || res.status === 504) {
+            segmentCountRef.textContent = "Unable to retrieve segments"
+            return
+          }
+        }
+        const skipSegments = await res.json()
+        const skipSegLen = skipSegments.length
+
+        segmentCountRef.textContent =
+          skipSegLen <= 1 ? `${skipSegLen} segment` : `${skipSegLen} segments`
+
+        segmentData = skipSegments.map((item: unknown) => ({
+          startLength: item.segment[0],
+          endLength: item.segment[1],
+          segment: item.category
+        }))
+
+        // console.log(segmentData)
+      } catch {}
     }
 
-    const skipSegments = await res.json()
-    const skipSegLen = skipSegments.length
+    const fullLabelFetch = async () => {
+      try {
+        const res = await fetch(
+          `https://sponsor.ajay.app/api/skipSegments?videoID=${id}&categories=["sponsor","selfpromo","exclusive_access"]&actionType=full`
+        )
 
-    segmentCountRef.textContent =
-      skipSegLen <= 1 ? `${skipSegLen} segment` : `${skipSegLen} segments`
+        const rawResponse = await res.text()
 
-    return skipSegments.map((item: unknown) => ({
-      startLength: item.segment[0],
-      endLength: item.segment[1],
-      segment: item.category
-    }))
-  }
+        // console.log("full label fetch =>", rawResponse)
+        if (!rawResponse.startsWith("[")) {
+          if (res.status === 404 || res.status === 502 || res.status === 504)
+            return
+        }
+
+        const labelSegment = JSON.parse(rawResponse)[0].category
+
+        // Will improve on this later, this is mad garbage lmao
+        if (labelSegment === "selfpromo") {
+          fullLabelDetails = {
+            label: "Unpaid/Self Promotion",
+            cls: "bg-sb-selfpromo text-black"
+          }
+          return
+        }
+        if (labelSegment === "sponsor") {
+          fullLabelDetails = {
+            label: "Sponsor",
+            cls: "bg-sb-sponsor"
+          }
+          return
+        }
+        if (labelSegment === "exclusive_access") {
+          fullLabelDetails = {
+            label: "Exclusive Access",
+            cls: "bg-sb-exclusive-access"
+          }
+          return
+        }
+
+        return
+      } catch {}
+    }
+
+    segmentCountFetch()
+    fullLabelFetch()
+  })
 </script>
 
-<div class="flex flex-col gap-y-3 p-3 rounded-md hover:bg-neutral-900">
+<div class="flex flex-col gap-y-3 p-3 rounded-md hover:bg-neutral-900 group">
   <a class="block overflow-hidden rounded-md relative" href={parsedUrl}>
-    <img src={thumbnail} alt="" class="aspect-video object-cover w-full" />
+    <div class="relative aspect-video">
+      <!-- Full video and lock indicators -->
+      <div
+        class="empty:hidden group-hover:opacity-40 absolute flex top-2 left-2 overflow-hidden rounded-md *:px-2 *:py-0.5"
+      >
+        <!-- <div class="bg-yellow-600 grid place-items-center">
+          <LockIcon size={14.5} strokeWidth={2.5} />
+        </div> -->
+        {#if fullLabelDetails}
+          <div class="text-[0.865rem] font-semibold {fullLabelDetails.cls}">
+            {fullLabelDetails.label}
+          </div>
+        {/if}
+      </div>
+      <img src={thumbnail} alt="" class="aspect-video object-cover w-full" />
+    </div>
     <div
       class="absolute inset-x-0 bottom-0 h-1.5 empty:translate-y-4 translate-y-0 duration-200"
     >
       {#if autoFetchSegments}
-        {#await segmentCountFetch() then segmentData}
+        {#if segmentData}
           <SegmentProgress {segmentData} barOnly />
-        {/await}
+        {/if}
       {/if}
     </div>
   </a>
@@ -66,7 +148,6 @@
     >
       {#if autoFetchSegments}
         <li>{publishDate}</li>
-        <!-- <li bind:this={lockRef}></li> -->
         <li bind:this={segmentCountRef}>Loading segments...</li>
       {/if}
     </ul>

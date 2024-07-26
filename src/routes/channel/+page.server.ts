@@ -22,11 +22,6 @@ export const load = (async ({ url }) => {
     maxResults: 50,
     key: ytApiKey
   }
-  const CACHE_HEADERS = {
-    headers: {
-      "cache-control": "public, max-age=1800"
-    }
-  }
 
   if (channelIdQuery) {
     fetchContents = await yt.channels.list({
@@ -47,26 +42,20 @@ export const load = (async ({ url }) => {
     const _items = fetchContents.data.items![0]
     const idUploads = _items.contentDetails?.relatedPlaylists?.uploads!
 
-    const channelUploads = await yt.playlistItems.list(
-      {
-        playlistId: idUploads,
-        part: ["contentDetails"],
-        key: ytApiKey,
-        maxResults: 40
-      },
-      CACHE_HEADERS
-    )
+    const channelUploadResponse = await yt.playlistItems.list({
+      playlistId: idUploads,
+      part: ["contentDetails"],
+      key: ytApiKey,
+      maxResults: 40
+    })
 
-    const videoIterable = channelUploads.data.items?.map(
+    const videoIterable = channelUploadResponse.data.items?.map(
       (i) => i.contentDetails!.videoId!
     )
-    const videoContents = await yt.videos.list(
-      {
-        id: videoIterable,
-        ...COMMON_PARAMS
-      },
-      CACHE_HEADERS
-    )
+    const videoContents = await yt.videos.list({
+      id: videoIterable,
+      ...COMMON_PARAMS
+    })
 
     const queryData = {
       channelHandleQuery,
@@ -96,12 +85,20 @@ export const load = (async ({ url }) => {
       )
     }
 
-    console.log("`/channel` response =>", queryData)
+    console.log("qData", queryData)
 
     return queryData
   } catch (e) {
     if (e.status === 404) {
       error(404, { message: "No contents for this channel" })
+    }
+
+    return {
+      errors: {
+        msg: "Returned undefined, check if the handle/id is a valid YouTube channel",
+        channelHandleQuery,
+        channelIdQuery
+      }
     }
   }
 }) satisfies PageServerLoad

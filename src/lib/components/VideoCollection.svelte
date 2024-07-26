@@ -14,8 +14,8 @@
     duration: string
   }[]
 
-  export let channelIdQuery: string
-  export let channelHandleQuery: string
+  export let channelIdQuery: string | null
+  export let channelHandleQuery: string | null
 </script>
 
 <div class="flex gap-x-5">
@@ -24,24 +24,28 @@
     <section class="flex gap-x-6">
       <!-- Video stuff -->
       <div>
-        <div class="grid grid-cols-3 gap-3">
-          {#each videoData as video}
-            <VideoItem
-              id={video.id}
-              publishDate={video.publishDate}
-              thumbnail={video.thumbnail}
-              title={video.title}
-              fromChannelId={channelIdQuery}
-              fromChannelHandle={channelHandleQuery}
-            />
-          {/each}
-        </div>
+        {#if typeof videoData !== "undefined"}
+          <div class="grid grid-cols-4 gap-3">
+            {#each videoData as video}
+              <VideoItem
+                id={video.id}
+                publishDate={video.publishDate}
+                thumbnail={video.thumbnail}
+                title={video.title}
+                fromChannelId={channelIdQuery}
+                fromChannelHandle={channelHandleQuery}
+              />
+            {/each}
+          </div>
+        {:else}
+          <div>No videos found</div>
+        {/if}
       </div>
     </section>
   </div>
 
   <!-- Filters and stuff -->
-  <aside
+  <!-- <aside
     class="flex-shrink-0 w-80 sticky top-20 [align-self:flex-start] flex flex-col gap-y-3"
   >
     <div class="flex justify-between items-center">
@@ -57,5 +61,5 @@
       <span class="font-semibold text-base">Recent submitters</span>
       <div></div>
     </section>
-  </aside>
+  </aside> -->
 </div>
