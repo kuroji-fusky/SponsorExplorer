@@ -2,7 +2,7 @@
   import Col from "./Col.svelte"
 
   const colData = [
-    { id: "submitted-date", width: 14, label: "Submitted Date" },
+    { id: "submitted-date", width: 14, label: "Date submitted" },
     { id: "votes", width: 5, label: "Votes" },
     { id: "views", width: 6, label: "Views" },
     { id: "segment", width: 15, label: "Category" },
