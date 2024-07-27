@@ -48,7 +48,17 @@
   })
 </script>
 
-<div class="aspect-video xl:w-[38rem] lg:w-[32rem] w-full overflow-hidden">
+<div
+  class="aspect-video 2xl:w-[45rem] xl:w-[38rem] lg:w-[32rem] w-full overflow-hidden relative"
+>
+  <noscript>
+    <div
+      class="w-full h-full bg-black/75 p-4 text-center grid place-items-center"
+    >
+      Failed to mount player, please re-enable JavaScript for better
+      functionality!
+    </div>
+  </noscript>
   {#if browser}
     <div id={ytId} />
   {/if}

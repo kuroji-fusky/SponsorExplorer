@@ -4,6 +4,8 @@
   import SearchIcon from "lucide-svelte/icons/search"
   import SettingsIcon from "lucide-svelte/icons/settings"
   import ChevronDownIcon from "lucide-svelte/icons/chevron-down"
+  import ServerIcon from "lucide-svelte/icons/server"
+  import MenuIcon from "lucide-svelte/icons/menu"
 
   import Button from "../Button.svelte"
   import Watchlist from "./Sidebar/Watchlist.svelte"
@@ -20,7 +22,7 @@
     >
     <Button
       title="Search"
-      class="flex items-center gap-x-1.5 py-1.5 px-3 !bg-transparent !border border-neutral-500 hover:border-neutral-300 w-48"
+      class="hidden md:flex items-center gap-x-1.5 py-1.5 px-3 !bg-transparent !border border-neutral-500 hover:border-neutral-300 w-48"
     >
       <SearchIcon size={18} />
       <span class="opacity-50">Search...</span>
@@ -28,21 +30,39 @@
   </div>
 
   <div class="gap-x-1">
+    <!-- Mobile -->
+    <Button iconOnly title="Search" class="!bg-transparent block md:hidden">
+      <SearchIcon size={21} />
+    </Button>
+    <Button iconOnly title="Options" class="!bg-transparent block md:hidden">
+      <MenuIcon size={21} />
+    </Button>
+    <!-- Desktop -->
     <Button
       iconOnly
       title="Server"
-      class="flex items-center gap-x-1 px-3 bg-neutral-700 hover:bg-neutral-800"
+      class="md:flex hidden items-center gap-x-1 px-3 bg-neutral-800 hover:bg-neutral-900"
     >
-      <div>
-        <span>{"Server: "}</span>
-        <strong>SponsorBlock</strong>
-      </div>
+      <ServerIcon size={20} />
+      <span class="hidden lg:inline">{"Server:"}</span>
+      <span class="bg-green-500 size-2.5 rounded-md mx-0.5" />
+      <strong>SponsorBlock</strong>
       <ChevronDownIcon size={18} />
     </Button>
-    <Button iconOnly title="Watchlist" clickEvent={watchlistToggle.toggleState}>
+    <Button
+      iconOnly
+      title="Watchlist"
+      clickEvent={watchlistToggle.toggleState}
+      class="hidden md:block"
+    >
       <BookmarkIcon size={20} />
     </Button>
-    <Button iconOnly title="Options" clickEvent={optionToggle.toggleState}>
+    <Button
+      iconOnly
+      title="Options"
+      clickEvent={optionToggle.toggleState}
+      class="hidden md:block"
+    >
       <SettingsIcon size={20} />
     </Button>
   </div>

@@ -4,10 +4,18 @@
   import "@fontsource/inter/600.css"
   import "@fontsource/inter/700.css"
   import { Navbar, Footer } from "$lib/components/Base"
+  import { Notice } from "$lib/components"
 </script>
 
 <Navbar />
 <main class="min-h-[calc(100dvh-4.75rem)] px-6 mx-auto max-w-screen-2xl">
+  <noscript>
+    <Notice intent="alert" heading="JavaScript disabled">
+      Please re-enable JavaScript to fetch updated SponsorBlock segments and
+      restore intended functionality
+    </Notice>
+    <div class="pb-3.5" />
+  </noscript>
   <slot />
 </main>
 <Footer />

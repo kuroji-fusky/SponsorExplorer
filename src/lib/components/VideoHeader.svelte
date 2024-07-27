@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { SBSegmentData } from "$lib/types"
 
+  import ChannelIcon from "lucide-svelte/icons/square-user"
   import ExternalLinkIcon from "lucide-svelte/icons/external-link"
   import HelpIcon from "lucide-svelte/icons/circle-help"
 
@@ -29,14 +30,14 @@
 </script>
 
 <div
-  class="flex lg:flex-row flex-col gap-y-4 gap-x-6 bg-neutral-900 rounded-md"
+  class="flex lg:flex-row flex-col gap-y-4 gap-x-6 bg-neutral-900 rounded-md overflow-hidden"
   aria-label={`Segments for "${ytData.videoTitle}" by ${ytData.channelTitle}`}
 >
   <div class="flex-shrink-0">
     <YouTube {id} />
   </div>
   <div
-    class="flex flex-col gap-y-3 lg:py-5 pb-5 lg:pr-6 lg:pl-0 pl-6 w-full relative"
+    class="flex flex-col gap-y-3 lg:py-5 pb-5 px-3 lg:pr-6 lg:pl-0 pl-6 w-full relative"
   >
     <!-- Title -->
     <section>
@@ -58,15 +59,12 @@
             {ytData.channelTitle}
           </span>
         </a>
-        <div aria-hidden class="h-4 border border-neutral-700" />
         <Link
           external
           href={`https://www.youtube.com/channel/${ytData.channelId}`}
+          title="Visit channel"
         >
-          <div class="inline-flex gap-x-1.5">
-            <span>Visit channel</span>
-            <ExternalLinkIcon size={18} />
-          </div>
+          <ChannelIcon size={18} />
         </Link>
         <div aria-hidden class="h-4 border border-neutral-700" />
         <span>{ytData.videoPublishDate}</span>
@@ -74,7 +72,7 @@
     </section>
     <!-- Stats -->
     <section class="pt-2.5 grid gap-y-2">
-      <LockedIndicator />
+      <!-- <LockedIndicator /> -->
       <span
         class="inline-flex flex-wrap gap-x-2 gap-y-1 items-center px-3 py-2 rounded-md border border-neutral-600"
       >

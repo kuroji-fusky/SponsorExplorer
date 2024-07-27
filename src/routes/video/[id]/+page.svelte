@@ -11,36 +11,34 @@
 
 <!-- <div class="z-10 fixed left-0 bg-neutral-400 bottom-0 top-0">xdddddddddddddd</div> -->
 
-<main class="flex">
-  <div class="flex-1 flex flex-col gap-y-3">
-    <div class="flex flex-col gap-y-2">
-      <section class="flex">
-        <button></button>
-      </section>
-      <section>
-        <VideoHeader {id} ytData={yt} sponsorblockData={sponsorblock} />
-      </section>
-    </div>
+<div class="flex-1 flex flex-col gap-y-3">
+  <div class="flex flex-col gap-y-2">
+    <section class="flex">
+      <button></button>
+    </section>
     <section>
-      <FilterSegments />
-      {#if sponsorblock.statusCode === 200}
-        <SegmentTable>
-          {#each sponsorblock.items as item}
-            <SegmentTableRow {item} />
-          {/each}
-        </SegmentTable>
-      {:else}
-        <Notice heading="No segments found">
-          {sponsorblock.errors}
-        </Notice>
-      {/if}
-
-      {#if sponsorblock.statusCode > 500}
-        <!-- TODO: fallback to sb.ltn.fi -->
-        <Notice heading="SponsorBlock: Server Error">
-          {`Recieved status code ${sponsorblock.statusCode}: ${sponsorblock.errors}`}
-        </Notice>
-      {/if}
+      <VideoHeader {id} ytData={yt} sponsorblockData={sponsorblock} />
     </section>
   </div>
-</main>
+  <section>
+    <FilterSegments />
+    {#if sponsorblock.statusCode === 200}
+      <SegmentTable>
+        {#each sponsorblock.items as item}
+          <SegmentTableRow {item} />
+        {/each}
+      </SegmentTable>
+    {:else}
+      <Notice heading="No segments found">
+        {sponsorblock.errors}
+      </Notice>
+    {/if}
+
+    {#if sponsorblock.statusCode > 500}
+      <!-- TODO: fallback to sb.ltn.fi -->
+      <Notice heading="SponsorBlock: Server Error">
+        {`Recieved status code ${sponsorblock.statusCode}: ${sponsorblock.errors}`}
+      </Notice>
+    {/if}
+  </section>
+</div>
