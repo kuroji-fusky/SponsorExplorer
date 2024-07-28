@@ -9,7 +9,9 @@
 </script>
 
 <div class="relative flex-shrink-0 w-[32rem]">
-  <span class="absolute z-[3] left-0 inset-y-0 py-2 pl-3 pointer-events-none">
+  <span
+    class="absolute z-[3] left-0 inset-y-0 py-2 pl-3 grid place-items-center pointer-events-none"
+  >
     <svelte:component this={icon} size={18} />
   </span>
   <input
@@ -18,4 +20,7 @@
     type="text"
     class="relative z-[2] px-9 py-2 rounded-lg border w-full border-neutral-400 bg-neutral-900"
   />
+  <div class="absolute top-10 inset-x-0 empty:hidden">
+    <slot name="results" />
+  </div>
 </div>

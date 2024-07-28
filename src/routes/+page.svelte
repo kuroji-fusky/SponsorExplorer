@@ -1,23 +1,28 @@
 <script>
-  import { SEO, Link } from "$lib/components"
+  import { SEO, ChannelItem, ChannelCarousel } from "$lib/components"
+  import { Hero } from "$lib/components/Landing"
 </script>
 
 <SEO title="Home" />
+<Hero />
 
-<div class="*:flex *:flex-col *:items-center">
-  <div class="gap-y-4 py-8">
-    <h1 class="!font-normal flex flex-col items-center">
-      <div>Welcome to</div>
-      <div class="font-extrabold text-3xl">SponsorExplorer</div>
-    </h1>
-    <span>
-      A rewrite of Lartza's <Link href="https://sb.ltn.fi" external
-        >SBbrowser</Link
-      > with a modern UI and more features!
-    </span>
-  </div>
-
-  <section>
-    <div></div>
-  </section>
+<div class="flex flex-col gap-y-3">
+  <ChannelCarousel heading="Previously viewed channels">
+    {#each [...Array(8)] as _}
+      <ChannelItem
+        avatar="https://yt3.googleusercontent.com/uBlk-e8e923A70Seo2HKZxhFhofETR8SMB2JZR0ZhKDXB15uDPDumGCXHnfTrXx78B6mBqUfZK8=s800-c-k-c0x00ffffff-no-rj"
+        name="Kuroji Fusky"
+        handle="kurojifusky"
+      />
+    {/each}
+  </ChannelCarousel>
+  <ChannelCarousel heading="See segments from known channels tangina mo">
+    {#each [...Array(8)] as _}
+      <ChannelItem
+        avatar="https://yt3.googleusercontent.com/uBlk-e8e923A70Seo2HKZxhFhofETR8SMB2JZR0ZhKDXB15uDPDumGCXHnfTrXx78B6mBqUfZK8=s800-c-k-c0x00ffffff-no-rj"
+        name="Kuroji Fusky"
+        handle="kurojifusky"
+      />
+    {/each}
+  </ChannelCarousel>
 </div>

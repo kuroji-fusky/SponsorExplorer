@@ -3,7 +3,9 @@ import { vitePreprocess } from "@sveltejs/vite-plugin-svelte"
 
 const trustedDomains = [
   "https://www.youtube-nocookie.com",
-  "https://sponsor.ajay.app/"
+  "https://sponsor.ajay.app/",
+  "https://va.vercel-scripts.com",
+  "https://youtube.googleapis.com"
 ]
 
 /** @type {import('@sveltejs/kit').Config} */
