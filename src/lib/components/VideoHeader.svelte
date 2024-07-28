@@ -4,6 +4,8 @@
   import ChannelIcon from "lucide-svelte/icons/square-user"
   import ExternalLinkIcon from "lucide-svelte/icons/external-link"
   import HelpIcon from "lucide-svelte/icons/circle-help"
+  import BookmarkPlus from "lucide-svelte/icons/bookmark-plus"
+  import BookmarkMinus from "lucide-svelte/icons/bookmark-minus"
 
   import Link from "./Link.svelte"
   import YouTube from "./YouTube.svelte"
@@ -64,8 +66,11 @@
           href={`https://www.youtube.com/channel/${ytData.channelId}`}
           title="Visit channel"
         >
-          <ChannelIcon size={18} />
+          <ChannelIcon size={19} />
         </Link>
+        <button class="hover:bg-green-600 rounded-md p-1">
+          <BookmarkPlus size={19} />
+        </button>
         <div aria-hidden class="h-4 border border-neutral-700" />
         <span>{ytData.videoPublishDate}</span>
       </ul>
@@ -97,10 +102,10 @@
           href={`https://sb.ltn.fi/video/${id}`}
           target="_blank"
           rel="noopenner noreferer"
-          class="inline-flex gap-x-1.5 hover:underline"
+          class="inline-flex gap-x-1.5 hover:underline items-center"
         >
           <span>View on SBbrowser</span>
-          <ExternalLinkIcon size={18} />
+          <ExternalLinkIcon size={16} />
         </a>
       </span>
     </section>

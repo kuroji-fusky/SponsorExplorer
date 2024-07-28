@@ -1,18 +1,21 @@
 <script>
-  import ChevronDownIcon from "lucide-svelte/icons/chevron-down"
   import FilterIcon from "lucide-svelte/icons/filter"
   import HelpCircleIcon from "lucide-svelte/icons/circle-help"
-  import PauseIcon from "lucide-svelte/icons/pause"
-  import PlayIcon from "lucide-svelte/icons/play"
-
-  import { isLiveFetchSegments } from "$lib/stores"
-  import { cn } from "$lib/utils"
-
   import Button from "./Button.svelte"
-  import Badge from "./Badges/Badge.svelte"
 </script>
 
 <div class="flex gap-x-2 mb-3">
+  <div
+    class="flex flex-shrink-0 gap-x-0.5
+    [&_button]:px-2 [&_button]:border-b-2 [&_button]:border-b-neutral-300 [&_button]:text-neutral-300
+     hover:[&_button:not([disabled])]:text-white
+    [&_button[disabled]]:opacity-50 [&_button[disabled]]:cursor-not-allowed [&_button[disabled]]:border-b-transparent
+     [&_button.active]:border-b-red-600 [&_button.active]:text-white [&_button.active]:font-semibold"
+  >
+    <!-- TODO convert this into a combobox on mobile viewport -->
+    <button class="active">Segments</button>
+    <button disabled>Chapters</button>
+  </div>
   <div class="relative flex-1">
     <span class="absolute z-[3] left-0 inset-y-0 py-2 pl-3 pointer-events-none">
       <FilterIcon size={18} />
@@ -28,31 +31,4 @@
   <Button iconOnly>
     <HelpCircleIcon size={18} />
   </Button>
-  <div
-    class={cn(
-      "flex",
-      $isLiveFetchSegments
-        ? "[&_button]:bg-red-600 hover:[&_button]:bg-red-700"
-        : ""
-    )}
-  >
-    <Button
-      title="Periodically fetch for new and updated segments in realtime; only applicable if server is set to https://sponsor.ajay.app/."
-      clickEvent={isLiveFetchSegments.toggleState}
-      class={cn(
-        "flex gap-x-1.5 items-center rounded-tr-none rounded-br-none border-r border-r-neutral-300"
-      )}
-    >
-      {#if !$isLiveFetchSegments}
-        <PlayIcon size={18} />
-      {:else}
-        <PauseIcon size={18} />
-      {/if}
-      <span>Live changes</span>
-      <Badge class="bg-red-800 text-xs px-1.5">10s</Badge>
-    </Button>
-    <Button class="rounded-tl-none rounded-bl-none" iconOnly>
-      <ChevronDownIcon size={18} />
-    </Button>
-  </div>
 </div>

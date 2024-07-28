@@ -5,7 +5,7 @@
   import XCircleIcon from "lucide-svelte/icons/circle-x"
 
   import type { SBSegmentData } from "$lib/types"
-  import { cn } from "$lib/utils"
+  import { cn, formatNumber } from "$lib/utils"
 
   import { LengthBadge, SegmentBadge } from "../Badges"
 
@@ -31,7 +31,7 @@
 
   <td id="votes">
     <div class="flex items-center gap-x-1.5">
-      <span>{item.votes}</span>
+      <span>{formatNumber(item.votes)}</span>
       {#if item.isLocked}
         <div class="cursor-help" title="Segment has been locked by a VIP">
           <LockIcon class="text-yellow-500" size={18} />
@@ -43,7 +43,7 @@
   <td id="views">
     <div class="flex items-center gap-x-1.5">
       <span>
-        {item.segmentAction !== "full" ? item.views : "—"}
+        {item.segmentAction !== "full" ? formatNumber(item.views) : "—"}
       </span>
       {#if isDownvoted}
         <div
@@ -63,7 +63,7 @@
       {/if}
       {#if item.isHidden}
         <div
-          class="text-red-500 cursor-help"
+          class="text-orange-500 cursor-help"
           title="Segment is hidden from video duration change"
         >
           <TimerOffIcon size={18} />

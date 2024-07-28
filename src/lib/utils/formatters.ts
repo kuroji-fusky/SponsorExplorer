@@ -7,3 +7,7 @@ export const pluralFormatter = (
 
   return `${value} ${pluralStr}`
 }
+
+export const formatNumber = (num: number) => num.toLocaleString("en-US")
+
+export const formatTimecode = (num: number) => {}

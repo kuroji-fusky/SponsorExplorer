@@ -17,7 +17,7 @@
       class="pt-3 border-t border-neutral-400 mt-4 flex items-center gap-x-2"
     >
       <span>{`© ${currentYear} Kerby Keith Aquino; licensed under MIT`}</span>
-      <Link href="https://github.com/kuroji-fusky/SponsorExplorer" external
+      <Link href="https://github.com/kurojifusky/SponsorExplorer" external
         >Source code</Link
       >
       <span>COMMIT_HASH</span>

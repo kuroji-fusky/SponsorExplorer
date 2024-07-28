@@ -1,10 +1,52 @@
-<script>
+<script lang="ts">
   import "../app.css"
   import "@fontsource/inter"
   import "@fontsource/inter/600.css"
   import "@fontsource/inter/700.css"
+
   import { Navbar, Footer } from "$lib/components/Base"
   import { Notice } from "$lib/components"
+  import { onMount } from "svelte"
+  import { dev } from "$app/environment"
+  import { inject } from "@vercel/analytics"
+
+  const INITIAL_SETTINGS = {
+    segmentServer: "sponsorblock",
+    customSegmentServers: [],
+    liveChangesEnabled: false,
+    liveChangesDuration: 10,
+    playIndicator: false,
+    lengthFormat: "numeric", // "numeric" | "timecode"
+    stickyPlayer: false,
+    showHiddenSegments: ["downvotes", "shadowhidden", "ignored"],
+    groupActionTypes: false
+  }
+
+  const lsSettingsKey = "app-settings" as const
+  const lsWatchlistKey = "watchlist" as const
+  const lsCacheKey = "cache-collection" as const
+
+  inject({ mode: dev ? "development" : "production" })
+
+  onMount(() => {
+    // App settings
+    const appSettingsFromLS = localStorage.getItem(lsSettingsKey)
+    if (!appSettingsFromLS) {
+      console.debug("App settings not found, appending initials localStorage")
+
+      localStorage.setItem(lsSettingsKey, JSON.stringify(INITIAL_SETTINGS))
+      return
+    }
+
+    console.debug("App settings found")
+
+    // Watchlist
+    const watchListFromLS = localStorage.getItem(lsWatchlistKey)
+    if (!watchListFromLS) {
+      localStorage.setItem(lsWatchlistKey, JSON.stringify([]))
+      return
+    }
+  })
 </script>
 
 <Navbar />

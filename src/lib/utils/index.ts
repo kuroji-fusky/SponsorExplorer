@@ -5,4 +5,4 @@ export const ytApiKey = PUBLIC_YT_DATA_API_KEY
 export * from "./cn"
 export * from "./SponsorBlock"
 export * from "./parseDateStr"
-export * from "./pluralFormatter"
+export * from "./formatters"
