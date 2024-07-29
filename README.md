@@ -34,10 +34,23 @@ yarn dev
 1. Create a project on <https://console.cloud.google.com>, skip this step if you already have a project on the Google Cloud Platform
 1. Look for "APIs & Services" or type "api and services" in the search bar
 1. Click on "Enable APIs and Services", just below the search bar; that will take you to the API Library page
-1. Search for "youtube data api", and you'll see a result for "YouTube Data API v3" and enable it
+1. Search for "youtube data api", and you'll see a result for "YouTube Data API v3", then enable it
    - If you're lazy or you're in a pinch, [click on this link](https://console.cloud.google.com/apis/library/youtube.googleapis.com)
 1. Once enabled, click on Manage; on the left side, go to Credentials, click "Create Credientals" and choose "API key"
-1. Copy the API key provided and add it as an environment variable as `SECRET_YT_DATA_API_KEY`
+1. Copy the API key provided and add it as an environment variable as `PUBLIC_YT_DATA_API_KEY`
+
+> [!WARNING]
+>
+> The YouTube Data API has a default quota limit of 10,000 cost per day and it can impact the core functionality of SponsorExplorer, so its search function has a limit of 20 search queries to mitigate the quota limit. You can increase the 10,000 cap within GCP, but it's a tedious process.
+>
+> **Breakdown of costs used for SponsorExplorer**[^1]
+>
+> | Method               | Cost |
+> | :------------------- | ---- |
+> | `videos.list`        | 1    |
+> | `playlistItems.list` | 1    |
+> | `channels.list`      | 1    |
+> | `search.list`        | 100  |
 
 ### (Optional) Securing your API key
 
@@ -51,6 +64,8 @@ Optionally, as an added security layer, you can restrict the API key you've crea
 ## License
 
 [MIT](/LICENSE)
+
+[^1]: https://developers.google.com/youtube/v3/determine_quota_cost
 
 [sbb]: https://github.com/Lartza/SBbrowser
 [tm-script]: https://gist.github.com/kurojifusky/fa875e94799a6d9f1d40c76c1f6c20ec
