@@ -3,6 +3,8 @@
   import SegmentProgress from "./SegmentProgress.svelte"
   import { pluralFormatter } from "$lib/utils"
 
+  import LockIcon from "lucide-svelte/icons/lock"
+
   export let id: string = ""
   export let title: string = ""
   export let thumbnail: string = ""
@@ -28,7 +30,9 @@
     label: string
   }
 
-  onMount(() => {
+  let isCategoryLocked = false
+
+  onMount(async () => {
     const segmentCountFetch = async () => {
       try {
         const res = await fetch(
@@ -48,6 +52,7 @@
             return
           }
         }
+
         const skipSegments = await res.json()
         const skipSegLen = skipSegments.length
 
@@ -110,8 +115,21 @@
       } catch {}
     }
 
-    segmentCountFetch()
-    fullLabelFetch()
+    const lockedSegmentFetch = async () => {
+      try {
+        const res = await fetch(
+          `https://sponsor.ajay.app/api/lockCategories?videoID=${id}`
+        )
+
+        if ((await res.text()).startsWith("{")) {
+          isCategoryLocked = true
+        }
+      } catch {}
+    }
+
+    await segmentCountFetch()
+    await lockedSegmentFetch()
+    await fullLabelFetch()
   })
 </script>
 
@@ -122,9 +140,11 @@
       <div
         class="empty:hidden group-hover:opacity-40 absolute flex top-2 left-2 overflow-hidden rounded-md *:px-2 *:py-0.5"
       >
-        <!-- <div class="bg-yellow-600 grid place-items-center">
-          <LockIcon size={14.5} strokeWidth={2.5} />
-        </div> -->
+        {#if isCategoryLocked}
+          <div class="bg-yellow-600 grid place-items-center">
+            <LockIcon size={14.5} strokeWidth={2.5} />
+          </div>
+        {/if}
         {#if fullLabelDetails}
           <div class="text-[0.865rem] font-semibold {fullLabelDetails.cls}">
             {fullLabelDetails.label}
