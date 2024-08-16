@@ -1,24 +1,18 @@
 <script lang="ts">
   import YouTube from "./YouTube.svelte"
-  import { pluralFormatter } from "$lib/utils"
-
   import VideoHeaderDetails from "./VideoHeaderDetails.svelte"
 
-  export let id: string
+  import { segmentVideoDetails } from "$lib/stores"
 
-  const submissionStr = pluralFormatter(
-    segmentCount,
-    " submission",
-    " submissions",
-    {
-      noIncludeNum: true
-    }
-  )
+  const {
+    id,
+    yt: { videoTitle, channelTitle }
+  } = $segmentVideoDetails as any
 </script>
 
 <div
   class="flex lg:flex-row flex-col gap-y-4 gap-x-6 bg-neutral-900 rounded-md overflow-hidden"
-  aria-label={`Segments for "${ytData.videoTitle}" by ${ytData.channelTitle}`}
+  aria-label={`Segments for "${videoTitle}" by ${channelTitle}`}
 >
   <div class="flex-shrink-0">
     <YouTube {id} />

@@ -17,3 +17,5 @@ export const ytCurrentTime = writable("0")
 export const segmentCollection = writable<unknown[]>([])
 
 export const isLiveFetchSegments = togglerStore(false)
+
+export const segmentVideoDetails = writable()

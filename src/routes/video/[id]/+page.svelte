@@ -1,18 +1,13 @@
 <script lang="ts">
-  import { writable } from "svelte/store"
-  import { setContext } from "svelte"
-
   import type { PageData } from "./$types"
   import { SegmentTable, SegmentTableRow } from "$lib/components/Table"
-  import { Notice, SEO, FilterSegments } from "$lib/components"
+  import { Notice, SEO, FilterSegments, VideoHeader } from "$lib/components"
+  import { segmentVideoDetails } from "$lib/stores"
 
   export let data: PageData
   const { id, sponsorblock, yt } = data
 
-  const segmentDetails = writable()
-  $: segmentDetails.set({ id, ...yt, ...sponsorblock })
-
-  setContext("segment-details", segmentDetails)
+  segmentVideoDetails.set({ id, yt, sponsorblock })
 </script>
 
 <SEO title={`Segments for "${yt.videoTitle}" by ${yt.channelTitle}`} />
@@ -25,7 +20,7 @@
       <button></button>
     </section>
     <section>
-      <!-- <VideoHeader {id} /> -->
+      <VideoHeader />
     </section>
   </div>
   <section>

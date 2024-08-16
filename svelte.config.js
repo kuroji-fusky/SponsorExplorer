@@ -11,7 +11,6 @@ const trustedDomains = [
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   preprocess: vitePreprocess(),
-
   kit: {
     adapter: adapter({
       isr: {
@@ -19,6 +18,7 @@ const config = {
         allowQuery: ["search", "handle", "id"]
       }
     }),
+
     csp: {
       directives: {
         "script-src": ["self", "unsafe-eval", ...trustedDomains],

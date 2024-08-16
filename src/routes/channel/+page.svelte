@@ -1,22 +1,26 @@
 <script lang="ts">
   import { ChannelHeader, SEO, VideoCollection } from "$lib/components"
   import { page } from "$app/stores"
-  import { onMount } from "svelte"
 
-  const { channelIdQuery, channelHandleQuery, details, videos, errors } =
-    $page.data
+  const {
+    channelIdQuery,
+    channelHandleQuery,
+    details,
+    videos: videoData,
+    errors
+  } = $page.data
 
-  onMount(() => {})
+  const { title, avatar } = details
 </script>
 
-<SEO title={`Channel segments for "${details?.title}"`} />
+<SEO title={`Channel segments for "${title}"`} />
 
-{#if typeof videos !== "undefined"}
+{#if typeof videoData !== "undefined"}
   <section class="mb-4">
-    <ChannelHeader avatar={details?.avatar} name={details?.title} />
+    <ChannelHeader {avatar} name={title} />
   </section>
   <section>
-    <VideoCollection videoData={videos} {channelIdQuery} {channelHandleQuery} />
+    <VideoCollection {videoData} {channelIdQuery} {channelHandleQuery} />
   </section>
 {:else}
   <div>No parsable data found for {channelHandleQuery}</div>

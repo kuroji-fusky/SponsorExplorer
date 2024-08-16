@@ -4,6 +4,7 @@
   import VolumeXIcon from "lucide-svelte/icons/volume-x"
   import SparklesIcon from "lucide-svelte/icons/sparkles"
   import Bookmark from "lucide-svelte/icons/bookmark"
+  import { formatTimecode } from "$lib/utils"
 
   export let actionType: string = "skip"
   export let startTime: number = 0
@@ -18,7 +19,7 @@
 
   const roundNum = (n: number) => n.toFixed(2)
 
-  const displayLength = `${roundNum(startTime)} – ${roundNum(endTime)}`
+  const displayLength = `${formatTimecode(startTime)} – ${formatTimecode(endTime)}`
   const displayLengthHighlight = `${roundNum(startTime)}s`
   const displayCalculatedLength = `(${roundNum(calculatedLength)}s)`
 
@@ -29,7 +30,6 @@
   class="bg-neutral-900 rounded-2xl inline-flex items-center gap-x-1.5 py-0.5 [&_span]:text-sm"
 >
   {#if actionType === "skip" || actionType === "mute"}
-    <!--  -->
     <svelte:component this={actionTypeIcons[actionType]} size={ICON_SIZE} />
     <span>{displayLength}</span>
     <span class="opacity-75">{displayCalculatedLength}</span>

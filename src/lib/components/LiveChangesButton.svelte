@@ -28,7 +28,7 @@
     {:else}
       <PauseIcon size={18} />
     {/if}
-    <span class="px-1.5">10s</span>
+    <span class="px-1.5">1m</span>
   </Button>
   <Button class="rounded-tl-none rounded-bl-none" iconOnly>
     <ChevronDownIcon size={18} />

@@ -49,7 +49,7 @@
 </script>
 
 <div
-  class="aspect-video 2xl:w-[45rem] xl:w-[38rem] lg:w-[32rem] w-full overflow-hidden relative"
+  class="aspect-video 2xl:w-[45rem] xl:w-[38rem] lg:w-[32rem] w-full h-full overflow-hidden relative"
 >
   <noscript>
     <div

@@ -4,6 +4,8 @@ import { parseDateStr, ytApiKey } from "$lib/utils"
 import { error, redirect } from "@sveltejs/kit"
 import { youtube } from "@googleapis/youtube"
 
+export const trailingSlash = "always"
+
 const SB_BASE_URL = "https://sponsor.ajay.app/api"
 
 const endpoints = {

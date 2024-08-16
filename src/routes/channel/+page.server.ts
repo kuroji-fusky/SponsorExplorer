@@ -1,6 +1,10 @@
 import type { PageServerLoad } from "./$types"
 import { youtube, type youtube_v3 } from "@googleapis/youtube"
-import type { GaxiosResponse } from "../../../node_modules/gaxios/build/src"
+import type {
+  GaxiosResponse,
+  GaxiosPromise
+} from "../../../node_modules/gaxios/build/src"
+
 import { ytApiKey } from "$lib/utils"
 import { error } from "@sveltejs/kit"
 
@@ -17,7 +21,9 @@ export const load = (async ({ url }) => {
   // YouTube Data API
   const yt = youtube("v3")
 
-  let fetchContents: GaxiosResponse<youtube_v3.Schema$ChannelListResponse>
+  let fetchContents:
+    | GaxiosResponse<youtube_v3.Schema$ChannelListResponse>
+    | GaxiosPromise<PageServerLoad>
 
   const COMMON_PARAMS = {
     part: ["snippet", "contentDetails"],
@@ -25,18 +31,30 @@ export const load = (async ({ url }) => {
     key: ytApiKey
   }
 
+  const HEADERS = {
+    headers: {
+      "Cache-Control": "public, max-age=1200" // cache results for 20 mins
+    }
+  }
+
   if (channelIdQuery) {
-    fetchContents = await yt.channels.list({
-      id: channelIdQuery,
-      ...COMMON_PARAMS
-    })
+    fetchContents = await yt.channels.list(
+      {
+        id: channelIdQuery,
+        ...COMMON_PARAMS
+      },
+      HEADERS
+    )
   }
 
   if (channelHandleQuery) {
-    fetchContents = await yt.channels.list({
-      forHandle: channelHandleQuery,
-      ...COMMON_PARAMS
-    })
+    fetchContents = await yt.channels.list(
+      {
+        forHandle: channelHandleQuery,
+        ...COMMON_PARAMS
+      },
+      HEADERS
+    )
   }
 
   try {
@@ -54,10 +72,13 @@ export const load = (async ({ url }) => {
     const videoIterable = channelUploadResponse.data.items?.map(
       (i) => i.contentDetails!.videoId!
     )
-    const videoContents = await yt.videos.list({
-      id: videoIterable,
-      ...COMMON_PARAMS
-    })
+    const videoContents = await yt.videos.list(
+      {
+        id: videoIterable,
+        ...COMMON_PARAMS
+      },
+      HEADERS
+    )
 
     const queryData = {
       channelHandleQuery,

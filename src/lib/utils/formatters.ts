@@ -38,4 +38,70 @@ export const pluralFormatter = (
 
 export const formatNumber = (num: number) => num.toLocaleString("en-US")
 
-export const formatTimecode = (num: number) => {}
+interface TimecodeOptions {
+  separator: "colon" | "letters" | "sentence" // default: "colon"
+  includeMilliseconds: boolean // default: false
+  msRoundFactor: 1 | 2 | 3 | 4 | 5 // default: 2
+  prefix: string
+  suffix: string
+}
+
+export const formatTimecode = (
+  time: number,
+  options?: Partial<TimecodeOptions>
+) => {
+  const {
+    separator = "colon",
+    includeMilliseconds = false,
+    msRoundFactor = 2,
+    prefix = "",
+    suffix = ""
+  } = options || {}
+
+  const hours = Math.floor(time / 3600)
+  const minutes = Math.floor((time % 3600) / 60)
+  const seconds = Math.floor(time % 60)
+  let milliseconds = (time % 1).toFixed(msRoundFactor).substring(2)
+
+  let timeString: string
+
+  const minStr = minutes.toString().padStart(2, "0")
+  const secStr = seconds.toString().padStart(2, "0")
+
+  if (separator === "colon") {
+    timeString =
+      hours > 0 ? `${hours}:${minStr}:${secStr}` : `${minutes}:${secStr}`
+    if (includeMilliseconds) {
+      timeString += `.${milliseconds}`
+    }
+  } else if (separator === "letters") {
+    timeString =
+      hours > 0
+        ? `${hours}h ${minutes}m ${seconds}s`
+        : `${minutes}m ${seconds}s`
+  } else {
+    timeString =
+      hours > 0
+        ? `${hours} hour${hours !== 1 ? "s" : ""}, ${minutes} minute${minutes !== 1 ? "s" : ""}, ${seconds} second${seconds !== 1 ? "s" : ""}`
+        : `${minutes} minute${minutes !== 1 ? "s" : ""}, ${seconds} second${seconds !== 1 ? "s" : ""}`
+  }
+
+  if (includeMilliseconds && separator !== "colon") {
+    // milliseconds are ignored for non-colon separators
+    timeString = timeString.replace(/m [0-5][0-9]s$/, `${minutes}m`)
+    timeString = timeString.replace(
+      /minutes, [0-5][0-9] seconds$/,
+      `${minutes} minutes`
+    )
+  }
+
+  if (prefix) {
+    timeString = `${prefix.trim()} ${timeString}`
+  }
+
+  if (suffix) {
+    timeString = `${timeString} ${suffix.trim()}`
+  }
+
+  return timeString.trim()
+}

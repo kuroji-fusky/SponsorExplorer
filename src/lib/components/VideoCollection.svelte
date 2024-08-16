@@ -25,7 +25,9 @@
       <!-- Video stuff -->
       <div>
         {#if typeof videoData !== "undefined"}
-          <div class="grid grid-cols-4 gap-3">
+          <div
+            class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3"
+          >
             {#each videoData as video}
               <VideoItem
                 id={video.id}

@@ -42,7 +42,7 @@
 
   <td id="views">
     <div class="flex items-center gap-x-1.5">
-      <span>
+      <span class={item.segmentAction !== "full" ? null : "opacity-50"}>
         {item.segmentAction !== "full" ? formatNumber(item.views) : "—"}
       </span>
       {#if isDownvoted}
@@ -71,12 +71,30 @@
       {/if}
     </div>
   </td>
+
   <td id="segment">
-    <SegmentBadge
-      segment={item.segmentLabel}
-      chapterLabel={item.chapterLabel}
-    />
+    <div class="group relative w-fit">
+      <SegmentBadge
+        segment={item.segmentLabel}
+        chapterLabel={item.chapterLabel}
+      />
+      <div
+        class="absolute w-max z-20 top-9 left-0 group-hover:opacity-100 opacity-0 bg-neutral-950 py-2 px-3 border border-neutral-600 rounded-md pointer-events-none transition-opacity flex flex-col"
+      >
+        <div>
+          UUID: {item.uuid}
+        </div>
+        <div class="border border-neutral-600 my-1.5 w-full" aria-hidden />
+        <div class="text-sm opacity-75">
+          <kbd>Shift</kbd> + Click to copy UUID
+        </div>
+        <div class="text-sm opacity-75">
+          <kbd>Alt</kbd> + <kbd>Shift</kbd> + Click to copy segment info
+        </div>
+      </div>
+    </div>
   </td>
+
   <td id="length">
     <LengthBadge
       actionType={item.segmentAction}
@@ -84,6 +102,7 @@
       endTime={item.endTime}
     />
   </td>
+
   <td id="username-userid">
     <div class="overflow-ellipsis overflow-hidden w-48">
       {item.userid}

@@ -45,16 +45,6 @@
     </Button>
     <!-- Desktop -->
     <LiveChangesButton />
-    <!-- <Button
-      iconOnly
-      title="Server"
-      class="md:flex hidden items-center gap-x-1 px-3 bg-neutral-800 hover:bg-neutral-900"
-    >
-      <ServerIcon size={20} />
-      <span class="bg-green-500 size-2.5 rounded-md mx-0.5" />
-      <strong>SponsorBlock</strong>
-      <ChevronDownIcon size={18} />
-    </Button> -->
     <Button
       iconOnly
       title="Watchlist"
@@ -62,7 +52,7 @@
       class="hidden md:flex md:items-center"
     >
       <BookmarkIcon size={20} />
-      <!-- <span class="px-1.5">0</span> -->
+      <span class="px-1.5">0</span>
     </Button>
     <Button
       iconOnly
