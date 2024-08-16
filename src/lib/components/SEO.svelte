@@ -15,4 +15,6 @@
   <meta property="og:description" content={description} />
   <meta property="og:site_name" content={SITE_TITLE} />
   <meta name="twitter:author" content={SITE_AUTHOR} />
+
+  <link rel="manifest" href="manifest.json" />
 </svelte:head>

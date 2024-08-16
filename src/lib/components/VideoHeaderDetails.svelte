@@ -85,7 +85,7 @@
   </section>
   <!-- Stats -->
   <section class="pt-2.5 grid gap-y-2">
-    <LockedIndicator />
+    <!-- <LockedIndicator /> -->
     <span
       class="inline-flex flex-wrap gap-x-2 gap-y-1 items-center px-3 py-2 rounded-md border border-neutral-600 [&_span]:opacity-75"
     >
