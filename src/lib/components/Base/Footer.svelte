@@ -1,7 +1,10 @@
 <script>
   import Link from "../Link.svelte"
+  import { env } from "$env/dynamic/public"
 
   const currentYear = new Date().getFullYear()
+
+  const commitSha = env.VITE_VERCEL_GIT_COMMIT_SHA
 </script>
 
 <footer class="mt-4 bg-neutral-900 border-t border-neutral-600">
@@ -22,7 +25,9 @@
       <Link href="https://github.com/kurojifusky/SponsorExplorer" external
         >Source code</Link
       >
-      <span>COMMIT_HASH</span>
+      {#if commitSha}
+        <a href={commitSha} target="_blank">{commitSha.substring(0, 8)}</a>
+      {/if}
     </div>
   </div>
 </footer>

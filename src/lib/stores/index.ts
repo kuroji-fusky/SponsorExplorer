@@ -1,4 +1,5 @@
 import { writable } from "svelte/store"
+import type { SBSegmentData } from "../types"
 
 const togglerStore = (state: boolean) => {
   const { subscribe, update } = writable(state)
@@ -18,4 +19,6 @@ export const segmentCollection = writable<unknown[]>([])
 
 export const isLiveFetchSegments = togglerStore(false)
 
-export const segmentVideoDetails = writable()
+export const segmentVideoDetails = writable<{
+  sponsorblock: { items: SBSegmentData }
+}>()
