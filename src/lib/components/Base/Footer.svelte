@@ -1,10 +1,8 @@
 <script>
   import Link from "../Link.svelte"
-  import { env } from "$env/dynamic/public"
+  import ExternalLink from "lucide-svelte/icons/external-link"
 
   const currentYear = new Date().getFullYear()
-
-  const commitSha = env.VITE_VERCEL_GIT_COMMIT_SHA
 </script>
 
 <footer class="mt-4 bg-neutral-900 border-t border-neutral-600">
@@ -22,12 +20,14 @@
       <span class="flex-1"
         >{`© ${currentYear} Kerby Keith Aquino; licensed under MIT`}</span
       >
-      <Link href="https://github.com/kurojifusky/SponsorExplorer" external
-        >Source code</Link
+      <Link
+        class="inline-flex items-center"
+        href="https://github.com/kurojifusky/SponsorExplorer"
+        external
       >
-      {#if commitSha}
-        <a href={commitSha} target="_blank">{commitSha.substring(0, 8)}</a>
-      {/if}
+        <span>Source code</span>
+        <ExternalLink size={17} class="ml-1" />
+      </Link>
     </div>
   </div>
 </footer>

@@ -6,12 +6,13 @@
   export let fetchData: boolean = false
 </script>
 
-<div
+<a
+  href="/#"
   class="flex-shrink-0 flex flex-col items-center bg-neutral-900 rounded-md px-3.5 py-4 w-52"
 >
   <img
     src={avatar}
-    class="aspect-square size-36 rounded-full"
+    class="aspect-square size-32 rounded-full"
     alt="Avatar for the YouTube channel, {name}"
     draggable="false"
   />
@@ -21,4 +22,4 @@
     <span data-testid="num-segments">0</span>
     <span>{" segments"}</span>
   </div>
-</div>
+</a>
