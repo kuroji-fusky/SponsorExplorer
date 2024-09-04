@@ -1,5 +1,7 @@
 import type { RequestHandler } from "@sveltejs/kit"
 
-export const GET: RequestHandler = ({ params }) => {
-  return new Response(JSON.stringify({ userid: params.id }))
+export const GET: RequestHandler = async ({ params }) => {
+  const userid = params.id as string
+
+  return new Response(JSON.stringify({ userid }))
 }

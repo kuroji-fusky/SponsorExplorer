@@ -50,7 +50,9 @@
 </script>
 
 <Navbar />
-<main class="min-h-[calc(100dvh-4.75rem)] px-6 mx-auto max-w-screen-2xl">
+<main
+  class="min-h-[calc(100dvh-4.75rem)] px-3.5 lg:px-6 mx-auto max-w-screen-2xl"
+>
   <noscript>
     <Notice intent="alert" heading="JavaScript disabled">
       Please re-enable JavaScript to fetch updated SponsorBlock segments and

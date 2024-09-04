@@ -8,7 +8,7 @@
   export let placeholder: string = "Filter segments"
 </script>
 
-<div class="relative flex-shrink-0 w-[32rem]">
+<div class="relative flex-shrink-0 max-w-[32rem] w-full">
   <span
     class="absolute z-[3] left-0 inset-y-0 py-2 pl-3 grid place-items-center pointer-events-none"
   >

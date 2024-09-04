@@ -44,7 +44,9 @@
       <MenuIcon size={21} />
     </Button>
     <!-- Desktop -->
-    <LiveChangesButton />
+    <div class="hidden md:block">
+      <LiveChangesButton />
+    </div>
     <Button
       iconOnly
       title="Watchlist"

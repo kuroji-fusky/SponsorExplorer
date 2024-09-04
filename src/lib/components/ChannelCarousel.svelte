@@ -14,7 +14,7 @@
     right: false
   }
 
-  const scrollIncrement = 110
+  const scrollIncrement = 140
 
   const scrollLeft = () => {
     scrollerRef.scrollTo({
