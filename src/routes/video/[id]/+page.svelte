@@ -24,7 +24,7 @@
     </section>
   </div>
   <section>
-    <FilterSegments />
+    <FilterSegments isDisabled={sponsorblock.statusCode !== 200} />
     {#if sponsorblock.statusCode === 200}
       <SegmentTable>
         {#each sponsorblock.items as item}

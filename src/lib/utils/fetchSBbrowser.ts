@@ -1,13 +1,12 @@
 import * as cheerio from "cheerio"
-
-const BASE_SB_URL = "https://sb.ltn.fi"
+import { SB_LTN_BASE_URL } from "$lib/constants"
 
 const fetchSBbrowser = async (
   endpoint: "userid" | "username" | "video",
   query: string,
   params?: object
 ) => {
-  const reqUrl = `${BASE_SB_URL}/${endpoint}/${query}`
+  const reqUrl = `${SB_LTN_BASE_URL}/${endpoint}/${query}`
 
   const $ = await cheerio.fromURL(reqUrl)
 
@@ -38,8 +37,8 @@ const fetchSBbrowser = async (
   const [utcTime, relative] = updatedSBTime.text().split("(")
 
   const updateTime = {
-    utcTime,
-    relative
+    utc: utcTime.replace("Last update:", "").trim(),
+    relative: relative.split(")")[0]
   }
 
   return { reqUrl, segments, isDataEmpty, updateTime }

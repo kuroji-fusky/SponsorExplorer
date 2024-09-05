@@ -5,4 +5,5 @@
   export let data: PageData
 </script>
 
-<SEO title={`Submissions from ${data.userid}`} />
+<SEO title={`Submissions from User ID: ${data.userid}`} />
+<div>{JSON.stringify(data)}</div>

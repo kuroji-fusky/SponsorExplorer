@@ -1,5 +1,4 @@
 import Button from "./Button.svelte"
-import CopyTextField from "./CopyTextField.svelte"
 import ChannelItem from "./ChannelItem.svelte"
 import ChannelCarousel from "./ChannelCarousel.svelte"
 import Link from "./Link.svelte"
@@ -16,7 +15,6 @@ import VideoCollection from "./VideoCollection.svelte"
 
 export {
   Button,
-  CopyTextField,
   ChannelItem,
   ChannelCarousel,
   FilterSegments,

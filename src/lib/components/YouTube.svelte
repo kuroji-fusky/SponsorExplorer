@@ -43,7 +43,7 @@
       }
 
       // This is a hacky way to get the player to mount client-side
-      setTimeout(loadPlayer, 10)
+      setTimeout(loadPlayer, 100)
     }
   })
 </script>

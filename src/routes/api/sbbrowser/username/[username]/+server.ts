@@ -13,22 +13,8 @@ export const GET: RequestHandler = async ({ params }) => {
     const finalData = segments.map((row) => {
       // prettier-ignore
       const [date, id, start, end, length, votes, views, category, shadowhidden, uuid, action, hidden, userid] = row
-
-      return {
-        date,
-        id,
-        start,
-        end,
-        length,
-        votes,
-        views,
-        category,
-        shadowhidden,
-        uuid,
-        action,
-        hidden,
-        userid
-      }
+      // prettier-ignore
+      return { date, id, start, end, length, votes, views, category, shadowhidden, uuid, action, hidden, userid }
     })
 
     return new Response(

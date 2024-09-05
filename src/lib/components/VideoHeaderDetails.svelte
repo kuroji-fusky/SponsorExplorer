@@ -38,13 +38,13 @@
 </script>
 
 <div
-  class="flex flex-col gap-y-3 lg:py-5 pb-5 px-3 lg:pr-6 lg:pl-0 pl-6 w-full relative"
+  class="flex flex-col gap-y-3 lg:py-5 pb-5 lg:pr-6 lg:pl-0 px-4 w-full relative"
 >
   <!-- Title -->
   <section>
     <div class="flex justify-between mb-1">
       <span class="text-sm opacity-75 uppercase">Segments for</span>
-      <button class="hover:text-green-600">
+      <button class="hover:bg-green-600 p-0.5 rounded-md">
         <BookmarkPlus size={19} />
       </button>
     </div>

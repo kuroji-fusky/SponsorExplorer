@@ -2,6 +2,9 @@
   import FilterIcon from "lucide-svelte/icons/filter"
   import HelpCircleIcon from "lucide-svelte/icons/circle-help"
   import Button from "./Button.svelte"
+  import { cn } from "$lib/utils"
+
+  export let isDisabled = false
 </script>
 
 <div class="flex gap-x-2 mb-3">
@@ -17,7 +20,12 @@
     <button disabled>Chapters</button>
   </div>
   <div class="relative flex-1">
-    <span class="absolute z-[3] left-0 inset-y-0 py-2 pl-3 pointer-events-none">
+    <span
+      class={cn(
+        "absolute z-[3] left-0 inset-y-0 py-2 pl-3 pointer-events-none",
+        isDisabled ? "opacity-30" : ""
+      )}
+    >
       <FilterIcon size={18} />
     </span>
     <input
@@ -25,10 +33,11 @@
       name="Filter segments"
       placeholder="Filter segments"
       id="filter-segments"
-      class="py-1 pl-9 pr-3 rounded-md bg-neutral-900 border border-neutral-500 w-full h-full"
+      class="py-1 pl-9 pr-3 rounded-md bg-neutral-900 border border-neutral-500 w-full h-full disabled:opacity-50 disabled:cursor-not-allowed"
+      disabled={isDisabled}
     />
   </div>
-  <Button iconOnly>
+  <Button iconOnly disabled={isDisabled}>
     <HelpCircleIcon size={18} />
   </Button>
 </div>
