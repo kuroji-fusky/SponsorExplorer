@@ -7,9 +7,9 @@ export const GET: RequestHandler = async ({ params }) => {
   try {
     const { reqUrl, data } = await fetchSBbrowser("username", decodeUsername)
 
-    const finalData = data.map((x) => {
+    const finalData = data.map((row) => {
       // prettier-ignore
-      const [date, id, start, end, length, votes, views, category, shadowhidden, uuid, action, hidden, userid] = x
+      const [date, id, start, end, length, votes, views, category, shadowhidden, uuid, action, hidden, userid] = row
 
       return {
         date,

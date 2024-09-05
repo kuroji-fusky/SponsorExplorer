@@ -15,7 +15,6 @@
       <h1 class="text-2xl mb-1">{name}</h1>
       <div class="flex gap-x-2 items-center mt-2"></div>
     </div>
-    <div>stats</div>
     <div>actions</div>
   </div>
 </div>

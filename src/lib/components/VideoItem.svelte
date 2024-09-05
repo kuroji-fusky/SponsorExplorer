@@ -2,6 +2,7 @@
   import { onMount } from "svelte"
   import SegmentProgress from "./SegmentProgress.svelte"
   import { pluralFormatter } from "$lib/utils"
+  import { segmentCollection } from "$lib/stores"
 
   import LockIcon from "lucide-svelte/icons/lock"
 
@@ -10,17 +11,9 @@
   export let thumbnail: string = ""
   export let publishDate: string = ""
 
-  export let fromChannelId: string | null = null
-  export let fromChannelHandle: string | null = null
-
   export let autoFetchSegments = true
 
-  const url = [`/video/${id}`]
-
-  if (fromChannelId) url.push(`?fromChannelId=${fromChannelId}`)
-  if (fromChannelHandle) url.push(`?fromChannelHandle=${fromChannelHandle}`)
-
-  const parsedUrl = url.join("")
+  const parsedUrl = `/video/${id}`
 
   let segmentCountRef: HTMLLIElement
   let segmentData: any
@@ -33,6 +26,8 @@
   let isCategoryLocked = false
 
   onMount(async () => {
+    $segmentCollection = []
+
     const segmentCountFetch = async () => {
       try {
         const res = await fetch(
@@ -47,7 +42,7 @@
             return
           }
 
-          if (res.status === 502 || res.status === 504) {
+          if (res.status >= 500) {
             segmentCountRef.textContent = "Unable to retrieve segments"
             return
           }
@@ -68,7 +63,9 @@
           segment: item.category
         }))
 
-        // console.log(segmentData)
+        console.log("e", $segmentCollection)
+
+        $segmentCollection = [...$segmentCollection, { id, skipSegments }]
       } catch {}
     }
 
@@ -138,15 +135,17 @@
     <div class="relative aspect-video">
       <!-- Full video and lock indicators -->
       <div
-        class="empty:hidden group-hover:opacity-40 absolute flex top-2 left-2 overflow-hidden rounded-md *:px-2 *:py-0.5"
+        class="empty:hidden group-hover:opacity-40 absolute flex top-2 left-2 overflow-hidden rounded-md *:px-2 *:grid *:place-items-center"
       >
         {#if isCategoryLocked}
-          <div class="bg-yellow-600 grid place-items-center">
+          <div class="bg-yellow-600 py-1">
             <LockIcon size={14.5} strokeWidth={2.5} />
           </div>
         {/if}
         {#if fullLabelDetails}
-          <div class="text-[0.865rem] font-semibold {fullLabelDetails.cls}">
+          <div
+            class="text-[0.865rem] font-semibold py-0.5 {fullLabelDetails.cls}"
+          >
             {fullLabelDetails.label}
           </div>
         {/if}

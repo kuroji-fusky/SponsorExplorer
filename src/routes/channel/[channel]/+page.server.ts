@@ -1,18 +1,17 @@
 import type { PageServerLoad } from "./$types"
 import { youtube, type youtube_v3 } from "@googleapis/youtube"
-import type {
-  GaxiosResponse,
-  GaxiosPromise
-} from "../../../node_modules/gaxios/build/src"
+import type { GaxiosResponse, GaxiosPromise } from "gaxios"
 
 import { ytApiKey } from "$lib/utils"
 import { error } from "@sveltejs/kit"
 
 export const ssr = true
 
-export const load = (async ({ url }) => {
-  const channelIdQuery = url.searchParams.get("id") as string
-  const channelHandleQuery = url.searchParams.get("handle") as string
+export const load = (async ({ params }) => {
+  const channelParam = params.channel!
+
+  const isChannelId = channelParam.startsWith("UC")
+  const isChannelHandle = channelParam.startsWith("@")
 
   if (!ytApiKey) {
     error(500, { message: "YouTube API key missing or undefined." })
@@ -37,20 +36,20 @@ export const load = (async ({ url }) => {
     }
   }
 
-  if (channelIdQuery) {
+  if (isChannelId) {
     fetchContents = await yt.channels.list(
       {
-        id: channelIdQuery,
+        id: channelParam,
         ...COMMON_PARAMS
       },
       HEADERS
     )
   }
 
-  if (channelHandleQuery) {
+  if (isChannelHandle) {
     fetchContents = await yt.channels.list(
       {
-        forHandle: channelHandleQuery,
+        forHandle: channelParam,
         ...COMMON_PARAMS
       },
       HEADERS
@@ -81,8 +80,6 @@ export const load = (async ({ url }) => {
     )
 
     const queryData = {
-      channelHandleQuery,
-      channelIdQuery,
       details: {
         title: _items.snippet?.title!,
         avatar: _items.snippet?.thumbnails?.high?.url!
@@ -119,8 +116,7 @@ export const load = (async ({ url }) => {
     return {
       errors: {
         msg: "Returned undefined, check if the handle/id is a valid YouTube channel",
-        channelHandleQuery,
-        channelIdQuery
+        channelParam
       }
     }
   }

@@ -2,14 +2,7 @@
   import { ChannelHeader, SEO, VideoCollection } from "$lib/components"
   import { page } from "$app/stores"
 
-  const {
-    channelIdQuery,
-    channelHandleQuery,
-    details,
-    videos: videoData,
-    errors
-  } = $page.data
-
+  const { channelParam, details, videos: videoData, errors } = $page.data
   const { title, avatar } = details
 </script>
 
@@ -20,9 +13,9 @@
     <ChannelHeader {avatar} name={title} />
   </section>
   <section>
-    <VideoCollection {videoData} {channelIdQuery} {channelHandleQuery} />
+    <VideoCollection {videoData} />
   </section>
 {:else}
-  <div>No parsable data found for {channelHandleQuery}</div>
+  <div>No parsable data found for {channelParam}</div>
   <div>Errors: {JSON.stringify(errors)}</div>
 {/if}
