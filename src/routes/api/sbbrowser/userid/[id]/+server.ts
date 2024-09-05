@@ -5,9 +5,12 @@ export const GET: RequestHandler = async ({ params }) => {
   const userid = params.id as string
 
   try {
-    const { reqUrl, data } = await fetchSBbrowser("userid", userid)
+    const { reqUrl, segments, updateTime } = await fetchSBbrowser(
+      "userid",
+      userid
+    )
 
-    const finalData = data.map((row) => {
+    const finalData = segments.map((row) => {
       // prettier-ignore
       const [date, id, start, end, length, votes, views, category, shadowhidden, uuid, action, hidden] = row
 
@@ -30,7 +33,8 @@ export const GET: RequestHandler = async ({ params }) => {
     return new Response(
       JSON.stringify({
         reqUrl,
-        data: finalData
+        updateTime,
+        segments: finalData
       })
     )
   } catch (e) {

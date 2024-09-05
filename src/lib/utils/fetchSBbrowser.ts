@@ -10,7 +10,9 @@ const fetchSBbrowser = async (
   const reqUrl = `${BASE_SB_URL}/${endpoint}/${query}`
 
   const $ = await cheerio.fromURL(reqUrl)
+
   const tableData = $(".row table tbody")
+  const updatedSBTime = $(".container-fluid .row:last-child > .col")
 
   const isDataEmpty = tableData.html()!.trim() === ""
 
@@ -19,7 +21,7 @@ const fetchSBbrowser = async (
     .map((_, el) => $(el).html()!)
     .toArray()
 
-  const data = _rawTableData.map((x) => {
+  const segments = _rawTableData.map((x) => {
     const clean = x
       .split("\n")
       .map((x) => x.trim())
@@ -33,7 +35,14 @@ const fetchSBbrowser = async (
     })
   })
 
-  return { reqUrl, data, isDataEmpty }
+  const [utcTime, relative] = updatedSBTime.text().split("(")
+
+  const updateTime = {
+    utcTime,
+    relative
+  }
+
+  return { reqUrl, segments, isDataEmpty, updateTime }
 }
 
 export default fetchSBbrowser

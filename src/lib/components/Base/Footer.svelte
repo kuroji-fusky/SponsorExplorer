@@ -9,17 +9,16 @@
   <div class="px-6 py-8 mx-auto max-w-screen-2xl">
     <article class="last:prose-p:mb-0 prose-p:mb-1.5">
       <p>
-        <strong>SponsorExplorer</strong> is a modern rewrite of
-        <Link href="https://sb.ltn.fi" external>SBbrowser</Link> with additional
-        features and an intuitive UI!
+        <strong>SponsorExplorer</strong> is a rewrite of the
+        <Link href="https://sb.ltn.fi" external>SBbrowser</Link> frontend with additional
+        features and a modern and intuitive UI! Utilizing SponsorBlock and YouTube
+        Data APIs and crawls the SBbrowser database for user submitted segments.
       </p>
     </article>
     <div
       class="pt-3 border-t border-neutral-400 mt-4 flex items-center gap-x-2"
     >
-      <span class="flex-1"
-        >{`© ${currentYear} Kerby Keith Aquino; licensed under MIT`}</span
-      >
+      <span class="flex-1">{`© ${currentYear} Fusky Labs Software Ltd.`}</span>
       <Link
         class="inline-flex items-center"
         href="https://github.com/kurojifusky/SponsorExplorer"

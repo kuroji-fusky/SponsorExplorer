@@ -1,4 +1,4 @@
-import type { SBSegmentData, Segments } from "$lib/types"
+import type { SBSegmentData } from "$lib/types"
 import type { PageServerLoad } from "./$types"
 import { parseDateStr, ytApiKey } from "$lib/utils"
 import { error, redirect } from "@sveltejs/kit"
@@ -168,9 +168,6 @@ export const load = (async ({ params, url, request }) => {
   const data = {
     id,
     refererHeader,
-    fromPlaylistIdQuery,
-    fromUsernameQuery,
-    fromChannelIdQuery,
     yt: ytData,
     sponsorblock: {
       statusCode: segmentRes.status,

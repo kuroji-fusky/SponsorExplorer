@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { fade } from "svelte/transition"
+
   import EyeOffIcon from "lucide-svelte/icons/eye-off"
   import LockIcon from "lucide-svelte/icons/lock"
   import TimerOffIcon from "lucide-svelte/icons/timer-off"
@@ -6,13 +8,52 @@
 
   import type { SBSegmentData } from "$lib/types"
   import { cn, formatNumber } from "$lib/utils"
+  import moveDom from "$lib/utils/moveDom"
 
   import { LengthBadge, SegmentBadge } from "../Badges"
+  import { onDestroy, onMount } from "svelte"
 
   export let item: SBSegmentData
 
   const isDownvoted = item.votes <= -2
   const hiddenIndicator = isDownvoted || item.isHidden || item.isShadowHidden
+
+  let segmentDetailWrapper: HTMLDivElement
+  let isSegmentChipHovered = false
+
+  const segmentAria = `segment-${crypto.randomUUID()}`
+
+  let relativeDropdownCoords: Partial<Pick<DOMRect, "top" | "left">>
+
+  const handleToolbarPosition = () => {
+    const { top, left, height } = segmentDetailWrapper.getBoundingClientRect()
+    relativeDropdownCoords = { top: top + height + 15, left }
+  }
+
+  const setHoverTrue = () => (isSegmentChipHovered = true)
+  const setHoverFalse = () => (isSegmentChipHovered = false)
+
+  onMount(() => {
+    handleToolbarPosition()
+
+    window.addEventListener("resize", handleToolbarPosition)
+    window.addEventListener("scroll", handleToolbarPosition)
+
+    segmentDetailWrapper.addEventListener("mouseenter", setHoverTrue)
+
+    segmentDetailWrapper.addEventListener("mouseleave", setHoverFalse)
+    segmentDetailWrapper.addEventListener("blur", setHoverFalse)
+
+    return () => {
+      window.removeEventListener("resize", handleToolbarPosition)
+      window.removeEventListener("scroll", handleToolbarPosition)
+
+      segmentDetailWrapper.removeEventListener("mouseenter", setHoverTrue)
+
+      segmentDetailWrapper.removeEventListener("mouseleave", setHoverFalse)
+      segmentDetailWrapper.removeEventListener("blur", setHoverFalse)
+    }
+  })
 </script>
 
 <tr
@@ -73,25 +114,36 @@
   </td>
 
   <td id="segment">
-    <div class="group relative w-fit">
+    <div
+      bind:this={segmentDetailWrapper}
+      class="group w-fit"
+      aria-describedby={segmentAria}
+    >
       <SegmentBadge
         segment={item.segmentLabel}
         chapterLabel={item.chapterLabel}
       />
-      <div
-        class="absolute w-max z-20 top-9 left-0 group-hover:opacity-100 opacity-0 bg-neutral-950 py-2 px-3 border border-neutral-600 rounded-md pointer-events-none transition-opacity flex flex-col"
-      >
-        <div>
-          UUID: {item.uuid}
+      {#if isSegmentChipHovered}
+        <div
+          transition:fade={{ delay: 100, duration: 50 }}
+          id={segmentAria}
+          role="tooltip"
+          use:moveDom={"body"}
+          class="fixed z-20 w-max bg-neutral-950 py-2 px-3 border border-neutral-600 rounded-md flex flex-col"
+          style={`top: ${relativeDropdownCoords.top}px;left:${relativeDropdownCoords.left}px;`}
+        >
+          <div>
+            UUID: {item.uuid}
+          </div>
+          <div class="border border-neutral-600 my-1.5 w-full" aria-hidden />
+          <div class="text-sm opacity-75">
+            <kbd>Shift</kbd> + Click to copy UUID
+          </div>
+          <div class="text-sm opacity-75">
+            <kbd>Alt</kbd> + <kbd>Shift</kbd> + Click to copy segment info
+          </div>
         </div>
-        <div class="border border-neutral-600 my-1.5 w-full" aria-hidden />
-        <div class="text-sm opacity-75">
-          <kbd>Shift</kbd> + Click to copy UUID
-        </div>
-        <div class="text-sm opacity-75">
-          <kbd>Alt</kbd> + <kbd>Shift</kbd> + Click to copy segment info
-        </div>
-      </div>
+      {/if}
     </div>
   </td>
 
@@ -104,8 +156,11 @@
   </td>
 
   <td id="username-userid">
-    <div class="overflow-ellipsis overflow-hidden w-48">
+    <a
+      href={`/userid/${item.userid}`}
+      class="block truncate w-32 hover:text-neutral-300"
+    >
       {item.userid}
-    </div>
+    </a>
   </td>
 </tr>

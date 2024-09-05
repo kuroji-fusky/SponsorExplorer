@@ -5,9 +5,12 @@ export const GET: RequestHandler = async ({ params }) => {
   const decodeUsername = decodeURIComponent(params.username!)
 
   try {
-    const { reqUrl, data } = await fetchSBbrowser("username", decodeUsername)
+    const { reqUrl, segments, updateTime } = await fetchSBbrowser(
+      "username",
+      decodeUsername
+    )
 
-    const finalData = data.map((row) => {
+    const finalData = segments.map((row) => {
       // prettier-ignore
       const [date, id, start, end, length, votes, views, category, shadowhidden, uuid, action, hidden, userid] = row
 
@@ -31,7 +34,8 @@ export const GET: RequestHandler = async ({ params }) => {
     return new Response(
       JSON.stringify({
         reqUrl,
-        data: finalData
+        updateTime,
+        segments: finalData
       })
     )
   } catch (e) {

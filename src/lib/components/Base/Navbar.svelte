@@ -1,7 +1,4 @@
 <script lang="ts">
-  import { onMount } from "svelte"
-  import { page } from "$app/stores"
-
   import BookmarkIcon from "lucide-svelte/icons/bookmark"
   import SearchIcon from "lucide-svelte/icons/search"
   import SettingsIcon from "lucide-svelte/icons/settings"
@@ -13,8 +10,6 @@
   import LiveChangesButton from "../LiveChangesButton.svelte"
 
   import { optionToggle, watchlistToggle } from "$lib/stores"
-
-  const isPathRoot = $page.url.pathname === "/"
 </script>
 
 <nav
@@ -24,15 +19,13 @@
     <a href="/"
       ><span class="font-bold text-xl" translate="no">SponsorExplorer</span></a
     >
-    {#if !isPathRoot}
-      <Button
-        title="Search"
-        class="hidden md:flex items-center gap-x-1.5 py-1.5 px-3 !bg-transparent !border border-neutral-500 hover:border-neutral-300 w-48"
-      >
-        <SearchIcon size={18} />
-        <span class="opacity-50">Search...</span>
-      </Button>
-    {/if}
+    <Button
+      title="Search"
+      class="hidden md:flex items-center gap-x-1.5 py-1.5 px-3 !bg-transparent !border border-neutral-500 hover:border-neutral-300 w-48"
+    >
+      <SearchIcon size={18} />
+      <span class="opacity-50">Search...</span>
+    </Button>
   </div>
 
   <div class="gap-x-1">

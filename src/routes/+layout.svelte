@@ -51,7 +51,7 @@
 
 <Navbar />
 <main
-  class="min-h-[calc(100dvh-4.75rem)] px-3.5 lg:px-6 mx-auto max-w-screen-2xl"
+  class="min-h-[calc(100dvh-13.6rem)] px-3.5 lg:px-6 mx-auto max-w-screen-2xl"
 >
   <noscript>
     <Notice intent="alert" heading="JavaScript disabled">
