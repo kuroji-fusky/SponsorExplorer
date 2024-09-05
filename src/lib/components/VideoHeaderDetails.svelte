@@ -55,7 +55,7 @@
 
     <ul class="flex items-center mt-2 gap-x-2">
       <a
-        href={`/channel?id=${yt.channelId}`}
+        href={`/channel/${yt.channelId}`}
         class="inline-flex items-center gap-x-2 group"
       >
         <img
