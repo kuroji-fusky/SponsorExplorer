@@ -5,7 +5,6 @@
   import InputField from "../InputField.svelte"
   import Link from "../Link.svelte"
   import { ytApiKey } from "$lib/utils"
-  import { error } from "@sveltejs/kit"
 
   let searchInput: HTMLInputElement
 
@@ -20,7 +19,10 @@
       debounce(async (e) => {
         const inputValue = e.target.value
 
-        if (!inputValue) return
+        if (!inputValue) {
+          searchResultsFront = []
+          return
+        }
 
         const req = await fetch(`${SEARCH_BASE_URL}&q=${inputValue}`, {
           headers: {
@@ -38,7 +40,7 @@
             id: snippet.channelId
           }
         })
-      }, 500)
+      }, 300)
     )
   })
 </script>
@@ -58,29 +60,34 @@
       YouTube Data APIs
     </p>
   </div>
-  <InputField
-    bind:inputField={searchInput}
-    placeholder="Search for channels or video ID..."
-  >
-    <div
-      slot="results"
-      class="grid px-3 py-1 rounded-md bg-neutral-900 gap-y-2.5"
+  <div class="w-full relative z-20">
+    <InputField
+      bind:inputField={searchInput}
+      placeholder="Search for channels or video ID..."
     >
-      {#if searchResultsFront.length !== 0}
-        {#each searchResultsFront as item}
-          <div class="flex items-center gap-x-2">
-            <img
-              src={item.avatar.url}
-              class="size-12 rounded-full flex-shrink-0"
-              alt=""
-            />
-            <div class="flex flex-col gap-y-0.5">
-              <span class="text-lg font-bold">{item.title}</span>
-              <span>{item.id}</span>
-            </div>
-          </div>
-        {/each}
-      {/if}
-    </div>
-  </InputField>
+      <div
+        slot="results"
+        class="grid px-3 py-1 rounded-md bg-neutral-900 gap-y-2.5"
+      >
+        {#if searchResultsFront.length !== 0}
+          {#each searchResultsFront as item}
+            <a
+              href={`/channel/${item.id}`}
+              class="flex items-center gap-x-2 hover:bg-neutral-800"
+            >
+              <img
+                src={item.avatar.url}
+                class="size-12 rounded-full flex-shrink-0"
+                alt=""
+              />
+              <div class="flex flex-col gap-y-0.5">
+                <span class="text-lg font-bold">{item.title}</span>
+                <span>{item.id}</span>
+              </div>
+            </a>
+          {/each}
+        {/if}
+      </div>
+    </InputField>
+  </div>
 </div>
