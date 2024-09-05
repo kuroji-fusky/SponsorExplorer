@@ -18,7 +18,7 @@
     <div
       class="pt-3 border-t border-neutral-400 mt-4 flex items-center gap-x-2"
     >
-      <span class="flex-1">{`© ${currentYear} Fusky Labs Software Ltd.`}</span>
+      <span class="flex-1">{`© ${currentYear} Kerby Keith Aquino`}</span>
       <Link
         class="inline-flex items-center"
         href="https://github.com/kurojifusky/SponsorExplorer"
