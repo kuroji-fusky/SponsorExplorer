@@ -10,7 +10,6 @@ import SEO from "./SEO.svelte"
 import Toggle from "./Toggle.svelte"
 import FilterSegments from "./FilterSegments.svelte"
 import VideoItem from "./VideoItem.svelte"
-import VideoHeader from "./VideoHeader.svelte"
 import VideoCollection from "./VideoCollection.svelte"
 
 export {
@@ -22,7 +21,6 @@ export {
   Notice,
   SEO,
   Toggle,
-  VideoHeader,
   InputField,
   ChannelHeader,
   SegmentProgress,

@@ -2,7 +2,7 @@
   import LockIcon from "lucide-svelte/icons/lock"
   import HelpIcon from "lucide-svelte/icons/circle-help"
   import ChevronRightIcon from "lucide-svelte/icons/chevron-right"
-  import Link from "./Link.svelte"
+  import Link from "../Link.svelte"
   import { cn } from "$lib/utils"
 
   let helpInfoPanel = false

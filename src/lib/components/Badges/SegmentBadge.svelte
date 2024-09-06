@@ -45,12 +45,12 @@
   class="relative inline-flex items-center gap-x-1.5 rounded-2xl cursor-help"
 >
   <span
-    class={cn(_seg.bg, "rounded-full size-3 flex-shrink-0 z-10")}
+    class={cn(_seg.bg, "rounded-full size-3 flex-shrink-0 z-[1]")}
     aria-hidden
   />
   <span
     class={cn(
-      "text-sm font-semibold z-10",
+      "text-sm font-semibold z-[1]",
       chapterLabel ? "underline decoration-dashed" : ""
     )}>{chapterLabel ? chapterLabel : _seg.label}</span
   >

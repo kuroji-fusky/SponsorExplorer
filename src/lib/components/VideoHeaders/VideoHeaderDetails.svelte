@@ -5,7 +5,7 @@
   import BookmarkMinus from "lucide-svelte/icons/bookmark-minus"
   import HelpIcon from "lucide-svelte/icons/circle-help"
 
-  import Link from "./Link.svelte"
+  import Link from "../Link.svelte"
   import LockedIndicator from "./LockedIndicator.svelte"
   import { segmentVideoDetails } from "$lib/stores"
   import { formatTimecode, pluralFormatter } from "$lib/utils"

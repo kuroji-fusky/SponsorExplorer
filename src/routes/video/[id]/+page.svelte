@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { PageData } from "./$types"
   import { SegmentTable, SegmentTableRow } from "$lib/components/Table"
-  import { Notice, SEO, FilterSegments, VideoHeader } from "$lib/components"
+  import { Notice, SEO, FilterSegments } from "$lib/components"
+  import { VideoHeader } from "$lib/components/VideoHeaders"
   import { segmentVideoDetails } from "$lib/stores"
 
   export let data: PageData

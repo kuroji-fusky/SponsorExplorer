@@ -1,5 +1,5 @@
 <script lang="ts">
-  import YouTube from "./YouTube.svelte"
+  import YouTube from "../YouTube.svelte"
   import VideoHeaderDetails from "./VideoHeaderDetails.svelte"
 
   import { segmentVideoDetails } from "$lib/stores"
