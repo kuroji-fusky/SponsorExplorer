@@ -8,12 +8,12 @@ A modern rewrite of Lanrza's [SBBrowser][sbb] with more features and a more fanc
 ## Features
 
 - ✅ Display submitted segments
+- ✅ View submitted from username/UUID via sb.ltn.fi
 - 🚧 Play and filter segments
 - 🚧 Realtime changes for segments for one or more videos
-- 🚧 Group skip/mute segments and full video labels
 - 🚧 Watchlist for YT videos, playlist, as well as usernames/userIDs
 - 🚧 In-depth stats about submitted segments in videos, channels, and from usernames/userIDs
-- 🚧 Browse segments on YouTube channels
+- ✅ Browse segments on YouTube channels
 
 ## Inspiration
 
@@ -65,7 +65,7 @@ Optionally, as an added security layer, you can restrict the API key you've crea
 
 [MIT](/LICENSE)
 
-[^1]: https://developers.google.com/youtube/v3/determine_quota_cost
+[^1]: <https://developers.google.com/youtube/v3/determine_quota_cost>
 
 [sbb]: https://github.com/Lartza/SBbrowser
 [tm-script]: https://gist.github.com/kurojifusky/fa875e94799a6d9f1d40c76c1f6c20ec
