@@ -1,46 +1,12 @@
 /** @type { import("eslint").Linter.Config } */
 module.exports = {
   root: true,
-  extends: ["plugin:svelte/recommended", "prettier"],
-  parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint"],
-  parserOptions: {
-    sourceType: "module",
-    ecmaVersion: 2020,
-    extraFileExtensions: [".svelte"]
-  },
-  env: {
-    browser: true,
-    es2017: true,
-    node: true
-  },
-  ignorePatterns: [
-    ".DS_Store",
-    "node_modules",
-    "/build",
-    "/.svelte-kit",
-    "/package",
-    ".env",
-    ".env.*",
-    "!.env.example",
+  extends: ["next/core-web-vitals", "next/typescript"],
+  rules: {
+    "@typescript-eslint/no-unused-vars": 1,
+    "@typescript-eslint/no-explicit-any": 2,
+    "@typescript-eslint/no-namespace": 0,
 
-    // Ignore files for PNPM, NPM and YARN
-    "pnpm-lock.yaml",
-    "package-lock.json",
-    "yarn.lock",
-
-    "README.md"
-  ],
-  overrides: [
-    {
-      files: ["*.svelte"],
-      parser: "svelte-eslint-parser",
-      parserOptions: {
-        parser: "@typescript-eslint/parser"
-      },
-      rules: {
-        "svelte/valid-compile": "warn"
-      }
-    }
-  ]
+    "react/no-unescaped-entities": 0,
+  },
 }
