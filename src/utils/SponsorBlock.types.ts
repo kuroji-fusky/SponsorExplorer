@@ -5,6 +5,7 @@ export type Category =
   | "intro"
   | "outro"
   | "music_offtopic"
+  | "exclusive_access"
 
 export type ActionType = "skip" | "full" | "mute" | "chapter"
 
