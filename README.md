@@ -1,6 +1,7 @@
 # SponsorExplorer
 
-A modern rewrite of Lanrza's [SBBrowser][sbb] with more features and a more fancy and intuitive UI!
+A modern rewrite of Lanrza's [SBBrowser][sbb] with more features and a more fancy and intuitive UI for
+browsing [SponsorBlock][sb] segments and chapters!
 
 ![SponsorExplorer Segment View Example](https://github.com/kurojifusky/SponsorExplorer/assets/165645282/05b2ca27-c89a-4a00-830d-93a324882268)
 ![SponsorExplorer LTT Example](https://github.com/kurojifusky/SponsorExplorer/assets/165645282/32a03560-232a-48cd-8c47-49ceabfcbee7)
@@ -8,7 +9,7 @@ A modern rewrite of Lanrza's [SBBrowser][sbb] with more features and a more fanc
 ## Features
 
 - ✅ Display submitted segments
-- ✅ View submitted from username/UUID via sb.ltn.fi
+- ✅ View submitted from username/UUID via [sb.ltn.fi][sbb-prod]
 - 🚧 Play and filter segments
 - 🚧 Realtime changes for segments for one or more videos
 - 🚧 Watchlist for YT videos, playlist, as well as usernames/userIDs
@@ -17,7 +18,7 @@ A modern rewrite of Lanrza's [SBBrowser][sbb] with more features and a more fanc
 
 ## Inspiration
 
-While I was in the middle of writing a [Tampermonkey script for sb.ltn.fi][tm-script] to append titles and thumbnails using the YouTube API, along with other enhancements, I had this idea to remake SBbrowser but with an approach to a modern redesign and all the different features such as segment playback, a watchlist, etc.
+While I was in the middle of writing a userscript for [sb.ltn.fi][sbb-prod] to append titles and thumbnails using the YouTube API, along with other enhancements, I had this idea to remake SBbrowser but with an approach to a modern redesign and all the different features such as segment playback, a watchlist, etc.
 
 ## Installation and Setup
 
@@ -68,4 +69,6 @@ Optionally, as an added security layer, you can restrict the API key you've crea
 [^1]: <https://developers.google.com/youtube/v3/determine_quota_cost>
 
 [sbb]: https://github.com/Lartza/SBbrowser
-[tm-script]: https://gist.github.com/kurojifusky/fa875e94799a6d9f1d40c76c1f6c20ec
+[sbb-prod]: https://sb.ltn.fi
+
+[sb]: https://github.com/ajayyy/SponsorBlock
