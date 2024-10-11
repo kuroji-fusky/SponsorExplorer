@@ -70,5 +70,4 @@ Optionally, as an added security layer, you can restrict the API key you've crea
 
 [sbb]: https://github.com/Lartza/SBbrowser
 [sbb-prod]: https://sb.ltn.fi
-
 [sb]: https://github.com/ajayyy/SponsorBlock
