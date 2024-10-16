@@ -102,11 +102,12 @@ const SponsorBlock = {
   userInfo
 }
 
-const CategoryReadableLabels: Readonly<Record<Category, string>> = {
+const CategoryReadableLabels: Readonly<Record<Exclude<Category, "chapter">, string>> = {
   interaction: "Interaction Reminder",
   intro: "Intro/Intermission",
   music_offtopic: "Non-Music",
   outro: "Endcards/Credits",
+  preview: "Preview/Recap/Hook",
   sponsor: "Sponsor",
   selfpromo: "Unpaid/Self Promotion",
   exclusive_access: "Exclusive Access",
@@ -115,14 +116,17 @@ const CategoryReadableLabels: Readonly<Record<Category, string>> = {
 }
 
 const allSegments: Category[] = [
+  "chapter",
   "interaction",
   "intro",
   "outro",
   "filler",
+  "preview",
   "interaction",
   "music_offtopic",
   "selfpromo",
   "sponsor",
+  "exclusive_access",
   "poi_highlight"
 ]
 

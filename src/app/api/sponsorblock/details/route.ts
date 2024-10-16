@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { allSegments, isValidJSON, SponsorBlock } from "@/utils"
 
 export async function GET(request: NextRequest) {
-  const urlParams = new URLSearchParams(request.url)
+  const urlParams = new URL(request.url).searchParams
   const videoID = urlParams.get("id") as string
 
   const [skipSegments, skipSegmentsStatus] = await SponsorBlock.skipSegments({

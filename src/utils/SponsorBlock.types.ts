@@ -1,7 +1,9 @@
 export type Category =
+  | "chapter"
   | "poi_highlight"
   | "sponsor"
   | "selfpromo"
+  | "preview"
   | "interaction"
   | "intro"
   | "outro"

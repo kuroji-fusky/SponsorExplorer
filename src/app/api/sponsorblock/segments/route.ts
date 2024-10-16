@@ -3,12 +3,15 @@ import { allSegments, SponsorBlock } from "@/utils"
 import { Responses } from "@/utils/SponsorBlock.types"
 
 export async function GET(request: NextRequest) {
-  const urlParams = new URLSearchParams(request.url)
+  const urlParams = new URL(request.url).searchParams
 
-  const videoID = urlParams.get("id") as string
+  const videoID = urlParams.get("id")!
+
+  const pageFrom = parseInt(urlParams.get("pageFrom")!) || null
+  const pageTo = parseInt(urlParams.get("pageTo")!) || 6
 
   // Store all the accumulated segments fetched to be returned from the API
-  let _segments: Responses.SearchSegments['segments'] = []
+  let _totalSegments: Responses.SearchSegments['segments'] = []
 
   // Lets us iterate if there are more than 10 segments submitted
   let _iterateCount = 0
@@ -24,16 +27,36 @@ export async function GET(request: NextRequest) {
   if (searchSegmentsStatus === 404) _status = 404
   if (searchSegmentsStatus >= 500) _status = searchSegmentsStatus
 
+  const { segmentCount, segments } = initialSegments
+
   // Push initial segments
   if (searchSegmentsStatus !== 404) {
-    initialSegments.segments.forEach((segment) => _segments.push(segment))
+    segments.forEach((segment) => _totalSegments.push(segment))
   }
 
   // Check if the submitted segments are more than 10, then we iterate it
-  if (initialSegments.page > 10) {
+  if (segmentCount > 10) {
+    const totalIterations = Math.ceil(segmentCount / 10) - 1
+
+    // Cap page iteration until 6 by default
+    if (totalIterations > pageTo) {
+      _iterateCount = pageTo
+    } else {
+      _iterateCount = totalIterations
+    }
+
+    [...Array(_iterateCount)].forEach(async (_, i) => {
+      const index = i + 1
+      console.log(index)
+
+      const [_partialSegments] = await SponsorBlock.searchSegments({
+        videoID,
+        page: index
+      })
+
+      _partialSegments.segments.forEach((segment) => _totalSegments.push(segment))
+    })
   }
-
-
 
   // Then we get the locked segments, if there's any
   const [lockedSkipSegments] = await SponsorBlock.lockCategories({
@@ -51,12 +74,16 @@ export async function GET(request: NextRequest) {
     actionTypes: ["full"]
   })
 
+  // @ts-expect-error: Dates are too type-strict to sort UNIX dates
+  const sortedSegments = _totalSegments.sort((a, b) => (new Date(b.timeSubmitted) - new Date(a.timeSubmitted)))
+
   return NextResponse.json({
-    segments: _segments,
+    submissionCount: segmentCount,
+    segments: sortedSegments,
     lock: {
-      skip: lockedSkipSegments,
-      mute: lockedMuteSegments,
-      full: lockedFullSegments
+      skip: typeof lockedSkipSegments === "string" ? [] : lockedSkipSegments,
+      mute: typeof lockedSkipSegments === "string" ? [] : lockedMuteSegments,
+      full: typeof lockedSkipSegments === "string" ? [] : lockedFullSegments
     },
   }, {
     status: _status
