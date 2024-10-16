@@ -1,17 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
-import { allSegments, SponsorBlock } from "@/utils"
-import { Category } from "@/utils/SponsorBlock.types"
+import { allSegments, isValidJSON, SponsorBlock } from "@/utils"
 
-interface RouteParams {
-  params: {
-    id: string
-  }
-}
-
-export async function GET(request: NextRequest, { params }: RouteParams) {
-  const videoID = params.id
-  // const urlParams = new URLSearchParams(request.url)
-  // const categoryParams = urlParams.get("categories")
+export async function GET(request: NextRequest) {
+  const urlParams = new URLSearchParams(request.url)
+  const videoID = urlParams.get("id") as string
 
   const [skipSegments, skipSegmentsStatus] = await SponsorBlock.skipSegments({
     videoID,
@@ -29,21 +21,25 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     videoID,
   })
 
+  let _status = 200
+  if (skipSegmentsStatus === 404 && lockedSegmentsStatus === 404) _status = 404
+  if (skipSegmentsStatus >= 500) _status = skipSegmentsStatus
+  if (lockedSegmentsStatus >= 500) _status = lockedSegmentsStatus
+
   return NextResponse.json({
-    p: params.id,
-    skipSegments: {
+    skip: {
       statusCode: skipSegmentsStatus,
       data: skipSegments,
     },
-    fullSegments: {
+    full: {
       statusCode: fullSegmentsStatus,
       data: fullSegments,
     },
-    lockSegments: {
+    lock: {
       statusCode: lockedSegmentsStatus,
-      data: lockedSegments,
+      data: isValidJSON(JSON.stringify(lockedSegments)),
     },
   }, {
-    status: 200
+    status: _status
   })
 }

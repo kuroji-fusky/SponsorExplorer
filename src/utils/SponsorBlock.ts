@@ -71,8 +71,13 @@ const searchSegments = async (props: Props.SkipAndSearchSegments) => {
   )
 }
 
+/**
+ * Get locked categories for a video.
+ * 
+ * @link https://wiki.sponsor.ajay.app/w/API_Docs#GET_/api/lockCategories
+ */
 const lockCategories = async (props: Props.LockedSegments) => {
-  return fetchWrapper(
+  return fetchWrapper<Responses.LockCategories>(
     parseURLSearchParams<typeof props>(`${SB_API_BASE_URL}/lockCategories`, props)
   )
 }

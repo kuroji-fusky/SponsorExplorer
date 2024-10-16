@@ -3,9 +3,11 @@
   "extends": ["next/core-web-vitals", "next/typescript"],
   "ignorePatterns": ["sbbrowser-api/"],
   "rules": {
-    "@typescript-eslint/no-unused-vars": 1,
+    "@typescript-eslint/no-unused-vars": 0,
     "@typescript-eslint/no-explicit-any": 2,
     "@typescript-eslint/no-namespace": 0,
+
+    "prefer-const": 1,
 
     "react/no-unescaped-entities": 0
   }

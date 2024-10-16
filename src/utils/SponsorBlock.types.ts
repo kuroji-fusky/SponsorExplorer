@@ -29,7 +29,7 @@ export namespace Props {
 
   export interface LockedSegments {
     videoID: string
-    actionTypes?: ActionType[]
+    actionTypes?: Exclude<ActionType, "chapter">[]
   }
 
   export interface UserID {
@@ -74,5 +74,11 @@ export namespace Responses {
       userID: string,
       description: string
     }>
+  }
+
+  export interface LockCategories {
+    reason: string
+    categories: Category[]
+    actionTypes: Exclude<ActionType, "chapter">[]
   }
 }
