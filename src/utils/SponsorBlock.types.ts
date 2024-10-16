@@ -1,9 +1,11 @@
 export type Category =
+  | "poi_highlight"
   | "sponsor"
   | "selfpromo"
   | "interaction"
   | "intro"
   | "outro"
+  | "filler"
   | "music_offtopic"
   | "exclusive_access"
 
@@ -42,4 +44,35 @@ export namespace Props {
   }
 }
 
-export namespace Responses {}
+export namespace Responses {
+  export type SkipSegments = Array<{
+    segment: number[]
+    UUID: string
+    category: string,
+    videoDuration: number
+    actionType: string,
+    locked: number,
+    votes: number,
+    description: string,
+  }>
+
+  export interface SearchSegments {
+    segmentCount: number
+    page: number
+    segments: Array<{
+      UUID: string,
+      timeSubmitted: number,
+      startTime: number,
+      endTime: number,
+      category: string,
+      actionType: string,
+      votes: number,
+      views: number,
+      locked: number,
+      hidden: number,
+      shadowHidden: number,
+      userID: string,
+      description: string
+    }>
+  }
+}

@@ -1,30 +1,8 @@
 const SB_API_BASE_URL = "https://sponsor.ajay.app/api"
 
-import type { Category, Props } from "./SponsorBlock.types"
+import type { Category, Props, Responses } from "./SponsorBlock.types"
 
-const serializeAsURLParams = (
-  obj:
-    | object
-    | {
-        [x: string]: { value: string; safeEncode: boolean }
-      }
-) => {
-  const parsedParams = Object.entries(obj).map(([k, v], i) => {
-    const urlSeparator = i !== 1 ? "?" : "&"
-
-    if (typeof v !== "object") {
-      return `${urlSeparator}${k}=${encodeURIComponent(v)}`
-    }
-
-    if (v.value && !v.safeEncode) {
-      return `${urlSeparator}${k}=${v.value}`
-    }
-  })
-
-  return parsedParams.join("")
-}
-
-const isValidJSON = (str: string) => {
+export const isValidJSON = (str: string) => {
   try {
     JSON.parse(str)
     return true
@@ -33,53 +11,91 @@ const isValidJSON = (str: string) => {
   }
 }
 
-const unwrapArrayAsLiteral = (arr: string[]) =>
-  `[${arr.map((x) => `"${x}"`).toString()}]`
+const unwrapArrayAsLiteral = (arr: string[]) => `[${arr.map((x) => `"${x}"`).toString()}]`
 
-const fetchWrapper = async (
+const parseURLSearchParams = <P extends object>(url: string, params?: P) => {
+  if (!params) return url
+
+  const urlParams = Object.entries(params).map(([k, v]) => {
+    // SponsorBlock-specific params
+    if (k === "actionTypes" || k === "categories") return [k, unwrapArrayAsLiteral(v)]
+
+    return [k, v]
+  })
+
+  return `${url}?${new URLSearchParams(urlParams)}`
+}
+
+const fetchWrapper = async <ReturnPromise = string>(
   url: string,
-  errFallback?: object,
   init?: RequestInit
-) => {
+): Promise<[ReturnPromise, number]> => {
   const _req = await fetch(url, init)
-  const reqText = await _req.text()
+
+  const reqStatus = _req.status
+  const reqText = await _req.text() as ReturnPromise
 
   console.debug("req url", url)
 
-  if (!isValidJSON(reqText)) {
-    return JSON.stringify(errFallback || { message: "Data not found" })
+  if (isValidJSON(reqText as string)) {
+    return [JSON.parse(reqText as string), reqStatus]
   }
-  return JSON.parse(reqText)
+
+  return [reqText, reqStatus]
 }
 
-const searchSegments = async (props: Props.SkipAndSearchSegments) => {
-  return fetchWrapper(
-    `${SB_API_BASE_URL}/searchSegments${serializeAsURLParams(props)}`
-  )
-}
+/**
+ * Get segments for a video.
+ * 
+ * @link https://wiki.sponsor.ajay.app/w/API_Docs#GET_/api/skipSegments
+ */
 const skipSegments = async (props: Props.SkipAndSearchSegments) => {
-  return fetchWrapper(
-    `${SB_API_BASE_URL}/skipSegments${serializeAsURLParams(props)}`
+  return fetchWrapper<Responses.SkipSegments>(
+    parseURLSearchParams<typeof props>(`${SB_API_BASE_URL}/skipSegments`, props)
   )
 }
-const lockedSegments = async (props: Props.LockedSegments) => {
-  return fetch(
-    `${SB_API_BASE_URL}/lockedSegments${serializeAsURLParams(props)}`
+
+/**
+ * Get all segments of a video based on specified filters.
+ * 
+ * Note: It is suggested that you don't use this for knowing which segments
+ * to skip on your client, as thresholds and values that determine which
+ * segments are the best change over time. Using `skipSegments` ensures that
+ * you will always get the best segments. 
+ * 
+ * @link https://wiki.sponsor.ajay.app/w/API_Docs#GET_/api/searchSegments
+ */
+const searchSegments = async (props: Props.SkipAndSearchSegments) => {
+  return fetchWrapper<Responses.SearchSegments>(
+    parseURLSearchParams<typeof props>(`${SB_API_BASE_URL}/searchSegments`, props)
+  )
+}
+
+const lockCategories = async (props: Props.LockedSegments) => {
+  return fetchWrapper(
+    parseURLSearchParams<typeof props>(`${SB_API_BASE_URL}/lockCategories`, props)
   )
 }
 
 const userID = async (props: Props.UserID) => {
-  return fetch(`${SB_API_BASE_URL}/userID${serializeAsURLParams(props)}`)
+  return fetchWrapper(
+    parseURLSearchParams<typeof props>(`${SB_API_BASE_URL}/userID`, props)
+  )
 }
 
 const userInfo = async (props: Props.UserInfo) => {
-  return fetch(`${SB_API_BASE_URL}/userInfo${serializeAsURLParams(props)}`)
+  return fetchWrapper(
+    parseURLSearchParams<typeof props>(`${SB_API_BASE_URL}/userInfo`, props)
+  )
 }
 
-const SponsorBlock = Object.assign(
-  {},
-  { skipSegments, searchSegments, lockedSegments, userID, userInfo }
-)
+const SponsorBlock = {
+  skipSegments,
+  searchSegments,
+  lockCategories,
+  userID,
+  userInfo
+}
 
 const CategoryReadableLabels: Readonly<Record<Category, string>> = {
   interaction: "Interaction Reminder",
@@ -89,6 +105,20 @@ const CategoryReadableLabels: Readonly<Record<Category, string>> = {
   sponsor: "Sponsor",
   selfpromo: "Unpaid/Self Promotion",
   exclusive_access: "Exclusive Access",
+  filler: "Filler Tangent",
+  poi_highlight: "Highlight"
 }
 
-export { SponsorBlock, CategoryReadableLabels }
+const allSegments: Category[] = [
+  "interaction",
+  "intro",
+  "outro",
+  "filler",
+  "interaction",
+  "music_offtopic",
+  "selfpromo",
+  "sponsor",
+  "poi_highlight"
+]
+
+export { SponsorBlock, CategoryReadableLabels, allSegments }
