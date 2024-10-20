@@ -1,9 +1,9 @@
 import { cn } from "@/utils"
 import { Badge } from "./Badge"
-import { Segments } from "@/types"
+import { Category } from "@/utils/SponsorBlock.types"
 
 interface SegmentBadgeProps {
-  segments: Segments
+  segments: Category
   chapterLabel?: string
 }
 
@@ -43,7 +43,7 @@ export function SegmentBadge(props: SegmentBadgeProps) {
   const _seg = segmentObj[props.segments]
 
   return (
-    <Badge className="relative inline-flex items-center gap-x-1.5 rounded-2xl cursor-help">
+    <Badge className="whitespace-nowrap relative inline-flex items-center gap-x-1.5 rounded-2xl cursor-help">
       <span
         className={cn(_seg.bg, "rounded-full size-3 flex-shrink-0 z-[1]")}
         aria-hidden

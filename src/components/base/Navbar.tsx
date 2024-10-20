@@ -27,15 +27,12 @@ export function Navbar() {
               SponsorExplorer
             </Link>
           </div>
-          <div className="flex-1 flex items-center gap-x-3">
+          <div className="flex-1 flex items-center gap-x-3 text-base">
             <div className="inline-flex items-center gap-x-1.5">
-              <div className="size-5 rounded-full bg-red-600" />
+              <div className="size-6 rounded-full bg-red-600" />
               <span>base-dir</span>
             </div>
-            <span
-              className="h-4 border-l border-l-black rotate-[18deg]"
-              inert
-            />
+            <span className="h-4 border-l border-l-black rotate-[18deg]" />
             <div>video-route</div>
           </div>
           <div className="flex gap-x-1">
