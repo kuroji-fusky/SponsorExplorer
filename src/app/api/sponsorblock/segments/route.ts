@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import { NextRequest, NextResponse } from "next/server"
 import { allSegments, SponsorBlock } from "@/utils"
 import { Responses } from "@/utils/SponsorBlock.types"

@@ -23,7 +23,7 @@ export function Footer() {
               className="no-underline inline-flex items-center"
               href="https://kuroji.fusky.pet"
             >
-              Kuroji Fusky
+              Kuroji Fusky, licensed under Apache-2.0
             </Link>
           </span>
           <Link

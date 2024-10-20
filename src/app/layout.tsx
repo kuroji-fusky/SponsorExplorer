@@ -8,7 +8,7 @@ import { headers } from "next/headers"
 import Script from "next/script"
 
 const inter = Inter({
-  weight: ["300", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   preload: true,
   display: "swap",
   subsets: ["latin-ext"],
@@ -38,7 +38,7 @@ export default function RootLayout({
           src="https://eu.umami.is/script.js"
         />
         <Navbar />
-        {children}
+        <div className="min-h-[calc(100dvh-5.75rem)]">{children}</div>
         <Footer />
       </body>
     </html>
