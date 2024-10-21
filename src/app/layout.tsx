@@ -6,6 +6,7 @@ import { Inter } from "next/font/google"
 import { Navbar, Footer } from "@/components/base"
 import { headers } from "next/headers"
 import Script from "next/script"
+import { cn } from "@/utils"
 
 const inter = Inter({
   weight: ["400", "500", "600", "700"],
@@ -30,7 +31,9 @@ export default function RootLayout({
 
   return (
     <html lang="en" dir="ltr">
-      <body className={`${inter.className} antialiased text-sm`}>
+      <body
+        className={cn(inter.className, "antialiased text-sm overflow-x-hidden")}
+      >
         <Script
           id="umami"
           async
