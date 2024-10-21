@@ -5,7 +5,7 @@ export function middleware(request: NextRequest) {
 
   const csp = `
     script-src 'self' 'unsafe-eval' 'nonce-${nonce}';
-    connect-src 'self' https://youtube.googleapis.com;
+    connect-src 'self' youtube.googleapis.com;
     frame-src https://www.youtube-nocookie.com;
     upgrade-insecure-requests;
   `

@@ -2,7 +2,7 @@
 
 import { LockedSegmentsNotice, SegmentTable } from "@/components"
 import { VideoSegments } from "@/types"
-import { LuHelpCircle, LuMoreVertical, LuSearch } from "react-icons/lu"
+import { LuFilter, LuHelpCircle, LuMoreVertical } from "react-icons/lu"
 
 interface SegmentClientWrapperProps extends VideoSegments {}
 
@@ -34,10 +34,11 @@ export function SegmentClientWrapper(props: SegmentClientWrapperProps) {
           </div>
           <div className="flex-1 relative flex rounded-md border">
             <div className="absolute left-2 inset-y-0 flex items-center">
-              <LuSearch size={18} className="" />
+              <LuFilter size={16} className="" />
             </div>
+            <div className="w-8" aria-hidden />
             <input
-              className="flex-1 h-full ml-8"
+              className="flex-1 h-full outline-none"
               type="text"
               placeholder="Filter segments"
             />

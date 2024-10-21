@@ -27,7 +27,10 @@ export function Navbar() {
               SponsorExplorer
             </Link>
           </div>
-          <div className="flex-1 flex items-center gap-x-3 text-base">
+          {/* Breadcrumbs: Mobile */}
+          <div className="flex-1 block lg:hidden"></div>
+          {/* Breadcrumbs: Desktop */}
+          <div className="flex-1 lg:flex items-center gap-x-3 text-base hidden">
             <div className="inline-flex items-center gap-x-1.5">
               <div className="size-6 rounded-full bg-red-600" />
               <span>base-dir</span>
@@ -37,11 +40,13 @@ export function Navbar() {
           </div>
           <div className="flex gap-x-1">
             <button
-              className="hidden md:flex px-2 py-1 w-60 gap-x-1.5 rounded-md border-2 border-red-200 items-center"
+              className="px-2 py-1 w-60 gap-x-1.5 rounded-md border-2 border-red-200"
               onClick={toggleSearchDialog}
             >
-              <LuSearch size={19} />
-              <span className="opacity-50">Search</span>
+              <div className="hidden lg:flex">
+                <LuSearch size={19} />
+                <span className="opacity-50 ml-1">Search</span>
+              </div>
             </button>
             <button
               className="p-2 rounded-md bg-red-200 hover:bg-red-300 block md:hidden"

@@ -7,6 +7,7 @@ interface RouteParams {
   params: {
     id: string
   }
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
 export async function generateMetadata({ params }: RouteParams) {
@@ -16,13 +17,19 @@ export async function generateMetadata({ params }: RouteParams) {
   }
 }
 
-export default async function VideoPage({ params }: RouteParams) {
+export default async function VideoPage({ params, searchParams }: RouteParams) {
   const urlBase = headers().get("x-url-origin")
 
-  const segmentFetch = await fetch(
-    `${urlBase}/api/sponsorblock/segments?id=${params.id}`
+  const queryBypassCache = typeof searchParams["bypass-cache"] !== "undefined"
+  const queryFilters = searchParams["filters"]
+  const querySorts = searchParams["sort"]
+
+  const fetchSegments = await fetch(
+    `${urlBase}/api/sponsorblock/segments?id=${params.id}`,
+    { cache: "force-cache", priority: "high" }
   )
-  const initialData = (await segmentFetch.json()) as VideoSegments
+
+  const initialData = (await fetchSegments.json()) as VideoSegments
 
   return (
     <div className="mt-4 mx-auto px-6 max-w-screen-2xl">
