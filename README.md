@@ -22,12 +22,34 @@ While I was in the middle of writing a userscript for [sb.ltn.fi][sbb-prod] to a
 
 ## Installation and Setup
 
-Requires Node.js v20 and the Yarn package manager - install dependencies with
-Yarn and start local dev server:
+Requires Node.js v20 and the Yarn package manager
+
+Clone the repo and the SBbrowser API submodule
 
 ```console
+git clone https://github.com/kuroji-fusky/SponsorExplorer --recurse-submodules
+```
+
+Then install the submodule's dependencies then run the dev server
+
+```console
+cd sbbrowser-api
 yarn
 yarn dev
+```
+
+Install root dependencies
+
+```console
+cd ..
+yarn
+yarn dev
+```
+
+Copy the .env.local.example file
+
+```console
+cp .env.local.example .env.local
 ```
 
 ### Getting the YouTube API key
@@ -53,6 +75,8 @@ yarn dev
 > | `channels.list`      | 1    |
 > | `search.list`        | 100  |
 
+[^1]: <https://developers.google.com/youtube/v3/determine_quota_cost>
+
 ### (Optional) Securing your API key
 
 Optionally, as an added security layer, you can restrict the API key you've created, since they're unrestricted. By clicking on "Edit API key" on the dialog box or by clicking on the three dots on the right and clicking "Edit API key"
@@ -65,8 +89,6 @@ Optionally, as an added security layer, you can restrict the API key you've crea
 ## License
 
 [MIT](/LICENSE)
-
-[^1]: <https://developers.google.com/youtube/v3/determine_quota_cost>
 
 [sbb]: https://github.com/Lartza/SBbrowser
 [sbb-prod]: https://sb.ltn.fi
