@@ -12,13 +12,18 @@ export function middleware(request: NextRequest) {
 
   const parsedCsp = csp.replace(/\s{2,}/g, " ").trim()
 
-  const requestHeaders = new Headers(request.headers)
-  requestHeaders.set("Content-Security-Policy", parsedCsp)
-  requestHeaders.set("x-nonce", nonce)
+  const headers = new Headers(request.headers)
+
+  headers.set("Content-Security-Policy", parsedCsp)
+  headers.set("x-nonce", nonce)
+
+  const { protocol, host } = request.nextUrl
+
+  headers.set("x-url-origin", `${protocol}//${host}`)
 
   const res = NextResponse.next({
     request: {
-      headers: requestHeaders,
+      headers,
     },
   })
 

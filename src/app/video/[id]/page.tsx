@@ -1,6 +1,7 @@
 import { VideoInfo } from "@/components/headers"
 import { SegmentClientWrapper } from "@/components/SegmentClientWrapper"
 import type { VideoSegments } from "@/types"
+import { headers } from "next/headers"
 
 interface RouteParams {
   params: {
@@ -16,7 +17,11 @@ export async function generateMetadata({ params }: RouteParams) {
 }
 
 export default async function VideoPage({ params }: RouteParams) {
-  const segmentFetch = await fetch(`http://localhost:3000/api/sponsorblock/segments?id=${params.id}`)
+  const urlBase = headers().get("x-url-origin")
+
+  const segmentFetch = await fetch(
+    `${urlBase}/api/sponsorblock/segments?id=${params.id}`
+  )
   const initialData = (await segmentFetch.json()) as VideoSegments
 
   return (

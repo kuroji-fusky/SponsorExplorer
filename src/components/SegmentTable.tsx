@@ -43,9 +43,9 @@ export function SegmentTable(props: SegmentTableProps) {
         </tr>
       </thead>
       <tbody className="hover:[&_tr]:bg-neutral-200 hover:[&_tr]:bg-opacity-70 ">
-        {props.segments.map((x, index) => (
+        {props.segments.map((x) => (
           <tr
-            key={index}
+            key={x.UUID}
             data-initial-fragment-request=""
             className={cn(
               x.shadowHidden || x.hidden || x.votes <= -2

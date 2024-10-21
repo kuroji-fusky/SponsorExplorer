@@ -27,7 +27,7 @@ Requires Node.js v20 and the Yarn package manager
 Clone the repo and the SBbrowser API submodule
 
 ```console
-git clone https://github.com/kuroji-fusky/SponsorExplorer --recurse-submodules
+git clone --recurse-submodules https://github.com/kuroji-fusky/SponsorExplorer
 ```
 
 Then install the submodule's dependencies then run the dev server
