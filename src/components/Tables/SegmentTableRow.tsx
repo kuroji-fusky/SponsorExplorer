@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import type { Category } from "@/utils/SponsorBlock.types"
 import { SegmentBadge } from "../Badges"
 import {
@@ -25,28 +25,15 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
   const [isHovering, setHoverState] = useState(false)
   const tableRowRef = useRef<React.ComponentRef<"tr">>(null)
 
-  useEffect(() => {
-    const tableRow = tableRowRef.current!
-
-    const handleRowEnter = () => setHoverState(true)
-    const handleRowLeave = () => setHoverState(false)
-
-    tableRow.addEventListener("mouseenter", handleRowEnter)
-
-    tableRow.addEventListener("mouseleave", handleRowLeave)
-    tableRow.addEventListener("blur", handleRowLeave)
-
-    return () => {
-      tableRow.removeEventListener("mouseenter", handleRowEnter)
-      tableRow.removeEventListener("mouseleave", handleRowLeave)
-
-      tableRow.removeEventListener("blur", handleRowLeave)
-    }
-  }, [])
+  const handleRowEnter = useCallback(() => setHoverState(true), [])
+  const handleRowLeave = useCallback(() => setHoverState(false), [])
 
   return (
     <tr
       ref={tableRowRef}
+      onMouseEnter={handleRowEnter}
+      onMouseLeave={handleRowLeave}
+      onBlur={handleRowLeave}
       className={cn(
         props.shadowHidden || props.hidden || props.votes <= -2
           ? "opacity-50 hover:opacity-100"
