@@ -11,11 +11,11 @@ export function SegmentTable(props: SegmentTableProps) {
     <>
       <table className="hidden lg:table w-full *:[&_tr]:px-2 *:[&_tr]:py-2.5 [&_td]:border-b [&_td]:border-neutral-200 dark:[&_td]:border-neutral-700 text-base">
         <colgroup>
-          <col style={{ width: "3.5%" }} />
-          <col style={{ width: "3.5%" }} />
-          <col style={{ width: "3.5%" }} />
-          <col style={{ width: "18%" }} />
-          <col style={{ width: "13%" }} />
+          <col style={{ width: "25%" }} />
+          <col style={{ width: "9%" }} />
+          <col style={{ width: "9%" }} />
+          <col style={{ width: "25%" }} />
+          <col style={{ width: "99%" }} />
           <col style={{ width: "12%" }} />
           <col style={{ width: "1%" }} />
         </colgroup>

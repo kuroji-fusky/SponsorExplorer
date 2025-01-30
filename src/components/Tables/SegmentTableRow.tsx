@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useState, useRef, useCallback } from "react"
 import type { Category } from "@/utils/SponsorBlock.types"
 import { SegmentBadge } from "../Badges"
 import {
@@ -28,6 +28,8 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
   const handleRowEnter = useCallback(() => setHoverState(true), [])
   const handleRowLeave = useCallback(() => setHoverState(false), [])
 
+  const hoverOptionsCn = cn("flex ml-1", isHovering ? undefined : "opacity-0")
+
   return (
     <tr
       ref={tableRowRef}
@@ -41,11 +43,14 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
         "hover:bg-neutral-300/40 dark:hover:bg-neutral-800/40",
       )}
     >
+      {/* Date submitted */}
       <td>
         <time dateTime={isoDate} className="whitespace-nowrap">
           {readableDate}
         </time>
       </td>
+
+      {/* Votes */}
       <td>
         <div className="inline-flex items-center gap-x-1">
           <span>{formatNumber(props.votes)}</span>
@@ -55,6 +60,7 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
         </div>
       </td>
 
+      {/* Views */}
       <td>
         <div className="inline-flex items-center gap-x-1">
           <span>
@@ -72,6 +78,7 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
         </div>
       </td>
 
+      {/* Segment/category */}
       <td>
         <div className="flex items-center gap-x-0.5">
           <SegmentBadge
@@ -79,7 +86,7 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
             chapterLabel={props.description}
             layout="desktop"
           />
-          <div className={isHovering ? "contents" : "invisible"}>
+          <div className={hoverOptionsCn}>
             <button
               className="p-0.5"
               title={`Filter out the ${sbCategoryMap[props.category].label} category (Alt+Click to negate)`}
@@ -93,6 +100,7 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
         </div>
       </td>
 
+      {/* Length */}
       <td>
         <LengthBadge
           actionType={props.actionType}
@@ -101,12 +109,13 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
         />
       </td>
 
+      {/* Username/UserID */}
       <td>
         <div className="flex items-center gap-x-0.5 max-w-48">
           <div className="truncate flex-1">
             <span>{props.userID}</span>
           </div>
-          <div className={isHovering ? "contents" : "invisible"}>
+          <div className={hoverOptionsCn}>
             <button className="p-0.5">
               <LuFilter size={19} />
             </button>
@@ -117,8 +126,9 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
         </div>
       </td>
 
+      {/* More actions */}
       <td>
-        <div className={isHovering ? undefined : "invisible"}>
+        <div className={hoverOptionsCn}>
           <SegmentRowDropdown />
         </div>
       </td>

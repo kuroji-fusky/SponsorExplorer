@@ -31,7 +31,7 @@ export default async function RootLayout({
         className={cn(
           inter.className,
           "antialiased text-sm overflow-x-hidden prose-headings:font-bold",
-          "dark:text-white dark:bg-neutral-950",
+          "dark:text-neutral-100 dark:bg-neutral-950 text-neutral-800",
         )}
       >
         <Navbar />
