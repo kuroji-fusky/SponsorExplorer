@@ -14,10 +14,16 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const params = await props.params
 
-  fetchChannelData(params.cid)
+  const { channel } = await fetchChannelData(params.cid)
+
+  if (!channel) {
+    return {
+      title: `Channel ID: ${params.cid}`,
+    }
+  }
 
   return {
-    title: `Channel ID: ${params.cid}`,
+    title: `Channel segments for ${channel[0].channelName}`,
   }
 }
 
@@ -31,12 +37,14 @@ export default async function ChannelLayout({
     (await headers()).get("x-url-params")!,
   )
 
+  const { channel, videos } = await fetchChannelData(_params.cid)
+
   const viewParam = searchParams.get("view") as ViewItemContext["view"]
   const isValidViews =
     viewParam === "compact" || viewParam === "list" || viewParam === "grid"
 
   return (
-    <ChannelStoreProvider initialVideoStore={[]}>
+    <ChannelStoreProvider initialVideoStore={videos} channelData={channel[0]}>
       <div className="px-6 space-y-3 max-w-screen-2xl mx-auto">
         <ViewItemProvider initialView={!isValidViews ? "grid" : viewParam}>
           <ChannelInfo channelId={_params.cid} />

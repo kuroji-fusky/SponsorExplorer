@@ -64,7 +64,7 @@ export async function GET(request: NextRequest) {
   const parsedVideoData = videosData.items.map(({ snippet, id, contentDetails }) => ({
     id,
     title: snippet.title,
-    thumbnail: `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
+    thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
     date: snippet.publishedAt,
     duration: contentDetails.duration
   }))
