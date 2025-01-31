@@ -8,3 +8,4 @@ export * from "./video/LiveSegmentProvider"
 export * from "./video/PlayerStateProvider"
 
 export * from "./ChannelStoreProvider"
+export * from "./OptionsProvider"

@@ -5,6 +5,7 @@ import { Inter } from "next/font/google"
 
 import { Navbar, Footer } from "@/components/Base"
 import { cn } from "@/utils"
+import { OptionsProvider } from "@/context"
 
 const inter = Inter({
   weight: ["400", "500", "600", "700"],
@@ -34,9 +35,11 @@ export default async function RootLayout({
           "dark:text-neutral-100 dark:bg-neutral-950 text-neutral-800",
         )}
       >
-        <Navbar />
-        <main className="min-h-[calc(100dvh-13.85rem)]">{children}</main>
-        <Footer />
+        <OptionsProvider>
+          <Navbar />
+          <main className="min-h-[calc(100dvh-13.85rem)]">{children}</main>
+          <Footer />
+        </OptionsProvider>
       </body>
     </html>
   )
