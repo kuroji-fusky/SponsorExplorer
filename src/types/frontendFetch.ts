@@ -1,4 +1,4 @@
-import type { sb } from "@/utils/SponsorBlock.types"
+import type { Category, sb } from "@/utils/SponsorBlock.types"
 
 export interface VideoSegments {
   totalIterations: number
@@ -23,6 +23,16 @@ export interface SkippableSeggies {
   skip: sb.Responses.SkipSegments | null
   full: sb.Responses.SkipSegments | null
 }
+
+export interface InlineSegments {
+  relativeSegments: Array<{
+    segment: Category,
+    width: number
+  }> | null
+  hasHighlight: boolean
+  fullLabel: "sponsor" | "selfpromo" | "exclusive_acesss" | null
+}
+
 
 /**
  * This is when the creator supplies chapters from their descriptions,

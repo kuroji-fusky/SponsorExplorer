@@ -5,9 +5,14 @@ import type { InlineSegments, SharedVideoItemProps } from "./VideoItem.types"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { formatYTTimecode, parseDateStr } from "@/utils"
+import { parseDateStr } from "@/utils"
 import { useEffect, useState } from "react"
 import { fetchSkipSeggies } from "./VideoItem.utils"
+import dynamic from "next/dynamic"
+
+const SegmentBar = dynamic(() =>
+  import("../SegmentBar").then((m) => m.SegmentBar),
+)
 
 interface VideoItemGridProps extends SharedVideoItemProps {
   id: string
@@ -80,7 +85,9 @@ export default function VideoItemGrid(props: VideoItemGridProps) {
           {/* <div id="sb-deduct">(12:34)</div> */}
         </div>
         {/* Bar wrapper */}
-        <div className="absolute bottom-0 inset-x-0"></div>
+        <div className="absolute bottom-0 inset-x-0">
+          {relativeSegments ? <SegmentBar segments={relativeSegments} /> : null}
+        </div>
       </Link>
       <div className="space-y-2">
         <div className="flex items-start">
@@ -104,7 +111,7 @@ export default function VideoItemGrid(props: VideoItemGridProps) {
               {hasHighlight ? "+ Highlight" : null}
             </span>
           ) : (
-            <div className="h-3 rounded-md w-13 bg-neutral-100 animate-pulse" />
+            <div className="h-5 rounded-md w-24 bg-neutral-100 animate-pulse" />
           )}
         </div>
       </div>

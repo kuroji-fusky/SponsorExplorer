@@ -1,9 +1,8 @@
 import { fetchWrapper } from "@/utils/fetchWrapper"
-import type { SkippableSeggies } from "@/types"
-import { InlineSegments } from "./VideoItem.types"
+import type { InlineSegments, SkippableSeggies } from "@/types"
 
 export const fetchSkipSeggies = async (id: string) => {
-  const [res] = await fetchWrapper<SkippableSeggies>(`${location.origin}/api/sb/skippableSegments?id=${id}`)
+  const [res] = await fetchWrapper<SkippableSeggies>(`${location.origin}/api/sb/skippableSegments?id=${id}`, { cache: "no-cache" })
 
   let relativeSegments = null
   let hasHighlight = false
