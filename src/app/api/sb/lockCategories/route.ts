@@ -1,14 +1,11 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { SponsorBlock } from "@/utils"
 import type { sb } from "@/utils/SponsorBlock.types"
+import { segmentsFallback } from "@/utils/lockSegmentsFallback"
 
 export async function GET(request: NextRequest) {
   const urlParams = new URL(request.url).searchParams
   const videoID = urlParams.get("id")!
-
-  const lockSegmentsFallback = (lockedSegments: sb.Responses.LockCategories) => {
-    return typeof lockedSegments === "string" ? null : lockedSegments
-  }
 
   const ACTION_TYPES = ["skip", "mute", "full"] as const
   const mappedActions = ACTION_TYPES.map((actionType) => {
@@ -21,8 +18,8 @@ export async function GET(request: NextRequest) {
   const [[skipSegments], [muteSegments], [fullSegments]] = await Promise.all(mappedActions)
 
   return NextResponse.json({
-    skip: lockSegmentsFallback(skipSegments),
-    mute: lockSegmentsFallback(muteSegments),
-    full: lockSegmentsFallback(fullSegments),
+    skip: segmentsFallback(skipSegments),
+    mute: segmentsFallback(muteSegments),
+    full: segmentsFallback(fullSegments),
   })
 }

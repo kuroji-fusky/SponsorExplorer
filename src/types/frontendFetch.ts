@@ -18,6 +18,12 @@ export interface SegmentBank {
   segments: sb.Responses.SearchSegments["segments"]
 }
 
+/** For `/sb/skippableSegments` */
+export interface SkippableSeggies {
+  skip: sb.Responses.SkipSegments | null
+  full: sb.Responses.SkipSegments | null
+}
+
 /**
  * This is when the creator supplies chapters from their descriptions,
  * and can be appended with SponsorBlock chapters

@@ -1,3 +1,4 @@
+import { formatYTTimecode } from "@/utils"
 import { youtube } from "@/utils/YT"
 import type { yt } from "@/utils/YT.types"
 import { type NextRequest, NextResponse } from "next/server"
@@ -43,7 +44,7 @@ export async function GET(request: NextRequest) {
   // Huge thanks to this guy: https://stackoverflow.com/a/76602819/18905871
   const [playlistData] = await youtube.playlistItems({
     playlistId: (fetchedData[0].items[0].id).replace(/^UC/, "UULF"),
-    maxResults: 35
+    maxResults: 48
   })
 
   videoCollection = playlistData.items.map((item) => item.contentDetails.videoId)
@@ -65,8 +66,8 @@ export async function GET(request: NextRequest) {
     id,
     title: snippet.title,
     thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
-    date: snippet.publishedAt,
-    duration: contentDetails.duration
+    uploadDate: snippet.publishedAt,
+    duration: formatYTTimecode(contentDetails.duration)
   }))
 
   return NextResponse.json({ channel: parsedChannelData, videos: parsedVideoData })

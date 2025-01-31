@@ -1,43 +1,93 @@
+"use client"
+
 import { LuLock, LuMoreVertical, LuSparkles } from "react-icons/lu"
-import type { SharedVideoItemProps } from "./VideoItem.types"
+import type { InlineSegments, SharedVideoItemProps } from "./VideoItem.types"
 import Link from "next/link"
+import Image from "next/image"
+import { useRouter } from "next/navigation"
+import { formatYTTimecode, parseDateStr } from "@/utils"
+import { useEffect, useState } from "react"
+import { fetchSkipSeggies } from "./VideoItem.utils"
 
 interface VideoItemGridProps extends SharedVideoItemProps {
+  id: string
   thumbnail?: string
 }
 
 export default function VideoItemGrid(props: VideoItemGridProps) {
+  const router = useRouter()
+
+  const { isoDate, readableDate } = parseDateStr(props.date!, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  })
+
   const videoIdLink = `/video/${props.id}`
+  const videoIdPrefetchEvent = () => router.prefetch(videoIdLink)
+
+  const [hasLoaded, setHasLoaded] = useState(false)
+  const [isLoadingSegments, setLoadingSegments] = useState(true)
+  const [skippableSegments, setSegments] = useState<InlineSegments>({
+    relativeSegments: null,
+    hasHighlight: false,
+    fullLabel: null,
+  })
+
+  useEffect(() => {
+    if (!hasLoaded) {
+      fetchSkipSeggies(props.id).then((d) => {
+        setSegments(d)
+        setLoadingSegments(false)
+        setHasLoaded(true)
+      })
+    }
+  }, [])
+
+  const { hasHighlight, relativeSegments } = skippableSegments
+
   return (
     <div className="relative py-2.5 px-3 flex flex-col gap-y-2 lg:gap-y-2.5 group">
-      <div className="absolute inset-0 bg-neutral-200 dark:bg-neutral-700 -z-10 rounded-md transition duration-300 ease-in-out opacity-0 scale-90 group-hover:opacity-60 group-hover:scale-100" />
       {/* Thumbnail wrapper */}
       <Link
         className="relative aspect-video w-full rounded-md overflow-hidden"
         href={videoIdLink}
+        onMouseEnter={videoIdPrefetchEvent}
       >
         {/* Thumbnail */}
-        <img src={props.thumbnail} className="size-full object-cover" alt="" />
+        <Image
+          className="object-cover"
+          src={props.thumbnail!}
+          alt=""
+          priority
+          fill
+        />
         {/* Lock and full segments */}
-        {/* <span className="absolute inline-flex top-2 left-2 rounded-md overflow-hidden *:px-1.5 *:py-0.5">
-          <div className="bg-yellow-300 dark:bg-yellow-400 dark:text-black grid place-items-center">
+        <span className="absolute inline-flex top-2 left-2 rounded-md overflow-hidden *:py-0.5">
+          {/* <div className="bg-yellow-300 dark:bg-yellow-400 dark:text-black inline-flex gap-x-1 place-items-center pl-2 pr-1.5">
             <LuLock size={16} />
-          </div>
-          <span className="font-semibold bg-sb-sponsor">Sponsor</span>
-        </span> */}
+          </div> */}
+          {/* <div className="font-semibold relative px-2">
+            <span className="relative z-20">Sponsor</span>
+            <span className="dark:bg-black/30 absolute z-10 inset-0" />
+            <span className="bg-sb-sponsor absolute inset-0" />
+          </div> */}
+        </span>
         {/* Video duration */}
-        {/* <div className="absolute flex items-center bottom-2.5 right-2 px-1.5 *:px-0.5 *:py-1 overflow-hidden text-white bg-black/30 rounded-md">
-          <div id="og-duration">12:34</div>
-          <div id="sb-deduct">(12:34)</div>
-        </div> */}
+        <div className="absolute flex items-center bottom-2 right-2 px-1.5 *:px-0.5 *:py-1 overflow-hidden text-white bg-black/50 backdrop-blur-sm rounded-md">
+          {hasHighlight ? <LuSparkles size={25} /> : null}
+          <div id="og-duration">{props.duration}</div>
+          {/* <div id="sb-deduct">(12:34)</div> */}
+        </div>
         {/* Bar wrapper */}
         <div className="absolute bottom-0 inset-x-0"></div>
       </Link>
-      <div className="space-y-1.5">
-        <div className="flex">
+      <div className="space-y-2">
+        <div className="flex items-start">
           <Link
-            className="flex-1 font-bold text-lg lg:text-xl"
+            className="flex-1 font-bold text-lg leading-normal"
             href={videoIdLink}
+            onMouseEnter={videoIdPrefetchEvent}
           >
             {props.title}
           </Link>
@@ -45,11 +95,21 @@ export default function VideoItemGrid(props: VideoItemGridProps) {
             <LuMoreVertical size={18} />
           </button>
         </div>
-        <span className="inline-flex gap-x-2 gap-y-2">
-          <span>{props.date}</span>
-          <span>N segments + Highlight</span>
-        </span>
+        <div className="inline-flex gap-y-2 gap-x-2.5 opacity-75">
+          <time dateTime={isoDate}>{readableDate}</time>
+          {!isLoadingSegments ? (
+            <span>
+              {relativeSegments ? relativeSegments.length : 0}
+              {" segments "}
+              {hasHighlight ? "+ Highlight" : null}
+            </span>
+          ) : (
+            <div className="h-3 rounded-md w-13 bg-neutral-100 animate-pulse" />
+          )}
+        </div>
       </div>
+      {/* Cool hover effect */}
+      <div className="pointer-events-none absolute inset-0 bg-neutral-200 dark:bg-neutral-700 -z-10 rounded-md transition duration-200 ease-in-out opacity-0 scale-95 group-hover:opacity-60 group-hover:scale-100" />
     </div>
   )
 }

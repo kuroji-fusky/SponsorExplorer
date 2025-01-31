@@ -107,3 +107,24 @@ export const formatTimecode = (
 
   return timeString.trim()
 }
+
+
+export const formatYTTimecode = (time: string) => {
+  const match = time.match(/PT(\d+H)?(\d+M)?(\d+S)?/)
+
+  if (!match) return '0:00'
+
+  const [_, h, m, s] = match
+
+  const _int = (n: string) => n ? parseInt(n, 10) : 0
+
+  const hours = _int(h)
+  const minutes = _int(m)
+  const seconds = _int(s)
+
+  const _pad = (num: number) => num.toString().padStart(2, "0")
+  const padMinute = _pad(minutes)
+  const padSecond = _pad(seconds)
+
+  return hours ? `${hours}:${padMinute}:${padSecond}` : `${minutes}:${padSecond}`
+}
