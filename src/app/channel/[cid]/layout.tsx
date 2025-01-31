@@ -7,11 +7,14 @@ import {
 } from "@/context"
 import { ChannelInfo } from "@/components/Headers"
 import { headers } from "next/headers"
+import { fetchChannelData } from "@/utils/fetchYTData"
 
 export async function generateMetadata(
   props: ChannelIdRouteParams,
 ): Promise<Metadata> {
   const params = await props.params
+
+  fetchChannelData(params.cid)
 
   return {
     title: `Channel ID: ${params.cid}`,

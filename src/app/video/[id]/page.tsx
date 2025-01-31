@@ -5,7 +5,7 @@ import { VideoInfo } from "@/components/Headers"
 import { SegmentClientWrapper } from "@/components/SegmentClientWrapper"
 import { VideoListSidebar } from "@/components/Sidebar"
 import type { DefineRouteParams } from "@/types"
-import { fetchVideoData } from "@/utils"
+import { fetchVideoData } from "@/utils/fetchYTData"
 
 type RouteParams = DefineRouteParams<
   { id: string },

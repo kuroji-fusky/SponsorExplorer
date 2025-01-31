@@ -27,8 +27,11 @@ export interface NativeVideoChapters {
   title: string
 }
 
-export interface VideoInfoType {
+interface Internal_FoundState {
   state: "FOUND" | "NOT_FOUND"
+}
+
+export interface VideoInfoType extends Internal_FoundState {
   hasSponsorDisclosure?: boolean
   video: {
     title: string
@@ -37,4 +40,26 @@ export interface VideoInfoType {
     channelTitle: string
   }
   nativeChapters?: (NativeVideoChapters | never)[]
+}
+
+export interface ChannelInfoType extends Internal_FoundState {
+  channel: {
+    title: string
+    id: string
+    handle: string
+    thumbnails: {
+      default: {
+        url: string
+      }
+      medium: {
+        url: string
+      }
+      high: {
+        url: string
+      }
+    }
+    joinDate: string
+    totalVideos: number
+  }
+  videos: Pick<VideoInfoType, "video">[]
 }

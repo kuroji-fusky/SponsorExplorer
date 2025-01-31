@@ -22,6 +22,7 @@ interface SearchParams {
 
 interface PlaylistItemsParams {
   id: string | string[]
+  channelId: string
   playlistId: string
 }
 
@@ -41,6 +42,7 @@ interface YTRootResponse<T> {
 
 export namespace yt.Responses {
   export type VideoList = YTRootResponse<{
+    id: string
     snippet: {
       title: string
       publishedAt: string
@@ -48,12 +50,16 @@ export namespace yt.Responses {
       channelTitle: string
       description: string
     }
+    contentDetails: {
+      duration: string
+    },
     paidProductPlacementDetails: {
       hasPaidProductPlacement: boolean
     }
   }>
 
   export type ChannelList = YTRootResponse<{
+    id: string
     snippet: {
       title: string
       description: string
@@ -74,6 +80,8 @@ export namespace yt.Responses {
       relatedPlaylists: {
         uploads: string
       }
+      // This response belongs to `playlistItems` but eh
+      videoId: string
     }
   }>
 }

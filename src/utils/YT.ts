@@ -28,9 +28,7 @@ class YTURLConstructor {
 
     // append the rest
     Object.entries(params).forEach(([k, v]) => {
-      if (k !== "part" && k !== "maxResults") {
-        _params.append(k, v.toString())
-      }
+      _params.append(k, v.toString())
     })
 
     _params.append("key", this.YT_API_KEY)
@@ -43,7 +41,7 @@ class YTURLConstructor {
 
 const ytUrl = new YTURLConstructor()
 
-const _ytFetchOptions = { cache: "force-cache" } satisfies RequestInit
+const _ytFetchOptions = { cache: "no-cache" } satisfies RequestInit
 
 /**
  * @link https://developers.google.com/youtube/v3/docs/videos/list
@@ -58,7 +56,7 @@ const fetchVideos = async (params?: AllEndpointParams) => {
  * @link https://developers.google.com/youtube/v3/docs/channels/list
  */
 const fetchChannels = async (params: AllEndpointParams) => {
-  const endpoint = ytUrl.createEndpoint("/channel", { ...params })
+  const endpoint = ytUrl.createEndpoint("/channels", params)
 
   return fetchWrapper<yt.Responses.ChannelList>(endpoint, _ytFetchOptions)
 }
@@ -67,7 +65,7 @@ const fetchChannels = async (params: AllEndpointParams) => {
  * @link https://developers.google.com/youtube/v3/docs/playlists/list
  */
 const fetchPlaylistItems = async (params: AllEndpointParams) => {
-  const endpoint = ytUrl.createEndpoint("/playlistItems", { ...params })
+  const endpoint = ytUrl.createEndpoint("/playlistItems", params)
 
   return fetchWrapper<yt.Responses.ChannelList>(endpoint, _ytFetchOptions)
 }
@@ -76,7 +74,7 @@ const fetchPlaylistItems = async (params: AllEndpointParams) => {
  * @link https://developers.google.com/youtube/v3/docs/search/list
  */
 const fetchSearch = async (params: AllEndpointParams) => {
-  const endpoint = ytUrl.createEndpoint("/search", { ...params })
+  const endpoint = ytUrl.createEndpoint("/search", params)
 
   return fetchWrapper<yt.Responses.ChannelList>(endpoint, _ytFetchOptions)
 }
