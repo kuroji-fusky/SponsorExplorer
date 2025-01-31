@@ -35,7 +35,7 @@ export function VideoInfo() {
     <>
       <div
         data-player-root-anchor=""
-        className="overflow-hidden rounded-lg flex lg:flex-row flex-col bg-neutral-100 dark:bg-neutral-900"
+        className="overflow-hidden rounded-lg flex lg:flex-row flex-col bg-neutral-100 dark:bg-neutral-900/40"
       >
         <div className="aspect-video 2xl:w-[48rem] xl:w-[38rem] lg:w-[32rem] w-full h-full overflow-hidden relative">
           <YouTube id={videoDetails.id} />

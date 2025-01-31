@@ -10,7 +10,7 @@ interface ChannelInfoProps {
 
 export function ChannelInfo(props: ChannelInfoProps) {
   return (
-    <div className="mt-1 flex bg-neutral-100 rounded-md px-6 py-5 gap-x-5">
+    <div className="mt-1 flex bg-neutral-100 dark:bg-neutral-900/40 rounded-md px-6 py-5 gap-x-5">
       <div className="flex-shrink-0">
         <div className="size-28 rounded-full bg-red-300" />
       </div>

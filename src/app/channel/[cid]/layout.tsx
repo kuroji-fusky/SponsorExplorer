@@ -1,6 +1,10 @@
 import type { Metadata } from "next"
 import type { ChannelIdRouteParams } from "@/types"
-import { type ViewItemContext, ViewItemProvider } from "@/context"
+import {
+  type ViewItemContext,
+  ViewItemProvider,
+  ChannelStoreProvider,
+} from "@/context"
 import { ChannelInfo } from "@/components/Headers"
 import { headers } from "next/headers"
 
@@ -29,14 +33,13 @@ export default async function ChannelLayout({
     viewParam === "compact" || viewParam === "list" || viewParam === "grid"
 
   return (
-    <div
-      data-channel-list=""
-      className="px-6 space-y-3 max-w-screen-2xl mx-auto"
-    >
-      <ViewItemProvider initialView={!isValidViews ? "grid" : viewParam}>
-        <ChannelInfo channelId={_params.cid} />
-        {children}
-      </ViewItemProvider>
-    </div>
+    <ChannelStoreProvider initialVideoStore={[]}>
+      <div className="px-6 space-y-3 max-w-screen-2xl mx-auto">
+        <ViewItemProvider initialView={!isValidViews ? "grid" : viewParam}>
+          <ChannelInfo channelId={_params.cid} />
+          {children}
+        </ViewItemProvider>
+      </div>
+    </ChannelStoreProvider>
   )
 }
