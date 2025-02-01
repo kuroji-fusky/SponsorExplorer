@@ -9,7 +9,10 @@ import { VideoSidebarProvider } from "./VideoSidebarProvider"
 
 type VideoInfoContextType = MapUseStateSetters<
   {
-    videoDetails: VideoInfoType & { id: string }
+    videoDetails: VideoInfoType & {
+      id: string
+      video: { channelAvatar: string }
+    }
     segmentData: Partial<VideoSegments>
   },
   "videoDetails"
@@ -33,6 +36,7 @@ const INITIAL_VIDEO_DATA: VideoInfoContextType["videoDetails"] = {
     channelTitle: "",
     publishedAt: "",
     title: "",
+    channelAvatar: "",
   },
 }
 
@@ -55,12 +59,6 @@ const validVideoPathOnly = () => {
 
 export const useVideoInfoContext = () => {
   const context = useContext(VideoInfoContext)
-
-  if (!context) {
-    throw new Error(
-      "useVideoInfoContext must be used within a VideoInfoProvider",
-    )
-  }
 
   validVideoPathOnly()
 

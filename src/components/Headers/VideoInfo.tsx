@@ -11,7 +11,6 @@ import { DetailedSegmentStatsModal } from "../Modals"
 import {
   LuExternalLink,
   LuGanttChartSquare,
-  LuGlasses,
   LuLink2,
   LuPin,
 } from "react-icons/lu"
@@ -35,7 +34,7 @@ export function VideoInfo() {
     <>
       <div
         data-player-root-anchor=""
-        className="overflow-hidden rounded-lg flex lg:flex-row flex-col bg-neutral-100 dark:bg-neutral-900/40"
+        className="overflow-hidden rounded-lg flex lg:flex-row flex-col bg-neutral-100 dark:bg-neutral-800/30"
       >
         <div className="aspect-video 2xl:w-[48rem] xl:w-[38rem] lg:w-[32rem] w-full h-full overflow-hidden relative">
           <YouTube id={videoDetails.id} />
@@ -75,19 +74,14 @@ export function VideoInfo() {
               <span>Copy link</span>
             </button>
             <Separator />
-            <button className="inline-flex gap-x-1.5 items-center">
-              <LuGlasses size={17} />
-              <span>For nerds</span>
-            </button>
-            <Separator />
             <Link
               href={`https://sb.ltn.fi/video/${videoDetails.id}`}
-              className="inline-flex gap-x-1.5 items-center"
+              className="inline-flex gap-x-1.5 items-center no-underline"
             >
+              <LuExternalLink size={17} />
               <span>
                 View on <span translate="no">SBbrowser</span>
               </span>
-              <LuExternalLink size={17} />
             </Link>
           </div>
         </div>

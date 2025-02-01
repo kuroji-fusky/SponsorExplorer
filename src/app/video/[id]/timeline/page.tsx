@@ -1,8 +1,8 @@
 import { Notice } from "@/components"
 import type { DefineRouteParams } from "@/types"
+import { fetchVideoData } from "@/utils/fetchYTData"
 import type { Metadata } from "next"
 import dynamic from "next/dynamic"
-import { fetchVideoData } from "@/utils"
 
 type RouteParams = DefineRouteParams<{ id: string }>
 

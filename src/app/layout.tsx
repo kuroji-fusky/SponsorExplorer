@@ -37,7 +37,7 @@ export default async function RootLayout({
       >
         <OptionsProvider>
           <Navbar />
-          <main className="min-h-[calc(100dvh-13.85rem)]">{children}</main>
+          <main className="min-h-[calc(100dvh-10.25rem)]">{children}</main>
           <Footer />
         </OptionsProvider>
       </body>

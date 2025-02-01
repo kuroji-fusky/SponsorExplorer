@@ -23,7 +23,7 @@ export async function generateMetadata(
   }
 
   return {
-    title: `Channel segments for ${channel[0].channelName}`,
+    title: `Channel segments for ${channel.channelName}`,
   }
 }
 
@@ -45,7 +45,7 @@ export default async function ChannelLayout({
 
   return (
     <div className="px-6 space-y-3 max-w-screen-2xl mx-auto">
-      <ChannelStoreProvider initialVideoStore={videos} channelData={channel[0]}>
+      <ChannelStoreProvider initialVideoStore={videos} channelData={channel}>
         <ViewItemProvider initialView={!isValidViews ? "grid" : viewParam}>
           <ChannelInfo channelId={_params.cid} />
           {children}

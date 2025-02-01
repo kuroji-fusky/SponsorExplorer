@@ -30,7 +30,7 @@ export function VideoInfoTitle() {
         <span className="opacity-75">Segments for</span>
         <h1 translate="no">{video.title}</h1>
       </div>
-      <div className="inline-flex flex-wrap gap-x-2">
+      <div className="inline-flex flex-wrap items-center gap-x-2">
         <div className="sr-only" id="view-channel-segments-a11y">
           {"View channel segments for "}
           <span translate="no">{video.channelTitle}</span>
@@ -39,8 +39,12 @@ export function VideoInfoTitle() {
           translate="no"
           aria-labelledby="view-channel-segments-a11y"
           href={`/channel/${video.channelId}`}
+          className="inline-flex items-center gap-x-2.5"
         >
-          {video.channelTitle}
+          <div className="size-7 aspect-square rounded-full overflow-hidden bg-red-200">
+            <img src={video.channelAvatar} alt="" />
+          </div>
+          <span className="my-auto">{video.channelTitle}</span>
         </Link>
         <time dateTime={_isoDate}>{_readableDate}</time>
       </div>

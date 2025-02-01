@@ -7,6 +7,8 @@ export async function GET(request: NextRequest) {
   const urlParams = new URL(request.url).searchParams
   const channelId = urlParams.get("id")!
 
+  const noVideoFetch = Number(urlParams.get("no_vid"))!
+
   let fetchedData: [yt.Responses.ChannelList, number] | null = null;
 
   // YT API can be annoying wtf
@@ -38,12 +40,22 @@ export async function GET(request: NextRequest) {
     })
   }
 
+  const firstChannelItem = fetchedData[0].items
+  const channelDetails = firstChannelItem.map(({ snippet }) => ({
+    channelName: snippet.title,
+    thumbs: snippet.thumbnails.high.url,
+    joinDate: snippet.publishedAt
+  }))[0]
+
+  // `no_vid=1` parameter so we don't get exhastive calls from other APIs, used for displaying channel avatar and other minimal info
+  if (noVideoFetch === 1) return NextResponse.json(channelDetails)
+
   // 2. Get videos from the channel
   let videoCollection = []
 
   // Huge thanks to this guy: https://stackoverflow.com/a/76602819/18905871
   const [playlistData] = await youtube.playlistItems({
-    playlistId: (fetchedData[0].items[0].id).replace(/^UC/, "UULF"),
+    playlistId: (firstChannelItem[0].id).replace(/^UC/, "UULF"),
     maxResults: 48
   })
 
@@ -56,12 +68,6 @@ export async function GET(request: NextRequest) {
   })
 
   // Parse dat data
-  const parsedChannelData = fetchedData[0].items.map(({ snippet }) => ({
-    channelName: snippet.title,
-    thumbs: snippet.thumbnails.high.url,
-    joinDate: snippet.publishedAt
-  }))
-
   const parsedVideoData = videosData.items.map(({ snippet, id, contentDetails }) => ({
     id,
     title: snippet.title,
@@ -70,5 +76,5 @@ export async function GET(request: NextRequest) {
     duration: formatYTTimecode(contentDetails.duration)
   }))
 
-  return NextResponse.json({ channel: parsedChannelData, videos: parsedVideoData })
+  return NextResponse.json({ channel: channelDetails, videos: parsedVideoData })
 }
