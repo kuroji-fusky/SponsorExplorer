@@ -21,7 +21,14 @@ export function VideoItemContainer(props: VideoItemContainerProps) {
   const { videos } = useChannelStoreProvider()
 
   return (
-    <div className={cn("grid gap-1.5", view === "grid" ? "grid-cols-4" : "")}>
+    <div
+      className={cn(
+        "grid gap-1.5",
+        view === "grid"
+          ? "xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1"
+          : "",
+      )}
+    >
       {videos.map((item) => (
         <VideoItemGrid
           key={item.id}

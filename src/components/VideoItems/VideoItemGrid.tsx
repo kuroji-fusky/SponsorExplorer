@@ -1,14 +1,15 @@
 "use client"
 
+import { useEffect, useState } from "react"
+import dynamic from "next/dynamic"
+import { useRouter } from "next/navigation"
 import { LuLock, LuMoreVertical, LuSparkles } from "react-icons/lu"
-import type { InlineSegments, SharedVideoItemProps } from "./VideoItem.types"
 import Link from "next/link"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
+import type { InlineSegments } from "@/types"
 import { parseDateStr } from "@/utils"
-import { useEffect, useState } from "react"
+import type { SharedVideoItemProps } from "./VideoItem.types"
 import { fetchSkipSeggies } from "./VideoItem.utils"
-import dynamic from "next/dynamic"
 
 const SegmentBar = dynamic(() =>
   import("../SegmentBar").then((m) => m.SegmentBar),

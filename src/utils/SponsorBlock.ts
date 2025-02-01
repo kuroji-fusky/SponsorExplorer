@@ -9,9 +9,10 @@ const SB_API_BASE_URL = "https://sponsor.ajay.app/api"
  * 
  * @link https://wiki.sponsor.ajay.app/w/API_Docs#GET_/api/skipSegments
  */
-const skipSegments = async (props: sb.Props.SkipAndSearchSegments) => {
+const skipSegments = async (props: sb.Props.SkipAndSearchSegments, fetchOptions?: RequestInit) => {
   return fetchWrapper<sb.Responses.SkipSegments>(
-    parseURLSearchParams<typeof props>(`${SB_API_BASE_URL}/skipSegments`, props)
+    parseURLSearchParams<typeof props>(`${SB_API_BASE_URL}/skipSegments`, props),
+    fetchOptions
   )
 }
 
@@ -42,15 +43,17 @@ const lockCategories = async (props: sb.Props.LockedSegments) => {
   )
 }
 
-const userID = async (props: sb.Props.UserID) => {
+const userID = async (props: sb.Props.UserID, fetchOptions?: RequestInit) => {
   return fetchWrapper(
-    parseURLSearchParams<typeof props>(`${SB_API_BASE_URL}/userID`, props)
+    parseURLSearchParams<typeof props>(`${SB_API_BASE_URL}/userID`, props),
+    fetchOptions
   )
 }
 
-const userInfo = async (props: sb.Props.UserInfo) => {
+const userInfo = async (props: sb.Props.UserInfo, fetchOptions?: RequestInit) => {
   return fetchWrapper(
-    parseURLSearchParams<typeof props>(`${SB_API_BASE_URL}/userInfo`, props)
+    parseURLSearchParams<typeof props>(`${SB_API_BASE_URL}/userInfo`, props),
+    fetchOptions
   )
 }
 

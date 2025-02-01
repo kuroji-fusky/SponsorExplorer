@@ -2,7 +2,10 @@ import { fetchWrapper } from "@/utils/fetchWrapper"
 import type { InlineSegments, SkippableSeggies } from "@/types"
 
 export const fetchSkipSeggies = async (id: string) => {
-  const [res] = await fetchWrapper<SkippableSeggies>(`${location.origin}/api/sb/skippableSegments?id=${id}`, { cache: "no-cache" })
+  const [res, codes] = await fetchWrapper<SkippableSeggies>(`${location.origin}/api/sb/skippableSegments?id=${id}`, {
+    cache: "no-store",
+    priority: "high"
+  })
 
   let relativeSegments = null
   let hasHighlight = false
@@ -33,6 +36,7 @@ export const fetchSkipSeggies = async (id: string) => {
   }
 
   const fullLabel = full ? full[0].category : null
+  console.log(codes, { fullLabel })
 
   return ({ relativeSegments, hasHighlight, fullLabel }) as InlineSegments
 }
