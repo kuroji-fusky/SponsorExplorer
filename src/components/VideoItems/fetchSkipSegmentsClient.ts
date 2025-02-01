@@ -1,10 +1,13 @@
 import { fetchWrapper } from "@/utils/fetchWrapper"
 import type { InlineSegments, SkippableSeggies } from "@/types"
 
-export const fetchSkipSeggies = async (id: string) => {
+export const fetchSkipSegmentsClient = async (id: string, abortSignal: AbortSignal) => {
   const [res, codes] = await fetchWrapper<SkippableSeggies>(`${location.origin}/api/sb/skippableSegments?id=${id}`, {
-    cache: "no-store",
-    priority: "high"
+    signal: abortSignal,
+    priority: "high",
+    next: {
+      revalidate: 1800
+    }
   })
 
   let relativeSegments = null

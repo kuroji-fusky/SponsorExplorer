@@ -8,7 +8,8 @@ import Link from "next/link"
 import type { InlineSegments } from "@/types"
 import { parseDateStr } from "@/utils"
 import type { SharedVideoItemProps } from "./VideoItem.types"
-import { fetchSkipSeggies } from "./VideoItem.utils"
+import { fetchSkipSegmentsClient } from "./fetchSkipSegmentsClient"
+import Image from "next/image"
 
 const SegmentBar = dynamic(() =>
   import("../SegmentBar").then((m) => m.SegmentBar),
@@ -40,13 +41,16 @@ export default function VideoItemGrid(props: VideoItemGridProps) {
   })
 
   useEffect(() => {
+    const { signal } = new AbortController()
+
     if (!hasLoaded) {
-      fetchSkipSeggies(props.id).then((d) => {
+      fetchSkipSegmentsClient(props.id, signal).then((d) => {
         setSegments(d)
         setLoadingSegments(false)
         setHasLoaded(true)
       })
     }
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [])
 
   const { hasHighlight, relativeSegments } = skippableSegments
@@ -61,7 +65,13 @@ export default function VideoItemGrid(props: VideoItemGridProps) {
       >
         {/* Thumbnail */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="object-cover" src={props.thumbnail!} alt="" />
+        <Image
+          className="object-cover size-full"
+          src={props.thumbnail!}
+          fill
+          alt=""
+        />
+
         {/* Lock and full segments */}
         <span className="absolute inline-flex top-2 left-2 rounded-md overflow-hidden *:py-0.5">
           {/* <div className="bg-yellow-300 dark:bg-yellow-400 dark:text-black inline-flex gap-x-1 place-items-center pl-2 pr-1.5">
