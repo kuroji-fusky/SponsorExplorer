@@ -10,6 +10,7 @@ import { parseDateStr } from "@/utils"
 import type { SharedVideoItemProps } from "./VideoItem.types"
 import { fetchSkipSegmentsClient } from "./fetchSkipSegmentsClient"
 import Image from "next/image"
+import { segmentLabelFormatter } from "./VideoItem.utils"
 
 const SegmentBar = dynamic(() =>
   import("../SegmentBar").then((m) => m.SegmentBar),
@@ -59,7 +60,7 @@ export default function VideoItemGrid(props: VideoItemGridProps) {
     <div className="relative py-2.5 px-3 flex flex-col gap-y-2 lg:gap-y-2.5 group">
       {/* Thumbnail wrapper */}
       <Link
-        className="relative aspect-video w-full rounded-md overflow-hidden"
+        className="relative aspect-video w-full rounded-md overflow-hidden border-2 border-transparent dark:border-neutral-800  dark:group-hover:border-neutral-700 transition-colors"
         href={videoIdLink}
         onMouseEnter={videoIdPrefetchEvent}
       >
@@ -107,16 +108,25 @@ export default function VideoItemGrid(props: VideoItemGridProps) {
             <LuMoreVertical size={18} />
           </button>
         </div>
-        <div className="inline-flex gap-y-2 gap-x-2.5 opacity-75">
-          <time dateTime={isoDate}>{readableDate}</time>
+        <div className="inline-flex gap-y-2 gap-x-2.5 ">
+          <time
+            dateTime={isoDate}
+            className="opacity-60 group-hover:opacity-80 transition-opacity"
+          >
+            {readableDate}
+          </time>
           {!isLoadingSegments ? (
-            <span>
-              {relativeSegments ? relativeSegments.length : 0}
-              {" segments "}
-              {hasHighlight ? "+ Highlight" : null}
+            <span
+              className={
+                relativeSegments !== null
+                  ? "opacity-100"
+                  : "opacity-60 group-hover:opacity-80 transition-opacity"
+              }
+            >
+              {segmentLabelFormatter(relativeSegments!, hasHighlight)}
             </span>
           ) : (
-            <div className="h-5 rounded-md w-24 bg-neutral-100 animate-pulse" />
+            <div className="h-5 rounded-md w-32 bg-neutral-300 dark:bg-neutral-100 animate-pulse" />
           )}
         </div>
       </div>
