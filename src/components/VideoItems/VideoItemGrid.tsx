@@ -5,7 +5,6 @@ import dynamic from "next/dynamic"
 import { useRouter } from "next/navigation"
 import { LuLock, LuMoreVertical, LuSparkles } from "react-icons/lu"
 import Link from "next/link"
-import Image from "next/image"
 import type { InlineSegments } from "@/types"
 import { parseDateStr } from "@/utils"
 import type { SharedVideoItemProps } from "./VideoItem.types"
@@ -61,13 +60,8 @@ export default function VideoItemGrid(props: VideoItemGridProps) {
         onMouseEnter={videoIdPrefetchEvent}
       >
         {/* Thumbnail */}
-        <Image
-          className="object-cover"
-          src={props.thumbnail!}
-          alt=""
-          priority
-          fill
-        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="object-cover" src={props.thumbnail!} alt="" />
         {/* Lock and full segments */}
         <span className="absolute inline-flex top-2 left-2 rounded-md overflow-hidden *:py-0.5">
           {/* <div className="bg-yellow-300 dark:bg-yellow-400 dark:text-black inline-flex gap-x-1 place-items-center pl-2 pr-1.5">
