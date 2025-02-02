@@ -1,8 +1,12 @@
 import { fetchWrapper } from "@/utils/fetchWrapper"
 import type { InlineSegments, SkippableSeggies } from "@/types"
+import type { sb } from "@/utils/SponsorBlock.types"
 
 export const fetchSkipSegmentsClient = async (id: string, abortSignal: AbortSignal) => {
-  const [res, codes] = await fetchWrapper<SkippableSeggies>(`${location.origin}/api/sb/skippableSegments?id=${id}`, {
+  let relativeSegments = null
+  let hasHighlight = false
+
+  const segmentFetcher = fetchWrapper<SkippableSeggies>(`${location.origin}/api/sb/skippableSegments?id=${id}`, {
     signal: abortSignal,
     priority: "low",
     next: {
@@ -10,10 +14,17 @@ export const fetchSkipSegmentsClient = async (id: string, abortSignal: AbortSign
     }
   })
 
-  let relativeSegments = null
-  let hasHighlight = false
+  const lockSegFetcher = fetchWrapper<Record<string, sb.Responses.LockCategories>>(`${location.origin}/api/sb/lockCategories?id=${id}`, {
+    signal: abortSignal,
+    priority: "low",
+    next: {
+      revalidate: 3600
+    }
+  })
 
-  const { skip, full } = res
+  const [[segmentRes], [lockRes]] = await Promise.all([segmentFetcher, lockSegFetcher])
+
+  const { skip, full } = segmentRes
 
   if (skip) {
     const skipFiltered = skip.map(({ segment, category }) => ({
@@ -39,7 +50,7 @@ export const fetchSkipSegmentsClient = async (id: string, abortSignal: AbortSign
   }
 
   const fullLabel = full ? full[0].category : null
-  console.log(codes, { fullLabel })
+  const hasLockedSegments = Object.values(lockRes).some(o => o !== null)
 
-  return ({ relativeSegments, hasHighlight, fullLabel }) as InlineSegments
+  return ({ relativeSegments, hasHighlight, fullLabel, hasLockedSegments }) as InlineSegments
 }

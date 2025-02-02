@@ -31,6 +31,7 @@ export interface InlineSegments {
   }> | null
   hasHighlight: boolean
   fullLabel: "sponsor" | "selfpromo" | "exclusive_acesss" | null
+  hasLockedSegments: boolean
 }
 
 

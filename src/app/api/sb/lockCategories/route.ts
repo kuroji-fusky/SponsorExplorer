@@ -1,6 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { SponsorBlock } from "@/utils"
-import type { sb } from "@/utils/SponsorBlock.types"
 import { segmentsFallback } from "@/utils/lockSegmentsFallback"
 
 export async function GET(request: NextRequest) {
