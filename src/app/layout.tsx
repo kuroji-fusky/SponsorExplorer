@@ -19,6 +19,11 @@ export const metadata: Metadata = {
     default: "",
     template: "%s | SponsorExplorer",
   },
+  formatDetection: {
+    email: false,
+    telephone: false,
+    address: false,
+  },
 }
 
 export default async function RootLayout({

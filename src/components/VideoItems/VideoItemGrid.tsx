@@ -42,7 +42,8 @@ export default function VideoItemGrid(props: VideoItemGridProps) {
   })
 
   useEffect(() => {
-    const { signal } = new AbortController()
+    const abortController = new AbortController()
+    const { signal } = abortController
 
     if (!hasLoaded) {
       fetchSkipSegmentsClient(props.id, signal).then((d) => {
@@ -50,6 +51,12 @@ export default function VideoItemGrid(props: VideoItemGridProps) {
         setLoadingSegments(false)
         setHasLoaded(true)
       })
+    }
+
+    return () => {
+      abortController.abort(
+        `Aborting fetch call from potential route change: Aborted fetching skip segments from "${props.title}"`,
+      )
     }
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [])
@@ -70,6 +77,7 @@ export default function VideoItemGrid(props: VideoItemGridProps) {
           className="object-cover size-full"
           src={props.thumbnail!}
           fill
+          priority
           alt=""
         />
 
