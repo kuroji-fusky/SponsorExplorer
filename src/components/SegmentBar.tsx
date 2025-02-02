@@ -1,8 +1,7 @@
 "use client"
 
 import type { InlineSegments } from "@/types"
-import { cn } from "@/utils"
-import { sbCategoryMap } from "@/utils/constants"
+import { cn, mapCategory } from "@/utils"
 
 interface SegmentBarProps {
   segments: InlineSegments["relativeSegments"]
@@ -11,11 +10,11 @@ interface SegmentBarProps {
 export function SegmentBar(props: SegmentBarProps) {
   return (
     <div data-segment-bar="" className="h-3 translate-y-2 flex">
-      {props.segments!.map((fregies, index) => (
+      {props.segments!.map((fragment, index) => (
         <div
           key={index}
-          className={cn(sbCategoryMap[fregies.segment].bg, "h-full")}
-          style={{ width: `${fregies.width}%` }}
+          className={cn(mapCategory(fragment.segment).bg, "h-full")}
+          style={{ width: `${fragment.width}%` }}
         />
       ))}
     </div>

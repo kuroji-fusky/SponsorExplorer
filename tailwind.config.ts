@@ -13,7 +13,7 @@ export default {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     // A specific file where SponBlock classes are stored here
-    "./src/utils/constants.ts"
+    "./src/utils/mapCategory.ts"
   ],
   theme: {
     extend: {

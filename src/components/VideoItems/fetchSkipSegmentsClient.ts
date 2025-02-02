@@ -16,13 +16,13 @@ export const fetchSkipSegmentsClient = async (id: string, abortSignal: AbortSign
   const { skip, full } = res
 
   if (skip) {
-    const skipFiltered = skip.map((item) => ({
-      start: item.segment[0],
-      end: item.segment[1],
-      segment: item.category
+    const skipFiltered = skip.map(({ segment, category }) => ({
+      start: segment[0],
+      end: segment[1],
+      segment: category
     }))
 
-    const allSegmentSum = skipFiltered.reduce((acc, cur) => (acc += cur.end - cur.start), 0)
+    const totalSegmentSum = skipFiltered.reduce((acc, { start, end }) => (acc += end - start), 0)
 
     relativeSegments = skipFiltered
       .filter((item) => item.segment !== "poi_highlight")
@@ -31,7 +31,7 @@ export const fetchSkipSegmentsClient = async (id: string, abortSignal: AbortSign
 
         return {
           segment: dp.segment,
-          width: (segmentDuration / allSegmentSum) * 100
+          width: (segmentDuration / totalSegmentSum) * 100
         }
       })
 

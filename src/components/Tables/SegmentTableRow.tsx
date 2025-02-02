@@ -11,8 +11,7 @@ import {
   LuTimerOff,
   LuXCircle,
 } from "react-icons/lu"
-import { cn, formatNumber, parseDateStr } from "@/utils"
-import { sbCategoryMap } from "@/utils/constants"
+import { cn, formatNumber, mapCategory, parseDateStr } from "@/utils"
 import { LengthBadge } from "../Badges/LengthBadge"
 import type { Segment } from "./SegmentRow.types"
 import { SegmentRowDropdown } from "./SegmentRowDropdown"
@@ -29,6 +28,8 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
   const handleRowLeave = useCallback(() => setHoverState(false), [])
 
   const hoverOptionsCn = cn("flex ml-1", isHovering ? undefined : "opacity-0")
+
+  const { label: segmentLabel } = mapCategory(props.category)
 
   return (
     <tr
@@ -89,7 +90,7 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
           <div className={hoverOptionsCn}>
             <button
               className="p-0.5"
-              title={`Filter out the ${sbCategoryMap[props.category].label} category (Alt+Click to negate)`}
+              title={`Filter out the ${segmentLabel} category (Alt+Click to negate)`}
             >
               <LuFilter size={19} />
             </button>

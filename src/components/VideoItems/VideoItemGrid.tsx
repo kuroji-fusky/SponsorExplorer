@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react"
 import dynamic from "next/dynamic"
-import { useRouter } from "next/navigation"
 import { LuLock, LuMoreVertical, LuSparkles } from "react-icons/lu"
 import Link from "next/link"
 import type { InlineSegments } from "@/types"
@@ -11,34 +10,34 @@ import type { SharedVideoItemProps } from "./VideoItem.types"
 import { fetchSkipSegmentsClient } from "./fetchSkipSegmentsClient"
 import Image from "next/image"
 import { segmentLabelFormatter } from "./VideoItem.utils"
+import { usePrefetchRoute } from "@/hooks/usePrefetchRoute"
 
-const SegmentBar = dynamic(() =>
-  import("../SegmentBar").then((m) => m.SegmentBar),
+const VideoItemFullLabel = dynamic(
+  () => import("./FullLabel").then((m) => m.VideoItemFullLabel),
+  { ssr: false },
 )
 
-interface VideoItemGridProps extends SharedVideoItemProps {
-  id: string
-  thumbnail?: string
-}
+const SegmentBar = dynamic(
+  () => import("../SegmentBar").then((m) => m.SegmentBar),
+  { ssr: false },
+)
 
-export default function VideoItemGrid(props: VideoItemGridProps) {
-  const router = useRouter()
+export default function VideoItemGrid(props: SharedVideoItemProps) {
+  const [hasLoaded, setHasLoaded] = useState(false)
+  const [isLoadingSegments, setLoadingSegments] = useState(true)
+  const [skippableSegments, setSkippableSegments] = useState<InlineSegments>({
+    relativeSegments: null,
+    hasHighlight: false,
+    fullLabel: null,
+  })
+
+  const videoIdLink = `/video/${props.id}`
+  const videoIdPrefetchEvent = usePrefetchRoute(videoIdLink)
 
   const { isoDate, readableDate } = parseDateStr(props.date!, {
     month: "short",
     day: "numeric",
     year: "numeric",
-  })
-
-  const videoIdLink = `/video/${props.id}`
-  const videoIdPrefetchEvent = () => router.prefetch(videoIdLink)
-
-  const [hasLoaded, setHasLoaded] = useState(false)
-  const [isLoadingSegments, setLoadingSegments] = useState(true)
-  const [skippableSegments, setSegments] = useState<InlineSegments>({
-    relativeSegments: null,
-    hasHighlight: false,
-    fullLabel: null,
   })
 
   useEffect(() => {
@@ -47,7 +46,7 @@ export default function VideoItemGrid(props: VideoItemGridProps) {
 
     if (!hasLoaded) {
       fetchSkipSegmentsClient(props.id, signal).then((d) => {
-        setSegments(d)
+        setSkippableSegments(d)
         setLoadingSegments(false)
         setHasLoaded(true)
       })
@@ -61,7 +60,7 @@ export default function VideoItemGrid(props: VideoItemGridProps) {
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [])
 
-  const { hasHighlight, relativeSegments } = skippableSegments
+  const { hasHighlight, relativeSegments, fullLabel } = skippableSegments
 
   return (
     <div className="relative py-2.5 px-3 flex flex-col gap-y-2 lg:gap-y-2.5 group">
@@ -72,7 +71,6 @@ export default function VideoItemGrid(props: VideoItemGridProps) {
         onMouseEnter={videoIdPrefetchEvent}
       >
         {/* Thumbnail */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
           className="object-cover size-full"
           src={props.thumbnail!}
@@ -86,11 +84,9 @@ export default function VideoItemGrid(props: VideoItemGridProps) {
           {/* <div className="bg-yellow-300 dark:bg-yellow-400 dark:text-black inline-flex gap-x-1 place-items-center pl-2 pr-1.5">
             <LuLock size={16} />
           </div> */}
-          {/* <div className="font-semibold relative px-2">
-            <span className="relative z-20">Sponsor</span>
-            <span className="dark:bg-black/30 absolute z-10 inset-0" />
-            <span className="bg-sb-sponsor absolute inset-0" />
-          </div> */}
+
+          <div className="group-hover:opacity-40 transition-opacity"></div>
+          {fullLabel !== null ? <VideoItemFullLabel /> : null}
         </span>
         {/* Video duration */}
         <div className="absolute flex items-center bottom-2 right-2 px-1.5 *:px-0.5 *:py-1 overflow-hidden text-white bg-black/50 backdrop-blur-sm rounded-md">

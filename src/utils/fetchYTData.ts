@@ -15,20 +15,15 @@ export const fetchVideoData = cache(async (id: string) => {
   )
 
   const channelId = fetchVideoInfo.video.channelId
-
   const [channelRes] = await fetchWrapper<yt.Responses.ChannelList>(`${urlBase}/api/yt/channel?id=${channelId}&no_vid=1`)
 
-  const yes = {
+  return {
     video: {
       ...fetchVideoInfo.video,
       channelAvatar: channelRes.thumbs
     },
     state: fetchVideoInfo.state,
   }
-
-  console.log(yes)
-
-  return yes
 })
 
 export const fetchChannelData = cache(async (id: string) => {

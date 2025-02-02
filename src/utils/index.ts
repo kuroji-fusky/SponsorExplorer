@@ -3,3 +3,4 @@ export * from "./formatters"
 export * from "./parsers"
 
 export * from "./SponsorBlock"
+export * from "./mapCategory"
