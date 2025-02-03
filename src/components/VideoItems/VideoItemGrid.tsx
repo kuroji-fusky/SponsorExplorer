@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 
 import { useEffect, useState } from "react"
@@ -6,11 +7,10 @@ import Link from "next/link"
 import { LuLock, LuMoreVertical, LuSparkles } from "react-icons/lu"
 import type { InlineSegments } from "@/types"
 import { parseDateStr } from "@/utils"
+import { usePrefetchRoute } from "@/hooks/usePrefetchRoute"
 import type { SharedVideoItemProps } from "./VideoItem.types"
 import { fetchSkipSegmentsClient } from "./fetchSkipSegmentsClient"
-import Image from "next/image"
 import { segmentLabelFormatter } from "./VideoItem.utils"
-import { usePrefetchRoute } from "@/hooks/usePrefetchRoute"
 import { VideoItemFullLabel } from "./FullLabel"
 
 const SegmentBar = dynamic(
@@ -46,11 +46,10 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
 
   // For fetching data
   useEffect(() => {
-    const abortController = new AbortController()
-    const { signal } = abortController
+    const controller = new AbortController()
 
     if (!hasLoaded) {
-      fetchSkipSegmentsClient(props.id, signal).then((d) => {
+      fetchSkipSegmentsClient(props.id, controller.signal).then((d) => {
         setSkippableSegments(d)
         setLoadingSegments(false)
         setHasLoaded(true)
@@ -58,7 +57,7 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
     }
 
     return () => {
-      abortController.abort(
+      controller.abort(
         `Aborting fetch call from potential route change: Aborted fetching skip segments from "${props.title}"`,
       )
     }
@@ -84,13 +83,7 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
         onMouseEnter={videoIdPrefetchEvent}
       >
         {/* Thumbnail */}
-        <Image
-          className="object-cover size-full"
-          src={props.thumbnail!}
-          fill
-          priority
-          alt=""
-        />
+        <img className="object-cover size-full" src={props.thumbnail!} alt="" />
 
         {/* Lock and full segments */}
         <span className="absolute inline-flex top-2 left-2 rounded-md overflow-hidden *:py-0.5 group-hover:opacity-40 transition-opacity">

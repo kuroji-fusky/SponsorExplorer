@@ -8,7 +8,7 @@ export const fetchSkipSegmentsClient = async (id: string, abortSignal: AbortSign
 
   const segmentFetcher = fetchWrapper<SkippableSeggies>(`${location.origin}/api/sb/skippableSegments?id=${id}`, {
     signal: abortSignal,
-    priority: "low",
+    priority: "high",
     next: {
       revalidate: 1800
     }
@@ -16,7 +16,7 @@ export const fetchSkipSegmentsClient = async (id: string, abortSignal: AbortSign
 
   const lockSegFetcher = fetchWrapper<Record<string, sb.Responses.LockCategories>>(`${location.origin}/api/sb/lockCategories?id=${id}`, {
     signal: abortSignal,
-    priority: "low",
+    priority: "high",
     next: {
       revalidate: 3600
     }

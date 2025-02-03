@@ -112,8 +112,7 @@ export async function GET(request: NextRequest) {
     _lockedSegments.full === null
   )
 
-  const lockValues = Object.entries(_lockedSegments)
-    .map(([, value]) => value)
+  const lockValues = Object.values(_lockedSegments)
     .filter(Boolean) as sb.Responses.LockCategories[]
 
   if (hasLockedSegments) {
@@ -121,6 +120,7 @@ export async function GET(request: NextRequest) {
       if (reason === null) return
       _lockReasonSet.add(reason)
     })
+
     const reasonFiltered = Array.from(_lockReasonSet).filter(Boolean)
 
     lockReason = reasonFiltered[0]
