@@ -3,15 +3,11 @@
 import { _Link as Link } from "@/components/Link"
 import { LuBookmark, LuExternalLink } from "react-icons/lu"
 import { SegmentStatsInline } from "../SegmentStatsInline"
-
 import { useChannelStoreProvider } from "@/context"
 
-interface ChannelInfoProps {
-  channelId: string
-}
-
-export function ChannelInfo(props: ChannelInfoProps) {
+export function ChannelInfo() {
   const { channel } = useChannelStoreProvider()
+
   return (
     <div className="mt-1 flex bg-neutral-100 dark:bg-neutral-800/30 rounded-md px-7 py-6 gap-x-5">
       <div className="flex-shrink-0">
@@ -32,7 +28,7 @@ export function ChannelInfo(props: ChannelInfoProps) {
               <LuBookmark size={18} />
             </button>
             <Link
-              href={`https://www.youtube.com/channel/${props.channelId}`}
+              href={`https://www.youtube.com/channel/${channel.id}`}
               className="p-2 inline"
             >
               <LuExternalLink size={17} />

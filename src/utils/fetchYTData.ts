@@ -31,7 +31,7 @@ export const fetchChannelData = cache(async (id: string) => {
 
   const [fetchChannelInfo] = await fetchWrapper<VideoInfoType>(
     `${urlBase}/api/yt/channel?id=${id}`,
-    { cache: "no-cache" },
+    { cache: "force-cache" },
   )
 
   return fetchChannelInfo

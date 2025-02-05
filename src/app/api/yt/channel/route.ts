@@ -40,12 +40,18 @@ export async function GET(request: NextRequest) {
     })
   }
 
-  const firstChannelItem = fetchedData[0].items
-  const channelDetails = firstChannelItem.map(({ snippet }) => ({
-    channelName: snippet.title,
-    thumbs: snippet.thumbnails.high.url,
-    joinDate: snippet.publishedAt
-  }))[0]
+  const firstChannelItem = fetchedData[0].items[0]
+  const channelDetails = {
+    id: firstChannelItem.id,
+    channelName: firstChannelItem.snippet.title,
+    thumbs: firstChannelItem.snippet.thumbnails.high.url,
+    joinDate: firstChannelItem.snippet.publishedAt
+  }
+
+  // This is a hacky way to check if there are no uploads on the channel, might refactor this soon
+  if (parseInt(firstChannelItem.statistics.videoCount) === 0) {
+    return NextResponse.json({ channel: channelDetails, videos: [] })
+  }
 
   // `no_vid=1` parameter so we don't get exhastive calls from other APIs, used for displaying channel avatar and other minimal info
   if (noVideoFetch === 1) return NextResponse.json(channelDetails)
@@ -55,7 +61,7 @@ export async function GET(request: NextRequest) {
 
   // Huge thanks to this guy: https://stackoverflow.com/a/76602819/18905871
   const [playlistData] = await youtube.playlistItems({
-    playlistId: (firstChannelItem[0].id).replace(/^UC/, "UULF"),
+    playlistId: (firstChannelItem.id).replace(/^UC/, "UULF"),
     maxResults: 48
   })
 

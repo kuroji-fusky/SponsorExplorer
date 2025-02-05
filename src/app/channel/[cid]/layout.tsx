@@ -47,7 +47,7 @@ export default async function ChannelLayout({
     <div className="px-6 space-y-3 max-w-screen-2xl mx-auto">
       <ChannelStoreProvider initialVideoStore={videos} channelData={channel}>
         <ViewItemProvider initialView={!isValidViews ? "grid" : viewParam}>
-          <ChannelInfo channelId={_params.cid} />
+          <ChannelInfo />
           {children}
         </ViewItemProvider>
       </ChannelStoreProvider>

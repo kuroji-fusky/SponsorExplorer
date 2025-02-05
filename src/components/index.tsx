@@ -6,3 +6,5 @@ export * from "./SegmentStatsInline"
 
 export * from "./Separator"
 export * from "./ShowIf"
+
+export * from "./FatalError"
