@@ -1,5 +1,5 @@
 import type { sb } from "./SponsorBlock.types"
 
-export const segmentsFallback = (s: sb.Responses.LockCategories | sb.Responses.SkipSegments) => {
+export const segmentsFallback = <TS extends sb.Responses.LockCategories | sb.Responses.SkipSegments>(s: TS) => {
   return typeof s === "string" ? null : s
 }

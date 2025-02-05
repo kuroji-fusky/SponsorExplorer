@@ -2,9 +2,13 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { allSegments, padIterations, SponsorBlock } from "@/utils"
 import type { sb } from "@/utils/SponsorBlock.types"
+import { segmentsFallback } from "@/utils/lockSegmentsFallback"
+import { mapValues, sortBy } from "lodash-es"
+
+type _UnwrapArray<I> = I extends Array<infer U> ? U : never
 
 type SortByLiteral = "asc" | "desc"
-type SBSegment = sb.Responses.SearchSegments['segments']
+type SBSegment = Array<_UnwrapArray<sb.Responses.SearchSegments['segments']> & { __next_iterableFragment: number }>
 
 export async function GET(request: NextRequest) {
   const urlParams = new URL(request.url).searchParams
@@ -17,6 +21,7 @@ export async function GET(request: NextRequest) {
   }
 
   // Store all the accumulated segments fetched to be returned from the API
+  /* eslint-disable-next-line prefer-const */
   let _totalSegments: SBSegment = []
 
   const _storeTotalSegments = (segmentsToPush: SBSegment) => {
@@ -41,7 +46,9 @@ export async function GET(request: NextRequest) {
   const { segmentCount, segments } = initialSegments
 
   // Push initial segments
-  if (searchSegmentsStatus !== 404) _storeTotalSegments(segments)
+  if (searchSegmentsStatus !== 404) _storeTotalSegments(
+    segments.map(item => ({ __next_iterableFragment: 1, ...item }))
+  )
 
   // Will be used to calculate the total iterations and to be used client-side for pagination
   let totalIterations = 0
@@ -60,7 +67,9 @@ export async function GET(request: NextRequest) {
         videoID: params.id,
         page: segmentIndex
       }).then(([partialSegments]) => {
-        _storeTotalSegments(partialSegments.segments)
+        _storeTotalSegments(
+          partialSegments.segments.map(item => ({ __next_iterableFragment: segmentIndex, ...item }))
+        )
       })
     })
 
@@ -89,31 +98,21 @@ export async function GET(request: NextRequest) {
   })
 
   // Sort the segments in descending order by default
-  // @ts-expect-error: Dates are too type-strict to sort UNIX dates
-  const sortedSegments = _totalSegments.sort((a, b) => (new Date(a.timeSubmitted) - new Date(b.timeSubmitted)))
-
-  // Parse locked segments if any are available
-  const lockedSegmentsFallback = (lockedSegments: sb.Responses.LockCategories) => {
-    return typeof lockedSegments === "string" ? null : lockedSkipSegments
-  }
+  const sortedSegments = sortBy(_totalSegments, (segment) => new Date(segment.timeSubmitted))
 
   const _lockedSegments = {
-    skip: (lockedSegmentsFallback(lockedSkipSegments)),
-    mute: (lockedSegmentsFallback(lockedMuteSegments)),
-    full: (lockedSegmentsFallback(lockedFullSegments))
+    skip: (segmentsFallback(lockedSkipSegments)),
+    mute: (segmentsFallback(lockedMuteSegments)),
+    full: (segmentsFallback(lockedFullSegments))
   }
 
   let lockReason: string | null = null
+  // A lock reason could possibly have one or more reasons set by a VIP
   const _lockReasonSet = new Set<string>()
 
-  const hasLockedSegments = !(
-    _lockedSegments.skip === null &&
-    _lockedSegments.mute === null &&
-    _lockedSegments.full === null
-  )
+  const hasLockedSegments = !(_lockedSegments.skip === null && _lockedSegments.mute === null && _lockedSegments.full === null)
 
-  const lockValues = Object.values(_lockedSegments)
-    .filter(Boolean) as sb.Responses.LockCategories[]
+  const lockValues = Object.values(_lockedSegments).filter(Boolean) as sb.Responses.LockCategories[]
 
   if (hasLockedSegments) {
     lockValues.forEach(({ reason }) => {
@@ -126,12 +125,7 @@ export async function GET(request: NextRequest) {
     lockReason = reasonFiltered[0]
   }
 
-  const lockedSegments = Object.fromEntries(
-    Object.entries(_lockedSegments).map(([key, value]) => {
-      if (!value) return []
-      return [key, value.categories]
-    })
-  )
+  const lockedSegments = mapValues(_lockedSegments, (value) => value?.categories || [])
 
   return NextResponse.json({
     totalIterations,

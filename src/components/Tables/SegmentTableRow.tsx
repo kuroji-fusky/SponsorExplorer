@@ -16,7 +16,9 @@ import { LengthBadge } from "../Badges/LengthBadge"
 import type { Segment } from "./SegmentRow.types"
 import { SegmentRowDropdown } from "./SegmentRowDropdown"
 
-interface SegmentTableRowProps extends Segment {}
+interface SegmentTableRowProps extends Segment {
+  __next_iterableFragment: number
+}
 
 export function SegmentTableRow(props: SegmentTableRowProps) {
   const { isoDate, readableDate } = parseDateStr(props.timeSubmitted)
@@ -33,6 +35,7 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
 
   return (
     <tr
+      data-iterable-fragment={props.__next_iterableFragment}
       ref={tableRowRef}
       onMouseEnter={handleRowEnter}
       onMouseLeave={handleRowLeave}
