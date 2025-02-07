@@ -43,32 +43,23 @@ The YouTube embed player has a feature on when, if copyrighted content is presen
 
 Requires Node.js v20 or higher and the PNPM package manager
 
-Clone the repo and the SBbrowser API submodule
+1. Clone the repo and the SBbrowser API submodule
 
-```console
-git clone --recurse-submodules https://github.com/kuroji-fusky/SponsorExplorer
-```
+    ```console
+    git clone --recurse-submodules https://github.com/kuroji-fusky/SponsorExplorer
+    ```
 
-Install root dependencies
+1. Install dependencies with `pnpm`
 
-```console
-cd ..
-pnpm install
-pnpm run dev
-```
+    ```console
+    pnpm install
+    ```
 
-Then install the submodule's dependencies then run the dev server
+1. Copy the .env.local.example file
 
-```console
-cd sbbrowser-api
-pnpm install
-```
-
-Copy the .env.local.example file
-
-```console
-cp .env.local.example .env.local
-```
+    ```console
+    cp client/.env.local.example client/.env.local
+    ```
 
 ### Getting the YouTube API key
 
@@ -95,9 +86,9 @@ cp .env.local.example .env.local
 
 [^3]: <https://developers.google.com/youtube/v3/determine_quota_cost>
 
-### (Optional) Securing your API key
+#### (Optional) Securing your API key
 
-Optionally, as an added security layer, you can restrict the API key you've created, since they're unrestricted. By clicking on "Edit API key" on the dialog box or by clicking on the three dots on the right and clicking "Edit API key"
+As an added security layer, you can restrict the API key you've created, since they're unrestricted. By clicking on "Edit API key" on the dialog box or by clicking on the three dots on the right and clicking "Edit API key"
 
 1. Under "Set an application restriction", choose "Websites"
 1. On "Website restrictions", add an item with the field `localhost:3000`, then click Done

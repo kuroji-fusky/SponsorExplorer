@@ -2,9 +2,21 @@
   "name": "sponsorexplorer",
   "version": "0.0.1",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "client:dev": "pnpm --filter se-next-client dev",
+    "client:build": "pnpm --filter se-next-client build",
+    "client:lint": "pnpm --filter se-next-client lint",
+    "server:dev": "pnpm --filter sb-browser-api dev"
+  },
   "devDependencies": {
     "eslint": "^8",
-    "eslint-config-next": "15.0.3"
+    "eslint-config-next": "15.1.2"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "pnpm": {
+    "overrides": {
+      "@types/react": "npm:types-react@19.0.0-rc.1",
+      "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
+    }
   }
 }

@@ -9,7 +9,6 @@ jobs:
 
       - uses: pnpm/action-setup@v4
         with:
-          version: 9
           run_install: false
 
       - uses: actions/setup-node@v4
@@ -21,4 +20,4 @@ jobs:
         run: pnpm install --no-lockfile
 
       - name: "Type check"
-        run: pnpm lint
+        run: pnpm client:lint
