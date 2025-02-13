@@ -9,7 +9,7 @@ import {
   LuFilter,
   LuLock,
   LuTimerOff,
-  LuXCircle,
+  LuCircleX,
 } from "react-icons/lu"
 import { cn, formatNumber, mapCategory, parseDateStr } from "../../utils"
 import { LengthBadge } from "../Badges/LengthBadge"
@@ -77,7 +77,7 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
             <LuTimerOff size={17} className="text-red-500" />
           ) : null}
           {props.votes <= -2 ? (
-            <LuXCircle size={17} className="text-red-500" />
+            <LuCircleX size={17} className="text-red-500" />
           ) : null}
         </div>
       </td>

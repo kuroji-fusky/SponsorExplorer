@@ -2,8 +2,8 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { type PropsWithChildren, useId } from "react"
 import {
   LuInfo as InfoIcon,
-  LuAlertTriangle as WarningIcon,
-  LuXCircle as AlertIcon,
+  LuTriangleAlert as WarningIcon,
+  LuCircleX as AlertIcon,
 } from "react-icons/lu"
 
 const NoticeBox = cva(

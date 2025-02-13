@@ -1,6 +1,6 @@
 "use client"
 
-import { LuXCircle } from "react-icons/lu"
+import { LuCircleX } from "react-icons/lu"
 import { useVideoInfoContext } from "../../context/video/VideoInfoProvider"
 import { useEffect, useState } from "react"
 import type { Category } from "../../utils/SponsorBlock.types"
@@ -37,7 +37,7 @@ export function DetailedSegmentStatsContents() {
         ) : (
           <div className="px-3 py-2.5 bg-red-50 dark:bg-red-950 rounded-md">
             <div className="inline-flex gap-x-2">
-              <LuXCircle size={21} className="stroke-red-500" />
+              <LuCircleX size={21} className="stroke-red-500" />
               <span>Insufficent data</span>
             </div>
             <p>
