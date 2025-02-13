@@ -43,13 +43,13 @@ export function VideoInfo() {
             segments={segmentData.segments}
             onDetailStatsShow={toggleDetailsDialog}
           />
-          <Link
+          {/* <Link
             href={`/video/${videoDetails.id}/timeline`}
             className="py-0.5 px-1.5 flex items-center gap-x-1.5 rounded-md hover:bg-neutral-300"
           >
             <LuChartGantt size={17} />
             <span>Timeline view</span>
-          </Link>
+          </Link> */}
           {/* Bottom content */}
           <div className="flex-1" />
           <div className="flex items-center mt-auto gap-x-2">
