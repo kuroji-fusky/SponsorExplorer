@@ -1,0 +1,14 @@
+services:
+  redis-youtube-cache:
+    image: redis:latest
+    ports:
+      - "4444:6379"
+    command: ["redis-server"]
+
+  sbbrowser-api:
+    build:
+      context: ./sbbrowser-api
+      dockerfile: Dockerfile
+    port:
+      - "4000:4000"
+    command: pnpm run dev
