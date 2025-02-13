@@ -8,12 +8,7 @@ import { _Link as Link } from "../Link"
 import { SegmentStatsInline } from "../SegmentStatsInline"
 
 import { DetailedSegmentStatsModal } from "../Modals"
-import {
-  LuExternalLink,
-  LuGanttChartSquare,
-  LuLink2,
-  LuPin,
-} from "react-icons/lu"
+import { LuExternalLink, LuChartGantt, LuLink2, LuPin } from "react-icons/lu"
 import { Separator } from "../Separator"
 import { VideoInfoTitle } from "./VideoInfoTitle"
 
@@ -52,7 +47,7 @@ export function VideoInfo() {
             href={`/video/${videoDetails.id}/timeline`}
             className="py-0.5 px-1.5 flex items-center gap-x-1.5 rounded-md hover:bg-neutral-300"
           >
-            <LuGanttChartSquare size={17} />
+            <LuChartGantt size={17} />
             <span>Timeline view</span>
           </Link>
           {/* Bottom content */}

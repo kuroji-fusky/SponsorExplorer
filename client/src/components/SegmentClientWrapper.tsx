@@ -5,7 +5,7 @@ import { LockedSegmentsNotice } from "./LockedSegments"
 import { SegmentTable } from "./Tables"
 import { Notice } from "./Notice"
 import { SegmentFilterBar } from "./FilterBar"
-import { LuMoreVertical, LuPlay, LuRefreshCw } from "react-icons/lu"
+import { LuEllipsisVertical, LuPlay, LuRefreshCw } from "react-icons/lu"
 
 export function SegmentClientWrapper() {
   const { segmentData } = useVideoInfoContext()
@@ -41,7 +41,7 @@ export function SegmentClientWrapper() {
             <LuRefreshCw size={19} />
           </button>
           <button className="border border-neutral-300 dark:border-neutral-700 p-2 rounded-md">
-            <LuMoreVertical size={19} />
+            <LuEllipsisVertical size={19} />
           </button>
         </div>
         {/* Tables */}

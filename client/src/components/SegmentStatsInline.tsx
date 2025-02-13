@@ -2,7 +2,7 @@
 
 import type { SegmentBank } from "@/types"
 import { cn, formatTimecode, pluralFormatter } from "@/utils"
-import { LuBarChartHorizontal } from "react-icons/lu"
+import { LuChartBar } from "react-icons/lu"
 
 interface SegmentStatsInlineProps extends Partial<SegmentBank> {
   onDetailStatsShow?: React.MouseEventHandler<HTMLButtonElement>
@@ -49,7 +49,7 @@ export function SegmentStatsInline(props: SegmentStatsInlineProps) {
         )}
         disabled={!hasNoSubmissions}
       >
-        <LuBarChartHorizontal size={17} />
+        <LuChartBar size={17} />
         <span>View detailed stats</span>
       </button>
     </div>

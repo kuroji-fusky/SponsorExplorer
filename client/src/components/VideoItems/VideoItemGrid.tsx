@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react"
 import dynamic from "next/dynamic"
 import Link from "next/link"
-import { LuLock, LuMoreVertical, LuSparkles } from "react-icons/lu"
+import { LuLock, LuEllipsisVertical, LuSparkles } from "react-icons/lu"
 import type { InlineSegments } from "../../types"
 import { parseDateStr } from "../../utils"
 import { usePrefetchRoute } from "../../hooks/usePrefetchRoute"
@@ -121,7 +121,7 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
             {props.title}
           </Link>
           <button className="flex-shrink-0 p-1">
-            <LuMoreVertical size={18} />
+            <LuEllipsisVertical size={18} />
           </button>
         </div>
         <div className="pt-2 inline-flex gap-y-2 gap-x-2.5 ">

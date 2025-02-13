@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "client:dev": "pnpm --filter se-next-client dev",
-    "client:build": "pnpm --filter se-next-client build",
-    "client:lint": "pnpm --filter se-next-client lint",
+    "dev": "pnpm --filter se-next-client dev",
+    "build": "pnpm --filter se-next-client build",
+    "lint": "pnpm --filter se-next-client lint",
     "server:dev": "pnpm --filter sb-browser-api dev"
   },
   "devDependencies": {

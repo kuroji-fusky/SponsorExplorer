@@ -9,7 +9,7 @@ import {
   MenuSection,
 } from "@headlessui/react"
 import type { IconType } from "react-icons"
-import { LuCopy, LuMoreVertical, LuScanLine } from "react-icons/lu"
+import { LuCopy, LuEllipsisVertical, LuScanLine } from "react-icons/lu"
 
 function TmpButtonItem(props: { text: string; icon?: IconType }) {
   const Icon = props.icon!
@@ -30,7 +30,7 @@ export function SegmentRowDropdown() {
     <Menu>
       <div className="grid place-items-center">
         <MenuButton>
-          <LuMoreVertical size={19} />
+          <LuEllipsisVertical size={19} />
         </MenuButton>
       </div>
       <MenuItems

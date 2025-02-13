@@ -29,10 +29,7 @@ export const fetchVideoData = cache(async (id: string) => {
 export const fetchChannelData = cache(async (id: string) => {
   const urlBase = (await headers()).get("x-url-origin")
 
-  const [fetchChannelInfo] = await fetchWrapper<VideoInfoType>(
-    `${urlBase}/api/yt/channel?id=${id}`,
-    { cache: "force-cache" },
-  )
+  const [fetchChannelInfo] = await fetchWrapper<VideoInfoType>(`${urlBase}/api/yt/channel?id=${id}`)
 
   return fetchChannelInfo
 })
