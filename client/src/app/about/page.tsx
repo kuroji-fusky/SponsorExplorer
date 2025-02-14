@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import AboutMDX from "../../content/about.mdx"
+import AboutMDX from "@/content/about.mdx"
 
 export const metadata: Metadata = {
   title: "About",

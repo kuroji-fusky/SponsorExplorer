@@ -3,7 +3,7 @@
 import { createContext, useContext, useState } from "react"
 import { noop } from "lodash-es"
 import type { VideoInfoType } from "@/types"
-import type { MapUseStateSetters } from "../context.types"
+import type { MapUseStateSetters } from "@/context.types"
 
 type VideoItem = Omit<VideoInfoType["video"], "channelId">
 
@@ -26,8 +26,11 @@ export function VideoSidebarProvider({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const [videoList, setVideoList] = useState<VideoSidebarContextType["videoList"]>([])
-  const [activeVideoId, setActiveVideoId] = useState<VideoSidebarContextType["activeVideoId"]>(null)
+  const [videoList, setVideoList] = useState<
+    VideoSidebarContextType["videoList"]
+  >([])
+  const [activeVideoId, setActiveVideoId] =
+    useState<VideoSidebarContextType["activeVideoId"]>(null)
 
   return (
     <VideoSidebarContext.Provider

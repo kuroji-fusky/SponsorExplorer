@@ -2,11 +2,10 @@
 
 import { useEffect, useState } from "react"
 import { LockedSegmentsNotice } from "./LockedSegmentsNotice"
-import { ShowIf } from "../ShowIf"
-import type { sb } from "../../utils/SponsorBlock.types"
-import { useLiveSegmentContext, useVideoInfoContext } from "../../context"
-import { SponsorBlock } from "../../utils"
-import { fetchWrapper } from "../../utils/fetchWrapper"
+import type { sb } from "@/utils/SponsorBlock.types"
+import { useLiveSegmentContext, useVideoInfoContext } from "@/context"
+import { SponsorBlock } from "@/utils"
+import { fetchWrapper } from "@/utils/fetchWrapper"
 
 export function LockedSegments() {
   const { hasLiveUpdates } = useLiveSegmentContext()
@@ -36,11 +35,9 @@ export function LockedSegments() {
     })
   }, [id])
 
-  return (
-    <ShowIf condition={hasLockedSegments}>
-      <div className="my-2">
-        <LockedSegmentsNotice reason={lockReason} />
-      </div>
-    </ShowIf>
-  )
+  return hasLockedSegments ? (
+    <div className="my-2">
+      <LockedSegmentsNotice reason={lockReason} />
+    </div>
+  ) : null
 }

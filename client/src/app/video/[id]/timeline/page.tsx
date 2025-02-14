@@ -1,13 +1,13 @@
-import { Notice } from "../../../../components"
-import type { DefineRouteParams } from "../../../../types"
-import { fetchVideoData } from "../../../../utils/fetchYTData"
+import { Notice } from "@/components"
+import type { DefineRouteParams } from "@/types"
+import { fetchVideoData } from "@/utils/fetchYTData"
 import type { Metadata } from "next"
 import dynamic from "next/dynamic"
 
 type RouteParams = DefineRouteParams<{ id: string }>
 
 const TimelineClient = dynamic(() =>
-  import("../../../../components/Timeline").then((c) => c.TimelineClient),
+  import("@/components/Timeline").then((c) => c.TimelineClient),
 )
 
 export async function generateMetadata(props: RouteParams): Promise<Metadata> {

@@ -1,11 +1,11 @@
 import type { Metadata } from "next"
-import { TabStateProvider } from "../../../context"
-import { ShowIf } from "../../../components"
-import { VideoInfo } from "../../../components/Headers"
-import { SegmentClientWrapper } from "../../../components/SegmentClientWrapper"
-import { VideoListSidebar } from "../../../components/Sidebar"
-import type { DefineRouteParams } from "../../../types"
-import { fetchVideoData } from "../../../utils/fetchYTData"
+import { TabStateProvider } from "@/context"
+import { ShowIf } from "@/components"
+import { VideoInfo } from "@/components/Headers"
+import { SegmentClientWrapper } from "@/components/SegmentClientWrapper"
+import { VideoListSidebar } from "@/components/Sidebar"
+import type { DefineRouteParams } from "@/types"
+import { fetchVideoData } from "@/utils/fetchYTData"
 
 type RouteParams = DefineRouteParams<
   { id: string },

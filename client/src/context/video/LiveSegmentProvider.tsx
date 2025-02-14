@@ -2,7 +2,7 @@
 
 import { noop } from "lodash-es"
 import { createContext, useContext, useState } from "react"
-import type { MapUseStateSetters } from "../context.types"
+import type { MapUseStateSetters } from "@/context.types"
 
 type LiveSegmentContextType = MapUseStateSetters<{
   hasLiveUpdates: boolean

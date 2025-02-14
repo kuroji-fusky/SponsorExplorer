@@ -2,7 +2,7 @@
 
 import { cache } from "react"
 import { headers } from "next/headers"
-import type { VideoInfoType } from "../types"
+import type { VideoInfoType } from "@/types"
 import { fetchWrapper } from "./fetchWrapper"
 import type { yt } from "./YT.types"
 

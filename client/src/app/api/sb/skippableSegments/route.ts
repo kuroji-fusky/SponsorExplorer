@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { SponsorBlock } from "../../../../utils"
-import { segmentsFallback } from "../../../../utils/lockSegmentsFallback"
+import { SponsorBlock } from "@/utils"
+import { segmentsFallback } from "@/utils/lockSegmentsFallback"
 import { cache } from "react"
 
 export async function GET(request: NextRequest) {

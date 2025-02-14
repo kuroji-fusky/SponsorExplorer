@@ -1,6 +1,6 @@
 "use client"
 
-import { FatalError } from "../../components"
+import { FatalError } from "@/components"
 import { useEffect } from "react"
 
 export default function Error({

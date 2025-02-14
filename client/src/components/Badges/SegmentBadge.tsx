@@ -1,6 +1,6 @@
-import { cn, mapCategory } from "../../utils"
+import { cn, mapCategory } from "@/utils"
 import { Badge } from "./Badge"
-import type { Category } from "../../utils/SponsorBlock.types"
+import type { Category } from "@/utils/SponsorBlock.types"
 
 interface SegmentBadgeProps {
   segments: Category

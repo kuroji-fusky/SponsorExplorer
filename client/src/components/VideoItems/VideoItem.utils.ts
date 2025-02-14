@@ -1,4 +1,4 @@
-import { pluralFormatter } from "../../utils"
+import { pluralFormatter } from "@/utils"
 
 export const segmentLabelFormatter = <S>(segments: S[] | null, hasHighlight: boolean) => {
   const segLength = segments?.length || 0

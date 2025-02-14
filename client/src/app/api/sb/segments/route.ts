@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { type NextRequest, NextResponse } from "next/server"
-import { allSegments, padIterations, SponsorBlock } from "../../../../utils"
-import type { sb } from "../../../../utils/SponsorBlock.types"
-import { segmentsFallback } from "../../../../utils/lockSegmentsFallback"
+import { allSegments, padIterations, SponsorBlock } from "@/utils"
+import type { sb } from "@/utils/SponsorBlock.types"
+import { segmentsFallback } from "@/utils/lockSegmentsFallback"
 import { mapValues, sortBy } from "lodash-es"
 
 type _UnwrapArray<I> = I extends Array<infer U> ? U : never

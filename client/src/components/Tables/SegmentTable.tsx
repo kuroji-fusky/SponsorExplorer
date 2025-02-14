@@ -1,4 +1,4 @@
-import type { VideoSegments } from "../../types"
+import type { VideoSegments } from "@/types"
 import { SegmentTableRow } from "./SegmentTableRow"
 import { SegmentRowMobile } from "./SegmentRowMobile"
 

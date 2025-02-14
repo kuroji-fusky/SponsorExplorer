@@ -1,7 +1,7 @@
 "use client"
 
-import type { InlineSegments } from "../types"
-import { cn, mapCategory } from "../utils"
+import type { InlineSegments } from "@/types"
+import { cn, mapCategory } from "@/utils"
 
 interface SegmentBarProps {
   segments: InlineSegments["relativeSegments"]

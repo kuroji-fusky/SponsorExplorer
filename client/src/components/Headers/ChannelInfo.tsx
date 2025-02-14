@@ -3,7 +3,7 @@
 import { _Link as Link } from "../Link"
 import { LuBookmark, LuExternalLink } from "react-icons/lu"
 import { SegmentStatsInline } from "../SegmentStatsInline"
-import { useChannelStoreProvider } from "../../context"
+import { useChannelStoreProvider } from "@/context"
 
 export function ChannelInfo() {
   const { channel } = useChannelStoreProvider()

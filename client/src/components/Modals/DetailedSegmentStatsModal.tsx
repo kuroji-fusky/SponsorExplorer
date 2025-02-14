@@ -7,9 +7,9 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react"
-import { cn } from "../../utils"
+import { cn } from "@/utils"
 import { LuX } from "react-icons/lu"
-import { useVideoInfoContext } from "../../context"
+import { useVideoInfoContext } from "@/context"
 import { DetailedSegmentStatsContents } from "./DetailedSegmentStatsContents"
 
 interface DetailedSegmentStatsModalProps extends ModalDialogTypes {}

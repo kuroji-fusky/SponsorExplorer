@@ -1,5 +1,4 @@
 import { _Link as Link } from "../Link"
-import { LuExternalLink } from "react-icons/lu"
 
 export function Footer() {
   const currentYear = new Date().getFullYear()

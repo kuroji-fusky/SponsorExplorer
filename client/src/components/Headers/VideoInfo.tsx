@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { useVideoInfoContext, usePlayerStateContext } from "../../context"
-import { cn } from "../../utils"
+import { useVideoInfoContext, usePlayerStateContext } from "@/context"
+import { cn } from "@/utils"
 import dynamic from "next/dynamic"
 import { _Link as Link } from "../Link"
 import { SegmentStatsInline } from "../SegmentStatsInline"

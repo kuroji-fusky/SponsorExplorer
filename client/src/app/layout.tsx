@@ -3,9 +3,9 @@ import "./globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 
-import { Navbar, Footer } from "../components/Base"
-import { cn } from "../utils"
-import { OptionsProvider } from "../context"
+import { Navbar, Footer } from "@/components/Base"
+import { cn } from "@/utils"
+import { OptionsProvider } from "@/context"
 
 const inter = Inter({
   weight: ["400", "500", "600", "700"],

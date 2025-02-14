@@ -1,4 +1,4 @@
-import type { VideoSegments } from "../../types"
+import type { VideoSegments } from "@/types"
 
 export interface SharedVideoItemProps {
   title?: string

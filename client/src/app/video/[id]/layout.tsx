@@ -2,10 +2,10 @@ import {
   LiveSegmentProvider,
   PlayerStateProvider,
   VideoInfoProvider,
-} from "../../../context"
-import type { VideoSegments } from "../../../types"
-import { fetchVideoData } from "../../../utils/fetchYTData"
-import { fetchWrapper } from "../../../utils/fetchWrapper"
+} from "@/context"
+import type { VideoSegments } from "@/types"
+import { fetchVideoData } from "@/utils/fetchYTData"
+import { fetchWrapper } from "@/utils/fetchWrapper"
 import { headers } from "next/headers"
 
 export default async function VideoIdLayoutPage({

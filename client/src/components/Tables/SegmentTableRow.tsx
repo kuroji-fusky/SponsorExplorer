@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useRef, useCallback } from "react"
-import type { Category } from "../../utils/SponsorBlock.types"
-import { SegmentBadge } from "../Badges"
+import type { Category } from "@/utils/SponsorBlock.types"
+import { SegmentBadge, LengthBadge } from "../Badges"
 import {
   LuCopy,
   LuEyeOff,
@@ -11,8 +11,7 @@ import {
   LuTimerOff,
   LuCircleX,
 } from "react-icons/lu"
-import { cn, formatNumber, mapCategory, parseDateStr } from "../../utils"
-import { LengthBadge } from "../Badges/LengthBadge"
+import { cn, formatNumber, mapCategory, parseDateStr } from "@/utils"
 import type { Segment } from "./SegmentRow.types"
 import { SegmentRowDropdown } from "./SegmentRowDropdown"
 

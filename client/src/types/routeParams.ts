@@ -1,4 +1,4 @@
-import type { ViewItemContext } from "../context"
+import type { ViewItemContext } from "@/context"
 
 type DefaultSearchParams = { [key: string]: string | string[] | undefined }
 

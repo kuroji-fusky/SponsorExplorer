@@ -1,13 +1,13 @@
 import type { Metadata } from "next"
-import type { ChannelIdRouteParams } from "../../../types"
+import type { ChannelIdRouteParams } from "@/types"
 import {
   type ViewItemContext,
   ViewItemProvider,
   ChannelStoreProvider,
-} from "../../../context"
-import { ChannelInfo } from "../../../components/Headers"
+} from "@/context"
+import { ChannelInfo } from "@/components/Headers"
 import { headers } from "next/headers"
-import { fetchChannelData } from "../../../utils/fetchYTData"
+import { fetchChannelData } from "@/utils/fetchYTData"
 
 export async function generateMetadata(
   props: ChannelIdRouteParams,

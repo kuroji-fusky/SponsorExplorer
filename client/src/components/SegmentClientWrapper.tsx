@@ -1,6 +1,6 @@
 "use client"
 
-import { useVideoInfoContext } from "../context"
+import { useVideoInfoContext } from "@/context"
 import { LockedSegmentsNotice } from "./LockedSegments"
 import { SegmentTable } from "./Tables"
 import { Notice } from "./Notice"

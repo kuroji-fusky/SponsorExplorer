@@ -1,8 +1,8 @@
 "use client"
 
 import { _Link as Link } from "../Link"
-import { useVideoInfoContext } from "../../context"
-import { parseDateStr } from "../../utils"
+import { useVideoInfoContext } from "@/context"
+import { parseDateStr } from "@/utils"
 import { Notice } from "../Notice"
 
 export function VideoInfoTitle() {

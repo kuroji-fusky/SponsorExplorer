@@ -4,8 +4,8 @@ import {
   useViewItemStateContext,
   type ViewItemContext,
   useChannelStoreProvider,
-} from "../../context"
-import { cn } from "../../utils"
+} from "@/context"
+import { cn } from "@/utils"
 import dynamic from "next/dynamic"
 import { LuVideoOff } from "react-icons/lu"
 

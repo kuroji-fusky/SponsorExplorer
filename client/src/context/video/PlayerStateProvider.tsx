@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, useContext, useState } from "react"
-import type { MapUseStateSetters } from "../context.types"
+import type { MapUseStateSetters } from "@/context.types"
 import { noop } from "lodash-es"
 
 type TimelinePlayState = "stopped" | "paused" | "buffering" | "playing"
@@ -26,10 +26,13 @@ const PlayerStateContext = createContext<PlayerStateContextType>({
 export function PlayerStateProvider({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const [currentTime, setCurrentTime] = useState<PlayerStateContextType["currentTime"]>(0)
-  const [playerState, setPlayerState] = useState<PlayerStateContextType["playerState"]>("stopped")
+  const [currentTime, setCurrentTime] =
+    useState<PlayerStateContextType["currentTime"]>(0)
+  const [playerState, setPlayerState] =
+    useState<PlayerStateContextType["playerState"]>("stopped")
 
-  const [isPlayerPinned, setIsPlayerPinned] = useState<PlayerStateContextType["isPlayerPinned"]>(false)
+  const [isPlayerPinned, setIsPlayerPinned] =
+    useState<PlayerStateContextType["isPlayerPinned"]>(false)
 
   return (
     <PlayerStateContext.Provider

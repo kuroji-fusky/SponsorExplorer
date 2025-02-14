@@ -1,8 +1,8 @@
 "use client"
 
-import type { VideoInfoType, VideoSegments } from "../../types"
+import type { VideoInfoType, VideoSegments } from "@/types"
 import { noop } from "lodash-es"
-import type { MapUseStateSetters } from "../context.types"
+import type { MapUseStateSetters } from "@/context.types"
 import { createContext, useContext, useState } from "react"
 import { usePathname } from "next/navigation"
 import { VideoSidebarProvider } from "./VideoSidebarProvider"
