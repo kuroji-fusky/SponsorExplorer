@@ -4,6 +4,7 @@ import { allSegments, padIterations, SponsorBlock } from "@/utils"
 import type { sb } from "@/utils/SponsorBlock.types"
 import { segmentsFallback } from "@/utils/lockSegmentsFallback"
 import { mapValues, sortBy } from "lodash-es"
+import { SB_FETCH_OPTIONS } from "@/utils/constants"
 
 type _UnwrapArray<I> = I extends Array<infer U> ? U : never
 
@@ -66,7 +67,7 @@ export async function GET(request: NextRequest) {
       return SponsorBlock.searchSegments({
         videoID: params.id,
         page: segmentIndex
-      }).then(([partialSegments]) => {
+      }, SB_FETCH_OPTIONS).then(([partialSegments]) => {
         _storeTotalSegments(
           partialSegments.segments.map(item => ({ __next_iterableFragment: segmentIndex, ...item }))
         )

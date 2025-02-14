@@ -11,7 +11,7 @@ type DefaultSearchParams = { [key: string]: string | string[] | undefined }
  * @template Params Route parameters
  * @template SearchParams URL search parameters
  */
-export interface DefineRouteParams<Params extends object = Record<string, never>, SearchParams extends object = DefaultSearchParams> {
+export interface DefineRouteParams<Params extends Record<string, unknown> = Record<string, never>, SearchParams extends object = DefaultSearchParams> {
   params: Promise<Params>
   searchParams: Promise<SearchParams>
 }

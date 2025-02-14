@@ -1,13 +1,13 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { SponsorBlock } from "@/utils"
 import { segmentsFallback } from "@/utils/lockSegmentsFallback"
-import { cache } from "react"
+import { SB_FETCH_OPTIONS } from "@/utils/constants"
 
 export async function GET(request: NextRequest) {
   const urlParams = new URL(request.url).searchParams
   const videoID = urlParams.get("id")!
 
-  const skipSegments = cache(() => SponsorBlock.skipSegments({
+  const skipSegments = SponsorBlock.skipSegments({
     videoID,
     categories: [
       "interaction",
@@ -22,9 +22,9 @@ export async function GET(request: NextRequest) {
       "poi_highlight"
     ],
     actionTypes: ["skip", "mute"]
-  }))()
+  }, SB_FETCH_OPTIONS)
 
-  const fullSegments = cache(() => SponsorBlock.skipSegments({
+  const fullSegments = SponsorBlock.skipSegments({
     videoID,
     categories: [
       "selfpromo",
@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
       "exclusive_access",
     ],
     actionTypes: ["full"]
-  }, { cache: "force-cache" }))()
+  }, SB_FETCH_OPTIONS)
 
   const [[skipRes, skipResCode], [fullRes]] = await Promise.all([skipSegments, fullSegments])
 

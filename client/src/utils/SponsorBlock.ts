@@ -26,9 +26,10 @@ const skipSegments = async (props: sb.Props.SkipAndSearchSegments, fetchOptions?
  * 
  * @link https://wiki.sponsor.ajay.app/w/API_Docs#GET_/api/searchSegments
  */
-const searchSegments = async (props: sb.Props.SkipAndSearchSegments) => {
+const searchSegments = async (props: sb.Props.SkipAndSearchSegments, fetchOptions?: RequestInit) => {
   return fetchWrapper<sb.Responses.SearchSegments>(
-    parseURLSearchParams<typeof props>(`${SB_API_BASE_URL}/searchSegments`, props)
+    parseURLSearchParams<typeof props>(`${SB_API_BASE_URL}/searchSegments`, props),
+    fetchOptions
   )
 }
 

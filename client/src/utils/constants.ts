@@ -1,3 +1,13 @@
+import type { RequestInit } from "next/dist/server/web/spec-extension/request"
+
+export const SB_FETCH_OPTIONS = {
+  cache: "no-cache",
+  next: {
+    revalidate: 30
+  }
+} satisfies RequestInit
+
+
 // Landing
 export const randomChannelsLanding = [
   "MrBeast",
