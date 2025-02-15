@@ -6,6 +6,7 @@ import { Inter } from "next/font/google"
 import { Navbar, Footer } from "@/components/Base"
 import { cn } from "@/utils"
 import { OptionsProvider } from "@/context"
+import { PreloadResources } from "./preload-resources"
 
 const inter = Inter({
   weight: ["400", "500", "600", "700"],
@@ -40,6 +41,7 @@ export default async function RootLayout({
           "dark:text-neutral-100 dark:bg-neutral-950 text-neutral-800",
         )}
       >
+        <PreloadResources />
         <OptionsProvider>
           <Navbar />
           <main className="min-h-[calc(100dvh-10.25rem)]">{children}</main>
