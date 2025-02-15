@@ -14,11 +14,11 @@ export function SegmentStatsInline(props: SegmentStatsInlineProps) {
 
   const hasNoSubmissions = _submissionCount !== 0
 
-  const accum = _segmentBank
+  const accumulatedLength = _segmentBank
     .map((seg) => seg.endTime - seg.startTime)
     .reduce((acc, prev) => acc + prev, 0)
 
-  const totalSegmentDuration = formatTimecode(accum, {
+  const totalSegmentDuration = formatTimecode(accumulatedLength, {
     separator: "letters",
   }).replace(/^0m\s/g, "")
 
@@ -33,7 +33,7 @@ export function SegmentStatsInline(props: SegmentStatsInlineProps) {
           noIncludeNum: true,
         })}
       </span>
-      {hasNoSubmissions ? (
+      {hasNoSubmissions && accumulatedLength > 0 ? (
         <span>
           (<strong>{totalSegmentDuration}</strong> of segment(s) accrued)
         </span>

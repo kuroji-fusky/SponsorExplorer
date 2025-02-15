@@ -20,19 +20,21 @@ export function ChannelInfo() {
         {/* Channel title */}
         <div className="space-y-1.5">
           <span className="opacity-75">Segments for channel</span>
-          <div className="flex flex-wrap items-center">
-            <span className="text-2xl font-bold inline" translate="no">
+          <div>
+            <span className="font-bold text-2xl inline" translate="no">
               {channel.channelName}
             </span>
-            <button className="ml-1 p-2 inline">
-              <LuBookmark size={18} />
-            </button>
-            <Link
-              href={`https://www.youtube.com/channel/${channel.id}`}
-              className="p-2 inline"
-            >
-              <LuExternalLink size={17} />
-            </Link>
+            <div className="inline-flex">
+              <button className="ml-1 p-2">
+                <LuBookmark size={18} />
+              </button>
+              <Link
+                href={`https://www.youtube.com/channel/${channel.id}`}
+                className="p-2"
+              >
+                <LuExternalLink size={17} />
+              </Link>
+            </div>
           </div>
         </div>
         {/* Segments submitted */}

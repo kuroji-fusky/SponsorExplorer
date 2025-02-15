@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import { TabStateProvider } from "@/context"
-import { ShowIf } from "@/components"
 import { VideoInfo } from "@/components/Headers"
 import { SegmentClientWrapper } from "@/components/SegmentClientWrapper"
 import { VideoListSidebar } from "@/components/Sidebar"
@@ -49,11 +48,11 @@ export default async function VideoPage(props: RouteParams) {
   return (
     <div className="mt-4 flex" data-video-idroot="">
       {/* Left sidebar for list of videos */}
-      <ShowIf condition={isParamsList}>
+      {isParamsList ? (
         <div className="[align-self:start] sticky top-16 flex-shrink-0 h-[90dvh] max-w-[300px]">
           <VideoListSidebar />
         </div>
-      </ShowIf>
+      ) : null}
       <div className="mx-auto px-6 max-w-screen-2xl w-full">
         <VideoInfo />
         <TabStateProvider>

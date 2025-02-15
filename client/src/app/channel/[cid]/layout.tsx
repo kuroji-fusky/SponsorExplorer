@@ -8,6 +8,7 @@ import {
 import { ChannelInfo } from "@/components/Headers"
 import { headers } from "next/headers"
 import { fetchChannelData } from "@/utils/fetchYTData"
+import { LuVideoOff } from "react-icons/lu"
 
 export async function generateMetadata(
   props: ChannelIdRouteParams,
@@ -48,7 +49,18 @@ export default async function ChannelLayout({
       <ChannelStoreProvider initialVideoStore={videos} channelData={channel}>
         <ViewItemProvider initialView={!isValidViews ? "grid" : viewParam}>
           <ChannelInfo />
-          {children}
+          {videos.length !== 0 ? (
+            children
+          ) : (
+            <div className="!mt-10 flex flex-col items-center space-y-9">
+              <LuVideoOff size={52} className="rotate-12" />
+              <span className="max-w-screen-md text-center">
+                This channel has no videos. If you believe this is a mistake,
+                double check if you entered the channel ID, handle, or username
+                correctly.
+              </span>
+            </div>
+          )}
         </ViewItemProvider>
       </ChannelStoreProvider>
     </div>

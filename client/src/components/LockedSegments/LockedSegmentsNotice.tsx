@@ -1,30 +1,65 @@
 import { cn } from "@/utils"
-import { LuLock } from "react-icons/lu"
+import { LuChevronRight, LuCircleHelp, LuLock } from "react-icons/lu"
+import { useState } from "react"
 
 interface LockedSegmentsNoticeProps {
   reason: string | null
 }
 
 export function LockedSegmentsNotice(props: LockedSegmentsNoticeProps) {
+  const [revealSegments, setRevealSegments] = useState(false)
+
   return (
-    <div className="border-2 border-red-400 px-3.5 py-2.5 rounded-md block text-left w-full">
+    <div
+      role="group"
+      className="border-2 border-red-400 bg-red-100/30 dark:border-red-600 dark:bg-red-900/30 pl-2 pr-3.5 py-2.5 rounded-md text-left w-full block"
+    >
       <div className="flex items-center">
+        <button
+          className="flex-shrink-0 mr-1 opacity-75"
+          onClick={() => setRevealSegments(!revealSegments)}
+        >
+          <LuChevronRight
+            size={19}
+            className={cn(
+              "transition-transform",
+              revealSegments ? "rotate-90" : undefined,
+            )}
+          />
+        </button>
         <LuLock size={20} className="flex-shrink-0" />
         <article className="ml-2.5">
-          <h2 className="font-semibold text-base">
-            Categories for this video have been locked
-          </h2>
+          <span className="inline-flex gap-x-1.5">
+            <h2 className="font-semibold text-base">
+              Categories for this video have been locked
+            </h2>
+            <button>
+              <LuCircleHelp size={16} />
+            </button>
+          </span>
           <p className={cn("mt-0.5", !props.reason && "italic opacity-65")}>
-            {props.reason ? (
-              <>
-                <span className="font-semibold">{"Reason: "}</span>
-                {props.reason}
-              </>
-            ) : (
-              "No reason provided."
-            )}
+            <span>
+              {props.reason ? (
+                <div className="line-clamp-1 lg:line-clamp-none break-all lg:break-normal">
+                  <span className="font-bold">{"Reason: "}</span>
+                  {props.reason}
+                </div>
+              ) : (
+                "No reason provided."
+              )}
+            </span>
           </p>
         </article>
+      </div>
+      <div
+        id="expandable-content"
+        className="transition-all mx-1.5 grid"
+        style={{ gridTemplateRows: revealSegments ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          <div className="border-t border-t-white/50 my-2" />
+          <div>content</div>
+        </div>
       </div>
     </div>
   )

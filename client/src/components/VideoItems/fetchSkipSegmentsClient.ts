@@ -9,6 +9,7 @@ export const fetchSkipSegmentsClient = async (id: string, abortSignal: AbortSign
   const fetchOptions = {
     signal: abortSignal,
     priority: "high",
+    cache: "no-cache",
     next: {
       revalidate: 1800
     }
