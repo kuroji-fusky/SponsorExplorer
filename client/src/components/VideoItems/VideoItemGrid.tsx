@@ -148,7 +148,7 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
         </div>
       </div>
       {/* Cool hover effect */}
-      <div className="pointer-events-none absolute inset-0 bg-neutral-200 dark:bg-neutral-700 -z-10 rounded-md transition duration-200 ease-in-out opacity-0 scale-95 group-hover:opacity-60 group-hover:scale-100" />
+      <div className="pointer-events-none absolute inset-0 bg-neutral-200 dark:bg-neutral-700 -z-10 rounded-md transition duration-200 ease-in-out opacity-0 scale-[.98] group-hover:opacity-60 group-hover:scale-100" />
     </div>
   )
 }

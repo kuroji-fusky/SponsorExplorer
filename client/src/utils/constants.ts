@@ -3,10 +3,9 @@ import type { RequestInit } from "next/dist/server/web/spec-extension/request"
 export const SB_FETCH_OPTIONS = {
   cache: "no-cache",
   next: {
-    revalidate: 30
+    revalidate: 60 * 3 // 3 min
   }
 } satisfies RequestInit
-
 
 // Landing
 export const randomChannelsLanding = [
@@ -25,17 +24,13 @@ export const randomChannelsLanding = [
   "smosh",
 ]
 
-export const SB_BROWSER_URL = "https://sb.ltn.fi"
-
 interface SBServersFrontend {
   title: string
   description: string
   endpoint: string
 }
 
-// Here's all the readily servers and database mirrors for SponsorBlock segments
-// You can always add your own self-hosted servers on the frontend, no need for a PR :3
-const availableSBMirrors: SBServersFrontend[] = [
+const sbMirrors: SBServersFrontend[] = [
   {
     title: "mchang.xyz database mirror",
     description: "[5min delay] A mirror archive of all the segments provided by mchangrh",

@@ -8,6 +8,8 @@ import { fetchVideoData } from "@/utils/fetchYTData"
 import { fetchWrapper } from "@/utils/fetchWrapper"
 import { headers } from "next/headers"
 
+export const revalidate = 1800
+
 export default async function VideoIdLayoutPage({
   children,
   params,

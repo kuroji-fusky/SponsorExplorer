@@ -16,10 +16,11 @@ export const fetchWrapper = async <ReturnPromise = string>(
 
     const _reqTimeMs = endTime - startTime
     const _reqTimeSec = round(_reqTimeMs / 1000, 1)
-
-    const totalReqTime = _reqTimeMs > 1024 ? `${_reqTimeSec}s` : `${Math.round(_reqTimeMs)}ms`
-
-    console.debug(`Request url [took ${totalReqTime}]:`, url)
+    
+    if (process.env.NODE_ENV === "development") {
+      const totalReqTime = _reqTimeMs > 1024 ? `${_reqTimeSec}s` : `${Math.round(_reqTimeMs)}ms`
+      console.debug(`Request url [took ${totalReqTime}]:`, url)
+    }
 
     if (isValidJSON(reqText)) {
       return [JSON.parse(reqText as string), reqStatus]
