@@ -11,16 +11,40 @@ import {
   LuTimerOff,
   LuCircleX,
 } from "react-icons/lu"
-import { cn, formatNumber, mapCategory, parseDateStr } from "@/utils"
+import {
+  cn,
+  formatNumber,
+  formatTimecode,
+  mapCategory,
+  parseDateStr,
+} from "@/utils"
 import type { Segment } from "./SegmentRow.types"
 import { SegmentRowDropdown } from "./SegmentRowDropdown"
+import { useVideoInfoContext } from "@/context"
 
 interface SegmentTableRowProps extends Segment {
   __next_iterableFragment: number
 }
 
+const calcDateDiff = (d1, d2) => {
+  const _d1 = new Date(d1)
+  const _d2 = new Date(d2)
+
+  const diff = Math.abs(_d1 - _d2) / 1000
+
+  // const days = Math.floor(diff / 86400)
+  // const hours = Math.floor(diff / 3600) % 24
+  // const minutes = Math.floor(diff / 60) % 60
+  const seconds = Math.floor(diff)
+
+  return seconds
+}
+
 export function SegmentTableRow(props: SegmentTableRowProps) {
   const { isoDate, readableDate } = parseDateStr(props.timeSubmitted)
+
+  const { videoDetails } = useVideoInfoContext()
+  const { isoDate: ytIsoDate } = parseDateStr(videoDetails.video.publishedAt)
 
   const [isHovering, setHoverState] = useState(false)
   const tableRowRef = useRef<React.ComponentRef<"tr">>(null)
@@ -31,6 +55,13 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
   const hoverOptionsCn = cn("flex ml-1", isHovering ? undefined : "opacity-0")
 
   const { label: segmentLabel } = mapCategory(props.category)
+
+  const relativeSubmissionDate = formatTimecode(
+    calcDateDiff(ytIsoDate, isoDate),
+    {
+      separator: "letters",
+    },
+  )
 
   return (
     <tr
@@ -48,9 +79,16 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
     >
       {/* Date submitted */}
       <td>
-        <time dateTime={isoDate} className="whitespace-nowrap">
-          {readableDate}
-        </time>
+        <div className="relative group">
+          <time dateTime={isoDate} className="whitespace-nowrap">
+            {readableDate}
+          </time>
+          <div className="opacity-0 group-hover:opacity-100 pointer-events-none absolute top-8 p-2 rounded-md bg-neutral-900 z-10 border border-neutral-600">
+            <span className="text-sm leading-none">
+            {`Segment submitted after video upload: ${relativeSubmissionDate}`}
+            </span>
+          </div>
+        </div>
       </td>
 
       {/* Votes */}

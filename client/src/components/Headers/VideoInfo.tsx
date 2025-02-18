@@ -7,9 +7,7 @@ import dynamic from "next/dynamic"
 import { _Link as Link } from "../Link"
 import { SegmentStatsInline } from "../SegmentStatsInline"
 
-import { DetailedSegmentStatsModal } from "../Modals"
 import { LuExternalLink, LuChartGantt, LuLink2, LuPin } from "react-icons/lu"
-import { Separator } from "../Separator"
 import { VideoInfoTitle } from "./VideoInfoTitle"
 
 const YouTube = dynamic(() => import("../YouTube").then((c) => c.YouTube), {
@@ -43,7 +41,6 @@ export function VideoInfo() {
             <SegmentStatsInline
               submissionCount={_submissionCount}
               segments={segmentData.segments}
-              onDetailStatsShow={toggleDetailsDialog}
             />
             <Link
               href={`https://sb.ltn.fi/video/${videoDetails.id}`}
@@ -84,10 +81,10 @@ export function VideoInfo() {
         </div>
       </div>
       {/* Modals */}
-      <DetailedSegmentStatsModal
+      {/* <DetailedSegmentStatsModal
         open={detailsModal}
         onClose={toggleDetailsDialog}
-      />
+      /> */}
     </>
   )
 }

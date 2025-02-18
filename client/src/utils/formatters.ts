@@ -114,6 +114,7 @@ export const formatYTTimecode = (time: string) => {
 
   if (!match) return '0:00'
 
+  /* eslint-disable-next-line no-unused-vars */
   const [_, h, m, s] = match
 
   const _int = (n: string) => n ? parseInt(n, 10) : 0

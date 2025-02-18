@@ -1,14 +1,10 @@
 "use client"
 
 import type { SegmentBank } from "@/types"
-import { cn, formatTimecode, pluralFormatter } from "@/utils"
+import { formatTimecode, pluralFormatter } from "@/utils"
 import { LuChartBarBig } from "react-icons/lu"
 
-interface SegmentStatsInlineProps extends Partial<SegmentBank> {
-  onDetailStatsShow?: React.MouseEventHandler<HTMLButtonElement>
-}
-
-export function SegmentStatsInline(props: SegmentStatsInlineProps) {
+export function SegmentStatsInline(props: Partial<SegmentBank>) {
   const _submissionCount = props.submissionCount ?? 0
   const _segmentBank = props.segments ?? []
 
@@ -36,7 +32,7 @@ export function SegmentStatsInline(props: SegmentStatsInlineProps) {
       </span>
       {hasNoSubmissions && accumulatedLength > 0 ? (
         <span>
-          (<strong>{totalSegmentDuration}</strong> of segment(s) accrued)
+          (accrued: <strong>{totalSegmentDuration}</strong>)
         </span>
       ) : null}
     </div>

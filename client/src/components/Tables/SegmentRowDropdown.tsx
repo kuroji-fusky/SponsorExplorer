@@ -11,7 +11,7 @@ import {
 import type { IconType } from "react-icons"
 import { LuCopy, LuEllipsisVertical, LuScanLine } from "react-icons/lu"
 
-function TmpButtonItem(props: { text: string; icon?: IconType }) {
+function ButtonItem(props: { text: string; icon?: IconType }) {
   const Icon = props.icon!
 
   return (
@@ -40,15 +40,15 @@ export function SegmentRowDropdown() {
         className="bg-white dark:bg-neutral-950 shadow-md p-2 rounded-md transition duration-100 ease-in-out data-[closed]:opacity-0 grid"
       >
         <MenuSection className="contents">
-          <TmpButtonItem text="Inspect..." icon={LuScanLine} />
+          <ButtonItem text="Inspect..." icon={LuScanLine} />
         </MenuSection>
         <MenuSection className="contents">
           <MenuHeading className="px-3 pb-1.5 pt-2 opacity-65 text-sm">
             Copy...
           </MenuHeading>
-          <TmpButtonItem text="Segment UUID" icon={LuCopy} />
-          <TmpButtonItem text="Username" />
-          <TmpButtonItem text="User ID" />
+          <ButtonItem text="Segment UUID" icon={LuCopy} />
+          <ButtonItem text="Username" />
+          <ButtonItem text="User ID" />
         </MenuSection>
       </MenuItems>
     </Menu>
