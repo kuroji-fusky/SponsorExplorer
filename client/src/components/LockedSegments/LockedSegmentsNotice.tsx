@@ -1,6 +1,7 @@
 import { cn } from "@/utils"
 import { LuChevronRight, LuCircleHelp, LuLock } from "react-icons/lu"
 import { useState } from "react"
+import { ExpandableContainer } from "../ExpandableContainer"
 
 interface LockedSegmentsNoticeProps {
   reason: string | null
@@ -16,13 +17,13 @@ export function LockedSegmentsNotice(props: LockedSegmentsNoticeProps) {
     >
       <div className="flex items-center">
         <button
-          className="flex-shrink-0 mr-1 opacity-75"
+          className=" mr-1 opacity-75"
           onClick={() => setRevealSegments(!revealSegments)}
         >
           <LuChevronRight
             size={19}
             className={cn(
-              "transition-transform",
+              "flex-shrink-0 transition-transform",
               revealSegments ? "rotate-90" : undefined,
             )}
           />
@@ -38,29 +39,29 @@ export function LockedSegmentsNotice(props: LockedSegmentsNoticeProps) {
             </button>
           </span>
           <p className={cn("mt-0.5", !props.reason && "italic opacity-65")}>
-            <span>
+            <div>
               {props.reason ? (
-                <div className="line-clamp-1 lg:line-clamp-none break-all lg:break-normal">
+                <div
+                  className={cn(
+                    revealSegments
+                      ? "line-clamp-none"
+                      : "line-clamp-1 lg:line-clamp-none break-all lg:break-normal",
+                  )}
+                >
                   <span className="font-bold">{"Reason: "}</span>
                   {props.reason}
                 </div>
               ) : (
                 "No reason provided."
               )}
-            </span>
+            </div>
           </p>
         </article>
       </div>
-      <div
-        id="expandable-content"
-        className="transition-all mx-1.5 grid"
-        style={{ gridTemplateRows: revealSegments ? "1fr" : "0fr" }}
-      >
-        <div className="overflow-hidden">
-          <div className="border-t border-t-white/50 my-2" />
-          <div>content</div>
-        </div>
-      </div>
+      <ExpandableContainer isOpen={revealSegments}>
+        <div className="border-t border-t-white/50 my-2" />
+        <div>WIP</div>
+      </ExpandableContainer>
     </div>
   )
 }

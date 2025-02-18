@@ -4,12 +4,12 @@ import { useState } from "react"
 import { useVideoInfoContext, usePlayerStateContext } from "@/context"
 // import { cn } from "@/utils"
 import dynamic from "next/dynamic"
-// import { _Link as Link } from "../Link"
+import { _Link as Link } from "../Link"
 import { SegmentStatsInline } from "../SegmentStatsInline"
 
 import { DetailedSegmentStatsModal } from "../Modals"
-// import { LuExternalLink, LuChartGantt, LuLink2, LuPin } from "react-icons/lu"
-// import { Separator } from "../Separator"
+import { LuExternalLink, LuChartGantt, LuLink2, LuPin } from "react-icons/lu"
+import { Separator } from "../Separator"
 import { VideoInfoTitle } from "./VideoInfoTitle"
 
 const YouTube = dynamic(() => import("../YouTube").then((c) => c.YouTube), {
@@ -38,11 +38,23 @@ export function VideoInfo() {
         <div className="flex-1 px-5 py-4 flex flex-col gap-y-3 prose-h1:text-2xl prose-h1:font-bold w-full">
           {/* Video title */}
           <VideoInfoTitle />
-          <SegmentStatsInline
-            submissionCount={_submissionCount}
-            segments={segmentData.segments}
-            onDetailStatsShow={toggleDetailsDialog}
-          />
+          <div className="mt-0.5 border-t border-t-neutral-700" />
+          <div className="flex justify-between">
+            <SegmentStatsInline
+              submissionCount={_submissionCount}
+              segments={segmentData.segments}
+              onDetailStatsShow={toggleDetailsDialog}
+            />
+            <Link
+              href={`https://sb.ltn.fi/video/${videoDetails.id}`}
+              className="inline-flex gap-x-1.5 items-center no-underline hover:bg-neutral-800 px-1.5 py-0.5 rounded-sm"
+            >
+              <span>
+                View on <span translate="no">SBbrowser</span>
+              </span>
+              <LuExternalLink size={17} />
+            </Link>
+          </div>
           {/* <Link
             href={`/video/${videoDetails.id}/timeline`}
             className="py-0.5 px-1.5 flex items-center gap-x-1.5 rounded-md hover:bg-neutral-300"
@@ -51,8 +63,7 @@ export function VideoInfo() {
             <span>Timeline view</span>
           </Link> */}
           {/* Bottom content */}
-          <div className="flex-1" />
-          <div className="flex items-center mt-auto gap-x-2">
+          <div className="flex items-center gap-x-2">
             {/* <button
               className={cn(
                 "inline-flex gap-x-1.5 items-center",
@@ -68,16 +79,7 @@ export function VideoInfo() {
               <LuLink2 size={17} />
               <span>Copy link</span>
             </button> */}
-            {/* <Separator />
-            <Link
-              href={`https://sb.ltn.fi/video/${videoDetails.id}`}
-              className="inline-flex gap-x-1.5 items-center no-underline"
-            >
-              <LuExternalLink size={17} />
-              <span>
-                View on <span translate="no">SBbrowser</span>
-              </span>
-            </Link> */}
+            {/* <Separator /> */}
           </div>
         </div>
       </div>
