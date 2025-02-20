@@ -3,7 +3,7 @@
 import { LuCircleX } from "react-icons/lu"
 import { useVideoInfoContext } from "@/context/video/VideoInfoProvider"
 import { useEffect, useState } from "react"
-import type { Category } from "@/utils/SponsorBlock.types"
+import type { Category } from "@/lib/SponsorBlock.types"
 
 export function DetailedSegmentStatsContents() {
   const { segmentData } = useVideoInfoContext()

@@ -4,7 +4,7 @@ import { cache } from "react"
 import { headers } from "next/headers"
 import type { VideoInfoType } from "@/types"
 import { fetchWrapper } from "./fetchWrapper"
-import type { yt } from "./YT.types"
+import type { yt } from "@/lib/YT.types"
 
 export const fetchVideoData = cache(async (id: string) => {
   const urlBase = (await headers()).get("x-url-origin")

@@ -38,6 +38,7 @@ export function ChannelInfo() {
           </div>
         </div>
         {/* Segments submitted */}
+        <div className="my-0.5 border-t border-t-neutral-700" />
         <SegmentStatsInline />
       </div>
     </div>

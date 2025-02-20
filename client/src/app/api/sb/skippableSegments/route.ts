@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { SponsorBlock } from "@/utils"
-import { segmentsFallback } from "@/utils/lockSegmentsFallback"
+import { SponsorBlock } from "@/lib"
+import { segmentsFallback } from "@/utils"
 import { SB_FETCH_OPTIONS } from "@/utils/constants"
 
 export async function GET(request: NextRequest) {

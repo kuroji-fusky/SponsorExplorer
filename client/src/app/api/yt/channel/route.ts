@@ -1,6 +1,5 @@
 import { formatYTTimecode } from "@/utils"
-import { youtube } from "@/utils/YT"
-import type { yt } from "@/utils/YT.types"
+import { youtube, type yt } from "@/lib"
 import { type NextRequest, NextResponse } from "next/server"
 
 export async function GET(request: NextRequest) {

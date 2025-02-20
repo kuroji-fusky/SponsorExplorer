@@ -1,4 +1,4 @@
-import type { Category, sb } from "@/utils/SponsorBlock.types"
+import type { Category, sb } from "@/lib/SponsorBlock.types"
 
 export interface VideoSegments {
   totalIterations: number

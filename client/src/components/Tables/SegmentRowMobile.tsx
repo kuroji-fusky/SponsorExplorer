@@ -8,7 +8,7 @@ import {
   LuLock,
 } from "react-icons/lu"
 import { SegmentBadge } from "../Badges"
-import type { Category } from "@/utils/SponsorBlock.types"
+import type { Category } from "@/lib/SponsorBlock.types"
 import type { Segment } from "./SegmentRow.types"
 
 interface SegmentRowMobileProps extends Segment {}

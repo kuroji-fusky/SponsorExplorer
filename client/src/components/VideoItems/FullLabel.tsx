@@ -1,7 +1,7 @@
 "use client"
 
 import { cn, mapCategory } from "@/utils"
-import type { Category } from "@/utils/SponsorBlock.types"
+import type { Category } from "@/lib/SponsorBlock.types"
 
 interface VideoItemFullLabelProps {
   label: Category & string
@@ -15,7 +15,7 @@ export function VideoItemFullLabel(props: VideoItemFullLabelProps) {
       <span
         className={cn(
           "relative z-20",
-          props.label !== "selfpromo" ? "text-white" : null,
+          props.label !== "selfpromo" ? "text-white" : "dark:text-black",
         )}
       >
         {label}

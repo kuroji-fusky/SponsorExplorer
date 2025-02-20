@@ -1,4 +1,4 @@
-import { fetchWrapper } from "./fetchWrapper"
+import { fetchWrapper } from "../utils/fetchWrapper"
 import type { AllEndpointParams, yt } from "./YT.types"
 
 class APIKeyMissingError extends Error {

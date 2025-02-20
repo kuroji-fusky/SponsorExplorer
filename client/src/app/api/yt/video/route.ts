@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { youtube } from "@/utils/YT"
+import { youtube } from "@/lib"
 import type { NativeVideoChapters } from "@/types"
 
 export async function GET(request: NextRequest) {

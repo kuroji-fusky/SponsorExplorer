@@ -1,6 +1,6 @@
 import { fetchWrapper } from "@/utils/fetchWrapper"
 import type { InlineSegments, SkippableSeggies } from "@/types"
-import type { sb } from "@/utils/SponsorBlock.types"
+import type { sb } from "@/lib/SponsorBlock.types"
 import { SB_FETCH_OPTIONS } from "@/utils/constants"
 
 export const fetchSkipSegmentsClient = async (id: string, abortSignal: AbortSignal) => {

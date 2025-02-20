@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useCallback } from "react"
-import type { Category } from "@/utils/SponsorBlock.types"
+import type { Category } from "@/lib/SponsorBlock.types"
 import { SegmentBadge, LengthBadge } from "../Badges"
 import {
   LuCopy,

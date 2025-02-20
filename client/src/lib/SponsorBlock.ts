@@ -1,5 +1,5 @@
-import { fetchWrapper } from "./fetchWrapper"
-import { parseURLSearchParams } from "./parsers"
+import { fetchWrapper } from "../utils/fetchWrapper"
+import { parseURLSearchParams } from "../utils/parsers"
 import type { Category, sb } from "./SponsorBlock.types"
 
 const SB_API_BASE_URL = "https://sponsor.ajay.app/api"

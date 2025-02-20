@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { SponsorBlock } from "@/utils"
-import { segmentsFallback } from "@/utils/lockSegmentsFallback"
+import { segmentsFallback } from "@/utils"
+import { SponsorBlock } from "@/lib"
 
 export async function GET(request: NextRequest) {
   const urlParams = new URL(request.url).searchParams

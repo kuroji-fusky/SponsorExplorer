@@ -1,4 +1,4 @@
-import type { Category } from "./SponsorBlock.types"
+import type { Category } from "@/lib/SponsorBlock.types"
 
 export const mapCategory = (category: Category): { bg: string, label: string } => {
   const categoryMap = {

@@ -2,9 +2,8 @@
 
 import { useEffect, useState } from "react"
 import { LockedSegmentsNotice } from "./LockedSegmentsNotice"
-import type { sb } from "@/utils/SponsorBlock.types"
+import type { sb } from "@/lib/SponsorBlock.types"
 import { useLiveSegmentContext, useVideoInfoContext } from "@/context"
-import { SponsorBlock } from "@/utils"
 import { fetchWrapper } from "@/utils/fetchWrapper"
 
 export function LockedSegments() {
