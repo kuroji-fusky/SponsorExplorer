@@ -4,10 +4,10 @@ import { LuChevronDown, LuFilter } from "react-icons/lu"
 
 export function SegmentFilterBar() {
   return (
-    <div className="w-full flex items-center border border-neutral-300 py-2 px-2.5 rounded-md">
+    <div className="w-full flex items-center border border-neutral-300 dark:border-neutral-700 py-2 px-2.5 rounded-md">
       <button className="inline-flex items-center gap-x-2">
         <LuFilter size={19} />
-        <span>Filters</span>
+        <span className="opacity-60">Filters</span>
       </button>
 
       <button className="ml-auto">

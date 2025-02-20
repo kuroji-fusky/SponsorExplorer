@@ -6,6 +6,7 @@ import { SegmentTable } from "./Tables"
 import { Notice } from "./Notice"
 import { SegmentFilterBar } from "./FilterBar"
 import { LuEllipsisVertical, LuPlay, LuRefreshCw } from "react-icons/lu"
+import { Tabs } from "./Tabs"
 
 export function SegmentClientWrapper() {
   const { segmentData } = useVideoInfoContext()
@@ -25,13 +26,16 @@ export function SegmentClientWrapper() {
         <div className="sticky top-14 w-full h-16 -mb-16 z-10" aria-hidden />
         {/* Filter stuff */}
         <div className="sticky top-16 z-20 flex items-center gap-x-1.5">
-          <div className="rounded-md border flex p-1 border-neutral-300 dark:border-neutral-700">
-            <button className="rounded-md px-2 py-1 bg-neutral-300 font-medium">
-              All
-            </button>
-            <button className="rounded-md px-2.5 py-1">Segments</button>
-            <button className="rounded-md px-2.5 py-1">Chapters</button>
-          </div>
+          <Tabs
+            tabs={
+              [
+                { label: "All" },
+                { label: "Segments" },
+                { label: "Chapters" },
+              ] as const
+            }
+            activeTab="Segments"
+          />
           <SegmentFilterBar />
           <button className="inline-flex items-center gap-x-2 rounded-md border border-neutral-300 dark:border-neutral-700 px-3 py-2">
             <LuPlay size={19} />

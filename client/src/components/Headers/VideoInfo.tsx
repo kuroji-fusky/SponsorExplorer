@@ -7,7 +7,13 @@ import dynamic from "next/dynamic"
 import { _Link as Link } from "../Link"
 import { SegmentStatsInline } from "../SegmentStatsInline"
 
-import { LuExternalLink, LuChartGantt, LuLink2, LuPin } from "react-icons/lu"
+import {
+  LuExternalLink,
+  LuChartGantt,
+  LuLink2,
+  LuPin,
+  LuEllipsisVertical,
+} from "react-icons/lu"
 import { VideoInfoTitle } from "./VideoInfoTitle"
 
 const YouTube = dynamic(() => import("../YouTube").then((c) => c.YouTube), {
@@ -37,20 +43,25 @@ export function VideoInfo() {
           {/* Video title */}
           <VideoInfoTitle />
           <div className="mt-0.5 border-t border-t-neutral-700" />
-          <div className="flex justify-between">
-            <SegmentStatsInline
-              submissionCount={_submissionCount}
-              segments={segmentData.segments}
-            />
-            <Link
-              href={`https://sb.ltn.fi/video/${videoDetails.id}`}
-              className="inline-flex gap-x-1.5 items-center no-underline hover:bg-neutral-800 px-1.5 py-0.5 rounded-sm"
-            >
-              <span>
-                View on <span translate="no">SBbrowser</span>
-              </span>
-              <LuExternalLink size={17} />
-            </Link>
+          <div className="space-y-2">
+            <div className="flex justify-between">
+              <SegmentStatsInline
+                submissionCount={_submissionCount}
+                segments={segmentData.segments}
+              />
+              <div className="flex">
+                <Link
+                  href={`https://sb.ltn.fi/video/${videoDetails.id}/?source=se-staging.fusky.pet`}
+                  className="inline-flex gap-x-1.5 items-center no-underline transition-opacity hover:bg-neutral-800 px-1.5 py-0.5 rounded-md"
+                >
+                  <span translate="no">SBbrowser</span>
+                  <LuExternalLink size={17} />
+                </Link>
+                <button className="transition-opacity hover:bg-neutral-800 px-1 rounded-md">
+                  <LuEllipsisVertical size={17} />
+                </button>
+              </div>
+            </div>
           </div>
           {/* <Link
             href={`/video/${videoDetails.id}/timeline`}

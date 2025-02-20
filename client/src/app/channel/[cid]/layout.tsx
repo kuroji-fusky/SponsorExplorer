@@ -8,7 +8,14 @@ import {
 import { ChannelInfo } from "@/components/Headers"
 import { headers } from "next/headers"
 import { fetchChannelData } from "@/utils/fetchYTData"
-import { LuVideoOff } from "react-icons/lu"
+import {
+  LuEllipsisVertical,
+  LuFilter,
+  LuSearch,
+  LuVideoOff,
+} from "react-icons/lu"
+import { Tabs } from "@/components"
+import { SegmentFilterBar } from "@/components/FilterBar"
 
 export async function generateMetadata(
   props: ChannelIdRouteParams,
@@ -45,10 +52,43 @@ export default async function ChannelLayout({
     viewParam === "compact" || viewParam === "list" || viewParam === "grid"
 
   return (
-    <div className="px-6 space-y-3 max-w-screen-2xl mx-auto">
+    <div className="px-6 space-y-4 max-w-screen-2xl mx-auto">
       <ChannelStoreProvider initialVideoStore={videos} channelData={channel}>
         <ViewItemProvider initialView={!isValidViews ? "grid" : viewParam}>
           <ChannelInfo />
+          {/* Filter */}
+          <div className="flex gap-x-1.5">
+            <Tabs
+              tabs={
+                [
+                  { label: "All" },
+                  { label: "Videos" },
+                  { label: "Shorts" },
+                  { label: "Live" },
+                ] as const
+              }
+              activeTab="Videos"
+            />
+            <div className="flex-1 relative">
+              <span className="absolute inset-y-0 left-0 inline-flex items-center ml-2.5 pointer-events-none">
+                <LuSearch size={18} />
+              </span>
+              <input
+                className="w-full h-full dark:bg-neutral-950 rounded-md pr-2 pl-8 border dark:border-neutral-700"
+                type="search"
+                name="search-video"
+                id="sv"
+                placeholder="Search"
+              />
+            </div>
+            <button className="inline-flex items-center gap-x-2 py-2 px-3 border border-neutral-300 dark:border-neutral-700 rounded-md">
+              <LuFilter size={19} />
+              <span>Filters</span>
+            </button>
+            <button className="inline-flex items-center gap-x-2 py-2 px-2 border border-neutral-300 dark:border-neutral-700 rounded-md">
+              <LuEllipsisVertical size={19} />
+            </button>
+          </div>
           {videos.length !== 0 ? (
             children
           ) : (

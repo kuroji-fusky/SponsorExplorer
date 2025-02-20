@@ -1,5 +1,5 @@
-import { VideoItemContainer } from "@/components/VideoItems"
+import Container from "./Container"
 
 export default async function ChannelPage() {
-  return <VideoItemContainer />
+  return <Container />
 }

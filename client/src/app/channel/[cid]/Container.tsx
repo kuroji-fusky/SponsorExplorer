@@ -7,9 +7,10 @@ import {
 } from "@/context"
 import { cn } from "@/utils"
 import dynamic from "next/dynamic"
-import { LuVideoOff } from "react-icons/lu"
 
-const VideoItemGrid = dynamic(() => import("./VideoItemGrid"))
+const VideoItemGrid = dynamic(
+  () => import("@/components/VideoItems/VideoItemGrid"),
+)
 // const VideoItemList = dynamic(() => import("./VideoItemList"))
 // const VideoItemCompact = dynamic(() => import("./VideoItemCompact"))
 
@@ -17,14 +18,14 @@ interface VideoItemContainerProps {
   queryView?: ViewItemContext["view"]
 }
 
-export function VideoItemContainer(props: VideoItemContainerProps) {
+export default function Container(props: VideoItemContainerProps) {
   const { view, setView } = useViewItemStateContext()
   const { videos } = useChannelStoreProvider()
 
   return (
     <div
       className={cn(
-        "grid gap-1.5",
+        "grid gap-x-5 gap-y-6",
         view === "grid"
           ? "xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1"
           : "",
