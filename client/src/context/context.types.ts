@@ -8,6 +8,6 @@
 export type MapUseStateSetters<
   Type extends object,
   KeysToIgnore extends keyof Type = never
-> = Type & {
-  [Pwops in keyof Type as Pwops extends KeysToIgnore ? never : `set${Capitalize<Pwops & string>}`]: React.Dispatch<React.SetStateAction<Type[Pwops]>>;
-};
+> = (Type & {
+  [Pwops in keyof Type as Pwops extends KeysToIgnore ? never : `set${Capitalize<Pwops & string>}`]: React.Dispatch<React.SetStateAction<Type[Pwops]>>
+}) | null;

@@ -15,12 +15,12 @@ type RetrieveMappedValues<
 type TabProps<T extends TabLabelConstraint[]> = {
   iconOnly?: true
   tabs: T
-  activeTab: Readonly<RetrieveMappedValues<T, "label">>
+  activeTab: RetrieveMappedValues<T, "label">
 }
 
 export function Tabs<T extends TabLabelConstraint[]>(props: TabProps<T>) {
   return (
-    <div className="rounded-md border flex p-1 border-neutral-300 dark:border-neutral-700">
+    <div className="rounded-md border flex p-1 se-border-1">
       {props.tabs.map((item) => {
         const uniqueLabelId = `${kebabCase(item.label)}-${crypto.randomUUID()}`
         const isActive = item.label === props.activeTab
@@ -33,9 +33,7 @@ export function Tabs<T extends TabLabelConstraint[]>(props: TabProps<T>) {
             aria-current={isActive ? true : undefined}
             className={cn(
               "rounded-md xl:px-2.5 px-2 py-1 font-medium inline-flex items-center gap-x-1.5",
-              isActive
-                ? "bg-neutral-300 dark:bg-neutral-800 font-semibold"
-                : null,
+              isActive ? "bg-neutral-300 dark:bg-neutral-800" : null,
             )}
           >
             {Icon ? <Icon size={18} /> : null}

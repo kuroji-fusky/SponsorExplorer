@@ -12,6 +12,7 @@ import type { SharedVideoItemProps } from "./VideoItem.types"
 import { fetchSkipSegmentsClient } from "./fetchSkipSegmentsClient"
 import { segmentLabelFormatter } from "./VideoItem.utils"
 import { VideoItemFullLabel } from "./FullLabel"
+import { useChannelStoreProvider } from "@/context"
 
 const SegmentBar = dynamic(
   () => import("../SegmentBar").then((m) => m.SegmentBar),
@@ -24,6 +25,8 @@ const SegmentPeek = dynamic(
 )
 
 export default function VideoItemGrid(props: SharedVideoItemProps) {
+  const { setSbSegments } = useChannelStoreProvider()
+
   const [hasLoaded, setHasLoaded] = useState(false)
   const [isLoadingSegments, setLoadingSegments] = useState(true)
   const [skippableSegments, setSkippableSegments] = useState<InlineSegments>({
@@ -48,11 +51,15 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
   useEffect(() => {
     const controller = new AbortController()
 
+    // const hasExistingId = sbSegments.some((x) => x.id === props.id)
+
     if (!hasLoaded) {
       fetchSkipSegmentsClient(props.id, controller.signal).then((d) => {
         setSkippableSegments(d)
         setLoadingSegments(false)
         setHasLoaded(true)
+
+        setSbSegments((v) => [...v, { id: props.id, data: d.relativeSegments }])
       })
     }
 
@@ -65,7 +72,6 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
   }, [])
 
   // Handling segment
-
   const { hasHighlight, relativeSegments, fullLabel, hasLockedSegments } =
     skippableSegments
 
@@ -78,7 +84,7 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
     >
       {/* Thumbnail wrapper */}
       <Link
-        className="relative aspect-video w-full rounded-md overflow-hidden border-2 border-transparent dark:border-neutral-800  dark:group-hover:border-neutral-700 transition-colors"
+        className="relative aspect-video w-full rounded-md overflow-hidden border-2 border-transparent dark:border-neutral-800 dark:group-hover:border-neutral-700 transition-colors"
         href={videoIdLink}
         onMouseEnter={videoIdPrefetchEvent}
       >
@@ -143,7 +149,7 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
               {segmentLabelFormatter(relativeSegments!, hasHighlight)}
             </button>
           ) : (
-            <div className="h-5 rounded-md w-32 bg-neutral-300 dark:bg-neutral-100 animate-pulse" />
+            <div className="h-5 rounded-md w-32 bg-neutral-300 dark:bg-neutral-500 animate-pulse" />
           )}
         </div>
       </div>

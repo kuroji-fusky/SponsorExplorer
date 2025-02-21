@@ -25,6 +25,18 @@
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+  .se-border-1 {
+    @apply border-neutral-300 dark:border-neutral-700;
+  }
+
+  .se-bg-w1 {
+    @apply bg-white dark:bg-neutral-950;
+  }
+
+  .se-bg-w2 {
+    @apply bg-neutral-100 dark:bg-neutral-950;
+  }
 }
 
 @tailwind utilities;

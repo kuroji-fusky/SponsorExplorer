@@ -37,14 +37,14 @@ export function SegmentClientWrapper() {
             activeTab="Segments"
           />
           <SegmentFilterBar />
-          <button className="inline-flex items-center gap-x-2 rounded-md border border-neutral-300 dark:border-neutral-700 px-3 py-2">
+          <button className="inline-flex items-center gap-x-2 rounded-md border se-border-1 px-3 py-2">
             <LuPlay size={19} />
             <span>Live</span>
           </button>
-          <button className="inline-flex items-center gap-x-2 rounded-md border border-neutral-300 dark:border-neutral-700 p-2">
+          <button className="inline-flex items-center gap-x-2 rounded-md border se-border-1 p-2">
             <LuRefreshCw size={19} />
           </button>
-          <button className="border border-neutral-300 dark:border-neutral-700 p-2 rounded-md">
+          <button className="border se-border-1 p-2 rounded-md">
             <LuEllipsisVertical size={19} />
           </button>
         </div>

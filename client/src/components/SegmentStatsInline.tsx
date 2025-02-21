@@ -1,10 +1,14 @@
 "use client"
 
 import type { SegmentBank } from "@/types"
-import { formatTimecode, pluralFormatter } from "@/utils"
+import { formatNumber, formatTimecode, pluralFormatter } from "@/utils"
 import { LuChartBarBig } from "react-icons/lu"
 
-export function SegmentStatsInline(props: Partial<SegmentBank>) {
+interface SegmentStatsInlineProps extends SegmentBank {
+  totalSkippableCount: number
+}
+
+export function SegmentStatsInline(props: Partial<SegmentStatsInlineProps>) {
   const _submissionCount = props.submissionCount ?? 0
   const _segmentBank = props.segments ?? []
 
@@ -25,7 +29,7 @@ export function SegmentStatsInline(props: Partial<SegmentBank>) {
     >
       <LuChartBarBig size={19} />
       <span>
-        <span className="font-bold">{_submissionCount ?? 0}</span>
+        <span className="font-bold">{formatNumber(_submissionCount ?? 0)}</span>
         {pluralFormatter(_submissionCount!, " submission", " submissions", {
           noIncludeNum: true,
         })}

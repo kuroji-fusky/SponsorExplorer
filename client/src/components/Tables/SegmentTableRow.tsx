@@ -26,11 +26,11 @@ interface SegmentTableRowProps extends Segment {
   __next_iterableFragment: number
 }
 
-const calcDateDiff = (d1, d2) => {
+const calcDateDiff = (d1: string, d2: string) => {
   const _d1 = new Date(d1)
   const _d2 = new Date(d2)
 
-  const diff = Math.abs(_d1 - _d2) / 1000
+  const diff = Math.abs(_d1.valueOf() - _d2.valueOf()) / 1000
 
   // const days = Math.floor(diff / 86400)
   // const hours = Math.floor(diff / 3600) % 24
@@ -80,14 +80,24 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
       {/* Date submitted */}
       <td>
         <div className="relative group">
-          <time dateTime={isoDate} className="whitespace-nowrap">
+          <time dateTime={isoDate} className="whitespace-nowrap cursor-help">
             {readableDate}
           </time>
-          <div className="opacity-0 group-hover:opacity-100 pointer-events-none absolute top-8 p-2 rounded-md bg-neutral-900 z-10 border border-neutral-600">
-            <span className="text-sm leading-none">
-            {`Segment submitted after video upload: ${relativeSubmissionDate}`}
-            </span>
-          </div>
+          <dl className="opacity-0 group-hover:opacity-100 pointer-events-none absolute top-8 py-3 px-3.5 rounded-md bg-neutral-950 z-10 border border-neutral-600 space-y-4">
+            <div className="space-y-1">
+              <dt className="opacity-60 text-sm leading-snug">
+                Time submitted prior to video upload
+              </dt>
+              <dd className="font-semibold">{relativeSubmissionDate}</dd>
+            </div>
+
+            <div className="space-y-1">
+              <dt className="opacity-60 text-sm leading-snug">
+                Time submitted prior from the previous segment submitted
+              </dt>
+              <dd className="font-semibold">N/A</dd>
+            </div>
+          </dl>
         </div>
       </td>
 
@@ -97,6 +107,9 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
           <span>{formatNumber(props.votes)}</span>
           {props.locked ? (
             <LuLock size={17} className="text-yellow-400" />
+          ) : null}
+          {props.votes <= -2 ? (
+            <LuCircleX size={17} className="text-red-500" />
           ) : null}
         </div>
       </td>
@@ -112,9 +125,6 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
           ) : null}
           {props.hidden ? (
             <LuTimerOff size={17} className="text-red-500" />
-          ) : null}
-          {props.votes <= -2 ? (
-            <LuCircleX size={17} className="text-red-500" />
           ) : null}
         </div>
       </td>

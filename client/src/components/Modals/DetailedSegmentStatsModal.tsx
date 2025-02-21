@@ -38,7 +38,7 @@ export function DetailedSegmentStatsModal(
             "duration-200 data-[closed]:translate-y-2 data-[closed]:opacity-0",
           )}
         >
-          <div className="bg-white dark:bg-neutral-950 *:px-4 border-2 border-red-400 w-full rounded-xl">
+          <div className="se-bg-w1 *:px-4 border-2 border-red-400 w-full rounded-xl">
             {/* Titlebar */}
             <div className="flex items-center gap-x-3.5 border-b py-3.5 border-b-neutral-300 dark:border-b-neutral-700">
               <DialogTitle className="sr-only text-xl font-bold flex-1 whitespace-nowrap">

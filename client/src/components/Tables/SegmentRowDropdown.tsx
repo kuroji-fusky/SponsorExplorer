@@ -37,7 +37,7 @@ export function SegmentRowDropdown() {
         anchor="bottom end"
         transition
         modal={false}
-        className="bg-white dark:bg-neutral-950 shadow-md p-2 rounded-md transition duration-100 ease-in-out data-[closed]:opacity-0 grid"
+        className="se-bg-w1 shadow-md p-2 rounded-md transition duration-100 ease-in-out data-[closed]:opacity-0 grid"
       >
         <MenuSection className="contents">
           <ButtonItem text="Inspect..." icon={LuScanLine} />

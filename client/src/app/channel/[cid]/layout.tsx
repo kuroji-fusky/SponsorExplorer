@@ -81,11 +81,11 @@ export default async function ChannelLayout({
                 placeholder="Search"
               />
             </div>
-            <button className="inline-flex items-center gap-x-2 py-2 px-3 border border-neutral-300 dark:border-neutral-700 rounded-md">
+            <button className="inline-flex items-center gap-x-2 py-2 px-3 border se-border-1 rounded-md">
               <LuFilter size={19} />
               <span>Filters</span>
             </button>
-            <button className="inline-flex items-center gap-x-2 py-2 px-2 border border-neutral-300 dark:border-neutral-700 rounded-md">
+            <button className="inline-flex items-center gap-x-2 py-2 px-2 border se-border-1 rounded-md">
               <LuEllipsisVertical size={19} />
             </button>
           </div>

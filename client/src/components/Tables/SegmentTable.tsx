@@ -20,7 +20,7 @@ export function SegmentTable(props: SegmentTableProps) {
           <col style={{ width: "1%" }} />
         </colgroup>
         <thead className="*:text-left">
-          <tr className="sticky top-28 z-20 bg-white dark:bg-neutral-950">
+          <tr className="sticky top-28 z-20 se-bg-w1">
             <th>
               <span className="whitespace-nowrap">Date submitted</span>
             </th>
