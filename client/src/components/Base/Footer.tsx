@@ -5,30 +5,30 @@ export function Footer() {
 
   return (
     <div className="mt-4 dark:bg-neutral-900 border-t border-neutral-600">
-      <footer className="px-6 py-7 mx-auto max-w-screen-2xl">
-        <div className="flex items-center gap-x-2">
-          <span className="flex-1">
-            {`© ${currentYear} `}
-            <Link
-              className="no-underline inline-flex items-center"
-              href="https://kuroji.fusky.pet"
-            >
-              Kuroji Fusky, licensed under Apache-2.0
-            </Link>
-          </span>
-
+      <footer className="px-6 py-7 mx-auto max-w-screen-2xl space-y-3.5">
+        <div className="flex items-center justify-between gap-x-2">
+          <div>Status placeholder</div>
           <div className="space-x-3.5">
             <Link className="inline-flex items-center" href="/about">
-              About
+              About SponsorExplorer
             </Link>
             <Link
               className="inline-flex items-center"
               href="https://github.com/kuroji-fusky/SponsorExplorer"
             >
-              Source
+              Source code
             </Link>
             <span className="font-mono">DEVELOPMENT</span>
           </div>
+        </div>
+        <div className="text-xs">
+          <span className="opacity-75">{`© 2024-${currentYear} `}</span>
+          <Link href="https://github.com/kuroji-fusky">Kuroji Fusky</Link>
+          <span className="opacity-75">{"; licensed under the "}</span>
+          <Link href="https://opensource.org/license/mit">
+            MIT
+          </Link>
+          <span className="opacity-75">{" license."}</span>
         </div>
       </footer>
     </div>

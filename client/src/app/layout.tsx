@@ -44,7 +44,7 @@ export default async function RootLayout({
         <PreloadResources />
         <OptionsProvider>
           <Navbar />
-          <main className="min-h-[calc(100dvh-10.25rem)]">{children}</main>
+          <main className="min-h-[calc(100dvh-12.75rem)]">{children}</main>
           <Footer />
         </OptionsProvider>
       </body>
