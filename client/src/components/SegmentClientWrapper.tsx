@@ -4,9 +4,7 @@ import { useVideoInfoContext } from "@/context"
 import { LockedSegmentsNotice } from "./LockedSegments"
 import { SegmentTable } from "./Tables"
 import { Notice } from "./Notice"
-import { SegmentFilterBar } from "./FilterBar"
-import { LuEllipsisVertical, LuPlay, LuRefreshCw } from "react-icons/lu"
-import { Tabs } from "./Tabs"
+import { SegmentFilterBar } from "./Shelf"
 
 export function SegmentClientWrapper() {
   const { segmentData } = useVideoInfoContext()
@@ -17,37 +15,15 @@ export function SegmentClientWrapper() {
   return (
     <>
       {/* Lock notices */}
-      <div className="empty:my-1 my-3">
+      <div className="my-3 empty:my-1">
         {hasLockedSegments ? (
           <LockedSegmentsNotice reason={lockReason!} />
         ) : null}
       </div>
       <div className="relative flex flex-col gap-y-2.5 *:bg-white dark:*:bg-neutral-950">
-        <div className="sticky top-14 w-full h-16 -mb-16 z-10" aria-hidden />
+        <div className="sticky z-10 w-full h-16 -mb-16 top-14" aria-hidden />
         {/* Filter stuff */}
-        <div className="sticky top-16 z-20 flex items-center gap-x-1.5">
-          <Tabs
-            tabs={
-              [
-                { label: "All" },
-                { label: "Segments" },
-                { label: "Chapters" },
-              ] as const
-            }
-            activeTab="Segments"
-          />
-          <SegmentFilterBar />
-          <button className="inline-flex items-center gap-x-2 rounded-md border se-border-1 px-3 py-2">
-            <LuPlay size={19} />
-            <span>Live</span>
-          </button>
-          <button className="inline-flex items-center gap-x-2 rounded-md border se-border-1 p-2">
-            <LuRefreshCw size={19} />
-          </button>
-          <button className="border se-border-1 p-2 rounded-md">
-            <LuEllipsisVertical size={19} />
-          </button>
-        </div>
+        <SegmentFilterBar />
         {/* Tables */}
         {!isEmptySubmission ? (
           <SegmentTable segments={segments!} />

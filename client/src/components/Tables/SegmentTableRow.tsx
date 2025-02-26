@@ -83,16 +83,16 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
           <time dateTime={isoDate} className="whitespace-nowrap cursor-help">
             {readableDate}
           </time>
-          <dl className="opacity-0 group-hover:opacity-100 pointer-events-none absolute top-8 py-3 px-3.5 rounded-md bg-neutral-950 z-10 border border-neutral-600 space-y-4">
+          <dl className="opacity-0 group-hover:opacity-100 pointer-events-none absolute top-8 py-3 px-3.5 rounded-md se-bg-w1 z-10 border se-border-1 space-y-4">
             <div className="space-y-1">
-              <dt className="opacity-60 text-sm leading-snug">
+              <dt className="text-sm leading-snug opacity-60">
                 Time submitted prior to video upload
               </dt>
               <dd className="font-semibold">{relativeSubmissionDate}</dd>
             </div>
 
             <div className="space-y-1">
-              <dt className="opacity-60 text-sm leading-snug">
+              <dt className="text-sm leading-snug opacity-60">
                 Time submitted prior from the previous segment submitted
               </dt>
               <dd className="font-semibold">N/A</dd>
@@ -163,7 +163,7 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
       {/* Username/UserID */}
       <td>
         <div className="flex items-center gap-x-0.5 max-w-48">
-          <div className="truncate flex-1">
+          <div className="flex-1 truncate">
             <span>{props.userID}</span>
           </div>
           <div className={hoverOptionsCn}>

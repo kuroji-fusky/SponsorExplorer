@@ -15,7 +15,6 @@ import {
   LuVideoOff,
 } from "react-icons/lu"
 import { Tabs } from "@/components"
-import { SegmentFilterBar } from "@/components/FilterBar"
 
 export async function generateMetadata(
   props: ChannelIdRouteParams,

@@ -58,8 +58,7 @@ export function LockedSegmentsNotice(props: LockedSegmentsNoticeProps) {
           </p>
         </article>
       </div>
-      <ExpandableContainer isOpen={revealSegments}>
-        <div className="border-t border-t-white/50 my-2" />
+      <ExpandableContainer isOpen={revealSegments} hasSeparator>
         <div>WIP</div>
       </ExpandableContainer>
     </div>
