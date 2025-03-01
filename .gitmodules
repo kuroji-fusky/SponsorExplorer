@@ -1,3 +1,6 @@
 [submodule "sbbrowser-api"]
 	path = sbbrowser-api
 	url = https://github.com/kuroji-fusky/SBbrowser-API-Wrapper
+[submodule "packages/kuro-utils"]
+	path = packages/kuro-utils
+	url = https://github.com/kuroji-fusky/shared-utils
