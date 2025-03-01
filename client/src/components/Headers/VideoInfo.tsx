@@ -33,13 +33,13 @@ export function VideoInfo() {
     <>
       <div
         data-player-root-anchor=""
-        className="overflow-hidden rounded-lg flex lg:flex-row flex-col bg-neutral-100 dark:bg-neutral-800/30"
+        className="overflow-hidden rounded-lg flex lg:flex-row flex-col lg:bg-neutral-100 lg:dark:bg-neutral-800/30"
       >
         <div className="aspect-video 2xl:w-[48rem] xl:w-[38rem] lg:w-[32rem] w-full h-full overflow-hidden relative">
           <YouTube id={videoDetails.id} />
         </div>
         {/* Video details */}
-        <div className="flex-1 px-5 py-4 flex flex-col gap-y-3 prose-h1:text-2xl prose-h1:font-bold w-full">
+        <div className="flex-1 lg:px-5 lg:py-4 pt-3.5 pb-1 flex flex-col gap-y-3 prose-h1:text-2xl prose-h1:font-bold w-full">
           {/* Video title */}
           <VideoInfoTitle />
           <div className="mt-0.5 border-t border-t-neutral-700" />

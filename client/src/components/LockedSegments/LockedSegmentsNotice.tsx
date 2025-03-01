@@ -31,7 +31,7 @@ export function LockedSegmentsNotice(props: LockedSegmentsNoticeProps) {
         <LuLock size={20} className="flex-shrink-0" />
         <article className="ml-2.5">
           <span className="inline-flex gap-x-1.5">
-            <h2 className="font-semibold text-base">
+            <h2 className="font-semibold lg:text-base">
               Categories for this video have been locked
             </h2>
             <button>
@@ -43,13 +43,14 @@ export function LockedSegmentsNotice(props: LockedSegmentsNoticeProps) {
               {props.reason ? (
                 <div
                   className={cn(
+                    "transition-all",
                     revealSegments
-                      ? "line-clamp-none"
-                      : "line-clamp-1 lg:line-clamp-none break-all lg:break-normal",
+                      ? "line-clamp-none max-h-96"
+                      : "line-clamp-1 max-h-6 lg:max-h-96 lg:line-clamp-none break-all lg:break-normal",
                   )}
                 >
                   <span className="font-bold">{"Reason: "}</span>
-                  {props.reason}
+                  <span>{props.reason}</span>
                 </div>
               ) : (
                 "No reason provided."
