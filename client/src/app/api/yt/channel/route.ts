@@ -59,7 +59,7 @@ export async function GET(request: NextRequest) {
   }
 
   // `no_vid=1` parameter so we don't get exhastive calls from other APIs, used for displaying channel avatar and other minimal info
-  if (noVideoFetch === 1) return NextResponse.json(channelDetails)
+  if (noVideoFetch === 1) return NextResponse.json({ channel: channelDetails, videos: [] })
 
   // This is a hacky way to check if there are no uploads on the channel, might refactor this soon
   if (parseInt(firstChannelItem.statistics.videoCount) === 0) {

@@ -1,7 +1,9 @@
 import { fetchWrapper } from "@/utils/fetchWrapper"
-import type { InlineSegments, SkippableSeggies } from "@/types"
-import type { sb } from "@/lib/SponsorBlock.types"
+import type { GetAPIResponseType } from "@/types"
 import { SB_FETCH_OPTIONS } from "@/utils/constants"
+
+import { type GET as SkippableSeggies } from "@/app/api/sb/skippableSegments/route"
+import { type GET as LockCategories } from "@/app/api/sb/lockCategories/route"
 
 export const fetchSkipSegmentsClient = async (id: string, abortSignal: AbortSignal) => {
   let relativeSegments = null
@@ -13,9 +15,8 @@ export const fetchSkipSegmentsClient = async (id: string, abortSignal: AbortSign
     ...SB_FETCH_OPTIONS
   } satisfies NextFetchRequestConfig | RequestInit
 
-
-  const segmentFetcher = fetchWrapper<SkippableSeggies>(`${location.origin}/api/sb/skippableSegments?id=${id}`, fetchOptions)
-  const lockSegFetcher = fetchWrapper<Record<string, sb.Responses.LockCategories>>(`${location.origin}/api/sb/lockCategories?id=${id}`, fetchOptions)
+  const segmentFetcher = fetchWrapper<GetAPIResponseType<typeof SkippableSeggies>>(`${location.origin}/api/sb/skippableSegments?id=${id}`, fetchOptions)
+  const lockSegFetcher = fetchWrapper<GetAPIResponseType<typeof LockCategories>>(`${location.origin}/api/sb/lockCategories?id=${id}`, fetchOptions)
 
   const [[segmentRes], [lockRes]] = await Promise.all([segmentFetcher, lockSegFetcher])
 
@@ -47,5 +48,5 @@ export const fetchSkipSegmentsClient = async (id: string, abortSignal: AbortSign
   const fullLabel = full ? full[0].category : null
   const hasLockedSegments = Object.values(lockRes).some(o => o !== null)
 
-  return ({ relativeSegments, hasHighlight, fullLabel, hasLockedSegments }) as InlineSegments
+  return ({ relativeSegments, hasHighlight, fullLabel, hasLockedSegments })
 }

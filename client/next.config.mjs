@@ -11,10 +11,6 @@ const nextConfig = {
   },
   images: {
     dangerouslyAllowSVG: true,
-    remotePatterns: [
-      { protocol: "https", hostname: "i.ytimg.com" },
-      { protocol: "https", hostname: "img.youtube.com" },
-    ],
   },
   async redirects() {
     return [

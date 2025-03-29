@@ -3,12 +3,14 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import { noop } from "lodash-es"
 import type { MapUseStateSetters } from "./context.types"
-import type { InlineSegments } from "@/types"
+import type { GetAPIResponseType, InlineSegments } from "@/types"
+import type { GET as _YTChannelRes } from "@/app/api/yt/channel/route"
 
+type YTChannelResponse = GetAPIResponseType<typeof _YTChannelRes>
 type ChannelStoreContextType = MapUseStateSetters<
   {
-    videos: unknown[] | never[]
-    channel: unknown
+    videos: YTChannelResponse["videos"]
+    channel: YTChannelResponse["channel"] | never[]
     sbSegments:
       | { id: string; data: InlineSegments["relativeSegments"] }[]
       | never[]
@@ -33,8 +35,11 @@ export function ChannelStoreProvider({
   channelData: NonNullable<ChannelStoreContextType>["channel"]
   initialVideoStore: NonNullable<ChannelStoreContextType>["videos"]
 }>) {
+  // eslint-disable-next-line no-unused-vars
   const [internal_Videos, setVideos] = useState<typeof initialVideoStore>([])
-  const [internal_sbSegments, setSbSegments] = useState<NonNullable<ChannelStoreContextType>["sbSegments"]>([])
+  const [internal_sbSegments, setSbSegments] = useState<
+    NonNullable<ChannelStoreContextType>["sbSegments"]
+  >([])
 
   useEffect(() => {
     if (initialVideoStore) setVideos(initialVideoStore)

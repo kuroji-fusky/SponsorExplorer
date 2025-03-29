@@ -2,10 +2,10 @@
 
 import type { VideoInfoType, VideoSegments } from "@/types"
 import { noop } from "lodash-es"
-import type { MapUseStateSetters } from "@/context.types"
 import { createContext, useContext, useState } from "react"
 import { usePathname } from "next/navigation"
 import { VideoSidebarProvider } from "./VideoSidebarProvider"
+import type { MapUseStateSetters } from "../context.types"
 
 type VideoInfoContextType = MapUseStateSetters<
   {
@@ -18,15 +18,18 @@ type VideoInfoContextType = MapUseStateSetters<
   "videoDetails"
 >
 
-const INITIAL_SEGMENT_DATA: VideoInfoContextType["segmentData"] = {
+type MaybeSegmentData = NonNullable<VideoInfoContextType>["segmentData"]
+type MaybeVideoDetails = NonNullable<VideoInfoContextType>["videoDetails"]
+
+const INITIAL_SEGMENT_DATA = {
   submissionCount: 0,
   segments: [],
   lockReason: null,
   lockedSegments: {},
   hasLockedSegments: false,
-}
+} satisfies MaybeSegmentData
 
-const INITIAL_VIDEO_DATA: VideoInfoContextType["videoDetails"] = {
+const INITIAL_VIDEO_DATA = {
   state: "NOT_FOUND",
   hasSponsorDisclosure: false,
   nativeChapters: [],
@@ -38,7 +41,7 @@ const INITIAL_VIDEO_DATA: VideoInfoContextType["videoDetails"] = {
     title: "",
     channelAvatar: "",
   },
-}
+} satisfies MaybeVideoDetails
 
 const VideoInfoContext = createContext<VideoInfoContextType>({
   segmentData: INITIAL_SEGMENT_DATA,
@@ -71,8 +74,8 @@ export function VideoInfoProvider({
   initialSegmentData: initialData = INITIAL_SEGMENT_DATA,
 }: Readonly<{
   children: React.ReactNode
-  videoData: VideoInfoContextType["videoDetails"]
-  initialSegmentData?: VideoInfoContextType["segmentData"]
+  videoData: MaybeVideoDetails
+  initialSegmentData?: MaybeSegmentData
 }>) {
   const [segmentData, setSegmentData] = useState(initialData)
 

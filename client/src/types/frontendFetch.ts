@@ -18,12 +18,6 @@ export interface SegmentBank {
   segments: sb.Responses.SearchSegments["segments"]
 }
 
-/** For `/sb/skippableSegments` */
-export interface SkippableSeggies {
-  skip: sb.Responses.SkipSegments | null
-  full: sb.Responses.SkipSegments | null
-}
-
 export interface InlineSegments {
   relativeSegments: Array<{
     segment: Category,
@@ -33,7 +27,6 @@ export interface InlineSegments {
   fullLabel: "sponsor" | "selfpromo" | "exclusive_acesss" | null
   hasLockedSegments: boolean
 }
-
 
 /**
  * This is when the creator supplies chapters from their descriptions,
