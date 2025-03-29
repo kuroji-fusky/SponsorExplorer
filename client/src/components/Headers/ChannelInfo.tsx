@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react"
 import { _Link as Link } from "../Link"
-import { LuBookmark, LuExternalLink } from "react-icons/lu"
+import { LuBookmark, LuExternalLink, LuSquarePlay } from "react-icons/lu"
 import { SegmentStatsInline } from "../SegmentStatsInline"
 import { useChannelStoreProvider } from "@/context"
+import { IconWrapper } from "../IconWrapper"
 
 export function ChannelInfo() {
   const { channel, sbSegments } = useChannelStoreProvider()
@@ -51,7 +52,16 @@ export function ChannelInfo() {
         </div>
         {/* Segments submitted */}
         <div className="my-0.5 border-t border-t-neutral-700" />
-        <SegmentStatsInline submissionCount={totalSegmentCount} />
+        <div className="flex flex-wrap gap-x-2">
+          <span className="inline-flex gap-x-1">
+            <IconWrapper icon={LuSquarePlay} />
+            <span>
+              <strong>0</strong> upload(s)
+            </span>
+            <span className="opacity-75">(50 loaded)</span>
+          </span>
+          <SegmentStatsInline submissionCount={totalSegmentCount} />
+        </div>
       </div>
     </div>
   )

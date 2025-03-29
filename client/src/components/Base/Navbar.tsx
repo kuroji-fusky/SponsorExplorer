@@ -1,13 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import {
-  LuBookmark,
-  LuMenu,
-  LuMonitor,
-  LuSearch,
-  LuSettings,
-} from "react-icons/lu"
+import { LuMenu, LuMonitor, LuSearch, LuSettings } from "react-icons/lu"
 import { _Link as Link } from "../Link"
 import { NavbarOptionsModal, NavbarSearchModal } from "../Modals"
 
@@ -35,11 +29,17 @@ export function Navbar() {
             >
               SponsorExplorer
             </Link>
+            <span
+              className="px-2 py-0.5 rounded-md bg-red-600 ml-1.5 text-neutral-50 text-[0.8rem]"
+              translate="no"
+            >
+              ALPHA
+            </span>
           </div>
           {/* Breadcrumbs: Mobile */}
           <div className="flex-1 block lg:hidden"></div>
           {/* Breadcrumbs: Desktop */}
-          <div className="flex-1 lg:flex items-center gap-x-3 hidden text-sm"></div>
+          <div className="items-center flex-1 hidden text-sm lg:flex gap-x-3"></div>
           {/* Right side */}
           <div className="flex gap-x-1">
             <button
@@ -54,13 +54,13 @@ export function Navbar() {
                 />
                 <span
                   id="search-label"
-                  className="opacity-50  ml-1 lg:block hidden"
+                  className="hidden ml-1 opacity-50 lg:block"
                 >
                   Search
                 </span>
               </div>
             </button>
-            <button className="p-2 opacity-65 hover:opacity-100 hidden md:block">
+            <button className="hidden p-2 opacity-65 hover:opacity-100 md:block">
               <LuMonitor size={20} />
             </button>
             <button

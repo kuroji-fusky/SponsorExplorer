@@ -29,7 +29,7 @@ While I was in the middle of writing a userscript for [sb.ltn.fi][sbb-prod] to a
 | Filter and sort segments | ✅                       | Has added functionality to filter locked segments |
 | Playback videos          | Directly uses `<iframe>` | Mounts `<iframe>` client-side                     |
 
-If SponsorBlock API returns a `5xx` response, it automatically falls back and crawls [sb.ltn.fi][sbb-prod] for cached data via [SBbrowser-API-Wrapper](https://github.com/kuroji-fusky/SBbrowser-API-Wrapper).
+If the SponsorBlock API returns a `5xx` response, it automatically falls back and crawls [sb.ltn.fi][sbb-prod] for cached data via [SBbrowser-API-Wrapper](https://github.com/kuroji-fusky/SBbrowser-API-Wrapper).
 
 ### Caveats with the YouTube player
 

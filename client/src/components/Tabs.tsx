@@ -1,6 +1,7 @@
 import { cn } from "@/utils"
 import { kebabCase } from "lodash-es"
 import type { IconType } from "react-icons"
+import { IconWrapper } from "./IconWrapper"
 
 type TabLabelConstraint = {
   label: string
@@ -32,12 +33,15 @@ export function Tabs<T extends TabLabelConstraint[]>(props: TabProps<T>) {
             aria-labelledby={uniqueLabelId}
             aria-current={isActive ? true : undefined}
             className={cn(
-              "rounded-md xl:px-2.5 px-2 py-1 font-medium inline-flex items-center gap-x-1.5",
+              "rounded-md font-medium inline-flex items-center gap-x-1.5",
+              props.iconOnly ? "px-1.5 py-1" : "xl:px-2.5 px-2 py-1",
               isActive ? "bg-neutral-300 dark:bg-neutral-800" : null,
             )}
           >
-            {Icon ? <Icon size={18} /> : null}
-            <span id={uniqueLabelId}>{item.label}</span>
+            {Icon ? <IconWrapper icon={Icon} size="smol" /> : null}
+            {!props.iconOnly ? (
+              <span id={uniqueLabelId}>{item.label}</span>
+            ) : null}
           </button>
         )
       })}

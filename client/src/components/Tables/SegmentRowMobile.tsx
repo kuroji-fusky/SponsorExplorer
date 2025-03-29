@@ -12,11 +12,14 @@ import {
 import { SegmentBadge } from "../Badges"
 import type { Category } from "@/lib/SponsorBlock.types"
 import type { Segment } from "./SegmentRow.types"
+import { useState } from "react"
 
 interface SegmentRowMobileProps extends Segment {}
 
 export function SegmentRowMobile(props: SegmentRowMobileProps) {
   const { isoDate, readableDate } = parseDateStr(props.timeSubmitted)
+
+  const [isExpanded, setExpanded] = useState(false)
 
   return (
     <button className="relative flex items-center w-full gap-x-2 py-2.5 border-b se-border-1">
@@ -42,9 +45,9 @@ export function SegmentRowMobile(props: SegmentRowMobileProps) {
       </div>
       <div className="min-w-12 flex items-center justify-end gap-x-1 mr-2">
         <span>{formatNumber(props.votes)}</span>
-        {props.locked ? <LuLock size={14} className="text-yellow-400" /> : null}
+        {props.locked ? <LuLock size={15} className="text-yellow-400" /> : null}
       </div>
-      <span className="min-w-11 text-right [font-kerning:none]">
+      <span className="min-w-16 text-right [font-kerning:none]">
         {formatNumber(props.views)}
       </span>
     </button>

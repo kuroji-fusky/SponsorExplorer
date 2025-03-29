@@ -39,21 +39,7 @@ export async function GET(request: NextRequest) {
     })
   }
 
-  const firstChannelItem = fetchedData[0].items[0]
-  const channelDetails = {
-    id: firstChannelItem.id,
-    channelName: firstChannelItem.snippet.title,
-    thumbs: firstChannelItem.snippet.thumbnails.high.url,
-    joinDate: firstChannelItem.snippet.publishedAt
-  }
-
-  // This is a hacky way to check if there are no uploads on the channel, might refactor this soon
-  if (parseInt(firstChannelItem.statistics.videoCount) === 0) {
-    return NextResponse.json({ channel: channelDetails, videos: [] })
-  }
-
-  // `no_vid=1` parameter so we don't get exhastive calls from other APIs, used for displaying channel avatar and other minimal info
-  if (noVideoFetch === 1) return NextResponse.json(channelDetails)
+  const [firstChannelItem] = fetchedData[0].items
 
   // 2. Get videos from the channel
   let videoCollection = []
@@ -63,6 +49,22 @@ export async function GET(request: NextRequest) {
     playlistId: (firstChannelItem.id).replace(/^UC/, "UULF"),
     maxResults: 48
   })
+
+  const channelDetails = {
+    id: firstChannelItem.id,
+    channelName: firstChannelItem.snippet.title,
+    thumbs: firstChannelItem.snippet.thumbnails.medium.url,
+    joinDate: firstChannelItem.snippet.publishedAt,
+    videoCount: playlistData.pageInfo.totalResults
+  }
+
+  // `no_vid=1` parameter so we don't get exhastive calls from other APIs, used for displaying channel avatar and other minimal info
+  if (noVideoFetch === 1) return NextResponse.json(channelDetails)
+
+  // This is a hacky way to check if there are no uploads on the channel, might refactor this soon
+  if (parseInt(firstChannelItem.statistics.videoCount) === 0) {
+    return NextResponse.json({ channel: channelDetails, videos: [] })
+  }
 
   videoCollection = playlistData.items.map((item) => item.contentDetails.videoId)
 
@@ -78,7 +80,7 @@ export async function GET(request: NextRequest) {
     title: snippet.title,
     thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
     uploadDate: snippet.publishedAt,
-    duration: formatYTTimecode(contentDetails.duration)
+    duration: formatYTTimecode(contentDetails.duration),
   }))
 
   return NextResponse.json({ channel: channelDetails, videos: parsedVideoData })

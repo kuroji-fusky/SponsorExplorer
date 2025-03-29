@@ -11,6 +11,9 @@ import { fetchChannelData } from "@/utils/fetchYTData"
 import {
   LuEllipsisVertical,
   LuFilter,
+  LuLayoutGrid,
+  LuLayoutList,
+  LuList,
   LuSearch,
   LuVideoOff,
 } from "react-icons/lu"
@@ -51,12 +54,12 @@ export default async function ChannelLayout({
     viewParam === "compact" || viewParam === "list" || viewParam === "grid"
 
   return (
-    <div className="px-6 space-y-4 max-w-screen-2xl mx-auto">
+    <div className="px-6 max-w-screen-2xl mx-auto">
       <ChannelStoreProvider initialVideoStore={videos} channelData={channel}>
         <ViewItemProvider initialView={!isValidViews ? "grid" : viewParam}>
           <ChannelInfo />
           {/* Filter */}
-          <div className="flex gap-x-1.5">
+          <div className="sticky top-14 z-20 py-4  bg-neutral-950 flex gap-x-1.5">
             <Tabs
               tabs={
                 [
@@ -84,6 +87,17 @@ export default async function ChannelLayout({
               <LuFilter size={19} />
               <span>Filters</span>
             </button>
+            <Tabs
+              tabs={
+                [
+                  { label: "grid", icon: LuLayoutGrid },
+                  { label: "list", icon: LuLayoutList },
+                  { label: "compact", icon: LuList },
+                ] as const
+              }
+              iconOnly
+              activeTab="grid"
+            />
             <button className="inline-flex items-center gap-x-2 py-2 px-2 border se-border-1 rounded-md">
               <LuEllipsisVertical size={19} />
             </button>
