@@ -10,24 +10,21 @@ export function Footer() {
           <div>Status placeholder</div>
           <div className="space-x-3.5">
             <Link className="inline-flex items-center" href="/about">
-              About SponsorExplorer
+              About
             </Link>
             <Link
               className="inline-flex items-center"
               href="https://github.com/kuroji-fusky/SponsorExplorer"
             >
-              Source code
+              Source
             </Link>
-            <span className="font-mono">DEVELOPMENT</span>
           </div>
         </div>
         <div className="text-xs">
           <span className="opacity-75">{`© 2024-${currentYear} `}</span>
           <Link href="https://github.com/kuroji-fusky">Kuroji Fusky</Link>
           <span className="opacity-75">{"; licensed under the "}</span>
-          <Link href="https://opensource.org/license/mit">
-            MIT
-          </Link>
+          <Link href="https://opensource.org/license/mit">MIT</Link>
           <span className="opacity-75">{" license."}</span>
         </div>
       </footer>

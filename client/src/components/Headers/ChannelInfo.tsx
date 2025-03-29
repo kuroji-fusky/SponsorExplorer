@@ -6,6 +6,7 @@ import { LuBookmark, LuExternalLink, LuSquarePlay } from "react-icons/lu"
 import { SegmentStatsInline } from "../SegmentStatsInline"
 import { useChannelStoreProvider } from "@/context"
 import { IconWrapper } from "../IconWrapper"
+import { formatNumber } from "@/utils"
 
 export function ChannelInfo() {
   const { channel, sbSegments } = useChannelStoreProvider()
@@ -33,7 +34,7 @@ export function ChannelInfo() {
         {/* Channel title */}
         <div className="space-y-1.5">
           <span className="opacity-75">Segments for channel</span>
-          <div>
+          <div className="flex flex-wrap">
             <span className="font-bold text-2xl inline" translate="no">
               {channel.channelName}
             </span>
@@ -52,14 +53,15 @@ export function ChannelInfo() {
         </div>
         {/* Segments submitted */}
         <div className="my-0.5 border-t border-t-neutral-700" />
-        <div className="flex flex-wrap gap-x-2">
+        <div className="flex flex-wrap gap-x-1.5">
           <span className="inline-flex gap-x-1">
             <IconWrapper icon={LuSquarePlay} />
             <span>
-              <strong>0</strong> upload(s)
+              <strong>{formatNumber(channel.videoCount)}</strong> upload(s)
             </span>
             <span className="opacity-75">(50 loaded)</span>
           </span>
+          <span>&bull;</span>
           <SegmentStatsInline submissionCount={totalSegmentCount} />
         </div>
       </div>

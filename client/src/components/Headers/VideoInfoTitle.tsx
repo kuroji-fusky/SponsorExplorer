@@ -30,7 +30,7 @@ export function VideoInfoTitle() {
         <span className="opacity-75">Segments for</span>
         <h1 translate="no">{video.title}</h1>
       </div>
-      <div className="inline-flex flex-wrap items-center gap-x-2">
+      <div className="inline-flex flex-wrap items-center gap-x-1.5">
         <div className="sr-only" id="view-channel-segments-a11y">
           {"View channel segments for "}
           <span translate="no">{video.channelTitle}</span>
@@ -46,6 +46,7 @@ export function VideoInfoTitle() {
           </div>
           <span className="my-auto">{video.channelTitle}</span>
         </Link>
+        <span className="opacity-65">&bull;</span>
         <time dateTime={_isoDate}>{_readableDate}</time>
       </div>
     </>
