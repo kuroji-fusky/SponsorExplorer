@@ -26,7 +26,7 @@ export function ChannelInfo() {
       <div className="flex-shrink-0">
         <div className="size-32 relative overflow-hidden rounded-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={`${channel.thumbs}`} alt="" className="size-full" />
+          <img src={`${channel!.thumbs}`} alt="" className="size-full" />
         </div>
       </div>
       {/* Details */}
@@ -36,14 +36,14 @@ export function ChannelInfo() {
           <span className="opacity-75">Segments for channel</span>
           <div className="flex flex-wrap">
             <span className="font-bold text-2xl inline" translate="no">
-              {channel.channelName}
+              {channel!.channelName}
             </span>
             <div className="inline-flex">
               <button className="ml-1 p-2">
                 <LuBookmark size={18} />
               </button>
               <Link
-                href={`https://www.youtube.com/channel/${channel.id}`}
+                href={`https://www.youtube.com/channel/${channel!.id}`}
                 className="p-2"
               >
                 <LuExternalLink size={17} />
@@ -57,7 +57,7 @@ export function ChannelInfo() {
           <span className="inline-flex gap-x-1">
             <IconWrapper icon={LuSquarePlay} />
             <span>
-              <strong>{formatNumber(channel.videoCount)}</strong> upload(s)
+              <strong>{formatNumber(channel!.videoCount)}</strong> upload(s)
             </span>
             <span className="opacity-75">(50 loaded)</span>
           </span>
