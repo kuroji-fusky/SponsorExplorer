@@ -1,5 +1,5 @@
 name: Local type checking
-on: [push]
+on: [push, pull_request]
 
 jobs:
   type-check:
@@ -13,11 +13,11 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: pnpm
 
       - name: Install deps without lockfile
         run: pnpm install --no-lockfile
 
       - name: "Type check"
-        run: pnpm client:lint
+        run: pnpm lint
