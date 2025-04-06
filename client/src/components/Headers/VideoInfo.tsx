@@ -1,20 +1,20 @@
 "use client"
 
 import { useState } from "react"
-import { useVideoInfoContext, usePlayerStateContext } from "@/context"
-// import { cn } from "@/utils"
+import { useVideoInfoContext } from "@/context"
 import dynamic from "next/dynamic"
 import { _Link as Link } from "../Link"
 import { SegmentStatsInline } from "../SegmentStatsInline"
 
 import {
   LuExternalLink,
-  LuChartGantt,
-  LuLink2,
-  LuPin,
   LuEllipsisVertical,
+  LuChevronRight,
 } from "react-icons/lu"
 import { VideoInfoTitle } from "./VideoInfoTitle"
+import { ExpandableContainer } from "../ExpandableContainer"
+import { IconWrapper } from "../IconWrapper"
+import { cn } from "@/utils"
 
 const YouTube = dynamic(() => import("../YouTube").then((c) => c.YouTube), {
   ssr: false,
@@ -22,12 +22,11 @@ const YouTube = dynamic(() => import("../YouTube").then((c) => c.YouTube), {
 
 export function VideoInfo() {
   const { segmentData, videoDetails } = useVideoInfoContext()
-  // const { isPlayerPinned, setIsPlayerPinned } = usePlayerStateContext()
-  const [detailsModal, setToggleDetailsModal] = useState(false)
+  const [isShown, setIsShown] = useState(false)
 
   const _submissionCount = segmentData.submissionCount ?? 0
 
-  const toggleDetailsDialog = () => setToggleDetailsModal(!detailsModal)
+  const toggleSegmentDetails = () => setIsShown(!isShown)
 
   return (
     <>
@@ -39,16 +38,46 @@ export function VideoInfo() {
           <YouTube id={videoDetails.id} />
         </div>
         {/* Video details */}
-        <div className="flex-1 lg:px-5 lg:py-4 pt-3.5 pb-1 flex flex-col gap-y-3 prose-h1:text-2xl prose-h1:font-bold w-full">
+        <div className="flex-1 lg:px-5 lg:py-4 pt-3.5 pb-1 flex flex-col gap-y-2.5 prose-h1:text-2xl prose-h1:font-bold w-full">
           {/* Video title */}
           <VideoInfoTitle />
           <div className="mt-0.5 border-t border-t-neutral-700" />
           <div className="space-y-2">
             <div className="flex justify-between">
-              <SegmentStatsInline
-                submissionCount={_submissionCount}
-                segments={segmentData.segments}
-              />
+              <button
+                onClick={toggleSegmentDetails}
+                className="flex-1 inline-flex items-center gap-x-1 transition-opacity hover:bg-neutral-800 rounded-md"
+              >
+                <span
+                  className={cn(
+                    "transition-transform",
+                    isShown ? "rotate-90" : "",
+                  )}
+                >
+                  <IconWrapper icon={LuChevronRight} />
+                </span>
+                <div className="relative h-5 w-full *:transition-all *:duration-[270ms] overflow-hidden">
+                  <div
+                    className={cn(
+                      "absolute top-0 left-0",
+                      isShown ? "opacity-0 translate-y-4" : "opacity-100",
+                    )}
+                  >
+                    <SegmentStatsInline
+                      submissionCount={_submissionCount}
+                      segments={segmentData.segments}
+                    />
+                  </div>
+                  <div
+                    className={cn(
+                      "absolute top-0 left-0 text-left",
+                      isShown ? "opacity-75" : "opacity-0 -translate-y-4",
+                    )}
+                  >
+                    Statistics
+                  </div>
+                </div>
+              </button>
               <div className="flex">
                 <Link
                   href={`https://sb.ltn.fi/video/${videoDetails.id}/?source=se-staging.fusky.pet`}
@@ -63,39 +92,11 @@ export function VideoInfo() {
               </div>
             </div>
           </div>
-          {/* <Link
-            href={`/video/${videoDetails.id}/timeline`}
-            className="py-0.5 px-1.5 flex items-center gap-x-1.5 rounded-md hover:bg-neutral-300"
-          >
-            <LuChartGantt size={17} />
-            <span>Timeline view</span>
-          </Link> */}
-          {/* Bottom content */}
-          <div className="flex items-center gap-x-2">
-            {/* <button
-              className={cn(
-                "inline-flex gap-x-1.5 items-center",
-                isPlayerPinned ? "dark:bg-white dark:text-black" : "",
-              )}
-              onClick={() => setIsPlayerPinned(!isPlayerPinned)}
-            >
-              <LuPin size={17} />
-              <span>Pin player</span>
-            </button>
-            <Separator />
-            <button className="inline-flex gap-x-1.5 items-center">
-              <LuLink2 size={17} />
-              <span>Copy link</span>
-            </button> */}
-            {/* <Separator /> */}
-          </div>
+          <ExpandableContainer isOpen={isShown} className="mx-0">
+            <div className="flex items-center gap-x-2">WIP</div>
+          </ExpandableContainer>
         </div>
       </div>
-      {/* Modals */}
-      {/* <DetailedSegmentStatsModal
-        open={detailsModal}
-        onClose={toggleDetailsDialog}
-      /> */}
     </>
   )
 }
