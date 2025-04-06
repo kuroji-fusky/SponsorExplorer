@@ -9,4 +9,5 @@ export * from "./Separator"
 
 export * from "./FatalError"
 
+export * from "./SubmissionItem"
 export * from "./IconWrapper"
