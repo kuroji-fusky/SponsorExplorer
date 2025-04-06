@@ -129,3 +129,17 @@ export const formatYTTimecode = (time: string) => {
 
   return hours ? `${hours}:${padMinute}:${padSecond}` : `${minutes}:${padSecond}`
 }
+
+export const calcDateDiff = (d1: string, d2: string) => {
+  const _d1 = new Date(d1)
+  const _d2 = new Date(d2)
+
+  const diff = Math.abs(_d1.valueOf() - _d2.valueOf()) / 1000
+
+  // const days = Math.floor(diff / 86400)
+  // const hours = Math.floor(diff / 3600) % 24
+  // const minutes = Math.floor(diff / 60) % 60
+  const seconds = Math.floor(diff)
+
+  return seconds
+}
