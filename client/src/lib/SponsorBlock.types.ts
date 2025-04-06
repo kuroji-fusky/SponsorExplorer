@@ -11,7 +11,12 @@ export type Category =
   | "music_offtopic"
   | "exclusive_access"
 
+
 export type ActionType = "skip" | "full" | "mute" | "chapter"
+
+export namespace sb.Literals {
+  export type FullLabel = "sponsor" | "selfpromo" | "exclusive_access"
+}
 
 export namespace sb.Props {
   export interface SkipAndSearchSegments {

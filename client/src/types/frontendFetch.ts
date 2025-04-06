@@ -5,11 +5,7 @@ export interface VideoSegments {
   submissionCount: number
   hasLockedSegments: boolean
   lockReason: string | null
-  lockedSegments: {
-    skip: sb.Responses.LockCategories[] | null
-    mute: sb.Responses.LockCategories[] | null
-    full: sb.Responses.LockCategories[] | null
-  } | Record<string, never>
+  lockedSegments: Record<"skip" | "mute" | "full", sb.Responses.LockCategories[] | null> | Record<string, never>
   segments: sb.Responses.SearchSegments["segments"]
 }
 
@@ -24,7 +20,7 @@ export interface InlineSegments {
     width: number
   }> | null
   hasHighlight: boolean
-  fullLabel: "sponsor" | "selfpromo" | "exclusive_acesss" | null
+  fullLabel: sb.Literals.FullLabel | null
   hasLockedSegments: boolean
 }
 
@@ -37,12 +33,7 @@ export interface NativeVideoChapters {
   title: string
 }
 
-interface Internal_FoundState {
-  state: "FOUND" | "NOT_FOUND"
-}
-
-export interface VideoInfoType extends Internal_FoundState {
-  hasSponsorDisclosure?: boolean
+export interface VideoInfoType {
   video: {
     title: string
     publishedAt: string
@@ -50,26 +41,4 @@ export interface VideoInfoType extends Internal_FoundState {
     channelTitle: string
   }
   nativeChapters?: (NativeVideoChapters | never)[]
-}
-
-export interface ChannelInfoType extends Internal_FoundState {
-  channel: {
-    title: string
-    id: string
-    handle: string
-    thumbnails: {
-      default: {
-        url: string
-      }
-      medium: {
-        url: string
-      }
-      high: {
-        url: string
-      }
-    }
-    joinDate: string
-    totalVideos: number
-  }
-  videos: Pick<VideoInfoType, "video">[]
 }
