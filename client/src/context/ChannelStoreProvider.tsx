@@ -10,7 +10,7 @@ type YTChannelResponse = GetAPIResponseType<typeof _YTChannelRes>
 type ChannelStoreContextType = MapUseStateSetters<
   {
     videos: YTChannelResponse["videos"]
-    channel: YTChannelResponse["channel"] | never[]
+    channel: YTChannelResponse["channel"] | null
     sbSegments:
       | { id: string; data: InlineSegments["relativeSegments"] }[]
       | never[]
@@ -20,7 +20,7 @@ type ChannelStoreContextType = MapUseStateSetters<
 
 const ChannelStoreContext = createContext<ChannelStoreContextType>({
   videos: [],
-  channel: [],
+  channel: null,
   sbSegments: [],
   setVideos: noop,
   setSbSegments: noop,
