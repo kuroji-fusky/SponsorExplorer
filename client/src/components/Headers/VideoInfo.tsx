@@ -40,7 +40,7 @@ export function VideoInfo() {
         {/* Video details */}
         <div className="flex-1 lg:px-5 lg:py-4 pt-3.5 pb-1 flex flex-col gap-y-2.5 prose-h1:text-2xl prose-h1:font-bold w-full">
           {/* Video title */}
-          <VideoInfoTitle collapsed={isShown} />
+          <VideoInfoTitle />
           <div className="mt-0.5 border-t border-t-neutral-700" />
           <div className="space-y-2">
             <div className="flex justify-between">

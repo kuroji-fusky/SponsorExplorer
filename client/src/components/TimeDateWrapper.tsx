@@ -3,6 +3,7 @@ import { parseDateStr } from "@/utils"
 interface TimeDateWrapperProps {
   date: string
   dateOpts?: Intl.DateTimeFormatOptions
+  className?: string
 }
 
 export function TimeDateWrapper(props: TimeDateWrapperProps) {
@@ -15,5 +16,9 @@ export function TimeDateWrapper(props: TimeDateWrapperProps) {
     },
   )
 
-  return <time dateTime={isoDate}>{readableDate}</time>
+  return (
+    <time data-td-wrapper="" dateTime={isoDate} className={props.className}>
+      {readableDate}
+    </time>
+  )
 }
