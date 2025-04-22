@@ -4,6 +4,7 @@ export * from "./Tabs"
 export * from "./Notice"
 export * from "./SegmentBar"
 export * from "./SegmentStatsInline"
+export * from "./TimeDateWrapper"
 
 export * from "./Separator"
 

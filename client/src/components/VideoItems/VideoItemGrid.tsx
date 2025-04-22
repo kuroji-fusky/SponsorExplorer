@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client"
 
 import { useEffect, useState } from "react"
@@ -41,12 +40,6 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
   const videoIdLink = `/video/${props.id}`
   const videoIdPrefetchEvent = usePrefetchRoute(videoIdLink)
 
-  const { isoDate, readableDate } = parseDateStr(props.date!, {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  })
-
   // For fetching data
   useEffect(() => {
     const controller = new AbortController()
@@ -68,7 +61,6 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
         `Aborting fetch call from potential route change: Aborted fetching skip segments from "${props.title}"`,
       )
     }
-    /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [])
 
   // Handling segment
@@ -131,12 +123,10 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
           </button>
         </div>
         <div className="pt-2 inline-flex gap-y-2 gap-x-2.5 ">
-          <time
-            dateTime={isoDate}
+          <TimeDateWrapper
             className="opacity-60 group-hover:opacity-80 transition-opacity"
-          >
-            {readableDate}
-          </time>
+            date={props.date!}
+          />
           {!isLoadingSegments ? (
             <button
               onClick={() => setSegmentPeekState(!isSegmentPeeking)}

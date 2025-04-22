@@ -3,6 +3,7 @@
 import {
   calcDateDiff,
   cn,
+  DEFAULT_DATE_FORMAT,
   formatNumber,
   formatTimecode,
   parseDateStr,
@@ -23,6 +24,7 @@ import { useState } from "react"
 import { ExpandableContainer } from "../ExpandableContainer"
 import { useVideoInfoContext } from "@/context"
 import { Button } from "../Buttons"
+import { TimeDateWrapper } from "../TimeDateWrapper"
 
 interface SegmentRowMobileProps extends Segment {}
 
@@ -32,7 +34,7 @@ const timecodeOptions = {
 } satisfies Parameters<typeof formatTimecode>[1]
 
 export function SegmentRowMobile(props: SegmentRowMobileProps) {
-  const { isoDate, readableDate } = parseDateStr(props.timeSubmitted)
+  const { isoDate } = parseDateStr(props.timeSubmitted)
 
   const [isExpanded, setExpanded] = useState(false)
 
@@ -65,12 +67,11 @@ export function SegmentRowMobile(props: SegmentRowMobileProps) {
             : undefined,
         )}
       >
-        <time
+        <TimeDateWrapper
           className="hidden sm:block min-w-20 text-left whitespace-nowrap"
-          dateTime={isoDate}
-        >
-          {readableDate}
-        </time>
+          date={props.timeSubmitted}
+          dateOpts={DEFAULT_DATE_FORMAT}
+        />
         <div className="flex-1 flex items-center space-x-2">
           <div>
             {props.actionType === "skip" ? <SkipIcon size={18} /> : null}
@@ -109,9 +110,10 @@ export function SegmentRowMobile(props: SegmentRowMobileProps) {
                 Date submitted
               </dt>
               <dd className="font-semibold">
-                <time className="whitespace-nowrap" dateTime={isoDate}>
-                  {readableDate}
-                </time>
+                <TimeDateWrapper
+                  date={props.timeSubmitted}
+                  className="whitespace-nowrap"
+                />
               </dd>
             </div>
 

@@ -2,27 +2,14 @@
 
 import { _Link as Link } from "../Link"
 import { useVideoInfoContext } from "@/context"
-import { parseDateStr } from "@/utils"
+import { cn } from "@/utils"
 import { Notice } from "../Notice"
+import { TimeDateWrapper } from "../TimeDateWrapper"
 
 export function VideoInfoTitle() {
   const {
     videoDetails: { video },
   } = useVideoInfoContext()
-
-  let _isoDate
-  let _readableDate
-
-  if (video) {
-    const { isoDate, readableDate } = parseDateStr(video.publishedAt, {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    })
-
-    _isoDate = isoDate
-    _readableDate = readableDate
-  }
 
   return video ? (
     <>
@@ -46,8 +33,8 @@ export function VideoInfoTitle() {
           </div>
           <span className="my-auto">{video.channelTitle}</span>
         </Link>
-        <span className="opacity-65">&bull;</span>
-        <time dateTime={_isoDate}>{_readableDate}</time>
+        <div className="bg-white/65 size-1 rounded-full " />
+        <TimeDateWrapper date={video.publishedAt} />
       </div>
     </>
   ) : (

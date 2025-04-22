@@ -14,6 +14,7 @@ import {
 import {
   calcDateDiff,
   cn,
+  DEFAULT_DATE_FORMAT,
   formatNumber,
   formatTimecode,
   mapCategory,
@@ -22,13 +23,14 @@ import {
 import type { Segment } from "./SegmentRow.types"
 import { SegmentRowDropdown } from "./SegmentRowDropdown"
 import { useVideoInfoContext } from "@/context"
+import { TimeDateWrapper } from "../TimeDateWrapper"
 
 interface SegmentTableRowProps extends Segment {
   __next_iterableFragment: number
 }
 
 export function SegmentTableRow(props: SegmentTableRowProps) {
-  const { isoDate, readableDate } = parseDateStr(props.timeSubmitted)
+  const { isoDate } = parseDateStr(props.timeSubmitted)
 
   const { videoDetails } = useVideoInfoContext()
   const { isoDate: ytIsoDate } = parseDateStr(videoDetails.video.publishedAt)
@@ -67,9 +69,11 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
       {/* Date submitted */}
       <td>
         <div className="relative group">
-          <time dateTime={isoDate} className="whitespace-nowrap cursor-help">
-            {readableDate}
-          </time>
+          <TimeDateWrapper
+            dateOpts={DEFAULT_DATE_FORMAT}
+            date={props.timeSubmitted}
+            className="whitespace-nowrap cursor-help"
+          />
           <dl className="opacity-0 group-hover:opacity-100 pointer-events-none absolute top-8 py-3 px-3.5 rounded-md se-bg-w1 z-10 border se-border-1 space-y-4">
             <div className="space-y-1">
               <dt className="text-sm leading-snug opacity-60">
