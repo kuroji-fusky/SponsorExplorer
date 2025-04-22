@@ -2,7 +2,6 @@
 
 import { _Link as Link } from "../Link"
 import { useVideoInfoContext } from "@/context"
-import { cn } from "@/utils"
 import { Notice } from "../Notice"
 import { TimeDateWrapper } from "../TimeDateWrapper"
 
@@ -13,11 +12,15 @@ export function VideoInfoTitle() {
 
   return video ? (
     <>
-      <div className="space-y-1">
+      <span className="sr-only" id="video-title-a11y">
+        Segments for
+        <span translate="no">{video.title}</span>
+      </span>
+      <section aria-labelledby="video-title-a11y" className="space-y-1">
         <span className="opacity-75">Segments for</span>
         <h1 translate="no">{video.title}</h1>
-      </div>
-      <div className="inline-flex flex-wrap items-center gap-x-1.5">
+      </section>
+      <section className="inline-flex flex-wrap items-center gap-x-1.5">
         <div className="sr-only" id="view-channel-segments-a11y">
           {"View channel segments for "}
           <span translate="no">{video.channelTitle}</span>
@@ -35,7 +38,7 @@ export function VideoInfoTitle() {
         </Link>
         <div className="bg-white/65 size-1 rounded-full " />
         <TimeDateWrapper date={video.publishedAt} />
-      </div>
+      </section>
     </>
   ) : (
     <Notice intent="alert" heading="Couldn't fetch video details">

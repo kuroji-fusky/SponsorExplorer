@@ -40,45 +40,15 @@ export function VideoInfo() {
         {/* Video details */}
         <div className="flex-1 lg:px-5 lg:py-4 pt-3.5 pb-1 flex flex-col gap-y-2.5 prose-h1:text-2xl prose-h1:font-bold w-full">
           {/* Video title */}
-          <VideoInfoTitle />
+          <VideoInfoTitle collapsed={isShown} />
           <div className="mt-0.5 border-t border-t-neutral-700" />
           <div className="space-y-2">
             <div className="flex justify-between">
-              <button
-                onClick={toggleSegmentDetails}
-                className="flex-1 inline-flex items-center gap-x-1 transition-opacity hover:bg-neutral-300 dark:hover:bg-neutral-800 rounded-md"
-              >
-                <span
-                  className={cn(
-                    "transition-transform",
-                    isShown ? "rotate-90" : "",
-                  )}
-                >
-                  <IconWrapper icon={LuChevronRight} />
-                </span>
-                <div className="relative h-5 w-full *:transition-all *:duration-[270ms] overflow-hidden">
-                  <div
-                    className={cn(
-                      "absolute top-0 left-0",
-                      isShown ? "opacity-0 translate-y-4" : "opacity-100",
-                    )}
-                  >
-                    <SegmentStatsInline
-                      submissionCount={_submissionCount}
-                      segments={segmentData.segments}
-                    />
-                  </div>
-                  <div
-                    className={cn(
-                      "absolute top-0 left-0 text-left",
-                      isShown ? "opacity-75" : "opacity-0 -translate-y-4",
-                    )}
-                  >
-                    Statistics
-                  </div>
-                </div>
-              </button>
-              <div className="flex">
+              <SegmentStatsInline
+                submissionCount={_submissionCount}
+                segments={segmentData.segments}
+              />
+              <div className="flex items-center">
                 <Link
                   href={`https://sb.ltn.fi/video/${videoDetails.id}/?source=se-staging.fusky.pet`}
                   className="inline-flex gap-x-1.5 items-center no-underline transition-opacity hover:bg-neutral-300 dark:hover:bg-neutral-800 px-1.5 py-0.5 rounded-md"
@@ -92,9 +62,11 @@ export function VideoInfo() {
               </div>
             </div>
           </div>
-          <ExpandableContainer isOpen={isShown} className="mx-0">
-            <div className="flex items-center gap-x-2">WIP</div>
-          </ExpandableContainer>
+          <section>
+            <ExpandableContainer isOpen={isShown} className="mx-0">
+              <div className="flex items-center gap-x-2">WIP</div>
+            </ExpandableContainer>
+          </section>
         </div>
       </div>
     </>
