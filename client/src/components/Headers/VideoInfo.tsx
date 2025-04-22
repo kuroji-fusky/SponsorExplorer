@@ -46,7 +46,7 @@ export function VideoInfo() {
             <div className="flex justify-between">
               <button
                 onClick={toggleSegmentDetails}
-                className="flex-1 inline-flex items-center gap-x-1 transition-opacity hover:bg-neutral-800 rounded-md"
+                className="flex-1 inline-flex items-center gap-x-1 transition-opacity hover:bg-neutral-300 dark:hover:bg-neutral-800 rounded-md"
               >
                 <span
                   className={cn(
@@ -81,12 +81,12 @@ export function VideoInfo() {
               <div className="flex">
                 <Link
                   href={`https://sb.ltn.fi/video/${videoDetails.id}/?source=se-staging.fusky.pet`}
-                  className="inline-flex gap-x-1.5 items-center no-underline transition-opacity hover:bg-neutral-800 px-1.5 py-0.5 rounded-md"
+                  className="inline-flex gap-x-1.5 items-center no-underline transition-opacity hover:bg-neutral-300 dark:hover:bg-neutral-800 px-1.5 py-0.5 rounded-md"
                 >
                   <span translate="no">SBbrowser</span>
                   <LuExternalLink size={17} />
                 </Link>
-                <button className="transition-opacity hover:bg-neutral-800 px-1 rounded-md">
+                <button className="transition-opacity hover:bg-neutral-300 dark:hover:bg-neutral-800 px-1 rounded-md">
                   <LuEllipsisVertical size={17} />
                 </button>
               </div>
