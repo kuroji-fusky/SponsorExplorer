@@ -3,12 +3,7 @@
 A modern rewrite of Lanrza's [SBBrowser][sbb] with more features and a more fancy and intuitive UI for
 browsing [SponsorBlock][sb] segments and chapters!
 
-<details>
-<summary>🖼️ Show/hide screenshot</summary>
-
 ![SponsorExplorer LTT Example](https://github.com/user-attachments/assets/ec4cb0bd-3a92-492d-94b8-52b8b5dddc9a)
-
-</details>
 
 ## Feature Roadmap
 
