@@ -3,17 +3,10 @@
 import { useVideoInfoContext } from "@/context"
 import dynamic from "next/dynamic"
 import { _Link as Link } from "../Link"
-import { SegmentStatsInline } from "../SegmentStatsInline"
 
-import {
-  LuExternalLink,
-  LuEllipsisVertical,
-  LuChevronRight,
-} from "react-icons/lu"
+import { LuExternalLink, LuEllipsisVertical } from "react-icons/lu"
 import { VideoInfoTitle } from "./VideoInfoTitle"
-import { ExpandableContainer } from "../ExpandableContainer"
-import { IconWrapper } from "../IconWrapper"
-import { cn } from "@/utils"
+import { VideoInfoStats } from "./VideoInfoStats"
 
 const YouTube = dynamic(() => import("../YouTube").then((c) => c.YouTube), {
   ssr: false,
@@ -38,12 +31,14 @@ export function VideoInfo() {
           {/* Video title */}
           <VideoInfoTitle />
           <div className="mt-0.5 border-t border-t-neutral-700" />
-          <div className="space-y-2">
-            <div className="flex justify-between">
-              <SegmentStatsInline
-                submissionCount={_submissionCount}
-                segments={segmentData.segments}
-              />
+          <section className="mt-1">
+            <VideoInfoStats
+              submissionCount={_submissionCount}
+              segments={segmentData.segments}
+            />
+          </section>
+          <div>
+            <div className="flex justify-end">
               <div className="flex items-center">
                 <Link
                   href={`https://sb.ltn.fi/video/${videoDetails.id}/?source=se-staging.fusky.pet`}
