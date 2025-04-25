@@ -1,6 +1,6 @@
 type DateFormat = Intl.DateTimeFormatOptions
 
-const DEFAULT_DATE_FORMAT = {
+export const DEFAULT_DATE_FORMAT = {
   month: "2-digit",
   day: "2-digit",
   year: "numeric",

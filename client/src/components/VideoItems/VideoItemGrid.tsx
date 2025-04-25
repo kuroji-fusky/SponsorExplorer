@@ -5,13 +5,13 @@ import dynamic from "next/dynamic"
 import Link from "next/link"
 import { LuLock, LuEllipsisVertical, LuSparkles } from "react-icons/lu"
 import type { InlineSegments } from "@/types"
-import { parseDateStr } from "@/utils"
 import { usePrefetchRoute } from "@/hooks/usePrefetchRoute"
 import type { SharedVideoItemProps } from "./VideoItem.types"
 import { fetchSkipSegmentsClient } from "./fetchSkipSegmentsClient"
 import { segmentLabelFormatter } from "./VideoItem.utils"
 import { VideoItemFullLabel } from "./FullLabel"
 import { useChannelStoreProvider } from "@/context"
+import { TimeDateWrapper } from "../TimeDateWrapper"
 
 const SegmentBar = dynamic(
   () => import("../SegmentBar").then((m) => m.SegmentBar),
@@ -104,9 +104,9 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
         </div>
       </Link>
 
-      <div className="relative">
+      <div className="relative empty:hidden">
         {/* Segment peek container */}
-        <div className="absolute top-0 inset-x-0">
+        <div className="absolute top-0 inset-x-0 z-40">
           {isSegmentPeeking ? <SegmentPeek /> : null}
         </div>
         {/* Video details */}
@@ -126,6 +126,11 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
           <TimeDateWrapper
             className="opacity-60 group-hover:opacity-80 transition-opacity"
             date={props.date!}
+            dateOpts={{
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            }}
           />
           {!isLoadingSegments ? (
             <button

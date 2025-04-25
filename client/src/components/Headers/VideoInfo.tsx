@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { useVideoInfoContext } from "@/context"
 import dynamic from "next/dynamic"
 import { _Link as Link } from "../Link"
@@ -22,11 +21,8 @@ const YouTube = dynamic(() => import("../YouTube").then((c) => c.YouTube), {
 
 export function VideoInfo() {
   const { segmentData, videoDetails } = useVideoInfoContext()
-  const [isShown, setIsShown] = useState(false)
 
   const _submissionCount = segmentData.submissionCount ?? 0
-
-  const toggleSegmentDetails = () => setIsShown(!isShown)
 
   return (
     <>
@@ -62,11 +58,6 @@ export function VideoInfo() {
               </div>
             </div>
           </div>
-          <section>
-            <ExpandableContainer isOpen={isShown} className="mx-0">
-              <div className="flex items-center gap-x-2">WIP</div>
-            </ExpandableContainer>
-          </section>
         </div>
       </div>
     </>
