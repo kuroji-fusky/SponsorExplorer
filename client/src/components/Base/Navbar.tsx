@@ -14,7 +14,7 @@ export function Navbar() {
 
   return (
     <>
-      <div className="z-50 sticky top-0 backdrop-blur-md bg-opacity-75 dark:bg-opacity-75 se-bg-w1">
+      <div className="sticky top-0 z-40 se-bg-w1">
         <nav className="flex px-6 py-3 gap-x-3.5">
           {/* Menu navigation */}
           <button className="px-2 py-1">
