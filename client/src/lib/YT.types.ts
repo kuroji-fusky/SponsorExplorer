@@ -26,8 +26,19 @@ interface PlaylistItemsParams {
   playlistId: string
 }
 
-export type AllPartLiterals = "snippet" | "contentDetails" | "statistics" | "status" | "paidProductPlacementDetails"
-export type AllEndpointParams = Partial<StandardParams & VideoParams & ChannelParams & PlaylistItemsParams & SearchParams>
+export type AllPartLiterals =
+  | "snippet"
+  | "contentDetails"
+  | "statistics"
+  | "status"
+  | "paidProductPlacementDetails"
+export type AllEndpointParams = Partial<
+  StandardParams &
+    VideoParams &
+    ChannelParams &
+    PlaylistItemsParams &
+    SearchParams
+>
 
 interface YTRootResponse<T> {
   etag: string
@@ -49,10 +60,11 @@ export namespace yt.Responses {
       channelId: string
       channelTitle: string
       description: string
+      liveBroadcastContent: string
     }
     contentDetails: {
       duration: string
-    },
+    }
     paidProductPlacementDetails: {
       hasPaidProductPlacement: boolean
     }

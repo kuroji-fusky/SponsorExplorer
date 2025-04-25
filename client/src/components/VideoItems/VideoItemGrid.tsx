@@ -12,15 +12,14 @@ import { segmentLabelFormatter } from "./VideoItem.utils"
 import { VideoItemFullLabel } from "./FullLabel"
 import { useChannelStoreProvider } from "@/context"
 import { TimeDateWrapper } from "../TimeDateWrapper"
+import { cn } from "@/utils"
 
-const SegmentBar = dynamic(
-  () => import("../SegmentBar").then((m) => m.SegmentBar),
-  { ssr: false },
+const SegmentBar = dynamic(() =>
+  import("../SegmentBar").then((m) => m.SegmentBar),
 )
 
-const SegmentPeek = dynamic(
-  () => import("./SegmentPeek").then((m) => m.SegmentPeek),
-  { ssr: false },
+const SegmentPeek = dynamic(() =>
+  import("./SegmentPeek").then((m) => m.SegmentPeek),
 )
 
 export default function VideoItemGrid(props: SharedVideoItemProps) {
@@ -67,6 +66,8 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
   const { hasHighlight, relativeSegments, fullLabel, hasLockedSegments } =
     skippableSegments
 
+  const isVideoPremiere = props.isPremiere === "none"
+
   return (
     <div
       onMouseLeave={() => {
@@ -93,9 +94,16 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
           {fullLabel !== null ? <VideoItemFullLabel label={fullLabel} /> : null}
         </span>
         {/* Video duration */}
-        <div className="absolute flex items-center bottom-2 right-2 px-1.5 *:px-0.5 *:py-1 overflow-hidden text-white bg-black/50 backdrop-blur-sm rounded-md">
+        <div
+          className={cn(
+            "absolute flex items-center bottom-2 right-2 px-1.5 *:px-0.5 *:py-1 overflow-hidden text-white backdrop-blur-sm rounded-md",
+            isVideoPremiere ? "bg-black/50" : "bg-red-600/50",
+          )}
+        >
           {hasHighlight ? <LuSparkles size={25} /> : null}
-          <div id="og-duration">{props.duration}</div>
+          <div id="og-duration">
+            {isVideoPremiere ? props.duration : "PREMIERE"}
+          </div>
           {/* <div id="sb-deduct">(12:34)</div> */}
         </div>
         {/* Bar wrapper */}

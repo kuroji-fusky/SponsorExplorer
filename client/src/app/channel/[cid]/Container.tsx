@@ -39,6 +39,7 @@ export default function Container(props: VideoItemContainerProps) {
           date={item.uploadDate}
           thumbnail={item.thumbnail}
           duration={item.duration}
+          isPremiere={item.isPremiere}
         />
       ))}
     </div>

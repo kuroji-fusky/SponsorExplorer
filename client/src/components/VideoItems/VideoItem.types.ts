@@ -1,9 +1,10 @@
-import type { VideoSegments } from "@/types"
+import type { GetAPIResponseType, VideoSegments } from "@/types"
+import type { GET as _YTChannelRes } from "@/app/api/yt/channel/route"
 
-export interface SharedVideoItemProps {
-  title?: string
-  date?: string
+type YTChannelResponse = GetAPIResponseType<typeof _YTChannelRes>
+type YTChannelVideos = Omit<YTChannelResponse["videos"][number], "thumbnail">
+export interface SharedVideoItemProps extends YTChannelVideos {
   segmentDisplay?: VideoSegments["segments"]
-  id: string
   thumbnail?: string
+  date?: string
 }
