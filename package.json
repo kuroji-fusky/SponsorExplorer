@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "pnpm --filter se-next-client dev",
     "build": "pnpm --filter se-next-client build",
     "lint": "biome check",
@@ -10,7 +11,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "knip": "^5.50.5"
+    "knip": "^5.50.5",
+    "only-allow": "^1.2.1"
   },
   "packageManager": "pnpm@9.15.0",
   "pnpm": {
