@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import { TabStateProvider } from "@/context"
 import { VideoInfo } from "@/components/Headers"
 import { SegmentClientWrapper } from "@/components/SegmentClientWrapper"
-import { VideoListSidebar } from "@/components/Sidebar"
 import type { DefineRouteParams } from "@/types"
 import { fetchVideoData } from "@/utils/fetchYTData"
 
@@ -46,14 +45,8 @@ export default async function VideoPage(props: RouteParams) {
   const hasInspectId = searchParams.inspectId
 
   return (
-    <div className="mt-4 flex" data-video-idroot="">
-      {/* Left sidebar for list of videos */}
-      {isParamsList ? (
-        <div className="[align-self:start] sticky top-16 flex-shrink-0 h-[90dvh] max-w-[300px]">
-          <VideoListSidebar />
-        </div>
-      ) : null}
-      <div className="mx-auto px-6 max-w-screen-2xl w-full">
+    <div className="mt-4 flex" data-video-root="">
+      <div className="mx-auto px-6 max-w-screen-2xl w-full @container">
         <VideoInfo />
         <TabStateProvider>
           <SegmentClientWrapper />

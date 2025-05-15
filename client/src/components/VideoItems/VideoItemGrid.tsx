@@ -22,7 +22,9 @@ const SegmentPeek = dynamic(() =>
   import("./SegmentPeek").then((m) => m.SegmentPeek),
 )
 
-export default function VideoItemGrid(props: SharedVideoItemProps) {
+export default function VideoItemGrid(
+  props: Omit<SharedVideoItemProps, "uploadDate">,
+) {
   const { setSbSegments } = useChannelStoreProvider()
 
   const [hasLoaded, setHasLoaded] = useState(false)
@@ -42,8 +44,6 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
   // For fetching data
   useEffect(() => {
     const controller = new AbortController()
-
-    // const hasExistingId = sbSegments.some((x) => x.id === props.id)
 
     if (!hasLoaded) {
       fetchSkipSegmentsClient(props.id, controller.signal).then((d) => {
@@ -67,6 +67,7 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
     skippableSegments
 
   const isVideoPremiere = props.isPremiere === "none"
+  const hasSegments = relativeSegments !== null
 
   return (
     <div
@@ -85,7 +86,7 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
         <img className="object-cover size-full" src={props.thumbnail!} alt="" />
 
         {/* Lock and full segments */}
-        <span className="absolute inline-flex top-2 left-2 rounded-md overflow-hidden *:py-0.5 group-hover:opacity-40 transition-opacity">
+        <span className="absolute inline-flex top-2 left-2 rounded-md overflow-hidden *:py-0.5 group-hover:opacity-60 transition-opacity">
           {hasLockedSegments ? (
             <div className="bg-yellow-300 dark:bg-yellow-400 dark:text-black inline-flex gap-x-1 place-items-center !py-1 px-1.5">
               <LuLock size={16} />
@@ -108,15 +109,19 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
         </div>
         {/* Bar wrapper */}
         <div className="absolute bottom-0 inset-x-0">
-          {relativeSegments ? <SegmentBar segments={relativeSegments} /> : null}
+          {hasSegments ? <SegmentBar segments={relativeSegments} /> : null}
         </div>
       </Link>
 
       <div className="relative empty:hidden">
         {/* Segment peek container */}
-        <div className="absolute top-0 inset-x-0 z-40">
-          {isSegmentPeeking ? <SegmentPeek /> : null}
-        </div>
+        {hasSegments ? (
+          <div className="absolute top-0 inset-x-0 z-40">
+            {isSegmentPeeking ? (
+              <SegmentPeek>{JSON.stringify(relativeSegments)}</SegmentPeek>
+            ) : null}
+          </div>
+        ) : null}
         {/* Video details */}
         <div className="flex items-start">
           <Link
@@ -130,7 +135,7 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
             <LuEllipsisVertical size={18} />
           </button>
         </div>
-        <div className="pt-2 inline-flex gap-y-2 gap-x-2.5 ">
+        <div className="pt-2 inline-flex gap-y-0.5 gap-x-2.5 flex-wrap">
           <TimeDateWrapper
             className="opacity-60 group-hover:opacity-80 transition-opacity"
             date={props.date!}
@@ -144,9 +149,9 @@ export default function VideoItemGrid(props: SharedVideoItemProps) {
             <button
               onClick={() => setSegmentPeekState(!isSegmentPeeking)}
               className={
-                relativeSegments !== null
+                hasSegments
                   ? "opacity-100"
-                  : "opacity-60 group-hover:opacity-80 transition-opacity"
+                  : "opacity-60 group-hover:opacity-80 transition-opacity cursor-not-allowed"
               }
             >
               {segmentLabelFormatter(relativeSegments!, hasHighlight)}

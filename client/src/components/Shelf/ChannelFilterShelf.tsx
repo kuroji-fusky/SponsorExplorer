@@ -12,7 +12,7 @@ import { Tabs } from "../Tabs"
 
 export function ChannelFilterShelf() {
   return (
-    <div className="sticky top-14 z-20 py-4 bg-white  dark:bg-neutral-950 flex gap-x-1.5">
+    <div className="sticky top-14 z-40 py-4 bg-white  dark:bg-neutral-950 flex gap-x-1.5">
       <Tabs
         tabs={
           [
