@@ -1,5 +1,5 @@
 export class KuroLS {
-  static updateItem<V>(key: string, value?: V): void {
+  static updateItem<V>(key: string, value?: V) {
     if (typeof value === "undefined") {
       console.warn(
         "If you're trying to remove a key, use `removeItemFromKey` or `removeItemFromIndex`; otherwise, pass `null` instead, ya dingus",
