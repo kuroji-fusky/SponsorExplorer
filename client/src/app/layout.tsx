@@ -3,7 +3,12 @@ import "./globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 
-import { Navbar, Footer } from "@/components/Base"
+import {
+  Navbar,
+  Footer,
+  SidebarStateProvider,
+  DynamicSidebar,
+} from "@/components/Base"
 import { cn } from "@/utils"
 import { OptionsProvider } from "@/context"
 import { PreloadResources } from "./preload-resources"
@@ -37,15 +42,23 @@ export default async function RootLayout({
       <body
         className={cn(
           inter.className,
-          "antialiased text-sm overflow-x-hidden prose-headings:font-bold",
+          "antialiased text-sm overflow-x-hidden prose-headings:font-bold color",
           "dark:text-neutral-100 dark:bg-neutral-950 text-neutral-800",
         )}
+        style={{ colorScheme: "light dark" }}
       >
         <PreloadResources />
         <OptionsProvider>
-          <Navbar />
-          <main className="min-h-[calc(100dvh-12.75rem)]">{children}</main>
-          <Footer />
+          <SidebarStateProvider>
+            <Navbar />
+            <div className="xl:flex block">
+              <DynamicSidebar />
+              <div className="flex-1">
+                <main className="min-h-[calc(100dvh-12.5rem)]">{children}</main>
+                <Footer />
+              </div>
+            </div>
+          </SidebarStateProvider>
         </OptionsProvider>
       </body>
     </html>

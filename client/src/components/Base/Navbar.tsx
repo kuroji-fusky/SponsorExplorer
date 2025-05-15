@@ -4,27 +4,31 @@ import { useState } from "react"
 import { LuMenu, LuMonitor, LuSearch, LuSettings } from "react-icons/lu"
 import { _Link as Link } from "../Link"
 import { NavbarOptionsModal, NavbarSearchModal } from "../Modals"
+import { useSidebarContext } from "./SidebarStateProvider"
 
 export function Navbar() {
   const [searchToggle, setSearchDialogToggle] = useState(false)
   const [optionsToggle, setOptionDialogToggle] = useState(false)
 
+  const { isSidebarOpen, setIsSidebarOpen } = useSidebarContext()!
+
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen)
   const toggleOptionDialog = () => setOptionDialogToggle(!optionsToggle)
   const toggleSearchDialog = () => setSearchDialogToggle(!searchToggle)
 
   return (
     <>
-      <div className="sticky top-0 z-40 se-bg-w1">
+      <div className="sticky top-0 z-50 se-bg-w1">
         <nav className="flex px-6 py-3 gap-x-3.5">
           {/* Menu navigation */}
-          <button className="px-2 py-1">
+          <button className="px-2 py-1" onClick={toggleSidebar}>
             <LuMenu size={18} />
           </button>
-          {/* Breadcrumbs: Mobile */}
+          {/* Logo */}
           <div className="flex items-center select-none">
             <Link
               href="/"
-              className="no-underline font-extrabold text-xl"
+              className="text-xl font-extrabold no-underline"
               translate="no"
             >
               SponsorExplorer
@@ -36,10 +40,18 @@ export function Navbar() {
               ALPHA
             </span>
           </div>
-          {/* Breadcrumbs: Mobile */}
-          <div className="flex-1 block lg:hidden"></div>
-          {/* Breadcrumbs: Desktop */}
-          <div className="items-center flex-1 hidden text-sm lg:flex gap-x-3"></div>
+          <div id="breadcrumb-container" className="contents">
+            {/* Breadcrumbs: Mobile */}
+            <div
+              data-breadcrumb-mobile=""
+              className="flex-1 block lg:hidden"
+            ></div>
+            {/* Breadcrumbs: Desktop */}
+            <div
+              data-breadcrumb-desktop=""
+              className="items-center flex-1 hidden text-sm lg:flex gap-x-3"
+            ></div>
+          </div>
           {/* Right side */}
           <div className="flex gap-x-1">
             <button
@@ -72,6 +84,16 @@ export function Navbar() {
           </div>
         </nav>
       </div>
+      {/* Sidebar */}
+      {/* <Dialog onClose={toggleSidebar} open={isSidebarOpen}>
+        <SidebarRoot />
+        <DialogBackdrop
+          transition
+          className="fixed  bg-black/50 inset-0 flex w-screen items-center justify-center p-4 duration-200 ease-out data-[closed]:opacity-0"
+          onClick={toggleSidebar}
+          aria-hidden
+        />
+      </Dialog> */}
       {/* Modals */}
       <NavbarOptionsModal open={optionsToggle} onClose={toggleOptionDialog} />
       <NavbarSearchModal open={searchToggle} onClose={toggleSearchDialog} />
