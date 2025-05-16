@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/kuroji-fusky/SponsorExplorer/cache-server/routes"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -34,6 +35,9 @@ func main() {
 			RedirectCode: http.StatusPermanentRedirect,
 		}),
 	)
+
+	routes.RegisterDiagRoutes(e)
+	routes.RegisterYTCacheRoutes(e)
 
 	go func() {
 		if err := e.Start(":4000"); err != nil && err != http.ErrServerClosed {
