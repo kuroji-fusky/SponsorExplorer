@@ -1,8 +1,19 @@
+const __dispatchLSEvent = <C>(contents: CustomEventInit<C>) => {
+  if (!window) {
+    throw new Error(
+      "Dispatching custom events works on browsers and not on servers lol",
+    )
+  }
+
+  window.dispatchEvent(new CustomEvent("kuro:storage", contents))
+}
+
+/** A base static class for manipulating `localStorage` with strong typing */
 export class KuroLS {
   static updateItem<V>(key: string, value?: V) {
     if (typeof value === "undefined") {
       console.warn(
-        "If you're trying to remove a key, use `removeItemFromKey` or `removeItemFromIndex`; otherwise, pass `null` instead, ya dingus",
+        "If you're trying to remove a key, use `removeItem` or `removeItemFromIndex`; otherwise, pass `null` instead, ya dingus",
       )
       return
     }
@@ -10,25 +21,24 @@ export class KuroLS {
     try {
       localStorage.setItem(key, JSON.stringify(value))
 
-      window.dispatchEvent(
-        new CustomEvent("kuro:storage", {
-          detail: { key, value },
-        }),
-      )
+      __dispatchLSEvent({
+        detail: { key, value },
+      })
     } catch (err) {
       console.error("Something fuked up:", err)
     }
   }
 
-  static getItem<V>(key: string): V | null {
+  static getItem<V>(key: string, retriever?: (key: string, value: V) => V) {
     const raw = localStorage.getItem(key)
     if (raw === null) return null
 
     try {
-      return JSON.parse(raw)
-    } catch (err) {
+      return JSON.parse(raw, retriever) as V
+    } catch {
       console.warn("Couldn't parse stored value, returning raw string")
-      return raw as unknown as V
+
+      return raw as V
     }
   }
 
@@ -36,17 +46,16 @@ export class KuroLS {
     localStorage.removeItem(key)
   }
 
-  static unsafe_nuke() {
+  static unsafe_clear() {
     localStorage.clear()
   }
 }
 
 type CouldBeEmpty<T> = T | never[] | null
+type CouldBeArray<T> = T | T[]
 
 /** Used for dealing with structured data from localStorage */
-export class KuroObjectLS<
-  V extends Record<string, unknown> | Record<string, unknown>[],
-> {
+export class KuroObjectLS<V extends CouldBeArray<Record<string, unknown>>> {
   public storageValue: CouldBeEmpty<V> = null
 
   constructor(
@@ -68,7 +77,7 @@ export class KuroObjectLS<
     }
   }
 
-  appendItem(valueToAppend: V): void {
+  appendItem(valueToAppend: V) {
     const current = KuroLS.getItem(this.key)
 
     if (Array.isArray(current)) {
@@ -82,7 +91,7 @@ export class KuroObjectLS<
     }
   }
 
-  prependItem(valueToPrepend: V): void {
+  prependItem(valueToPrepend: V) {
     const current = KuroLS.getItem(this.key)
 
     if (Array.isArray(current)) {
