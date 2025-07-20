@@ -35,7 +35,7 @@ export function SegmentClientWrapper() {
                 there are no submitted segments available for this video at this
                 time. Maybe a refresh will help?
               </p>
-              <button className="mt-1.5 px-3.5 py-1.5 rounded-md bg-blue-400 hover:bg-blue-300  dark:bg-blue-900 dark:hover:bg-blue-800">
+              <button className="mt-1.5 px-3.5 py-1.5 rounded-md bg-blue-400 hover:bg-blue-300 dark:bg-blue-900 dark:hover:bg-blue-800">
                 Fetch new data
               </button>
             </Notice>

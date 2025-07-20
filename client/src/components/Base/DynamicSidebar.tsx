@@ -36,12 +36,14 @@ export function DynamicSidebar() {
     }
   }, [])
 
-  const lmao = recentChannelList !== null ? recentChannelList.reverse() : []
+  const isChannelListNull = recentChannelList === null
+
+  const lmao = !isChannelListNull ? recentChannelList.reverse() : []
 
   return (
     <>
       <aside className="w-[320px] xl:flex flex-col hidden shrink-0 fixed left-0 bottom-20 top-16 h-[calc(100dvh-4.15rem)] se-bg-w1 z-10">
-        <nav className="px-3.5 py-2.5 border-b se-border-1 overflow-hidden flex">
+        <nav className="px-3.5 border-b se-border-1 overflow-hidden flex">
           {/* Tabs */}
           <div className="overflow-x-auto overflow-y-hidden flex gap-x-1.5 flex-nowrap flex-1">
             <button className="py-2.5 px-1.5 border-b-2 inline-flex gap-x-1 items-center border-transparent">
@@ -62,7 +64,7 @@ export function DynamicSidebar() {
             <IconWrapper icon={LuChevronsRight} />
           </button>
         </nav>
-        <div className="pb-2.5 verflow-y-auto overflow-x-hidden">
+        <div className="pb-2.5 h-full overflow-x-hidden">
           <section className="relative">
             {/* Header */}
             <div className="se-bg-w1 flex items-center px-5 sticky top-0 py-2.5">
@@ -94,31 +96,33 @@ export function DynamicSidebar() {
               <div className="px-4 pt-2">
                 <Notice intent="info">Tracking history is disabled</Notice>
               </div> */}
-              {recentChannelList !== null
-                ? lmao.map((item, i) => (
-                    <div
-                      key={i}
-                      role="listitem"
-                      className="text-left flex mx-3 rounded-md transition-colors duration-150  dark:hover:bg-neutral-800/75 hover:bg-neutral-200/50"
+              {!isChannelListNull ? (
+                lmao.map((item, i) => (
+                  <div
+                    key={i}
+                    role="listitem"
+                    className="text-left flex mx-3 rounded-md transition-colors duration-150  dark:hover:bg-neutral-800/75 hover:bg-neutral-200/50"
+                  >
+                    <Link
+                      href={`/channel/${item.id}?source=history`}
+                      className="px-2 py-2 flex-1 flex items-center gap-x-2"
                     >
-                      <Link
-                        href={`/channel/${item.id}?source=history`}
-                        className="px-2 py-2 flex-1 flex items-center gap-x-2"
+                      <div className="size-[1.33rem] rounded-full bg-red-200"></div>
+                      <span className="truncate">{item.name}</span>
+                    </Link>
+                    <span className="inline-flex items-center">
+                      <button
+                        className="h-full px-1.5"
+                        onClick={() => console.log("HAYUP KA")}
                       >
-                        <div className="size-[1.33rem] rounded-full bg-red-200"></div>
-                        <span className="truncate">{item.name}</span>
-                      </Link>
-                      <span className="inline-flex items-center">
-                        <button
-                          className="h-full px-1.5"
-                          onClick={() => console.log("HAYUP KA")}
-                        >
-                          <IconWrapper icon={LuEllipsisVertical} size="smol" />
-                        </button>
-                      </span>
-                    </div>
-                  ))
-                : "lmao"}
+                        <IconWrapper icon={LuEllipsisVertical} size="smol" />
+                      </button>
+                    </span>
+                  </div>
+                ))
+              ) : (
+                <div>There's nothing fam</div>
+              )}
             </div>
           </section>
         </div>
