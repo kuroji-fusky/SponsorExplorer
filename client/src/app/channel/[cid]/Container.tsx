@@ -10,6 +10,7 @@ import { KuroObjectLS } from "@/lib/KuroLS"
 import type { RecentVisitedChannels } from "@/types"
 import { cn } from "@/utils"
 import dynamic from "next/dynamic"
+import { Button } from "@/components/Buttons"
 
 const VideoItemGrid = dynamic(
   () => import("@/components/VideoItems/VideoItemGrid"),
@@ -39,6 +40,11 @@ export default function Container(props: VideoItemContainerProps) {
     })
   }, [])
 
+  // Hard-coded the value at the moment, will change this if the user has a query param for `?videoLoad=100` or something
+  const videoLoadLimit = 50
+
+  const hasLoadMorePrompt = channel!.videoCount >= videoLoadLimit
+
   return (
     <>
       <div
@@ -61,7 +67,11 @@ export default function Container(props: VideoItemContainerProps) {
           />
         ))}
       </div>
-      <div>That's broke, I need to SPEND MORE</div>
+      {hasLoadMorePrompt ? (
+        <div className="mt-4 text-center">
+          <Button className="w-40">Load more</Button>
+        </div>
+      ) : null}
     </>
   )
 }

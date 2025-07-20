@@ -36,7 +36,7 @@ export function DynamicSidebar() {
     }
   }, [])
 
-  const lmao = recentChannelList.reverse()
+  const lmao = recentChannelList !== null ? recentChannelList.reverse() : []
 
   return (
     <>

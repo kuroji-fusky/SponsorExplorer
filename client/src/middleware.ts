@@ -6,7 +6,8 @@ export function middleware(request: NextRequest) {
   const csp = `
     script-src 'self' 'unsafe-eval' www.youtube.com 'nonce-${nonce}';
     connect-src 'self' youtube.googleapis.com *.youtube.com sponsor.ajay.app yt3.ggpht.com i.ytimg.com;
-    frame-ancestors 'self' www.youtube-nocookie.com;
+    font-src 'self';
+    frame-ancestors 'self' https://www.youtube-nocookie.com;
     upgrade-insecure-requests;
   `
 
