@@ -9,7 +9,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/kuroji-fusky/SponsorExplorer/cache-server/routes"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -36,8 +35,30 @@ func main() {
 		}),
 	)
 
-	routes.RegisterDiagRoutes(e)
-	routes.RegisterYTCacheRoutes(e)
+	// Routes
+
+	e.GET("/ping", func(c echo.Context) error {
+		return c.String(http.StatusOK, "pong")
+	})
+
+	e.GET("/status", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, map[string]string{})
+	})
+
+	e.POST("/cache", func(c echo.Context) error {
+		// just return a success status, too lazy to setup redis atm
+		return c.NoContent(http.StatusOK)
+	})
+
+	e.GET("/cache/channel/:id", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, CachedChannelMeta{})
+	})
+
+	e.GET("/cache/video/:id", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, CachedVideoMeta{})
+	})
+
+	// Routes END
 
 	go func() {
 		if err := e.Start(":4000"); err != nil && err != http.ErrServerClosed {
