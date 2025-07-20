@@ -46,24 +46,24 @@ export function VideoInfoStats(props: VideoInfoStatsProps) {
 
   return (
     <div
-      data-video-stats=""
+      data-testid="video-info-stats"
       className="grid grid-cols-2 divide-x-2 divide-neutral-300 dark:divide-neutral-700"
     >
       <div className="pr-3 space-y-1">
-        <div className="text-sm opacity-75">Total submitted</div>
+        <div className="text-sm opacity-75">Total segments submitted</div>
         <div className="text-base font-semibold">
           {isSegmentLengthNone
             ? `${seggies.length} (${formatTime(segmentLengthSubmitted)})`
-            : 0}
+            : "—"}
         </div>
       </div>
       <div className="pl-3 space-y-1">
-        <div className="text-sm opacity-75">Total time of segments accrued</div>
+        <div className="text-sm opacity-75">Total of views accrued</div>
         <div className="text-base font-semibold flex items-center gap-x-1">
           <span className="my-auto">
             {isViewLengthAlottedNone
               ? formatTime(segmentViewLengthAccrued)
-              : "N/A"}
+              : "—"}
           </span>
           {isViewLengthAlottedNone ? (
             <button

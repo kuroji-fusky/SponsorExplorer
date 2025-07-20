@@ -22,9 +22,9 @@ export function ChannelInfo() {
   }, [sbSegments])
 
   return (
-    <div className="mt-1 flex bg-neutral-100 dark:bg-neutral-800/30 rounded-md px-7 py-6 gap-x-5">
+    <div className="mt-1 flex py-2 gap-x-5 md:flex-row flex-col items-center">
       <div className="flex-shrink-0">
-        <div className="size-32 relative overflow-hidden rounded-full">
+        <div className="md:size-32 size-40 relative overflow-hidden rounded-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={`${channel!.thumbs}`} alt="" className="size-full" />
         </div>
@@ -32,9 +32,9 @@ export function ChannelInfo() {
       {/* Details */}
       <div className="flex-1 flex flex-col gap-y-2">
         {/* Channel title */}
-        <div className="space-y-1.5">
+        <div className="space-y-1.5 md:text-left text-center md:pt-0 pt-4">
           <span className="opacity-75">Segments for channel</span>
-          <div className="flex flex-wrap">
+          <div className="flex flex-wrap md:flex-row flex-col items-center">
             <span className="font-bold text-2xl inline" translate="no">
               {channel!.channelName}
             </span>
