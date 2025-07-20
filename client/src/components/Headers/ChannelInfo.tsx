@@ -6,12 +6,13 @@ import { LuBookmark, LuExternalLink, LuSquarePlay } from "react-icons/lu"
 import { SegmentStatsInline } from "../SegmentStatsInline"
 import { useChannelStoreProvider } from "@/context"
 import { IconWrapper } from "../IconWrapper"
-import { formatNumber } from "@/utils"
+import { formatNumber, cn } from "@/utils"
 
 export function ChannelInfo() {
   const { channel, sbSegments } = useChannelStoreProvider()
 
   const [totalSegmentCount, setTotalSegmentCount] = useState(0)
+  const [isSegmentFetchComplete, setSegmentFetchState] = useState(false)
 
   useEffect(() => {
     const flattenSegments = sbSegments
@@ -19,6 +20,18 @@ export function ChannelInfo() {
       .flatMap((x) => x.data)
 
     setTotalSegmentCount(flattenSegments.length)
+
+    // A temporary workaround when dealing with the actual video count from the YT API
+    const channelVids = channel!.videoCount
+    const LOAD_LIMIT = 48
+
+    const tempChannelVids = channelVids >= LOAD_LIMIT ? LOAD_LIMIT : channelVids
+
+    const totalSegmentsFetched = sbSegments.length
+
+    if (tempChannelVids === totalSegmentsFetched) {
+      setSegmentFetchState(true)
+    }
   }, [sbSegments])
 
   return (
@@ -53,7 +66,7 @@ export function ChannelInfo() {
         </div>
         {/* Segments submitted */}
         <div className="my-0.5 border-t border-t-neutral-700" />
-        <div className="flex flex-wrap gap-x-1.5">
+        <div className="flex flex-wrap items-center gap-x-1.5">
           <span className="inline-flex gap-x-1">
             <IconWrapper icon={LuSquarePlay} />
             <span>
@@ -62,7 +75,20 @@ export function ChannelInfo() {
             <span className="opacity-75">(50 loaded)</span>
           </span>
           <span>&bull;</span>
-          <SegmentStatsInline submissionCount={totalSegmentCount} />
+          <span
+            className={cn(
+              "transition-opacity",
+              !isSegmentFetchComplete ? "opacity-75" : "",
+            )}
+          >
+            <SegmentStatsInline submissionCount={totalSegmentCount} />
+          </span>
+          {!isSegmentFetchComplete ? (
+            <div
+              id="spinner"
+              className="animate-[spin_850ms_linear_infinite] size-[1rem] rounded-full border-[3px] !border-l-transparent border-neutral-900 dark:border-neutral-50"
+            ></div>
+          ) : null}
         </div>
       </div>
     </div>

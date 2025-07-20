@@ -28,7 +28,6 @@ export default function VideoItemGrid(
   const { setSbSegments } = useChannelStoreProvider()
 
   const [hasLoaded, setHasLoaded] = useState(false)
-  const [isLoadingSegments, setLoadingSegments] = useState(true)
   const [skippableSegments, setSkippableSegments] = useState<InlineSegments>({
     relativeSegments: null,
     hasHighlight: false,
@@ -48,7 +47,6 @@ export default function VideoItemGrid(
     if (!hasLoaded) {
       fetchSkipSegmentsClient(props.id, controller.signal).then((d) => {
         setSkippableSegments(d)
-        setLoadingSegments(false)
         setHasLoaded(true)
 
         setSbSegments((v) => [...v, { id: props.id, data: d.relativeSegments }])
@@ -71,6 +69,7 @@ export default function VideoItemGrid(
 
   return (
     <div
+      data-testid="video-item"
       onMouseLeave={() => {
         if (isSegmentPeeking) setSegmentPeekState(false)
       }}
@@ -145,7 +144,7 @@ export default function VideoItemGrid(
               year: "numeric",
             }}
           />
-          {!isLoadingSegments ? (
+          {hasLoaded ? (
             <button
               onClick={() => setSegmentPeekState(!isSegmentPeeking)}
               className={
