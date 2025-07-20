@@ -21,29 +21,6 @@ type segmentLength struct {
 	Start, End int
 }
 
-type SegmentCategory string
-type SegmentActionType string
-
-const (
-	CategoryTangents    SegmentCategory = "Tangents/Jokes"
-	CategorySponsor     SegmentCategory = "Sponsor"
-	CategorySelfpromo   SegmentCategory = "Unpaid/Self Promotion"
-	CategoryIntro       SegmentCategory = "Intro/Intermission"
-	CategoryOutro       SegmentCategory = "Endcards/Credits"
-	CategoryNonMusic    SegmentCategory = "Non-Music"
-	CategoryPreview     SegmentCategory = "Preview/Recap/Hook"
-	CategoryInteraction SegmentCategory = "Interaction Reminder"
-	CategoryHighlight   SegmentCategory = "Highlight"
-	CategoryChapter     SegmentCategory = "Chapter"
-)
-
-const (
-	ActionSkip      SegmentActionType = "skip"
-	ActionFull      SegmentActionType = "full"
-	ActionMute      SegmentActionType = "mute"
-	ActionHighlight SegmentActionType = "highlight"
-)
-
 type CachedSegments struct {
 	VideoID        *string           `json:"videoId,omitempty"` // A redundant property when fetching the video endpoint and won't be included unless you're fetching this from a channel endpoint
 	Date           string            `json:"date_submitted"`
