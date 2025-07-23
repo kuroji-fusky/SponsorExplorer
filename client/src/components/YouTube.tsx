@@ -22,10 +22,11 @@ export function YouTube(props: YouTubeProps) {
           rel: 0,
           enablejsapi: 1,
           modestbranding: 1,
+          showinfo: 0,
         },
         events: {
-          onReady: () => {
-            console.log("Player mounted")
+          onReady: (e) => {
+            console.log("Player mounted", e.target)
           },
         },
       })

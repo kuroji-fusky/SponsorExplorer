@@ -22,7 +22,7 @@ export function Button(
 
   return (
     <button
-      data-kuro-button=""
+      data-testid="button"
       aria-label={props["aria-label"]}
       aria-labelledby={props["aria-labelledby"]}
       onClick={props.onClick}

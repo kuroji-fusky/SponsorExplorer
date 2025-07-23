@@ -26,7 +26,7 @@ import { useVideoInfoContext } from "@/context"
 import { TimeDateWrapper } from "../TimeDateWrapper"
 
 interface SegmentTableRowProps extends Segment {
-  __next_iterableFragment: number
+  __next_iterableFragment?: number
 }
 
 export function SegmentTableRow(props: SegmentTableRowProps) {
@@ -52,6 +52,14 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
     },
   )
 
+  const segLength = formatTimecode(
+    props.views * (props.endTime - props.startTime),
+    {
+      includeMilliseconds: true,
+      msRoundFactor: 3
+    },
+  )
+
   return (
     <tr
       data-iterable-fragment={props.__next_iterableFragment}
@@ -68,7 +76,7 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
     >
       {/* Date submitted */}
       <td>
-        <div className="relative group">
+        <div id="fallback-tooltip-nojs" className="relative group">
           <TimeDateWrapper
             dateOpts={DEFAULT_DATE_FORMAT}
             date={props.timeSubmitted}
@@ -107,16 +115,26 @@ export function SegmentTableRow(props: SegmentTableRowProps) {
 
       {/* Views */}
       <td>
-        <div className="inline-flex items-center gap-x-1">
-          <span>
-            {props.actionType === "full" ? "—" : formatNumber(props.views)}
-          </span>
-          {props.shadowHidden ? (
-            <LuEyeOff size={17} className="text-red-500" />
-          ) : null}
-          {props.hidden ? (
-            <LuTimerOff size={17} className="text-red-500" />
-          ) : null}
+        <div id="fallback-tooltip-nojs" className="relative group">
+          <div className="inline-flex items-center gap-x-1 cursor-help">
+            <span>
+              {props.actionType === "full" ? "—" : formatNumber(props.views)}
+            </span>
+            {props.shadowHidden ? (
+              <LuEyeOff size={17} className="text-red-500" />
+            ) : null}
+            {props.hidden ? (
+              <LuTimerOff size={17} className="text-red-500" />
+            ) : null}
+          </div>
+          <dl className="opacity-0 group-hover:opacity-100 pointer-events-none absolute top-8 py-3 px-3.5 rounded-md se-bg-w1 z-10 border se-border-1 space-y-4">
+            <div className="space-y-1">
+              <dt className="text-sm leading-snug opacity-60 whitespace-nowrap">
+                Accumulated length
+              </dt>
+              <dd className="font-semibold">{segLength}</dd>
+            </div>
+          </dl>
         </div>
       </td>
 

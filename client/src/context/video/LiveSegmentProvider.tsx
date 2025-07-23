@@ -2,15 +2,18 @@
 
 import { noop } from "lodash-es"
 import { createContext, useContext, useState } from "react"
-import type { MapUseStateSetters } from "@/context.types"
+import type { MapUseStateSetters } from "../context.types"
 
 type LiveSegmentContextType = MapUseStateSetters<{
   hasLiveUpdates: boolean
+  hasShiftHold: boolean
 }>
 
 const LiveSegmentContext = createContext<LiveSegmentContextType>({
   hasLiveUpdates: false,
   setHasLiveUpdates: noop,
+  hasShiftHold: false,
+  setHasShiftHold: noop,
 })
 
 export function LiveSegmentProvider({
@@ -19,9 +22,17 @@ export function LiveSegmentProvider({
   children: React.ReactNode
 }>) {
   const [hasLiveUpdates, setHasLiveUpdates] = useState(false)
+  const [hasShiftHold, setHasShiftHold] = useState(false)
 
   return (
-    <LiveSegmentContext.Provider value={{ hasLiveUpdates, setHasLiveUpdates }}>
+    <LiveSegmentContext.Provider
+      value={{
+        hasLiveUpdates,
+        setHasLiveUpdates,
+        hasShiftHold,
+        setHasShiftHold,
+      }}
+    >
       {children}
     </LiveSegmentContext.Provider>
   )

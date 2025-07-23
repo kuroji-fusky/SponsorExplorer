@@ -78,7 +78,7 @@ export function ChannelInfo() {
           <span
             className={cn(
               "transition-opacity",
-              !isSegmentFetchComplete ? "opacity-75" : "",
+              !isSegmentFetchComplete ? "opacity-45" : "",
             )}
           >
             <SegmentStatsInline submissionCount={totalSegmentCount} />

@@ -11,12 +11,12 @@ export function SegmentTable(props: SegmentTableProps) {
     <>
       <table className="hidden lg:table w-full *:[&_tr]:px-2 *:[&_tr]:py-2.5 [&_td]:border-b [&_td]:border-neutral-200 dark:[&_td]:border-neutral-700 text-base">
         <colgroup>
+          <col style={{ width: "18%" }} />
+          <col style={{ width: "6%" }} />
+          <col style={{ width: "6%" }} />
           <col style={{ width: "25%" }} />
-          <col style={{ width: "9%" }} />
-          <col style={{ width: "9%" }} />
           <col style={{ width: "25%" }} />
-          <col style={{ width: "99%" }} />
-          <col style={{ width: "12%" }} />
+          <col style={{ width: "60%" }} />
           <col style={{ width: "1%" }} />
         </colgroup>
         <thead className="*:text-left">
@@ -48,7 +48,7 @@ export function SegmentTable(props: SegmentTableProps) {
           ))}
         </tbody>
       </table>
-      <div className="mt-3 block lg:hidden">
+      <div className="mt-3 block @screen-lg:hidden">
         {props.segments.map((segment) => (
           <SegmentRowMobile key={segment.UUID} {...segment} />
         ))}
