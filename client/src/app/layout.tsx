@@ -54,7 +54,7 @@ export default async function RootLayout({
             <div className="xl:flex block">
               <DynamicSidebar />
               <div className="flex-1">
-                <main className="min-h-[calc(100dvh-12.5rem)]">{children}</main>
+                <main className="min-h-[calc(100dvh-10.75rem)]">{children}</main>
                 <Footer />
               </div>
             </div>

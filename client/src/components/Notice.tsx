@@ -31,30 +31,31 @@ interface NoticeProps {
 export function Notice(
   props: PropsWithChildren<NoticeProps & VariantProps<typeof NoticeBox>>,
 ) {
-  const _id = useId()
-  const a11yHeadingId = `notice-title-${_id}`
+  const a11yHeadingId = `notice-title-${useId()}`
 
   const iconProps = {
-    size: 26,
+    size: 24,
     className: "flex-shrink-0",
   }
 
   return (
     <div
-      data-notice-box=""
+      data-testid="notice-box"
       className={NoticeBox({
         intent: props.intent,
       })}
       role="note"
-      aria-labelledby={a11yHeadingId}
+      aria-labelledby={props.heading ? a11yHeadingId : undefined}
     >
       {props.intent === "info" && <InfoIcon {...iconProps} />}
       {props.intent === "warn" && <WarningIcon {...iconProps} />}
       {props.intent === "alert" && <AlertIcon {...iconProps} />}
       <div>
-        <div className="font-semibold text-lg pb-0.5" id={a11yHeadingId}>
-          {props.heading}
-        </div>
+        {props.heading ? (
+          <div className="font-semibold text-lg pb-0.5" id={a11yHeadingId}>
+            {props.heading}
+          </div>
+        ) : null}
         <span>{props.children}</span>
       </div>
     </div>

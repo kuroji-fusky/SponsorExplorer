@@ -13,10 +13,7 @@ import { VideoItemFullLabel } from "./FullLabel"
 import { useChannelStoreProvider } from "@/context"
 import { TimeDateWrapper } from "../TimeDateWrapper"
 import { cn } from "@/utils"
-
-const SegmentBar = dynamic(() =>
-  import("../SegmentBar").then((m) => m.SegmentBar),
-)
+import { SegmentBar } from "../SegmentBar"
 
 const SegmentPeek = dynamic(() =>
   import("./SegmentPeek").then((m) => m.SegmentPeek),

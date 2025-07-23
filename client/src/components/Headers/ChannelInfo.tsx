@@ -35,9 +35,12 @@ export function ChannelInfo() {
   }, [sbSegments])
 
   return (
-    <div className="mt-1 flex py-2 gap-x-5 md:flex-row flex-col items-center">
+    <section
+      data-testid="channel-summary"
+      className="mt-1 flex py-2 gap-x-5 md:flex-row flex-col items-center"
+    >
       <div className="flex-shrink-0">
-        <div className="md:size-32 size-40 relative overflow-hidden rounded-full">
+        <div className="md:size-32 size-36 relative overflow-hidden rounded-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={`${channel!.thumbs}`} alt="" className="size-full" />
         </div>
@@ -76,9 +79,10 @@ export function ChannelInfo() {
           </span>
           <span>&bull;</span>
           <span
+            aria-label={`${totalSegmentCount} submission(s)`}
             className={cn(
               "transition-opacity",
-              !isSegmentFetchComplete ? "opacity-45" : "",
+              !isSegmentFetchComplete ? "opacity-75" : "",
             )}
           >
             <SegmentStatsInline submissionCount={totalSegmentCount} />
@@ -91,6 +95,6 @@ export function ChannelInfo() {
           ) : null}
         </div>
       </div>
-    </div>
+    </section>
   )
 }

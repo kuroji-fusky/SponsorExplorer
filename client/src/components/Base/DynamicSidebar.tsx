@@ -9,12 +9,14 @@ import {
   LuHistory,
   LuListVideo,
   LuPencil,
+  LuSquareActivity,
+  LuSquarePlay,
   LuTrash,
+  LuVideotape,
 } from "react-icons/lu"
 import { IconWrapper } from "../IconWrapper"
 import { KuroLS } from "@/lib/KuroLS"
 import type { RecentVisitedChannels } from "@/types"
-import { Notice } from "../Notice"
 
 export function DynamicSidebar() {
   const [recentChannelList, setRecentChannelList] = useState<
@@ -65,7 +67,7 @@ export function DynamicSidebar() {
           </button>
         </nav>
         <div className="pb-2.5 h-full overflow-x-hidden">
-          <section className="relative">
+          <section className="relative h-full flex flex-col">
             {/* Header */}
             <div className="se-bg-w1 flex items-center px-5 sticky top-0 py-2.5">
               <button className="pl-1.5 pr-1">
@@ -86,7 +88,7 @@ export function DynamicSidebar() {
               </button>
             </div>
             {/* Content */}
-            <div className="select-none space-y-0.5" role="list">
+            <div className="flex-1 select-none space-y-0.5" role="list">
               {/* <div className="px-4 pt-2">
                 <Notice intent="warn">
                   Couldn't retrieve recent history because JavaScript is
@@ -123,6 +125,30 @@ export function DynamicSidebar() {
               ) : (
                 <div>There's nothing fam</div>
               )}
+            </div>
+            <div className="px-3 py-2">
+              <h3 className="px-3 py-1">Tools</h3>
+              <Link
+                className="flex items-center gap-x-2 px-3 py-2 hover:bg-neutral-500/30 rounded-md"
+                href="/timeline"
+              >
+                <IconWrapper icon={LuVideotape} />
+                <span>Timeline view</span>
+              </Link>
+              <Link
+                className="flex items-center gap-x-2 px-3 py-2 hover:bg-neutral-500/30 rounded-md"
+                href="/inspector/uuid"
+              >
+                <IconWrapper icon={LuSquareActivity} />
+                <span>UUID</span>
+              </Link>
+              <Link
+                className="flex items-center gap-x-2 px-3 py-2 hover:bg-neutral-500/30 rounded-md"
+                href="/inspector/channel"
+              >
+                <IconWrapper icon={LuSquarePlay} />
+                <span>Channel inspector</span>
+              </Link>
             </div>
           </section>
         </div>
