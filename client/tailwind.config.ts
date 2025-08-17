@@ -29,6 +29,7 @@ export default {
           endcards: "var(--sb-endcards)",
           preview: "var(--sb-preview)",
           filler: "var(--sb-filler)",
+          hook: "var(--sb-hook)",
           "non-music": "var(--sb-non-music)",
         },
       },

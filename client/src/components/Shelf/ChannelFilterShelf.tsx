@@ -12,7 +12,7 @@ import { Tabs } from "../Tabs"
 
 export function ChannelFilterShelf() {
   return (
-    <div className="sticky top-14 z-40 py-4 bg-white  dark:bg-neutral-950 flex gap-x-1.5">
+    <section className="sticky top-14 z-40 py-4 bg-white  dark:bg-neutral-950 flex gap-x-1.5">
       <Tabs
         tabs={
           [
@@ -54,6 +54,6 @@ export function ChannelFilterShelf() {
       <button className="inline-flex items-center gap-x-2 py-2 px-2 border se-border-1 rounded-md">
         <LuEllipsisVertical size={19} />
       </button>
-    </div>
+    </section>
   )
 }

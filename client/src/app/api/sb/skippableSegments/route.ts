@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { SponsorBlock } from "@/lib"
+import { allSegments, SponsorBlock } from "@/lib"
 import { segmentsFallback } from "@/utils"
 import { SB_FETCH_OPTIONS } from "@/utils/constants"
 
@@ -9,18 +9,7 @@ export async function GET(request: NextRequest) {
 
   const skipSegments = SponsorBlock.skipSegments({
     videoID,
-    categories: [
-      "interaction",
-      "intro",
-      "outro",
-      "filler",
-      "preview",
-      "interaction",
-      "music_offtopic",
-      "selfpromo",
-      "sponsor",
-      "poi_highlight"
-    ],
+    categories: allSegments,
     actionTypes: ["skip", "mute"]
   }, SB_FETCH_OPTIONS)
 

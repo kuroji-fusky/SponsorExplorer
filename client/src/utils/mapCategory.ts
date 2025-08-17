@@ -20,7 +20,7 @@ export const mapCategory = (category: Category): { bg: string, label: string } =
     },
     preview: {
       bg: "bg-sb-preview",
-      label: "Preview/Recap/Hook"
+      label: "Preview/Recap"
     },
     poi_highlight: {
       bg: "bg-sb-highlight",
@@ -33,6 +33,10 @@ export const mapCategory = (category: Category): { bg: string, label: string } =
     filler: {
       bg: "bg-sb-filler",
       label: "Tangents/Jokes"
+    },
+    hook: {
+      bg: "bg-sb-hook",
+      label: "Hook/Greetings"
     },
     exclusive_access: {
       bg: "bg-sb-exclusive-access",

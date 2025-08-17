@@ -8,6 +8,7 @@ export type Category =
   | "intro"
   | "outro"
   | "filler"
+  | "hook"
   | "music_offtopic"
   | "exclusive_access"
 

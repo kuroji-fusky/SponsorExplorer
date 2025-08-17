@@ -71,11 +71,12 @@ const CategoryReadableLabels: Readonly<Record<Exclude<Category, "chapter">, stri
   intro: "Intro/Intermission",
   music_offtopic: "Non-Music",
   outro: "Endcards/Credits",
-  preview: "Preview/Recap/Hook",
+  preview: "Preview/Recap",
   sponsor: "Sponsor",
   selfpromo: "Unpaid/Self Promotion",
   exclusive_access: "Exclusive Access",
   filler: "Tangents/Jokes",
+  hook: "Hook/Greetings",
   poi_highlight: "Highlight"
 }
 
@@ -85,6 +86,7 @@ const allSegments: Category[] = [
   "intro",
   "outro",
   "filler",
+  "hook",
   "preview",
   "interaction",
   "music_offtopic",
