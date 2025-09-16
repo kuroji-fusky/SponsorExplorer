@@ -43,8 +43,11 @@ export function DynamicSidebar() {
   const lmao = !isChannelListNull ? recentChannelList.reverse() : []
 
   return (
-    <>
-      <aside className="w-[320px] xl:flex flex-col hidden shrink-0 fixed left-0 bottom-20 top-16 h-[calc(100dvh-4.15rem)] se-bg-w1 z-10">
+    <div
+      className="contents"
+      style={{ "--videostore-sidebar": "320px" } as React.CSSProperties}
+    >
+      <aside className="w-[var(--videostore-sidebar)] xl:flex flex-col hidden shrink-0 fixed left-0 bottom-20 top-16 h-[calc(100dvh-4.15rem)] se-bg-w1 z-10">
         <nav className="px-3.5 border-b se-border-1 overflow-hidden flex">
           {/* Tabs */}
           <div className="overflow-x-auto overflow-y-hidden flex gap-x-1.5 flex-nowrap flex-1">
@@ -156,7 +159,7 @@ export function DynamicSidebar() {
         </div>
       </aside>
       {/* Anchor element */}
-      <div className="w-[320px]" />
-    </>
+      <div className="w-[var(--videostore-sidebar)]" />
+    </div>
   )
 }

@@ -9,14 +9,13 @@ export function LiveSegmentButtons() {
   return (
     <>
       <ButtonMerge>
-        <Button prefixIcon={LuPlay}>Live</Button>
-        <Button iconOnly>
+        <Button prefixIcon={LuRefreshCw}>
+          <span className="hidden md:block">Refresh</span>
+        </Button>
+        <Button iconOnly className="hidden md:block">
           <IconWrapper icon={LuChevronDown} />
         </Button>
       </ButtonMerge>
-      <Button iconOnly>
-        <IconWrapper icon={LuRefreshCw} />
-      </Button>
     </>
   )
 }

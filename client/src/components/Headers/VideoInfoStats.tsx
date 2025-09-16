@@ -3,9 +3,10 @@
 import type { SegmentBank } from "@/types"
 import { calcSegmentTime, formatTimecode } from "@/utils"
 import { IconWrapper } from "../IconWrapper"
-import { LuExternalLink } from "react-icons/lu"
+import { LuExternalLink, LuInfo } from "react-icons/lu"
 import dynamic from "next/dynamic"
 import { useState } from "react"
+import DetailPeek from "../DetailPeek"
 
 const SegmentDetailsModal = dynamic(
   () => import("../Modals").then((m) => m.SegmentDetailsModal),
@@ -47,41 +48,46 @@ export function VideoInfoStats(props: VideoInfoStatsProps) {
   return (
     <div
       data-testid="video-info-stats"
-      className="grid grid-cols-2 divide-x-2 divide-neutral-300 dark:divide-neutral-700"
+      className="mt-1 rounded-md border border-neutral-300 dark:border-neutral-700 py-2.5 grid grid-cols-2 divide-x-2 divide-neutral-300 dark:divide-neutral-700"
     >
-      <div className="pr-3 space-y-1">
-        <div className="text-sm opacity-75">Total segments submitted</div>
-        <div className="text-base font-semibold">
-          {isSegmentLengthNone
-            ? `${seggies.length} (${formatTime(segmentLengthSubmitted)})`
-            : "—"}
-        </div>
-      </div>
-      <div className="pl-3 space-y-1">
-        <div className="text-sm opacity-75">Total of views accrued</div>
-        <div className="text-base font-semibold flex items-center gap-x-1">
-          <span className="my-auto">
-            {isViewLengthAlottedNone
-              ? formatTime(segmentViewLengthAccrued)
-              : "—"}
-          </span>
-          {isViewLengthAlottedNone ? (
-            <button
-              onClick={toggleModalState}
-              className="p-1 opacity-75 hover:opacity-100"
-            >
-              <IconWrapper icon={LuExternalLink} size="smol" />
-            </button>
-          ) : null}
-        </div>
-      </div>
       {isViewLengthAlottedNone ? (
-        <SegmentDetailsModal
-          open={isModalOpen}
-          onClose={toggleModalState}
-          segments={calcSegmentTime(seggies)}
-        />
-      ) : null}
+        <>
+          <DetailPeek
+            header="Total segments submitted"
+            className="px-3.5 my-0.5"
+          >
+            <div className="text-base font-semibold">
+              {`${seggies.length} (${formatTime(segmentLengthSubmitted)})`}
+            </div>
+          </DetailPeek>
+          <DetailPeek header="Total of views accrued" className="px-3.5 my-0.5">
+            <div className="text-base font-semibold flex items-center gap-x-1">
+              <span className="my-auto">
+                {formatTime(segmentViewLengthAccrued)}
+              </span>
+              {isViewLengthAlottedNone ? (
+                <button
+                  onClick={toggleModalState}
+                  className="p-1 opacity-75 hover:opacity-100"
+                >
+                  <IconWrapper icon={LuExternalLink} size="smol" />
+                </button>
+              ) : null}
+            </div>
+          </DetailPeek>
+
+          <SegmentDetailsModal
+            open={isModalOpen}
+            onClose={toggleModalState}
+            segments={calcSegmentTime(seggies)}
+          />
+        </>
+      ) : (
+        <div className="px-3 font-semibold inline-flex items-center gap-x-1.5">
+          <IconWrapper icon={LuInfo} size="smol" />
+          <span>No segment data present</span>
+        </div>
+      )}
     </div>
   )
 }
