@@ -66,8 +66,8 @@ export function DynamicSidebar() {
             <IconWrapper icon={LuChevronsRight} />
           </button>
         </nav>
-        <div className="pb-2.5 h-full overflow-x-hidden">
-          <section className="relative h-full flex flex-col">
+        <div className="relative pb-2.5 h-full overflow-x-hidden">
+          <section className="flex flex-col">
             {/* Header */}
             <div className="se-bg-w1 flex items-center px-5 sticky top-0 py-2.5">
               <button className="pl-1.5 pr-1">
@@ -126,7 +126,9 @@ export function DynamicSidebar() {
                 <div>There's nothing fam</div>
               )}
             </div>
-            <div className="px-3 py-2">
+          </section>
+          <section className="fixed bottom-0 w-[308px]">
+            <div className="px-3 py-2 absolute bottom-0 inset-x-0 h-fit se-bg-w1">
               <h3 className="px-3 py-1">Tools</h3>
               <Link
                 className="flex items-center gap-x-2 px-3 py-2 hover:bg-neutral-500/30 rounded-md"
