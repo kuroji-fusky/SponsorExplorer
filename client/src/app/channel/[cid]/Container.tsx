@@ -27,6 +27,7 @@ export default function Container(props: VideoItemContainerProps) {
   const { videos, channel } = useChannelStoreProvider()
 
   useEffect(() => {
+    // TODO replace this with indexedDB instead of localstorage
     const objLS = new KuroObjectLS<Partial<RecentVisitedChannels>>(
       "RecentVisitedChannels",
       [],
@@ -62,7 +63,7 @@ export default function Container(props: VideoItemContainerProps) {
             title={item.title}
             date={item.uploadDate}
             thumbnail={item.thumbnail}
-            duration={item.duration}
+            durationReadable={item.durationReadable}
             isPremiere={item.isPremiere}
           />
         ))}

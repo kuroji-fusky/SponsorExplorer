@@ -34,10 +34,10 @@ export type AllPartLiterals =
   | "paidProductPlacementDetails"
 export type AllEndpointParams = Partial<
   StandardParams &
-    VideoParams &
-    ChannelParams &
-    PlaylistItemsParams &
-    SearchParams
+  VideoParams &
+  ChannelParams &
+  PlaylistItemsParams &
+  SearchParams
 >
 
 interface YTRootResponse<T> {
@@ -87,6 +87,9 @@ export namespace yt.Responses {
           url: string
         }
       }
+    }
+    statistics: {
+      videoCount: string
     }
     contentDetails: {
       relatedPlaylists: {

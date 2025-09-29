@@ -17,7 +17,12 @@ export function TimeDateWrapper(props: TimeDateWrapperProps) {
   )
 
   return (
-    <time data-td-wrapper="" dateTime={isoDate} className={props.className}>
+    <time
+      data-td-wrapper=""
+      title={isoDate}
+      dateTime={isoDate}
+      className={props.className}
+    >
       {readableDate}
     </time>
   )

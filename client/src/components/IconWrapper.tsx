@@ -10,7 +10,7 @@ export function IconWrapper(props: IconHandlerProps) {
   const IconComponent = props.icon
 
   const sizes = {
-    smol: "size-[1.10rem]",
+    smol: "size-[1.04rem]",
     normal: "size-[1.19rem]",
     beeg: "size-[1.24rem]",
   }

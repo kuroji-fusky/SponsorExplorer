@@ -4,6 +4,8 @@ import { _Link as Link } from "../Link"
 import { useVideoInfoContext } from "@/context"
 import { Notice } from "../Notice"
 import { TimeDateWrapper } from "../TimeDateWrapper"
+import { IconWrapper } from "../IconWrapper"
+import { LuBookmark, LuExternalLink } from "react-icons/lu"
 
 export function VideoInfoTitle() {
   const {
@@ -32,11 +34,17 @@ export function VideoInfoTitle() {
           className="inline-flex items-center gap-x-2.5"
         >
           <div className="size-7 aspect-square rounded-full overflow-hidden bg-red-200">
-            <img src={video.channelAvatar} alt="" />
+            <img
+              src={video.channelAvatar}
+              alt={`Channel avatar for ${video.channelTitle}`}
+            />
           </div>
           <span className="my-auto">{video.channelTitle}</span>
         </Link>
-        <div className="bg-white/65 size-1 rounded-full " />
+        <button>
+          <IconWrapper icon={LuBookmark} size="smol" />
+        </button>
+        <div className="dark:bg-white/65 bg-black/60 size-0.5 rounded-full" />
         <TimeDateWrapper date={video.publishedAt} />
       </section>
     </>

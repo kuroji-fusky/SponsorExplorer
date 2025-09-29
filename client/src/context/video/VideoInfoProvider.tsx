@@ -30,9 +30,6 @@ const INITIAL_SEGMENT_DATA = {
 } satisfies MaybeSegmentData
 
 const INITIAL_VIDEO_DATA = {
-  state: "NOT_FOUND",
-  hasSponsorDisclosure: false,
-  nativeChapters: [],
   id: "",
   video: {
     channelId: "",
@@ -40,6 +37,7 @@ const INITIAL_VIDEO_DATA = {
     publishedAt: "",
     title: "",
     channelAvatar: "",
+    length: 0,
   },
 } satisfies MaybeVideoDetails
 
@@ -65,7 +63,7 @@ export const useVideoInfoContext = () => {
 
   validVideoPathOnly()
 
-  return context
+  return context as NonNullable<VideoInfoContextType>
 }
 
 export function VideoInfoProvider({

@@ -20,7 +20,7 @@ const SegmentPeek = dynamic(() =>
 )
 
 export default function VideoItemGrid(
-  props: Omit<SharedVideoItemProps, "uploadDate">,
+  props: Omit<SharedVideoItemProps, "uploadDate" | "duration">,
 ) {
   const { setSbSegments } = useChannelStoreProvider()
 
@@ -99,7 +99,7 @@ export default function VideoItemGrid(
         >
           {hasHighlight ? <LuSparkles size={25} /> : null}
           <div id="og-duration">
-            {isVideoPremiere ? props.duration : "PREMIERE"}
+            {isVideoPremiere ? props.durationReadable : "PREMIERE"}
           </div>
           {/* <div id="sb-deduct">(12:34)</div> */}
         </div>
@@ -131,7 +131,7 @@ export default function VideoItemGrid(
             <LuEllipsisVertical size={18} />
           </button>
         </div>
-        <div className="pt-2 inline-flex gap-y-0.5 gap-x-2.5 flex-wrap">
+        <div className="pt-2 inline-flex gap-y-0.5 gap-x-2 flex-wrap items-center">
           <TimeDateWrapper
             className="opacity-60 group-hover:opacity-80 transition-opacity"
             date={props.date!}
@@ -141,24 +141,27 @@ export default function VideoItemGrid(
               year: "numeric",
             }}
           />
+          <div className="dark:bg-white/65 bg-black/60 size-1 rounded-full" />
           {hasLoaded ? (
             <button
               onClick={() => setSegmentPeekState(!isSegmentPeeking)}
               className={
                 hasSegments
                   ? "opacity-100"
-                  : "opacity-60 group-hover:opacity-80 transition-opacity cursor-not-allowed"
+                  : "opacity-30 group-hover:opacity-80 transition-opacity cursor-not-allowed"
               }
             >
               {segmentLabelFormatter(relativeSegments!, hasHighlight)}
             </button>
           ) : (
-            <div className="h-5 rounded-md w-32 bg-neutral-300 dark:bg-neutral-500 animate-pulse" />
+            <span className="text-neutral-700 dark:text-neutral-200 animate-pulse">
+              Loading...
+            </span>
           )}
         </div>
       </div>
       {/* Cool hover effect */}
-      <div className="pointer-events-none absolute inset-0 bg-neutral-200 dark:bg-neutral-700 -z-10 rounded-md transition duration-200 ease-in-out opacity-0 scale-100 group-hover:opacity-60 group-hover:scale-105" />
+      <div className="pointer-events-none absolute inset-0 bg-neutral-200 dark:bg-neutral-700 -z-10 rounded-md transition duration-200 ease-in-out opacity-0 scale-[1.03] group-hover:opacity-60 group-hover:scale-105" />
     </div>
   )
 }

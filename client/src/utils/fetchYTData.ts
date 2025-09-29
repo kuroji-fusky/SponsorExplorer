@@ -31,7 +31,6 @@ export const fetchChannelData = cache(async (id: string) => {
   const urlBase = (await headers()).get("x-url-origin")
 
   const [fetchChannelInfo] = await fetchWrapper<YTChannelResponse>(`${urlBase}/api/yt/channel?id=${id}`, {
-    cache: "no-cache",
     next: {
       revalidate: 3600 * 1.5
     }

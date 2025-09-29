@@ -36,12 +36,12 @@ export function VideoInfoStats(props: VideoInfoStatsProps) {
     (acc, prev) => acc + prev.accrued,
     0,
   )
+  const isSegmentLengthNone = segmentLengthSubmitted > 0
+
   const segmentViewLengthAccrued = _segmentBank.reduce(
     (acc, prev) => acc + prev.views * prev.accrued,
     0,
   )
-
-  const isSegmentLengthNone = segmentLengthSubmitted > 0
   const isViewLengthAlottedNone =
     isSegmentLengthNone && segmentViewLengthAccrued > 0
 
@@ -53,7 +53,7 @@ export function VideoInfoStats(props: VideoInfoStatsProps) {
       {isViewLengthAlottedNone ? (
         <>
           <DetailPeek
-            header="Total segments submitted"
+            header="No. of segments submitted"
             className="px-3.5 my-0.5"
           >
             <div className="text-base font-semibold">
@@ -83,7 +83,7 @@ export function VideoInfoStats(props: VideoInfoStatsProps) {
           />
         </>
       ) : (
-        <div className="px-3 font-semibold inline-flex items-center gap-x-1.5">
+        <div className="col-span-2 px-3 font-semibold inline-flex items-center gap-x-1.5">
           <IconWrapper icon={LuInfo} size="smol" />
           <span>No segment data present</span>
         </div>

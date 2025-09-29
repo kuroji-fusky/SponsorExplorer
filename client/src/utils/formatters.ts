@@ -130,6 +130,17 @@ export const formatYTTimecode = (time: string) => {
   return hours ? `${hours}:${padMinute}:${padSecond}` : `${minutes}:${padSecond}`
 }
 
+const _min = 60
+const _hour = 3600
+
+export const formatTimecodeToSec = (time: string) => {
+  const multipliers = [1, _min, _hour]
+  return time
+    .split(":")
+    .reverse()
+    .reduce((total, part, index) => total + parseInt(part) * multipliers[index], 0)
+}
+
 export const calcDateDiff = (d1: string, d2: string) => {
   const _d1 = new Date(d1)
   const _d2 = new Date(d2)

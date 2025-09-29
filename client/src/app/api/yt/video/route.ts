@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { youtube } from "@/lib"
 import type { NativeVideoChapters } from "@/types"
+import { formatTimecodeToSec, formatYTTimecode } from "@/utils"
 
 export async function GET(request: NextRequest) {
   const urlParams = new URL(request.url).searchParams
@@ -9,7 +10,7 @@ export async function GET(request: NextRequest) {
 
   const [videoData, status] = await youtube.videos({
     id: videoID,
-    part: ["snippet", "paidProductPlacementDetails"],
+    part: ["snippet", "paidProductPlacementDetails", "contentDetails"],
   })
 
   const { items } = videoData
@@ -49,14 +50,17 @@ export async function GET(request: NextRequest) {
     console.debug("====  Timestamp debug end  ====")
   }
 
+  const _length = formatYTTimecode(firstItem.contentDetails.duration)
+
   return NextResponse.json({
-    state: "FOUND",
     hasSponsorDisclosure,
     video: {
       title: video.title,
       publishedAt: video.publishedAt,
       channelId: video.channelId,
       channelTitle: video.channelTitle,
+      lengthReadable: _length,
+      length: formatTimecodeToSec(_length)
     },
     nativeChapters: timestampCollection,
   }, { status })

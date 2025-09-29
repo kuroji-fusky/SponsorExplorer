@@ -1,4 +1,4 @@
-import { formatYTTimecode } from "@/utils"
+import { formatTimecodeToSec, formatYTTimecode } from "@/utils"
 import { youtube, type yt } from "@/lib"
 import { type NextRequest, NextResponse } from "next/server"
 
@@ -93,9 +93,12 @@ export async function GET(request: NextRequest) {
       thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
       uploadDate: snippet.publishedAt,
       isPremiere: snippet.liveBroadcastContent,
-      duration: contentDetails.duration
+      durationReadable: contentDetails.duration
         ? formatYTTimecode(contentDetails.duration)
         : "",
+      duration: contentDetails.duration
+        ? formatTimecodeToSec(formatYTTimecode(contentDetails.duration))
+        : 0
     }),
   )
 

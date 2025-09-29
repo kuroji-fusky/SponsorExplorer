@@ -39,6 +39,8 @@ export interface VideoInfoType {
     publishedAt: string
     channelId: string
     channelTitle: string
+    length: number
+    lengthReadable: string
   }
   nativeChapters?: (NativeVideoChapters | never)[]
 }

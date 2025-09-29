@@ -1,3 +1,5 @@
+"use client"
+
 import { cn } from "@/utils"
 import { kebabCase } from "lodash-es"
 import type { IconType } from "react-icons"
@@ -22,15 +24,16 @@ type TabProps<T extends TabLabelConstraint[]> = {
 export function Tabs<T extends TabLabelConstraint[]>(props: TabProps<T>) {
   return (
     <div className="rounded-md border flex p-1 se-border-1">
-      {props.tabs.map((item) => {
-        const uniqueLabelId = `${kebabCase(item.label)}-${crypto.randomUUID()}`
+      {props.tabs.map((item, index) => {
+        const uniqueLabelId = `${kebabCase(item.label)}-${index}`
         const isActive = item.label === props.activeTab
         const Icon = item.icon
 
         return (
           <button
             key={uniqueLabelId}
-            aria-labelledby={uniqueLabelId}
+            aria-labelledby={!props.iconOnly ? uniqueLabelId : undefined}
+            aria-label={props.iconOnly ? item.label : undefined}
             aria-current={isActive ? true : undefined}
             className={cn(
               "rounded-md font-medium inline-flex items-center gap-x-1.5",

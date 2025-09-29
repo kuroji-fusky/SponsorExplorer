@@ -156,6 +156,7 @@ export function DynamicSidebar() {
               </Link>
             </div>
           </section>
+          <div className="h-36"></div>
         </div>
       </aside>
       {/* Anchor element */}

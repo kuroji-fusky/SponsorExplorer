@@ -14,9 +14,7 @@ export default function DetailPeek(
       className={cn(props.className, "space-y-1")}
     >
       <div className="text-sm opacity-75">{props.header}</div>
-      <div className="text-base font-semibold flex items-center gap-x-1">
-        {props.children}
-      </div>
+      <div>{props.children}</div>
     </div>
   )
 }
