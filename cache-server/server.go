@@ -14,11 +14,23 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-func main() {
-	allowedURLOrigins := os.Getenv("SE_CACHE_SERVER_CORS_ALLOWED_DOMAINS")
-	if allowedURLOrigins == "" {
-		allowedURLOrigins = "http://localhost:3000"
+func getEnvWithFallback[T any](envKey string, fallback T) T {
+	key := os.Getenv(envKey)
+
+	if key == "" {
+		return fallback
 	}
+
+	switch any(fallback).(type) {
+	case string:
+		return any(key).(T)
+	default:
+		return fallback
+	}
+}
+
+func main() {
+	allowedURLOrigins := getEnvWithFallback("SE_CACHE_SERVER_CORS_ALLOWED_DOMAINS", "http://localhost:3000")
 
 	e := echo.New()
 
@@ -34,6 +46,12 @@ func main() {
 		middleware.RemoveTrailingSlashWithConfig(middleware.TrailingSlashConfig{
 			RedirectCode: http.StatusPermanentRedirect,
 		}),
+		func(next echo.HandlerFunc) echo.HandlerFunc {
+			return func(c echo.Context) error {
+				c.Response().Header().Set("X-Made-With", "Ulol")
+				return next(c)
+			}
+		},
 	)
 
 	// Routes
@@ -55,7 +73,7 @@ func main() {
 	// Channel cache routes
 	// Channel routes should always be the channel ID, not a handle or the username
 
-	e.GET("/cache/channel/:id", func(c echo.Context) error {
+	e.GET("/channel/:id", func(c echo.Context) error {
 		prettifyOutput, prettyErr := strconv.ParseBool(c.Param("prettify"))
 		if prettyErr != nil {
 			log.Fatal("Something went wrong converting `prettifyOutput` to type `bool`")
@@ -66,19 +84,19 @@ func main() {
 
 		return c.JSON(http.StatusOK, CachedChannelMeta{})
 	})
-	e.POST("/cache/channel/:id", func(c echo.Context) error {
+	e.POST("/channel/:id", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, CachedChannelMeta{})
 	})
-	e.PATCH("/cache/channel/:id", func(c echo.Context) error {
+	e.PATCH("/channel/:id", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, CachedChannelMeta{})
 	})
-	e.DELETE("/cache/channel/:id", func(c echo.Context) error {
+	e.DELETE("/channel/:id", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, CachedChannelMeta{})
 	})
 
 	// Video cache routes
 
-	e.GET("/cache/video/:id", func(c echo.Context) error {
+	e.GET("/video/:id", func(c echo.Context) error {
 		prettifyOutput, prettyErr := strconv.ParseBool(c.Param("prettify"))
 		if prettyErr != nil {
 			log.Fatal("Something went wrong converting `prettifyOutput` to type `bool`")
@@ -89,13 +107,13 @@ func main() {
 
 		return c.JSON(http.StatusOK, CachedVideoMeta{})
 	})
-	e.POST("/cache/video/:id", func(c echo.Context) error {
+	e.POST("/video/:id", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, CachedVideoMeta{})
 	})
-	e.PATCH("/cache/video/:id", func(c echo.Context) error {
+	e.PATCH("/video/:id", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, CachedVideoMeta{})
 	})
-	e.DELETE("/cache/video/:id", func(c echo.Context) error {
+	e.DELETE("/video/:id", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, CachedVideoMeta{})
 	})
 

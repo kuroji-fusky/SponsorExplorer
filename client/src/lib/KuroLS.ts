@@ -46,16 +46,18 @@ export class KuroLS {
     localStorage.removeItem(key)
   }
 
+  static removeItemFromIndex(index: number) {}
+
   static unsafe_clear() {
     localStorage.clear()
   }
 }
 
 type CouldBeEmpty<T> = T | never[] | null
-type CouldBeArray<T> = T | T[]
+type MaybeArray<T> = T | T[]
 
 /** Used for dealing with structured data from localStorage */
-export class KuroObjectLS<V extends CouldBeArray<Record<string, unknown>>> {
+export class KuroObjectLS<V extends MaybeArray<Record<string, unknown>>> {
   public storageValue: CouldBeEmpty<V> = null
 
   constructor(

@@ -21,7 +21,7 @@
     "bracketSpacing": true,
     "ignore": [
       "**/.next/**",
-      "**/sbbrowser-api/**"
+      "**/cache-server/**"
     ]
   },
   "organizeImports": {
