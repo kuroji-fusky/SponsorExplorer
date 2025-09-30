@@ -43,12 +43,10 @@ func main() {
 		middleware.TimeoutWithConfig(middleware.TimeoutConfig{
 			Timeout: 25 * time.Second,
 		}),
-		middleware.RemoveTrailingSlashWithConfig(middleware.TrailingSlashConfig{
-			RedirectCode: http.StatusPermanentRedirect,
-		}),
+		middleware.RemoveTrailingSlash(),
 		func(next echo.HandlerFunc) echo.HandlerFunc {
 			return func(c echo.Context) error {
-				c.Response().Header().Set("X-Made-With", "Ulol")
+				c.Response().Header().Set("X-Last-Server-Update", "N/A")
 				return next(c)
 			}
 		},

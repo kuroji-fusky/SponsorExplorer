@@ -21,7 +21,7 @@
     "bracketSpacing": true,
     "ignore": [
       "**/.next/**",
-      "**/cache-server/**"
+      "**/proxy/**"
     ]
   },
   "organizeImports": {

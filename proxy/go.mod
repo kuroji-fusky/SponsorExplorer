@@ -1,4 +1,4 @@
-module github.com/kuroji-fusky/SponsorExplorer/cache-server
+module github.com/kuroji-fusky/SponsorExplorer/proxy
 
 go 1.24.3
 

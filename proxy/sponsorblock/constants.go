@@ -1,4 +1,4 @@
-package main
+package sponsorblock
 
 type SegmentCategory string
 type SegmentActionType string

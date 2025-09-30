@@ -56,30 +56,30 @@ export namespace sb.Responses {
   export type SkipSegments = Array<{
     segment: number[]
     UUID: string
-    category: Category,
+    category: Category
     videoDuration: number
-    actionType: string,
-    locked: number,
-    votes: number,
-    description: string,
+    actionType: string
+    locked: number
+    votes: number
+    description: string
   }>
 
   export interface SearchSegments {
     segmentCount: number
     page: number
     segments: Array<{
-      UUID: string,
-      timeSubmitted: string,
-      startTime: number,
-      endTime: number,
-      category: Category,
-      actionType: string,
-      votes: number,
-      views: number,
-      locked: number,
-      hidden: number,
-      shadowHidden: number,
-      userID: string,
+      UUID: string
+      timeSubmitted: string
+      startTime: number
+      endTime: number
+      category: Category
+      actionType: string
+      votes: number
+      views: number
+      locked: number
+      hidden: number
+      shadowHidden: number
+      userID: string
       description: string
     }>
   }
