@@ -1,4 +1,4 @@
-package main
+package routes
 
 import "github.com/kuroji-fusky/SponsorExplorer/proxy/sponsorblock"
 

@@ -64,55 +64,15 @@ func main() {
 
 	// Returns the total cached values, truncated of course
 	e.GET("/cache", func(c echo.Context) error {
+		maxResults, _ := strconv.Atoi(c.QueryParam("max_results"))
+
+		// Setting the hard limit to 100
+		if maxResults >= 100 {
+			maxResults = 100
+		}
+
 		// just return a success status, too lazy to setup redis atm
 		return c.NoContent(http.StatusOK)
-	})
-
-	// Channel cache routes
-	// Channel routes should always be the channel ID, not a handle or the username
-
-	e.GET("/channel/:id", func(c echo.Context) error {
-		prettifyOutput, prettyErr := strconv.ParseBool(c.Param("prettify"))
-		if prettyErr != nil {
-			log.Fatal("Something went wrong converting `prettifyOutput` to type `bool`")
-		}
-
-		// Temporary fix for unused variable
-		log.Print(prettifyOutput)
-
-		return c.JSON(http.StatusOK, CachedChannelMeta{})
-	})
-	e.POST("/channel/:id", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, CachedChannelMeta{})
-	})
-	e.PATCH("/channel/:id", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, CachedChannelMeta{})
-	})
-	e.DELETE("/channel/:id", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, CachedChannelMeta{})
-	})
-
-	// Video cache routes
-
-	e.GET("/video/:id", func(c echo.Context) error {
-		prettifyOutput, prettyErr := strconv.ParseBool(c.Param("prettify"))
-		if prettyErr != nil {
-			log.Fatal("Something went wrong converting `prettifyOutput` to type `bool`")
-		}
-
-		// Temporary fix for unused variable
-		log.Print(prettifyOutput)
-
-		return c.JSON(http.StatusOK, CachedVideoMeta{})
-	})
-	e.POST("/video/:id", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, CachedVideoMeta{})
-	})
-	e.PATCH("/video/:id", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, CachedVideoMeta{})
-	})
-	e.DELETE("/video/:id", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, CachedVideoMeta{})
 	})
 
 	// Routes END
