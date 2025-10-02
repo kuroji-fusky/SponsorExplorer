@@ -10,21 +10,17 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func SBUsers(e *echo.Echo) {
-	e.GET("/uuid/:uuid", func(c echo.Context) error {
-		uuid := c.Param("uuid")
+func SBUsersRoute(e *echo.Echo) {
+	e.GET("/sb-user/:username_uuid", func(c echo.Context) error {
+		uuid := c.Param("username_uuid")
 		isBypassCache, _ := strconv.ParseBool(c.QueryParam("bypass_cache"))
 
-		return c.NoContent(http.StatusOK)
-	})
-	e.GET("/username/:username", func(c echo.Context) error {
-		userName := c.Param("username")
-		isBypassCache, _ := strconv.ParseBool(c.QueryParam("bypass_cache"))
+		fmt.Println(uuid, isBypassCache)
 
 		return c.NoContent(http.StatusOK)
 	})
 
-	e.POST("/uuid/analysis", func(c echo.Context) error {
+	e.POST("/uuid", func(c echo.Context) error {
 		biteMeDaddy, err := io.ReadAll(c.Request().Body)
 
 		if err != nil {

@@ -18,7 +18,7 @@ func ChannelRoutes(e *echo.Echo) {
 		// Temporary fix for unused variable
 		log.Print(channelId, prettifyOutput, isBypassCache)
 
-		return c.JSON(http.StatusOK, CachedChannelMeta{})
+		return c.JSON(http.StatusOK, cachedChannelMeta{})
 	})
 
 	e.POST("/channel/:id", func(c echo.Context) error {
@@ -27,7 +27,7 @@ func ChannelRoutes(e *echo.Echo) {
 		// Temporary fix for unused variable
 		log.Print(channelId)
 
-		return c.JSON(http.StatusOK, CachedChannelMeta{})
+		return c.JSON(http.StatusOK, cachedChannelMeta{})
 	})
 
 	e.PATCH("/channel/:id", func(c echo.Context) error {
@@ -36,7 +36,7 @@ func ChannelRoutes(e *echo.Echo) {
 		// Temporary fix for unused variable
 		log.Print(channelId)
 
-		return c.JSON(http.StatusOK, CachedChannelMeta{})
+		return c.JSON(http.StatusOK, cachedChannelMeta{})
 	})
 
 	e.DELETE("/channel/:id", func(c echo.Context) error {
@@ -45,18 +45,6 @@ func ChannelRoutes(e *echo.Echo) {
 		// Temporary fix for unused variable
 		log.Print(channelId)
 
-		return c.JSON(http.StatusOK, CachedChannelMeta{})
-	})
-
-	e.GET("/channel/:id/analysis", func(c echo.Context) error {
-		channelId := c.Param("id")
-		sampleSize, _ := strconv.Atoi(c.QueryParam("sample_size"))
-		prettifyOutput, _ := strconv.ParseBool(c.QueryParam("prettify"))
-		isBypassCache, _ := strconv.ParseBool(c.QueryParam("bypass_cache"))
-
-		// Temporary fix for unused variable
-		log.Print(channelId, sampleSize, prettifyOutput, isBypassCache)
-
-		return c.NoContent(http.StatusOK)
+		return c.JSON(http.StatusOK, cachedChannelMeta{})
 	})
 }

@@ -16,7 +16,7 @@ func VideoRoutes(e *echo.Echo) {
 		// Temporary fix for unused variable
 		log.Print(channelId, prettifyOutput)
 
-		return c.JSON(http.StatusOK, CachedVideoMeta{})
+		return c.JSON(http.StatusOK, cachedVideoMeta{})
 	})
 
 	e.POST("/video/:id", func(c echo.Context) error {
@@ -25,7 +25,7 @@ func VideoRoutes(e *echo.Echo) {
 		// Temporary fix for unused variable
 		log.Print(channelId)
 
-		return c.JSON(http.StatusOK, CachedVideoMeta{})
+		return c.JSON(http.StatusOK, cachedVideoMeta{})
 	})
 
 	e.PATCH("/video/:id", func(c echo.Context) error {
@@ -34,7 +34,7 @@ func VideoRoutes(e *echo.Echo) {
 		// Temporary fix for unused variable
 		log.Print(channelId)
 
-		return c.JSON(http.StatusOK, CachedVideoMeta{})
+		return c.JSON(http.StatusOK, cachedVideoMeta{})
 	})
 
 	e.DELETE("/video/:id", func(c echo.Context) error {
@@ -43,6 +43,6 @@ func VideoRoutes(e *echo.Echo) {
 		// Temporary fix for unused variable
 		log.Print(channelId)
 
-		return c.JSON(http.StatusOK, CachedVideoMeta{})
+		return c.JSON(http.StatusOK, cachedVideoMeta{})
 	})
 }

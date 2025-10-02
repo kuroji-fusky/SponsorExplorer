@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -10,6 +12,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/kuroji-fusky/SponsorExplorer/proxy/routes"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -33,6 +36,7 @@ func main() {
 	allowedURLOrigins := getEnvWithFallback("SE_CACHE_SERVER_CORS_ALLOWED_DOMAINS", "http://localhost:3000")
 
 	e := echo.New()
+	e.HideBanner = true
 
 	e.Use(
 		middleware.CORSWithConfig(middleware.CORSConfig{
@@ -74,6 +78,16 @@ func main() {
 		// just return a success status, too lazy to setup redis atm
 		return c.NoContent(http.StatusOK)
 	})
+
+	routes.AnalysisRoutes(e)
+	routes.ChannelRoutes(e)
+	routes.VideoRoutes(e)
+	routes.SBUsersRoute(e)
+
+	registeredRoutes, _ := json.MarshalIndent(e.Routes(), "", "  ")
+	registeredRoutesStr := string(registeredRoutes[:])
+
+	fmt.Println("Routes registered:", registeredRoutesStr)
 
 	// Routes END
 
