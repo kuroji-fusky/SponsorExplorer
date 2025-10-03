@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@import "@fontsource/inter";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+@import "@fontsource/ibm-plex-mono";
+
+@custom-variant dark (&:where(html.dark *), @media (prefers-color-scheme: dark));
+
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-body: "Inter", var(--default-font-family);
+  --font-mono: "IBM Plex Mono", var(--default-mono-font-family);
+
+  --color-sb-intermission: #00ffff;
+  --color-sb-selfpromo: #ffff00;
+  --color-sb-sponsor: #00d400;
+  --color-sb-interaction: #cc00ff;
+  --color-sb-preview: #008fd6;
+  --color-sb-endcards: #0202ed;
+  --color-sb-filler: #7300ff;
+  --color-sb-hook: #395699;
+  --color-sb-exclusive-access: #008a5c;
+  --color-sb-non-music: #ff9900;
+  --color-sb-highlight: #ff1684;
+}
