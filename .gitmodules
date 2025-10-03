@@ -1,0 +1,3 @@
+[submodule "packages/kuro-timeline"]
+	path = packages/kuro-timeline
+	url = https://github.com/kuroji-fusky/kuro-timeline

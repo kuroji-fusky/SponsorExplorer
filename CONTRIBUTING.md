@@ -1,6 +1,6 @@
 # Contributing
 
-Requires [Node.js v20 or higher](https://nodejs.org) and the PNPM package manager
+Requires [Node.js v22 or higher](https://nodejs.org) and the PNPM package manager
 
 ## Cloning submodules
 
