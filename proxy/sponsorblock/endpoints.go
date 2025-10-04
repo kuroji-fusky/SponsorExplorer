@@ -2,43 +2,44 @@ package sponsorblock
 
 const baseEndpoint = "https://sponsor.ajay.app/api/"
 
-// Config for `skipSegments` and `searchSegments`
-//
 // Note: URL param `?service=YouTube` is omitted since it appends them automatically
-type SkipAndSearchSegmentsConfig struct {
+type SkipSegmentsParams struct {
 	VideoID     string               `url:"videoID"`
 	Categories  *[]SegmentCategory   `url:"category,omitempty"`
 	ActionTypes *[]SegmentActionType `url:"actionType,omitempty"`
-	Page        *int                 `url:"number,omitempty"`
-	MinVotes    *int                 `url:"minVotes,omitempty"`
-	MaxVotes    *int                 `url:"maxVotes,omitempty"`
-	MinViews    *int                 `url:"minViews,omitempty"`
-	MaxViews    *int                 `url:"maxViews,omitempty"`
-	Hidden      *bool                `url:"hidden,omitempty"`
-	Ignored     *bool                `url:"ignored,omitempty"`
 }
 
-func SkipSegments(params SkipAndSearchSegmentsConfig) {
+type SearchSegmentsParams struct {
+	SkipSegmentsParams
+	Page     *int  `url:"number,omitempty"`
+	MinVotes *int  `url:"minVotes,omitempty"`
+	MaxVotes *int  `url:"maxVotes,omitempty"`
+	MinViews *int  `url:"minViews,omitempty"`
+	MaxViews *int  `url:"maxViews,omitempty"`
+	Hidden   *bool `url:"hidden,omitempty"`
+	Ignored  *bool `url:"ignored,omitempty"`
 }
 
-func SearchSegments(params SkipAndSearchSegmentsConfig) {
+func SkipSegments(params SkipSegmentsParams) {
 }
 
-type LockCategoriesConfig struct {
-	Id         string
-	ActionType []SegmentActionType
+func SearchSegments(params SearchSegmentsParams) {
 }
 
-func LockCategories(params LockCategoriesConfig) {
+type LockCategoriesParams struct {
+	Id         string              `url:"videoID"`
+	ActionType []SegmentActionType `url:"actionTypes"`
 }
 
-type LockReasonConfig struct {
-	LockCategoriesConfig
-	Categories []SegmentCategory
+func LockCategories(params LockCategoriesParams) {
 }
 
-func LockReason(params LockCategoriesConfig) {
+type LockReasonParams struct {
+	LockCategoriesParams
+	Categories []SegmentCategory `url:"categories"`
+}
 
+func LockReason(params LockCategoriesParams) {
 }
 
 func SegmentInfo(uuid ...string) {
@@ -46,60 +47,80 @@ func SegmentInfo(uuid ...string) {
 
 func UserID(username string, isExact *bool) {}
 
-type UserInfoConfig struct {
+type UserInfoParams struct {
 	UserID       string    `url:"userID"`
 	PublicUserID *string   `url:"publicUserID,omitempty"`
 	Values       *[]string `url:"values,omitempty"`
 }
 
-func UserInfo(params UserInfoConfig) {
-
+type UserInfoResponse struct {
+	UserID              string  `json:"userID"`
+	UserName            string  `json:"userName"`
+	MinutesSaved        float64 `json:"minutesSaved"`
+	SegmentCount        int     `json:"segmentCount"`
+	IgnoredSegmentCount int     `json:"ignoredSegmentCount"`
+	ViewCount           int     `json:"viewCount"`
+	IgnoredViewCount    int     `json:"ignoredViewCount"`
+	Warnings            int     `json:"warnings"`
+	Reputation          float64 `json:"reputation"`
+	IsVIP               int     `json:"vip"`
+	LastSegmentID       string  `json:"lastSegmentID"`
+	Permissions         struct {
+		Category bool `json:"category"`
+	} `json:"permissions"`
 }
 
-type (
-	UserStatsConfig struct {
-		UserID               string `url:"userID"`
-		PublicUserID         string `url:"publicUserID"`
-		FetchCategoryStats   bool   `url:"fetchCategoryStats"`
-		FetchActionTypeStats bool   `url:"fetchActionTypeStats"`
-	}
-	UserStatsResponse struct {
-		UserId       string `json:"userID"`
-		Username     string `json:"userName"`
-		OverallStats struct {
-			MinutesSaved int `json:"minutesSaved"`
-			SegmentCount int `json:"segmentCount"`
-		} `json:"overallStats"`
-		CategoryCount struct {
-			Sponsor         int `json:"sponsor"`
-			Intro           int `json:"intro"`
-			Outro           int `json:"outro"`
-			Interaction     int `json:"interaction"`
-			Selfpromo       int `json:"selfpromo"`
-			NonMusic        int `json:"music_offtopic"`
-			Preview         int `json:"preview"`
-			Highlight       int `json:"poi_highlight"`
-			Tangents        int `json:"filler"`
-			Hook            int `json:"hook"`
-			ExclusiveAccess int `json:"exclusive_access"`
-			Chapter         int `json:"chapter"`
-		} `json:"categoryCount,omitempty"`
-		ActionTypeCount struct {
-			Skip            int `json:"skip"`
-			Mute            int `json:"mute"`
-			FullLabel       int `json:"full"`
-			PointOfInterest int `json:"poi"`
-			Chapter         int `json:"chapter"`
-		} `json:"actionTypeCount,omitempty"`
-	}
-)
-
-func UserStats(params UserStatsConfig) {
-	url := baseEndpoint + "/userStats"
+func UserInfo(params UserInfoParams) {
 }
 
-func GetViewsForUser(userId string) (response *HTTPWrapper[UserStatsResponse], err error) {
-	juicyData, skillIssue := httpWrapper[UserStatsResponse](httpGET, "/getViewsForUser", nil)
+type UserStatsParams struct {
+	UserID               string `url:"userID"`
+	PublicUserID         string `url:"publicUserID"`
+	FetchCategoryStats   bool   `url:"fetchCategoryStats"`
+	FetchActionTypeStats bool   `url:"fetchActionTypeStats"`
+}
+type UserStatsResponse struct {
+	UserId       string `json:"userID"`
+	Username     string `json:"userName"`
+	OverallStats struct {
+		MinutesSaved int `json:"minutesSaved"`
+		SegmentCount int `json:"segmentCount"`
+	} `json:"overallStats"`
+	CategoryCount struct {
+		Sponsor         int `json:"sponsor"`
+		Intro           int `json:"intro"`
+		Outro           int `json:"outro"`
+		Interaction     int `json:"interaction"`
+		Selfpromo       int `json:"selfpromo"`
+		NonMusic        int `json:"music_offtopic"`
+		Preview         int `json:"preview"`
+		Highlight       int `json:"poi_highlight"`
+		Tangents        int `json:"filler"`
+		Hook            int `json:"hook"`
+		ExclusiveAccess int `json:"exclusive_access"`
+		Chapter         int `json:"chapter"`
+	} `json:"categoryCount,omitempty"`
+	ActionTypeCount struct {
+		Skip            int `json:"skip"`
+		Mute            int `json:"mute"`
+		FullLabel       int `json:"full"`
+		PointOfInterest int `json:"poi"`
+		Chapter         int `json:"chapter"`
+	} `json:"actionTypeCount,omitempty"`
+}
 
-	return (*HTTPWrapper[UserStatsResponse])(juicyData), skillIssue
+func UserStats(params UserStatsParams) (response *HTTPWrapper[UserViewsResponse], error error) {
+	juicyData, err := httpWrapper[UserViewsResponse](httpGET, "/userStats", nil)
+
+	return juicyData, err
+}
+
+type UserViewsResponse struct {
+	ViewCount int `json:"viewCount"`
+}
+
+func GetViewsForUser(userId string) (response *HTTPWrapper[UserViewsResponse], error error) {
+	juicyData, err := httpWrapper[UserViewsResponse](httpGET, "/getViewsForUser", nil)
+
+	return (*HTTPWrapper[UserViewsResponse])(juicyData), err
 }
