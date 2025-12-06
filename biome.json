@@ -33,7 +33,7 @@
       "recommended": false,
       "complexity": {
         "noUselessThisAlias": "error",
-        "noUselessTypeConstraint": "error"
+        "noUselessTypeConstraint": "warn"
       },
       "correctness": {
         "noUnusedVariables": "off",

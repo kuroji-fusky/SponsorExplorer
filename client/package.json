@@ -17,9 +17,9 @@
     "dexie": "^4.2.0",
     "dexie-react-hooks": "^4.2.0",
     "motion": "^12.7.4",
-    "next": "15.2.3",
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "next": "15.3.6",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
     "react-icons": "^5.5.0"
   },
   "devDependencies": {
