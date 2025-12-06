@@ -2,8 +2,8 @@ import { fetchWrapper } from "@/utils/fetchWrapper"
 import type { GetAPIResponseType } from "@/types"
 import { SB_FETCH_OPTIONS } from "@/utils/constants"
 
-import { type GET as SkippableSeggies } from "@/app/api/sb/skippableSegments/route"
-import { type GET as LockCategories } from "@/app/api/sb/lockCategories/route"
+import type { GET as SkippableSeggies } from "@/app/api/sb/skippableSegments/route"
+import type { GET as LockCategories } from "@/app/api/sb/lockCategories/route"
 
 export const fetchSkipSegmentsClient = async (id: string, abortSignal: AbortSignal) => {
   let relativeSegments = null

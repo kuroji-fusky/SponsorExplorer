@@ -46,7 +46,10 @@ export default function VideoItemGrid(
         setSkippableSegments(d)
         setHasLoaded(true)
 
-        setSbSegments((v) => [...v, { id: props.id, data: d.relativeSegments }])
+        setSbSegments((v) => [
+          ...v,
+          { id: props.id, title: props.title, data: d.relativeSegments },
+        ])
       })
     }
 
