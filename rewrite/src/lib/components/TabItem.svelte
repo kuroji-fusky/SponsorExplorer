@@ -4,18 +4,24 @@
     HTMLAnchorAttributes,
     HTMLButtonAttributes,
   } from "svelte/elements";
+  import { twMerge } from "tailwind-merge";
 
-  type Lezzie = Omit<HTMLAnchorAttributes & HTMLButtonAttributes, "role">;
+  type HTMLTabAttrs = Omit<HTMLAnchorAttributes & HTMLButtonAttributes, "role">;
 
-  interface Props extends Lezzie {
+  interface Props extends HTMLTabAttrs {
     children?: Snippet;
   }
 
   const dynElement = "button";
 
-  const { children, class: cN, ...bruh }: Props = $props();
+  const { children, class: className, ...bruh }: Props = $props();
 </script>
 
-<svelte:element this={dynElement} role="tab" class={cN} {...bruh}>
+<svelte:element
+  this={dynElement}
+  role="tab"
+  class={twMerge(["shrink-0", className as string])}
+  {...bruh}
+>
   {@render children?.()}
 </svelte:element>
