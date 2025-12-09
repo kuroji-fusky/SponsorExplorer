@@ -25,6 +25,10 @@
   {#each _forPreload as font}
     <link rel="prefetch" href={font} as="font" crossorigin="anonymous" />
   {/each}
+  <!-- Preload third-party crap -->
+  <link rel="preconnect" href="https://www.youtube.com" crossorigin="anonymous" />
+  <link rel="preload" href="https://yt3.ggpht.com" as="fetch" fetchpriority="auto" />
+  <link rel="preload" href="https://i.ytimg.com" as="fetch" fetchpriority="high" />
 </svelte:head>
 
 <div class="grid grid-rows-[auto_1fr] min-h-screen">

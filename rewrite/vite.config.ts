@@ -13,11 +13,11 @@ export default defineConfig({
       base: "/",
       mode: "development",
       manifest: {
-        name: "Kitstory",
+        name: "SponsorExplorer",
+        short_name: "SponsorExplorer",
         start_url: "/",
         scope: "/",
-        short_name: "Kitstory",
-        description: "Making cringe",
+        description: "Browse sponsor segments and shit",
         display: "minimal-ui",
       },
       devOptions: {
