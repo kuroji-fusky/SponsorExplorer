@@ -20,11 +20,10 @@
   let rawInputEl: HTMLInputElement;
   let bindRawInput = $state("");
 
-  const computedRawInputs = $derived.by(() => {
-    const rawStoreOnly = filterStore.map((s) => s.__rawInput!);
-
-    return [...rawStoreOnly, bindRawInput];
-  });
+  const computedRawInputs = $derived([
+    ...filterStore.map((s) => s.__rawInput!),
+    bindRawInput,
+  ]);
 
   onMount(() => {
     if (props.filters) {
