@@ -11,7 +11,7 @@
     filters?: FilterParams[];
   }
 
-  const props: Props = $props();
+  const { filters }: Props = $props();
 
   let filterStore = $state<FilterParams[]>([]);
   // biome-ignore lint/style/useConst: temporary
@@ -26,8 +26,8 @@
   ]);
 
   onMount(() => {
-    if (props.filters) {
-      props.filters.forEach((item) => filterStore.push(item));
+    if (filters) {
+      filters.forEach((item) => filterStore.push(item));
     }
 
     // some data binding

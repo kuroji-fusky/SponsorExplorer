@@ -1,13 +1,20 @@
-interface FilterMeta {
+import { AllActionTypes, AllCategories } from "./sponsorBlock"
+
+interface _FilterMetaKind {
   kind: "yt" | "sponsorblock"
-  label?: string
-
-  type?: "string" | "number" | "boolean"
-  constraints?: unknown[]
-
-  aliasOf?: string
-  helpText?: string
 }
+
+type FilterMeta =
+  | (_FilterMetaKind & {
+      aliasOf: string
+    })
+  | (_FilterMetaKind & {
+      type?: "string" | "number"
+      label?: string
+      constraints?: unknown
+
+      helpText?: string
+    })
 
 export const FILTER_KIND_MAP =
   // biome-ignore format: consistency
@@ -15,9 +22,8 @@ export const FILTER_KIND_MAP =
   username: { kind: "sponsorblock", label: "Username", type: "string" },
   userid: { kind: "sponsorblock", label: "User ID", type: "string" },
   uuid: { kind: "sponsorblock", label: "Submission ID", type: "string" },
-  category: { kind: "sponsorblock", label: "Categ", type: "string" },
-
-  action_type: { kind: "sponsorblock", label: "Action type", type: "string" },
+  category: { kind: "sponsorblock", label: "Category", type: "string", constraints: AllCategories },
+  action_type: { kind: "sponsorblock", label: "Action type", type: "string", constraints: AllActionTypes },
 
   segment_length: { kind: "sponsorblock", label: "Segment length", type: "number" },
 
@@ -25,7 +31,6 @@ export const FILTER_KIND_MAP =
   category_count: { kind: "sponsorblock", label: "No. of categories", type: "number" },
   segment_count: { kind: "sponsorblock", label: "No. of segments",type: "number" },
   
-
   id: { kind: "yt", label: "Video ID", type: "string" },
   vid: { kind: "yt", aliasOf: "id" },
 
@@ -35,17 +40,18 @@ export const FILTER_KIND_MAP =
   cid: { kind: "yt", aliasOf: "channel_id" },
 
   channel_handle: { kind: "yt", label: "Channel handle" },
-  ch: { kind: "yt", aliasOf: "channel_handle" },
+  handle: { kind: "yt", aliasOf: "channel_handle" },
 
   channel_title: { kind: "yt", label: "Channel title" },
   ct: { kind: "yt", aliasOf: "channel_title" },
-} satisfies Record<string, FilterMeta>
+} as const satisfies Record<string, FilterMeta>
 
 export const FILTER_OPERATOR_MAP = {
   "-": "neg",
   OR: "or",
   AND: "and",
   $: "has",
+  "*": "all",
   "==": "eq",
   ">": "gt",
   ">=": "geq",
