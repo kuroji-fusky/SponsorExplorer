@@ -14,11 +14,11 @@
   <div
     class="overflow-hidden flex w-(--sidebar-width)"
     style={`--sidebar-width: ${SIDEBAR_WIDTH}px`}
-    transition:slide={{ duration: 900, axis: "x" }}
+    transition:slide={{ duration: 280, axis: "x" }}
   >
     <aside
       id="sidebar-contents"
-      class="h-full flex flex-col shrink-0 w-[calc(var(--sidebar-width)*1)]"
+      class="h-full flex flex-col shrink-0 w-[calc(var(--sidebar-width)*0.98)]"
     >
       <div id="tab-container" class="flex">
         <div class="flex gap-x-2 flex-1" role="tablist">
@@ -32,6 +32,6 @@
       </div>
       <div class="w-full grid px-2 py-2">INAMO</div>
     </aside>
-    <div id="panel-grip" class="flex-1 h-full w-2 bg-red-300"></div>
+    <div id="panel-grip" class="flex-1 size-full bg-red-300"></div>
   </div>
 {/if}

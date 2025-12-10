@@ -1,14 +1,9 @@
 <script>
-  import InputFilter from "$lib/components/InputFilter.svelte";
-  import Meta from "$lib/components/Meta.svelte";
-  import Pagination from "$lib/components/Pagination.svelte";
+  import { Meta } from "$lib/components";
 </script>
 
-<Meta title="Simple rite" />
+<Meta title="Home" />
 
 <header>
   <h1>SponsorExplorer</h1>
-  <InputFilter />
-
-  <Pagination basePath="/" />
 </header>

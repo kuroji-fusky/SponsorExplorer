@@ -1,15 +1,15 @@
 <script lang="ts">
   import "../app.css";
   import favicon from "$lib/assets/favicon.svg";
-  import Navbar from "$lib/components/layouts/Navbar.svelte";
-  import Footer from "$lib/components/layouts/Footer.svelte";
+  import Navbar from "./navbar.svelte";
+  import Footer from "./footer.svelte";
 
   // Load font sources for preloading
   import _inter400 from "@fontsource/inter/files/inter-latin-400-normal.woff2?url";
   import _inter600 from "@fontsource/inter/files/inter-latin-600-normal.woff2?url";
   import _inter700 from "@fontsource/inter/files/inter-latin-700-normal.woff2?url";
   import { pwaInfo } from "virtual:pwa-info";
-  import Sidebar from "$lib/components/layouts/Sidebar.svelte";
+  import { Sidebar } from "$lib/components";
 
   const _forPreload = [_inter400, _inter600, _inter700];
 

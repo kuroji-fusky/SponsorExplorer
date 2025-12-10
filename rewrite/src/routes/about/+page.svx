@@ -1,0 +1,22 @@
+<script>
+  import { Meta } from "$lib/components"
+</script>
+
+<Meta title="About | SponsorExplorer" />
+
+**SponsorExplorer** is a hobby project created by Kuro; mainly to inspect submitted [SponsorBlock](https://github.com/ajayyy/SponsorBlock) segments in real-time and as a modern UI rewrite of Lartza's [SBbrowser](https://sb.ltn.fi). Extending features that utilizes the YouTube Data API and much more to monitor submissions.
+
+My motivation for creating SponsorExplorer in the first place is creating a Tampermonkey script
+for SBbrowser to:
+
+- Distinguish segments that are color-coded respectively
+- Include YouTube titles and thumbnails from submissions via the YouTube API
+
+...then it dawned in me that a thought crosses my mind, "what if I create a website that tracks
+submissions from channels?" Because I've noticed that some of the features are lacking and it's just left the way it is since 2022, with incremental updates from SponsorBlock here and there.
+
+Besides from adding color code from the categories, I got to work. Even adding the ability to inspect at YouTube channels for any available submissions, if any; something that SB Browser doesn't do.
+
+## FAQ
+
+Crooked

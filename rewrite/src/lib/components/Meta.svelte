@@ -5,24 +5,24 @@
     otherMeta?: Record<string, unknown>;
   }
 
-  const props: Props = $props();
+  const { title, description, otherMeta }: Props = $props();
 </script>
 
 <svelte:head>
-  <title>{props.title}</title>
-  <meta property="og:title" content={props.title} />
-  <meta name="twitter:title" content={props.title} />
+  <title>{title}</title>
+  <meta property="og:title" content={title} />
+  <meta name="twitter:title" content={title} />
 
-  {#if props.description}
-    <meta name="description" content={props.description} />
-    <meta property="og:description" content={props.description} />
-    <meta name="twitter:description" content={props.description} />
+  {#if description}
+    <meta name="description" content={description} />
+    <meta property="og:description" content={description} />
+    <meta name="twitter:description" content={description} />
   {/if}
 
   <meta property="og:site_name" content="SponsorExplorer" />
 
-  {#if props.otherMeta}
-    {#each Object.entries(props.otherMeta) as [key, val]}
+  {#if otherMeta}
+    {#each Object.entries(otherMeta) as [key, val]}
       <meta name={key} content={String(val)} />
     {/each}
   {/if}
