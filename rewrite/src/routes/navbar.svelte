@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { MonitorIcon, SearchIcon, Settings2Icon } from "@lucide/svelte";
+  import {
+    SquareKanbanIcon,
+    MonitorIcon,
+    SearchIcon,
+    Settings2Icon,
+    XIcon,
+  } from "@lucide/svelte";
   import { IS_MOBILE, SIDEBAR_OPEN_MOBILE } from "$lib/stores";
   import { LogoNav } from "$lib/components";
   import { onMount } from "svelte";
@@ -16,23 +22,34 @@
   }
 
   onMount(() => {
-    const { abort, signal } = new AbortController();
     resizeWin();
 
-    window.addEventListener("resize", resizeWin, { signal });
+    window.addEventListener("resize", resizeWin);
 
     return () => {
-      abort();
+      window.removeEventListener("resize", resizeWin);
     };
   });
 </script>
 
-<nav class="fixed top-0 inset-x-0 flex items-center h-14 px-3">
+<nav class="bg-neutral-950/50 backdrop-blur-sm z-10 fixed top-0 inset-x-0 flex items-center h-14 px-3 border-b border-b-neutral-500">
   <LogoNav />
   <!-- Spacer -->
   <span class="flex-1"></span>
   <!-- Right-side action buttons -->
   <div class="flex items-center gap-x-0.5">
+    <button
+      class="px-2.5 py-2 border rounded-md inline-flex items-center group"
+    >
+      <span class="relative">
+        <SquareKanbanIcon size={18} class="group-hover:opacity-0" />
+        <XIcon
+          size={18}
+          class="absolute inset-0 opacity-0 group-hover:opacity-100"
+        />
+      </span>
+      <span class="ml-2 leading-none">Kanban mode</span>
+    </button>
     <button class="p-2 border rounded-md">
       <SearchIcon size={18} />
     </button>

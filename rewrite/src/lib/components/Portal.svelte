@@ -12,7 +12,13 @@
 </script>
 
 {#if browser}
-  <div data-portal="" class="contents" use:moveDom={to}>
+  <div data-portal="" use:moveDom={to}>
     {@render children?.()}
   </div>
 {/if}
+
+<style>
+  [data-portal] {
+    @apply contents empty:hidden;
+  }
+</style>

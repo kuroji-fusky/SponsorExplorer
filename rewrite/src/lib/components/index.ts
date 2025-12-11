@@ -11,6 +11,7 @@ import YoutubePlayer from "./YoutubePlayer.svelte"
 export {
   Button,
   InputFilter,
+  LandingSearchField,
   LogoNav,
   Link,
   Meta,

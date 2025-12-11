@@ -28,7 +28,7 @@
   {/if}
 </div>
 
-<style lang="postcss">
+<style>
   [data-focus-guard] {
     @apply pointer-events-none sr-only;
   }

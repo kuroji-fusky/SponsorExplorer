@@ -12,7 +12,7 @@
 
 <a
   {href}
-  class={twMerge("underline text-red-300", className as string)}
+  class={twMerge("text-red-100 relative after:absolute after:block after:h-px after:inset-x-0 after:bottom-0 after:-z-10 after:bg-red-50/40 hover:after:bg-red-100", className as string)}
   {...others}
 >
   {@render children?.()}

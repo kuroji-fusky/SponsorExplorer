@@ -36,9 +36,7 @@
   <div class="flex">
     <Sidebar />
     <div class="flex-1 h-full grid grid-rows-[1fr_auto] col-span-2">
-      <main>
-        {@render children?.()}
-      </main>
+      {@render children?.()}
       <Footer />
     </div>
   </div>
