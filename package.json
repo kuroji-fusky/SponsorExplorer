@@ -6,18 +6,12 @@
     "preinstall": "npx only-allow pnpm",
     "dev": "pnpm --filter se-next-client dev",
     "build": "pnpm --filter se-next-client build",
-    "lint": "biome check",
-    "server:dev": "pnpm --filter sb-browser-api dev"
+    "preview": "pnpm --filter se-next-client preview",
+    "lint": "biome check"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "only-allow": "^1.2.1"
   },
-  "packageManager": "pnpm@9.15.0",
-  "pnpm": {
-    "overrides": {
-      "@types/react": "npm:types-react@19.0.0-rc.1",
-      "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
-    }
-  }
+  "packageManager": "pnpm@9.15.0"
 }
