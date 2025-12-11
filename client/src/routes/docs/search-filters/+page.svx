@@ -1,0 +1,5 @@
+---
+title: Search filters
+---
+
+My *gosh* this was a pain in the ass to implement from scratch, even with the help of AI yet still a crucial feaure to find the things you need.

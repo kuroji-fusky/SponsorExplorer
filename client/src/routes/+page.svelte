@@ -13,7 +13,7 @@
       title: "Tools 'n Queries",
       excerpt:
         "Filter more than just segments and videos - you can filter by length and also save 'em!",
-      href: "/docs/filters",
+      href: "/docs/search-filters",
     },
     {
       title: "FAQ",
