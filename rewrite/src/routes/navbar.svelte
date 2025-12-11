@@ -1,33 +1,35 @@
 <script lang="ts">
-  import {
-    ChevronsUpDownIcon,
-    MenuIcon,
-    MonitorIcon,
-    SearchIcon,
-    Settings2Icon,
-  } from "@lucide/svelte";
-  import { SIDEBAR_OPEN } from "$lib/stores";
+  import { MonitorIcon, SearchIcon, Settings2Icon } from "@lucide/svelte";
+  import { IS_MOBILE, SIDEBAR_OPEN_MOBILE } from "$lib/stores";
+  import { LogoNav } from "$lib/components";
+  import { onMount } from "svelte";
+
+  const MOBILE_VIEWPORT_LIMIT = 1280;
+
+  function resizeWin() {
+    IS_MOBILE.set(Math.round(window.innerWidth) <= MOBILE_VIEWPORT_LIMIT);
+
+    // This ensures that the mobile nav always gets closed when resizing
+    if (!$IS_MOBILE && $SIDEBAR_OPEN_MOBILE) {
+      SIDEBAR_OPEN_MOBILE.set(false);
+    }
+  }
+
+  onMount(() => {
+    const { abort, signal } = new AbortController();
+    resizeWin();
+
+    window.addEventListener("resize", resizeWin, { signal });
+
+    return () => {
+      abort();
+    };
+  });
 </script>
 
 <nav class="fixed top-0 inset-x-0 flex items-center h-14 px-3">
-  <button
-    class="p-2 cursor-pointer rounded-md"
-    aria-controls="sidebar-contents"
-    onclick={() => SIDEBAR_OPEN.set(!$SIDEBAR_OPEN)}
-  >
-    <MenuIcon size={20} />
-  </button>
-  <div class="flex items-center gap-x-2.5 ml-1">
-    <div class="inline-flex items-center hover:bg-neutral-800/75 rounded-md">
-      <a href="/" class="text-lg font-bold px-2 py-0.5">SponsorExplorer</a>
-      <button
-        class="px-1 py-2 hover:bg-neutral-700/50 cursor-pointer rounded-tr-md rounded-br-md"
-      >
-        <ChevronsUpDownIcon size={16} />
-      </button>
-    </div>
-    <span>breadcrumb item</span>
-  </div>
+  <LogoNav />
+  <!-- Spacer -->
   <span class="flex-1"></span>
   <!-- Right-side action buttons -->
   <div class="flex items-center gap-x-0.5">

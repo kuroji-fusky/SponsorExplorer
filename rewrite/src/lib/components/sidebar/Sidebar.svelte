@@ -1,37 +1,56 @@
 <script lang="ts">
-  import TabItem from "../TabItem.svelte";
-
-  import { SIDEBAR_OPEN } from "$lib/stores";
-  import { slide } from "svelte/transition";
-  import { ChevronsRightIcon } from "@lucide/svelte";
+  import { SIDEBAR_OPEN, SIDEBAR_OPEN_MOBILE, IS_MOBILE } from "$lib/stores";
+  import { slide, fly } from "svelte/transition";
+  import SidebarContents from "./SidebarContents.svelte";
+  import Portal from "../Portal.svelte";
+  import LogoNav from "../LogoNav.svelte";
+  import FocusLock from "../FocusLock.svelte";
+  import { onMount } from "svelte";
 
   // hard code the default width for the time being
   // TODO: fetch width state from localstorage
-  const SIDEBAR_WIDTH = 280;
+  const SIDEBAR_WIDTH = 300;
+
+  function closeSidebarMobile() {
+    if (!$IS_MOBILE) return;
+    SIDEBAR_OPEN_MOBILE.set(false);
+  }
+
+  onMount(() => {
+    const { abort, signal } = new AbortController();
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+
+      closeSidebarMobile();
+      return;
+    });
+  });
 </script>
 
-{#if $SIDEBAR_OPEN}
+{#if !$IS_MOBILE && $SIDEBAR_OPEN}
   <div
-    class="overflow-hidden flex w-(--sidebar-width)"
+    class="flex overflow-hidden w-(--sidebar-width)"
     style={`--sidebar-width: ${SIDEBAR_WIDTH}px`}
     transition:slide={{ duration: 280, axis: "x" }}
   >
-    <aside
-      id="sidebar-contents"
-      class="h-full flex flex-col shrink-0 w-[calc(var(--sidebar-width)*0.98)]"
-    >
-      <div id="tab-container" class="flex">
-        <div class="flex gap-x-2 flex-1" role="tablist">
-          <TabItem>History</TabItem>
-          <TabItem>Playlist</TabItem>
-        </div>
-
-        <button aria-label="Expand" class="shrink-0 p-2">
-          <ChevronsRightIcon />
-        </button>
-      </div>
-      <div class="w-full grid px-2 py-2">INAMO</div>
-    </aside>
+    <SidebarContents />
     <div id="panel-grip" class="flex-1 size-full bg-red-300"></div>
   </div>
 {/if}
+
+<Portal>
+  {#if $IS_MOBILE && $SIDEBAR_OPEN_MOBILE}
+    <FocusLock ondismiss={closeSidebarMobile}>
+      <div
+        transition:fly={{ duration: 280, x: "-100%", opacity: 1 }}
+        class="fixed grid grid-rows-[auto_1fr] left-0 inset-y-0 bg-neutral-800"
+      >
+        <div class="flex items-center px-3 h-14 pr-4">
+          <LogoNav mobile_layout />
+        </div>
+        <SidebarContents mobile_layout />
+      </div>
+    </FocusLock>
+  {/if}
+</Portal>

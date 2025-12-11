@@ -15,7 +15,7 @@ const config = {
   preprocess: [
     vitePreprocess(),
     mdsvex({
-      extensions: [".svx", ".md"],
+      extensions: [".svx"],
       layout: { _: `${__dirname}/src/mdsvex.svelte` },
     }),
   ],
@@ -25,10 +25,11 @@ const config = {
       directives:
         // biome-ignore format: readability
         {
-          "script-src": ["self", "unsafe-eval", "www.youtube.com"],
+          "script-src": ["self", "unsafe-eval", "www.youtube.com", "static.cloudflareinsights.com"],
           "font-src": ["self"],
           "connect-src": ["self", "https:", "localhost:*", "api.fusky.dev", "yt3.ggpht.com", "i.ytimg.com"],
           "frame-ancestors": ["self", "https://www.youtube-nocookie.com"],
+          "worker-src": ["self", "blob:*"],
           "upgrade-insecure-requests": true
         },
       mode: "nonce",
