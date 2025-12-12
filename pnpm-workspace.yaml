@@ -1,6 +1,6 @@
 packages:
   - client/
-  - packages/kuro-timeline/packages/*
+  - timeline/packages/*
 
 onlyBuiltDependencies:
   - '@tailwindcss/oxide'
