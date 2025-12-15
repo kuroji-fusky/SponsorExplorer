@@ -102,8 +102,8 @@
       {/each}
     </div>
   </section>
-  <section class="mb-28">
-    <div class="*:inline-block *:text-lg *:leading-none">
+  <section class="mb-28 space-y-6 text-center">
+    <div class="*:text-lg *:leading-none">
       <span>Created with</span>
       <HeartIcon class="align-middle mx-1 mb-1.5 inline-block" />
       <span>{" by "}</span>

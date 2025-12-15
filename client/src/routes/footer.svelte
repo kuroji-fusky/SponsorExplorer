@@ -11,13 +11,13 @@
   class="py-4 px-6 flex items-center justify-between max-w-7xl mx-auto w-full"
 >
   <span>
-    {"© 2025 "}<a
+    {"© 2024-2026 "}<Link
       href="https://kurojifusky.com/"
       rel="noopenner noreferrer"
       target="_blank"
     >
       {"Kuroji Fusky"}
-    </a>{"; MIT licensed"}
+    </Link>{"; MIT licensed"}
   </span>
   <div class="inline-flex gap-x-4">
     {#each footerLinks as { href, text }}

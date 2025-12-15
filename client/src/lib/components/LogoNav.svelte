@@ -1,17 +1,14 @@
 <script lang="ts">
   import { SIDEBAR_OPEN, SIDEBAR_OPEN_MOBILE, IS_MOBILE } from "$lib/stores";
   import { ChevronsUpDownIcon, MenuIcon } from "@lucide/svelte";
+  import Breadcrumbs from "./Breadcrumbs.svelte";
 
   const { mobile_layout = false }: { mobile_layout?: boolean } = $props();
 
   function toggleSidebar() {
-    if (!$IS_MOBILE) {
-      SIDEBAR_OPEN.set(!$SIDEBAR_OPEN);
-      return;
-    }
-
-    SIDEBAR_OPEN_MOBILE.set(!$SIDEBAR_OPEN_MOBILE);
-    return;
+    !$IS_MOBILE
+      ? SIDEBAR_OPEN.set(!$SIDEBAR_OPEN)
+      : SIDEBAR_OPEN_MOBILE.set(!$SIDEBAR_OPEN_MOBILE);
   }
 </script>
 
@@ -23,17 +20,21 @@
   <MenuIcon size={20} />
 </button>
 <div class="flex items-center gap-x-2.5 ml-1">
-  <div class="inline-flex items-center hover:bg-neutral-800/75 rounded-md">
+  <div
+    class={!mobile_layout
+      ? "hidden md:inline-flex items-center hover:bg-neutral-800/75 rounded-md"
+      : "inline-flex items-center"}
+  >
     <a href="/" class="text-lg font-bold px-2 py-0.5">SponsorExplorer</a>
     {#if !mobile_layout}
       <button
-        class="px-1 py-2 hover:bg-neutral-700/50 cursor-pointer rounded-tr-md rounded-br-md"
+        class="px-1 py-2 hover:bg-neutral-700/50 cursor-pointer rounded-tr-md rounded-br-md hover:opacity-100 opacity-60"
       >
-        <ChevronsUpDownIcon size={16} />
+        <ChevronsUpDownIcon size={15} />
       </button>
     {/if}
   </div>
   {#if !mobile_layout}
-    <span>breadcrumb item</span>
+    <Breadcrumbs crumb1={{ kind: "default", text: "Channel", href: "/channel/a" }} />
   {/if}
 </div>
