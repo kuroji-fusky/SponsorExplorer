@@ -16,13 +16,15 @@
     "indentStyle": "space",
     "indentWidth": 2,
     "lineEnding": "lf",
-    "lineWidth": 80,
+    "lineWidth": 100,
     "attributePosition": "auto",
     "bracketSpacing": true,
     "ignore": [
-      "**/.next/**",
-      "**/proxy/**"
-    ]
+      "**/.svelte-kit/**",
+      "**/proxy/**",
+      "**/timeline/**"
+    ],
+    "include": []
   },
   "organizeImports": {
     "enabled": true
@@ -54,8 +56,7 @@
       }
     },
     "ignore": [
-      "sbbrowser-api/**",
-      "client/.next/**"
+      "client/.svelte-kit/**"
     ]
   },
   "javascript": {
