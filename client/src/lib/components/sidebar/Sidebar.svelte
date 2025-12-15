@@ -43,8 +43,8 @@
   {#if $IS_MOBILE && $SIDEBAR_OPEN_MOBILE}
     <FocusLock ondismiss={closeSidebarMobile}>
       <div
-        transition:fly={{ duration: 280, x: "-100%", opacity: 1 }}
-        class="fixed grid grid-rows-[auto_1fr] left-0 inset-y-0 bg-neutral-800"
+        transition:fly={{ duration: 250, x: "-100%", opacity: 1 }}
+        class="z-20 fixed grid grid-rows-[auto_1fr] left-0 inset-y-0 bg-neutral-800"
       >
         <div class="flex items-center px-3 h-14 pr-4">
           <LogoNav mobile_layout />

@@ -19,7 +19,7 @@
   {/if}
   <div
     onpointerdown={ondismiss}
-    class="bg-black/60 fixed inset-0"
+    class="bg-black/60 z-20 fixed inset-0"
     transition:fade={{ duration: 100 }}
   ></div>
   {@render children?.()}
