@@ -1,7 +1,7 @@
 packages:
   - client/
   - timeline/packages/*
-  - ui/packages/@kuro-ui-svelte/*
+  - ui/packages/*
 
 onlyBuiltDependencies:
   - "@tailwindcss/oxide"

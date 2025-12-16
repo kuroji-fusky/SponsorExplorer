@@ -1,7 +1,3 @@
-A temporary directory for rewriting the entire thing - yes, I'm a masochist
+## Note on dependencies
 
-```
-pnpm i --ignore-workspace
-```
-
-Install with `--ignore-workspace` to treat it as its standalone installation
+Both `@kuro-ui/svelte` and `@kuroji-fusky/kuro-timeline-svelte` are the packages defined as a submodule.
