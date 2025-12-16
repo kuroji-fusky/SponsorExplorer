@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "dev": "pnpm --filter se-next-client dev",
-    "build": "pnpm --filter se-next-client build",
-    "preview": "pnpm --filter se-next-client preview",
+    "dev": "pnpm --filter se-frontend dev",
+    "build": "pnpm --filter se-frontend build",
+    "preview": "pnpm --filter se-frontend preview",
     "lint": "biome check"
   },
   "devDependencies": {
