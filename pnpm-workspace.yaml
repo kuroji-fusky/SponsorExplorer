@@ -1,9 +1,10 @@
 packages:
   - client/
   - timeline/packages/*
+  - ui/packages/@kuro-ui-svelte/*
 
 onlyBuiltDependencies:
-  - '@tailwindcss/oxide'
+  - "@tailwindcss/oxide"
   - esbuild
   - sharp
   - workerd

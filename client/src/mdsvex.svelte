@@ -1,16 +1,20 @@
 <script lang="ts" module>
   import { Link as a } from "$lib/components";
   export { a };
+
+  export let title: string;
 </script>
 
 <script lang="ts">
   import type { Snippet } from "svelte";
 
-  interface Props {
-    children?: Snippet;
-  }
-
-  const { children }: Props = $props();
+  const {
+    children,
+  }: {
+    children: Snippet;
+  } = $props();
 </script>
 
-{@render children?.()}
+<div data-mdsvex-wrapper="">
+  {@render children()}
+</div>

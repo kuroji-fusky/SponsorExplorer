@@ -17,6 +17,9 @@ const config = {
     mdsvex({
       extensions: [".svx"],
       layout: { _: `${__dirname}/src/mdsvex.svelte` },
+      smartypants: {
+        dashes: "oldschool",
+      },
     }),
   ],
   kit: {

@@ -1,3 +1,6 @@
 [submodule "packages/kuro-timeline"]
 	path = timeline
 	url = https://github.com/kuroji-fusky/kuro-timeline
+[submodule "ui"]
+	path = ui
+	url = https://github.com/kuroji-fusky/kuro-ui
