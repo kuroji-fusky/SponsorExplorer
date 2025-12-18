@@ -1,6 +1,6 @@
 <script lang="ts">
   import { ChevronsRightIcon } from "@lucide/svelte";
-  import TabItem from "../TabItem.svelte";
+  import TabItem from "../tabs/TabItem.svelte";
 
   const { mobile_layout = false }: { mobile_layout?: boolean } = $props();
 </script>

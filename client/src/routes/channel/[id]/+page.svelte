@@ -1,21 +1,14 @@
 <script lang="ts">
   import { Meta, Pagination, TabItem, VideoItemGrid } from "$lib/components";
-  import ChannelInfo from "$lib/components/panels/ChannelInfo.svelte";
+  import ChannelInfoWrapper from "$lib/components/panels/ChannelInfoWrapper.svelte";
+  import { page } from "$app/state";
+
+  const { channel_id: cid } = page.data;
 </script>
 
 <Meta title="Channel segments for ((channel))" />
 <main class="@container max-w-7xl mx-auto w-full px-6">
-  <section class="mb-2">
-    <div
-      role="tablist"
-      class="flex gap-x-2 *:data-[tab-active]:[--tab-active:bg-amber-600]"
-    >
-      <TabItem class="px-0.5 py-2">Channel vidyas</TabItem>
-      <TabItem class="px-0.5 py-2">Submissions</TabItem>
-    </div>
-    <ChannelInfo />
-  </section>
-
+  <ChannelInfoWrapper {cid} />
   <!-- Filters and tabs -->
   <div class="flex sticky top-14 bg-neutral-950 z-10 py-3">
     <div role="tablist" class="flex gap-x-2">

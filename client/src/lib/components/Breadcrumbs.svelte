@@ -1,6 +1,4 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
-
   interface Crumb<Kind extends string> {
     kind: Kind | "default";
     href: string;
@@ -15,7 +13,7 @@
   const { crumb1, crumb2 }: Props = $props();
 </script>
 
-<ol>
+<ol data-breadcrumbs="">
   <li>
     <a href={crumb1.href}>
       <span>

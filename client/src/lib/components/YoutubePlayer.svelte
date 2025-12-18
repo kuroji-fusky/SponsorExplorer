@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { getContext } from "svelte";
+  import type { Writable } from "svelte/store";
   import { twMerge } from "tailwind-merge";
 
   interface Props {
@@ -8,12 +10,33 @@
 
   const { id, class: className }: Props = $props();
 
-  const rnd = `player-mount-${crypto.randomUUID()}`;
+  const rnd = `player-${crypto.randomUUID()}`;
+
+  const yt_loaded = getContext<Writable<boolean>>("ytIframeLoaded");
+  $effect(() => {
+    if (!$yt_loaded) return;
+
+    new YT.Player(rnd, {
+      host: "https://www.youtube-nocookie.com",
+      height: "100%",
+      width: "100%",
+      videoId: id,
+      playerVars: {
+        rel: 0,
+        enablejsapi: 1,
+        showinfo: 0,
+        fs: 0
+      },
+    });
+  });
 </script>
 
-<noscript>couldn't mount yt player</noscript>
 <div data-yt-player="" class={twMerge("*:aspect-video", className)}>
   <span id={rnd}></span>
-  <iframe src={`https://www.youtube-nocookie.com/embed/${id}`} title="no">
-  </iframe>
+  {#if !$yt_loaded}
+  <div class="size-full flex items-center justify-center">
+    <span>Mounting player</span>
+    <noscript>Couldn't mount player, make sure that JavaScript is enabled.</noscript>
+    </div>
+  {/if}
 </div>

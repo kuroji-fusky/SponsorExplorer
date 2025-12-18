@@ -10,12 +10,15 @@
   import _inter700 from "@fontsource/inter/files/inter-latin-700-normal.woff2?url";
   import { pwaInfo } from "virtual:pwa-info";
   import { Sidebar } from "$lib/components";
+  import clientInit from "$lib/init";
 
   const _forPreload = [_inter400, _inter600, _inter700];
 
   const webManifest = $derived(pwaInfo ? pwaInfo.webManifest.linkTag : "");
 
   const { children } = $props();
+
+  $effect.pre(() => clientInit());
 </script>
 
 <svelte:head>
@@ -31,11 +34,11 @@
   <link rel="preload" href="https://i.ytimg.com" as="fetch" fetchpriority="high" />
 </svelte:head>
 
-<div class="grid grid-rows-[auto_1fr] min-h-screen">
+<div class="grid min-h-screen">
   <Navbar />
-  <div class="flex">
+  <div class="flex mt-14">
     <Sidebar />
-    <div class="flex-1 h-full grid grid-rows-[1fr_auto] col-span-2">
+    <div class="flex-1 h-full grid grid-rows-[1fr_auto]">
       {@render children?.()}
       <Footer />
     </div>

@@ -5,7 +5,6 @@
   import Portal from "../Portal.svelte";
   import LogoNav from "../LogoNav.svelte";
   import FocusLock from "../FocusLock.svelte";
-  import { onMount } from "svelte";
 
   // hard code the default width for the time being
   // TODO: fetch width state from localstorage
@@ -16,41 +15,45 @@
     SIDEBAR_OPEN_MOBILE.set(false);
   }
 
-  onMount(() => {
-    const { abort, signal } = new AbortController();
+  function handleCloseByEscape(e: KeyboardEvent) {
+    if (e.key !== "Escape") return;
 
-    window.addEventListener("keydown", (e) => {
-      if (e.key !== "Escape") return;
-
-      closeSidebarMobile();
-      return;
-    });
-  });
+    closeSidebarMobile();
+    return;
+  }
 </script>
 
-{#if !$IS_MOBILE && $SIDEBAR_OPEN}
-  <div
-    class="flex overflow-hidden w-(--sidebar-width)"
-    style={`--sidebar-width: ${SIDEBAR_WIDTH}px`}
-    transition:slide={{ duration: 280, axis: "x" }}
-  >
-    <SidebarContents />
-    <div id="panel-grip" class="flex-1 size-full bg-red-300"></div>
-  </div>
+<svelte:window onkeydown={handleCloseByEscape} />
+
+{#if !$IS_MOBILE}
+  {#if $SIDEBAR_OPEN}
+    <div
+      class="hidden xl:flex overflow-hidden w-(--sidebar-width)"
+      style={`--sidebar-width: ${SIDEBAR_WIDTH}px`}
+      transition:slide={{ duration: 280, axis: "x" }}
+    >
+      <SidebarContents />
+      <div id="panel-grip" class="flex-1 size-full bg-red-300"></div>
+    </div>
+  {/if}
 {/if}
 
 <Portal>
-  {#if $IS_MOBILE && $SIDEBAR_OPEN_MOBILE}
-    <FocusLock ondismiss={closeSidebarMobile}>
-      <div
-        transition:fly={{ duration: 250, x: "-100%", opacity: 1 }}
-        class="z-20 fixed grid grid-rows-[auto_1fr] left-0 inset-y-0 bg-neutral-800"
-      >
-        <div class="flex items-center px-3 h-14 pr-4">
-          <LogoNav mobile_layout />
+  {#if $IS_MOBILE}
+    {#if $SIDEBAR_OPEN_MOBILE}
+      <FocusLock ondismiss={closeSidebarMobile}>
+        <div
+          transition:fly={{ duration: 280, x: "-100%", opacity: 1 }}
+          class="z-20 fixed grid grid-rows-[auto_1fr] left-0 inset-y-0 bg-neutral-900 w-full sm:w-[320px] rounded-none sm:rounded-tr-lg sm:rounded-br-lg"
+        >
+          <div
+            class="flex items-center px-3 h-14 pr-4 border-b border-neutral-500"
+          >
+            <LogoNav mobile_layout />
+          </div>
+          <SidebarContents mobile_layout />
         </div>
-        <SidebarContents mobile_layout />
-      </div>
-    </FocusLock>
+      </FocusLock>
+    {/if}
   {/if}
 </Portal>
