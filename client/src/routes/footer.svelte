@@ -4,7 +4,7 @@
   const footerLinks = [
     { href: "/docs", text: "Docs" },
     { href: "/about", text: "About" },
-    { href: "/about", text: "Source code" },
+    { href: "https://github.com/kuroji-fusky/SponsorExplorer", text: "Source code" },
   ];
 </script>
 

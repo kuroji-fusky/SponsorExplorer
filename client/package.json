@@ -16,8 +16,8 @@
   "devDependencies": {
     "@fontsource/ibm-plex-mono": "^5.2.7",
     "@fontsource/inter": "^5.2.5",
-    "@kuroji-fusky/kuro-timeline-svelte": "workspace:*",
     "@kuro-ui/svelte": "workspace:*",
+    "@kuroji-fusky/kuro-timeline-svelte": "workspace:*",
     "@lucide/svelte": "^0.556.0",
     "@playwright/test": "^1.49.1",
     "@sveltejs/adapter-cloudflare": "^7.0.0",
@@ -26,6 +26,7 @@
     "@tailwindcss/forms": "^0.5.9",
     "@tailwindcss/typography": "^0.5.15",
     "@tailwindcss/vite": "^4.0.0",
+    "@types/youtube": "^0.1.2",
     "@vite-pwa/sveltekit": "^1.0.0",
     "class-variance-authority": "^0.7.0",
     "dexie": "^4.2.0",

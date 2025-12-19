@@ -28,10 +28,10 @@ const config = {
       directives:
         // biome-ignore format: readability
         {
-          "script-src": ["self", "unsafe-eval", "https:", "www.youtube.com", "static.cloudflareinsights.com"],
+          "script-src": ["self", "https:", "youtube.com", "tenor.com", "static.cloudflareinsights.com"],
           "font-src": ["self"],
-          "connect-src": ["self", "https:", "localhost:*", "www.youtube.com", "api.fusky.dev", "yt3.ggpht.com", "i.ytimg.com"],
-          "frame-ancestors": ["self", "https://www.youtube-nocookie.com"],
+          "connect-src": ["self", "https:", "localhost:*",  "youtube.com", "se-api.fusky.dev", "yt3.ggpht.com", "i.ytimg.com"],
+          "frame-ancestors": ["self", "tenor.com", "https://www.youtube-nocookie.com"],
           "worker-src": ["self", "blob:*"],
           "upgrade-insecure-requests": true
         },

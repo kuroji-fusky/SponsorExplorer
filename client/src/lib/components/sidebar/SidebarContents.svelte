@@ -1,13 +1,20 @@
 <script lang="ts">
+  import { liveQuery } from "dexie";
+  import { watchlistDB as db } from "../../db";
+
   import { ChevronsRightIcon } from "@lucide/svelte";
   import TabItem from "../tabs/TabItem.svelte";
 
   const { mobile_layout = false }: { mobile_layout?: boolean } = $props();
+
+  const watchlist = liveQuery(() => db.watchlist.toArray());
+  const recents = liveQuery(() => db.recentsList.toArray());
 </script>
 
 <aside
   id="sidebar-contents"
-  class="h-full flex flex-col shrink-0 w-[calc(var(--sidebar-width)*0.98)]"
+  class="h-full flex flex-col shrink-0"
+  style="width: calc(var(--sidebar-width)*0.985)"
 >
   <div id="tab-container" class="flex">
     <div class="flex gap-x-2 flex-1" role="tablist">

@@ -6,7 +6,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   // `/video/:id` route path matching
   if (path.startsWith("/v/") || path.startsWith("/video/https:")) {
-    const match = path.match(/(?:youtu\.be\/|v=|embed\/|v\/)([a-zA-Z0-9_-]{11})/)
+    const match = path.match(/(?:youtu\.be\/|v=|embed|shorts|\/|v\/)([a-zA-Z0-9_-]{11})/)
 
     if (
       match &&
