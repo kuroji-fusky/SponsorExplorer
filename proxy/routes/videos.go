@@ -9,7 +9,7 @@ import (
 )
 
 func VideoRoutes(e *echo.Echo) {
-	e.GET("/video/:id", func(c echo.Context) error {
+	e.GET("/yt/video/:id", func(c echo.Context) error {
 		channelId := c.Param("id")
 		prettifyOutput, _ := strconv.ParseBool(c.QueryParam("prettify"))
 
@@ -19,7 +19,7 @@ func VideoRoutes(e *echo.Echo) {
 		return c.JSON(http.StatusOK, cachedVideoMeta{})
 	})
 
-	e.POST("/video/:id", func(c echo.Context) error {
+	e.POST("/yt/video/:id", func(c echo.Context) error {
 		channelId := c.Param("id")
 
 		// Temporary fix for unused variable
@@ -28,7 +28,7 @@ func VideoRoutes(e *echo.Echo) {
 		return c.JSON(http.StatusOK, cachedVideoMeta{})
 	})
 
-	e.PATCH("/video/:id", func(c echo.Context) error {
+	e.PATCH("/yt/video/:id", func(c echo.Context) error {
 		channelId := c.Param("id")
 
 		// Temporary fix for unused variable
@@ -37,7 +37,7 @@ func VideoRoutes(e *echo.Echo) {
 		return c.JSON(http.StatusOK, cachedVideoMeta{})
 	})
 
-	e.DELETE("/video/:id", func(c echo.Context) error {
+	e.DELETE("/yt/video/:id", func(c echo.Context) error {
 		channelId := c.Param("id")
 
 		// Temporary fix for unused variable

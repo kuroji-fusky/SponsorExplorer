@@ -69,11 +69,11 @@ type channelSegmentAnalysis struct {
 
 		// This refers to the total videos fetched from the YT API, maximum is 50
 		// It's calculated based on the total videos fetched divided by the total video uploads from a channel
-		SampleRate float32 `json:"sample_rate"`
+		SampleRelativeTotal float32 `json:"sample_relative_total"`
 	} `json:"stats"`
 }
 
-// For `/sb-user/{username/uuid}/analysis`
+// For `/sb/user/{username/uuid}/analysis`
 type usernameSubmissionAnalysis struct {
 	Username         string `json:"username"`
 	UserID           string `json:"user_id"`

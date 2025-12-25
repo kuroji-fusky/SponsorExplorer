@@ -10,8 +10,13 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+type VIPUsers []struct {
+	Username string `json:"username"`
+	UserID   string `json:"userid"`
+}
+
 func SBUsersRoute(e *echo.Echo) {
-	e.GET("/sb-user/:username_uuid", func(c echo.Context) error {
+	e.GET("/sb/user/:username_uuid", func(c echo.Context) error {
 		uuid := c.Param("username_uuid")
 		isBypassCache, _ := strconv.ParseBool(c.QueryParam("bypass_cache"))
 
@@ -20,7 +25,7 @@ func SBUsersRoute(e *echo.Echo) {
 		return c.NoContent(http.StatusOK)
 	})
 
-	e.POST("/uuid", func(c echo.Context) error {
+	e.POST("/sb/uuid", func(c echo.Context) error {
 		biteMeDaddy, err := io.ReadAll(c.Request().Body)
 
 		if err != nil {
@@ -30,10 +35,15 @@ func SBUsersRoute(e *echo.Echo) {
 		}
 
 		uuidArr := strings.Split(string(biteMeDaddy), ",")
-		// gaming := strings.Fields(uuidArr)
 
-		fmt.Printf(strings.Join(uuidArr, ""))
+		// TODO Validate of one of these are a vaild UUIDs; otherwise, discard them and throw an error
 
-		return c.NoContent(http.StatusOK)
+		uuids := strings.Join(uuidArr, "")
+
+		return c.String(http.StatusOK, uuids)
+	})
+
+	e.GET("/sb/vip_users", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, VIPUsers{})
 	})
 }

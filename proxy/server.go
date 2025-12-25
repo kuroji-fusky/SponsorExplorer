@@ -2,8 +2,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -58,6 +56,13 @@ func main() {
 
 	// Routes
 
+	e.GET("/", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, map[string]any{
+			"video-id":   "/video/:id{?bypass_cache}",
+			"channel-id": "/channel/:id{?bypass_cache}",
+		})
+	})
+
 	e.GET("/ping", func(c echo.Context) error {
 		return c.String(http.StatusOK, "pong")
 	})
@@ -83,11 +88,6 @@ func main() {
 	routes.ChannelRoutes(e)
 	routes.VideoRoutes(e)
 	routes.SBUsersRoute(e)
-
-	registeredRoutes, _ := json.MarshalIndent(e.Routes(), "", "  ")
-	registeredRoutesStr := string(registeredRoutes[:])
-
-	fmt.Println("Routes registered:", registeredRoutesStr)
 
 	// Routes END
 

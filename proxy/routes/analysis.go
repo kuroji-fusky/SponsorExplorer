@@ -12,7 +12,7 @@ import (
 )
 
 func AnalysisRoutes(e *echo.Echo) {
-	e.GET("/video/:id/analysis", func(c echo.Context) error {
+	e.GET("/yt/video/:id/analysis", func(c echo.Context) error {
 		videoId := c.Param("id")
 
 		fmt.Print(videoId)
@@ -20,7 +20,7 @@ func AnalysisRoutes(e *echo.Echo) {
 		return c.NoContent(http.StatusOK)
 	})
 
-	e.GET("/channel/:id/analysis", func(c echo.Context) error {
+	e.GET("/yt/channel/:id/analysis", func(c echo.Context) error {
 		channelId := c.Param("id")
 		sampleSize, _ := strconv.Atoi(c.QueryParam("sample_size"))
 		prettifyOutput, _ := strconv.ParseBool(c.QueryParam("prettify"))
@@ -32,7 +32,7 @@ func AnalysisRoutes(e *echo.Echo) {
 		return c.NoContent(http.StatusOK)
 	})
 
-	e.POST("/uuid/analysis", func(c echo.Context) error {
+	e.POST("/sb/uuid/analysis", func(c echo.Context) error {
 		biteMeDaddy, biteErr := io.ReadAll(c.Request().Body)
 		if biteErr != nil {
 			return c.JSON(http.StatusBadRequest, map[string]any{
@@ -47,7 +47,7 @@ func AnalysisRoutes(e *echo.Echo) {
 		return c.NoContent(http.StatusOK)
 	})
 
-	e.GET("/username/:name/analysis", func(c echo.Context) error {
+	e.GET("/sb/username/:name/analysis", func(c echo.Context) error {
 		return c.NoContent(http.StatusOK)
 	})
 }
