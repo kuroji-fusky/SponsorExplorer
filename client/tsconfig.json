@@ -11,5 +11,4 @@
     "strict": true,
     "moduleResolution": "bundler"
   },
-  "include": ["@types/youtube", "./.svelte-kit/**/*.ts", "@lucide/svelte"]
 }

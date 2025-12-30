@@ -3,6 +3,7 @@
 
 /// <reference types="vite-plugin-pwa/svelte" />
 /// <reference types="vite-plugin-pwa/info" />
+/// <reference types="@types/youtube" />
 
 declare global {
   namespace App {
