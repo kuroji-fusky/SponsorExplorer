@@ -9,6 +9,7 @@
     "ignoreUnknown": false,
     "ignore": [
       "**/.svelte-kit/**",
+      "**/node_modules/**",
       "**/proxy/**",
       "**/timeline/**",
       "./ui/**"
