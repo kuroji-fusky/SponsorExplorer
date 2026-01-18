@@ -10,9 +10,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   compilerOptions: {
-    experimental: {
-      async: true,
-    },
   },
   // Consult https://svelte.dev/docs/kit/integrations
   // for more information about preprocessors

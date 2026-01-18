@@ -1,6 +1,7 @@
 import { redirect, type Handle } from "@sveltejs/kit"
 
 export const handle: Handle = async ({ event, resolve }) => {
+  // Route matching stuff
   const { pathname, search } = event.url
   const path = `${pathname}${search}`
 
@@ -17,6 +18,20 @@ export const handle: Handle = async ({ event, resolve }) => {
       throw redirect(301, `/video/${videoId}`)
     }
   }
+
+  const [_, ...rest] = path.split("/").filter(Boolean)
+
+  const concatPath = rest.join("")
+
+  if (path.startsWith("/userid")) {
+    throw redirect(301, `/submissions/userid/${concatPath}`)
+  }
+
+  if (path.startsWith("/username")) {
+    throw redirect(301, `/submissions/username/${concatPath}`)
+  }
+
+  // Check if proxy server is alive
 
   const res = await resolve(event)
   return res
