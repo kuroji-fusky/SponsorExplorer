@@ -5,7 +5,7 @@ type segmentLength struct {
 }
 
 type CachedSegments struct {
-	VideoID        *string           `json:"videoId,omitempty"` // A redundant property when fetching the video endpoint and won't be included unless you're fetching this from a channel endpoint
+	VideoID        string            `json:"videoId,omitempty"` // A redundant property when fetching the video endpoint and won't be included unless you're fetching this from a channel endpoint
 	Date           string            `json:"date_submitted"`
 	UUID           string            `json:"uuid"`
 	Length         segmentLength     `json:"length"`          // Returns [0.000, 1.234]
@@ -15,5 +15,5 @@ type CachedSegments struct {
 	Shadowhidden   bool              `json:"is_shadowhidden"`
 	Hidden         bool              `json:"is_hidden"`
 	UserID         string            `json:"userID"`
-	Username       *string           `json:"username,omitempty"`
+	Username       string            `json:"username,omitempty"`
 }

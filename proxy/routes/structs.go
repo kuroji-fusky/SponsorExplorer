@@ -2,25 +2,39 @@ package routes
 
 import "github.com/kuroji-fusky/SponsorExplorer/proxy/sponsorblock"
 
-type baseVideoMeta struct {
-	VideoId   string `json:"id"`
-	Duration  string `json:"duration"`
-	Thumbnail string `json:"thumbnail"`
-	Title     string `json:"title"`
-}
+// CHANNEL
+//
 
 type cachedChannelMeta struct {
-	Name      string                         `json:"name"`
-	Handle    string                         `json:"forHandle,omitempty"`
-	ChannelId string                         `json:"id"`
-	Videos    []cachedVideoMeta              `json:"videos"`
-	Segments  *[]sponsorblock.CachedSegments `json:"segments"`
+	Name      string `json:"name"`
+	Handle    string `json:"handle,omitempty"`
+	ChannelId string `json:"id"`
+	Avatar    string `json:"avatar"`
+
+	Videos   []cachedVideoMeta             `json:"videos"`
+	Segments []sponsorblock.CachedSegments `json:"segments"`
 }
 
+// VIDEO
+//
+
 type cachedVideoMeta struct {
-	baseVideoMeta
-	UploadDate string                         `json:"uploadDate"`
-	Segments   *[]sponsorblock.CachedSegments `json:"segments"`
+	Details  videoMeta                     `json:"details"`
+	Segments []sponsorblock.CachedSegments `json:"segments"`
+}
+
+type videoMeta struct {
+	Duration  string                       `json:"duration"`
+	Thumbnail string                       `json:"thumbnail"`
+	Title     string                       `json:"title"`
+	Channel   *videoMetaWithChannelDetails `json:"channel,omitempty"`
+}
+
+type videoMetaWithChannelDetails struct {
+	Name      string `json:"name"`
+	Handle    string `json:"handle"`
+	ChannelId string `json:"id"`
+	Avatar    string `json:"avatar"`
 }
 
 // ANALYSIS
@@ -40,7 +54,7 @@ type categoryActionType struct {
 }
 
 type videoDetails struct {
-	baseVideoMeta
+	videoMeta
 	ChannelName   string `json:"channel_name"`
 	ChannelId     string `json:"channel_id"`
 	ChannelAvatar string `json:"avatar"`

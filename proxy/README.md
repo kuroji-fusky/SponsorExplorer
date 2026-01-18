@@ -1,6 +1,6 @@
 # SponsorExplorer Proxy API
 
-To alleviate the issues of quota limits and repetitive, redundant requests, an API proxy is necessary to handle caching, load balancing, and handling optimistic updates for new submitted segments and metadata from videos and channels - combining APIs from:
+To alleviate the issues of quota limits and repetitive, redundant requests, an API proxy is necessary to handle caching, load balancing, and handling optimistic updates for new submitted segments and metadata from videos and channels. Combining APIs from:
 
 - SponsorBlock
 - YouTube Data API
@@ -21,3 +21,17 @@ To alleviate the issues of quota limits and repetitive, redundant requests, an A
 - `/yt/channel/:id{?bypass_cache}`
 - `/yt/channel/:id/analysis{?bypass_cache,sample_size}`
 - `/yt/video/:id{?bypass_cache}`
+
+## Development
+
+Install `air`:
+
+```console
+go install github.com/air-verse/air@latest
+```
+
+and run the server with just:
+
+```console
+air
+```
