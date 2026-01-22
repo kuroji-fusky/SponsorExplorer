@@ -3,7 +3,6 @@ package routes
 import (
 	"log"
 	"net/http"
-	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
@@ -11,7 +10,6 @@ import (
 func VideoRoutes(e *echo.Echo) {
 	e.GET("/yt/video/:id", func(c echo.Context) error {
 		videoId := c.Param("id")
-		prettifyOutput, _ := strconv.ParseBool(c.QueryParam("prettify"))
 
 		if len(videoId) != 11 {
 			return c.JSON(http.StatusBadRequest, map[string]string{
@@ -19,44 +17,42 @@ func VideoRoutes(e *echo.Echo) {
 			})
 		}
 
-		// Temporary fix for unused variable
-		log.Print(prettifyOutput)
-
 		return c.JSON(http.StatusOK, cachedVideoMeta{
 			Details: videoMeta{
 				Channel: &videoMetaWithChannelDetails{
-					Name:      "Plainrock124",
-					Handle:    "@plainrock124",
-					ChannelId: "lmao",
-					Avatar:    "yes",
+					Name:   "Nick Wilde",
+					Handle: "@thewildefox",
+					// Starting characters "UC" are stripped to save some resp bytes
+					ChannelId: "KeFLvCLdP3FTSEFU9rNKHg",
+					Avatar:    "https://yt.img.something/",
 				},
 			},
 		})
 	})
 
 	e.POST("/yt/video/:id", func(c echo.Context) error {
-		channelId := c.Param("id")
+		videoId := c.Param("id")
 
 		// Temporary fix for unused variable
-		log.Print(channelId)
+		log.Print(videoId)
 
 		return c.JSON(http.StatusOK, cachedVideoMeta{})
 	})
 
 	e.PATCH("/yt/video/:id", func(c echo.Context) error {
-		channelId := c.Param("id")
+		videoId := c.Param("id")
 
 		// Temporary fix for unused variable
-		log.Print(channelId)
+		log.Print(videoId)
 
 		return c.JSON(http.StatusOK, cachedVideoMeta{})
 	})
 
 	e.DELETE("/yt/video/:id", func(c echo.Context) error {
-		channelId := c.Param("id")
+		videoId := c.Param("id")
 
 		// Temporary fix for unused variable
-		log.Print(channelId)
+		log.Print(videoId)
 
 		return c.JSON(http.StatusOK, cachedVideoMeta{})
 	})

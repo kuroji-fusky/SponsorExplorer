@@ -31,7 +31,7 @@ func getEnvWithFallback[T any](envKey string, fallback T) T {
 }
 
 func main() {
-	allowedURLOrigins := getEnvWithFallback("SE_CACHE_SERVER_CORS_ALLOWED_DOMAINS", "http://localhost:3000")
+	allowedURLOrigins := getEnvWithFallback("SE_CACHE_SERVER_CORS_ALLOWED_DOMAINS", "http://localhost:5173")
 
 	e := echo.New()
 	e.HideBanner = true

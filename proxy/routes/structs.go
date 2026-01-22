@@ -11,12 +11,19 @@ type cachedChannelMeta struct {
 	ChannelId string `json:"id"`
 	Avatar    string `json:"avatar"`
 
-	Videos   []cachedVideoMeta             `json:"videos"`
-	Segments []sponsorblock.CachedSegments `json:"segments"`
+	Videos []cachedVideoMeta `json:"videos"`
 }
 
 // VIDEO
 //
+
+type VideoType string
+
+const (
+	VideoLive   VideoType = "live"
+	VideoShorts VideoType = "shorts"
+	VideoNormal VideoType = "uploads"
+)
 
 type cachedVideoMeta struct {
 	Details  videoMeta                     `json:"details"`
@@ -24,9 +31,10 @@ type cachedVideoMeta struct {
 }
 
 type videoMeta struct {
-	Duration  string                       `json:"duration"`
-	Thumbnail string                       `json:"thumbnail"`
 	Title     string                       `json:"title"`
+	Thumbnail string                       `json:"thumbnail"`
+	Duration  string                       `json:"duration"`
+	VideoType VideoType                    `json:"_type"`
 	Channel   *videoMetaWithChannelDetails `json:"channel,omitempty"`
 }
 
