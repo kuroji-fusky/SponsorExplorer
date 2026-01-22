@@ -4,8 +4,8 @@
 
   interface Props {
     children: Snippet;
-    filterAction: () => void;
-    copyAction: () => void;
+    filterAction?: () => void;
+    copyAction?: () => void;
   }
 
   const { children, filterAction, copyAction }: Props = $props();
@@ -16,10 +16,12 @@
     {@render children()}
   </div>
 
-  <button class="p-1 shrink-0">
-    <FunnelIcon size={17} />
-  </button>
-  <button class="p-1 shrink-0">
-    <CopyPlusIcon size={17} />
-  </button>
+  <div data-column-filter-actions="" class="shrink-0 inline-flex gap-x-1">
+    <button class="p-1">
+      <FunnelIcon size={17} />
+    </button>
+    <button class="p-1">
+      <CopyPlusIcon size={17} />
+    </button>
+  </div>
 </div>

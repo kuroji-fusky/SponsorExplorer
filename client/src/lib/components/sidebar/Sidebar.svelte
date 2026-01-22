@@ -28,12 +28,14 @@
 {#if !$IS_MOBILE}
   {#if $SIDEBAR_OPEN}
     <div
-      class="hidden xl:flex overflow-hidden w-(--sidebar-width)"
+      class="hidden xl:block sticky top-14 overflow-hidden w-(--sidebar-width) h-[calc(100dvh-theme(spacing.14))]"
       style={`--sidebar-width: ${SIDEBAR_WIDTH}px`}
       transition:slide={{ duration: 280, axis: "x" }}
     >
-      <SidebarContents />
-      <div id="panel-grip" class="flex-1 size-full bg-red-300"></div>
+      <div class="flex h-full bg-neutral-900/20">
+        <SidebarContents />
+        <div id="panel-grip" class="flex-1 size-full border-r-2 border-neutral-700 hover:bg-neutral-400"></div>
+      </div>
     </div>
   {/if}
 {/if}

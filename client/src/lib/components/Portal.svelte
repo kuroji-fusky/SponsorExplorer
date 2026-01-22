@@ -12,9 +12,11 @@
 </script>
 
 {#if browser}
-  <div data-portal="" use:moveDom={to}>
-    {@render children?.()}
-  </div>
+  {#if children}
+    <div data-portal="" use:moveDom={to}>
+      {@render children?.()}
+    </div>
+  {/if}
 {/if}
 
 <style>

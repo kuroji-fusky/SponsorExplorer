@@ -14,7 +14,7 @@
 <main class="@container w-full mx-auto max-w-screen-2xl px-6">
   <VideoInfo />
   <SegmentShelf />
-  <LockedSegments />
+  <!-- <LockedSegments /> -->
   <div role="tabpanel">
     <SubmissionTable />
   </div>

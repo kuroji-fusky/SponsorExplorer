@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { BookmarkIcon, ChevronDown, ExternalLinkIcon } from "@lucide/svelte";
+  import { BookmarkIcon, EllipsisIcon, ExternalLinkIcon } from "@lucide/svelte";
+  import Button from "../Button.svelte";
 
   interface Props {}
 
@@ -19,18 +20,23 @@
       <!-- Actions -->
       <a
         href="/#"
-        class="hover:bg-white/20 px-2 py-1 rounded-md border inline-flex items-center gap-x-1 *:whitespace-nowrap"
+        class="hover:bg-white/20 px-2.5 py-1.5 rounded-md border inline-flex items-center gap-x-1.5 *:whitespace-nowrap"
       >
         <span>Visit channel</span>
-        <ExternalLinkIcon size={15} />
+        <ExternalLinkIcon size={16} />
       </a>
-      <button
-        class="hover:bg-white/20 px-2 py-1 rounded-md border inline-flex items-center gap-x-1"
-      >
-        <BookmarkIcon size={15} />
-        <span> Save </span>
-      </button>
-      <div class="rounded-md border inline-flex items-center">
+      <Button>
+        {#snippet prefix()}
+          <BookmarkIcon size={17} />
+        {/snippet}
+        Save
+      </Button>
+      <Button icon>
+        <EllipsisIcon size={17} />
+      </Button>
+
+      <!-- Consolidate options as dropdowns instead -->
+      <!-- <div class="rounded-md border inline-flex items-center">
         <button class="hover:bg-white/20 px-2 py-1">Share</button>
         <button
           class="hover:bg-white/20 p-1 border border-l-neutral-600 border-transparent"
@@ -45,7 +51,7 @@
         >
           <ChevronDown size={15} />
         </button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

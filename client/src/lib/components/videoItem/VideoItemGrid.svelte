@@ -10,7 +10,12 @@
 <div data-test-id="video-item-grid" class="flex flex-col">
   <div
     class="shrink-0 aspect-video w-full relative rounded-md overflow-hidden bg-amber-300"
-  ></div>
+  >
+    <span
+      class="xl:text-base font-semibold leading-none py-1.5 px-2 rounded-md bg-black/40 absolute bottom-2 right-2"
+      >41:21</span
+    >
+  </div>
   <div class="font-bold text-lg mt-2.5">((video_title))</div>
   <span
     class="inline-flex flex-wrap mt-1 gap-x-2 *:not-[[data-has-segment]]:opacity-60"

@@ -18,7 +18,7 @@
 >
   <div id="tab-container" class="flex">
     <div class="flex gap-x-2 flex-1" role="tablist">
-      <TabItem>History</TabItem>
+      <TabItem active>History</TabItem>
       <TabItem>Playlist</TabItem>
     </div>
 

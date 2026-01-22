@@ -13,7 +13,7 @@
 <div
   data-tab-container=""
   role="tablist"
-  class={twMerge(["inline-flex items-center", className as string])}
+  class={twMerge(["inline-flex items-center bg-neutral-700/50 p-0.5 rounded-md overflow-hidden border border-neutral-500", className as string])}
 >
   {@render children?.()}
 </div>
