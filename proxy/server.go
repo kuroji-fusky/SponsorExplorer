@@ -13,6 +13,7 @@ import (
 	"github.com/kuroji-fusky/SponsorExplorer/proxy/routes"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/redis/go-redis/v9"
 )
 
 func getEnvWithFallback[T any](envKey string, fallback T) T {
@@ -30,9 +31,29 @@ func getEnvWithFallback[T any](envKey string, fallback T) T {
 	}
 }
 
-func main() {
-	allowedURLOrigins := getEnvWithFallback("SE_CACHE_SERVER_CORS_ALLOWED_DOMAINS", "http://localhost:5173")
+func redisMiddleware(db *redis.Client) echo.MiddlewareFunc {
+	return func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			c.Set("redis", db)
+			return next(c)
+		}
+	}
+}
 
+func main() {
+	// env stuff
+	allowedURLOrigins := getEnvWithFallback("SE_CACHE_SERVER_CORS_ALLOWED_DOMAIN", "http://localhost:5173")
+	serverPort := getEnvWithFallback("SE_SERVER_PORT", 3000)
+
+	// init cache
+	cacheDb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+	defer cacheDb.Close()
+
+	// server stuff
 	e := echo.New()
 	e.HideBanner = true
 
@@ -46,12 +67,7 @@ func main() {
 			Timeout: 25 * time.Second,
 		}),
 		middleware.RemoveTrailingSlash(),
-		func(next echo.HandlerFunc) echo.HandlerFunc {
-			return func(c echo.Context) error {
-				c.Response().Header().Set("X-Last-Server-Update", "N/A")
-				return next(c)
-			}
-		},
+		redisMiddleware(cacheDb),
 	)
 
 	// Routes
@@ -91,8 +107,10 @@ func main() {
 
 	// Routes END
 
+	parsedPortAddr := ":" + strconv.Itoa(serverPort)
+
 	go func() {
-		if err := e.Start(":4000"); err != nil && err != http.ErrServerClosed {
+		if err := e.Start(parsedPortAddr); err != nil && err != http.ErrServerClosed {
 			e.Logger.Fatalf("Server failed to start: %v", err)
 		}
 	}()

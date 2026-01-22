@@ -11,7 +11,6 @@ import (
 const keyName = "SE_INTERNAL_API_KEY"
 
 func main() {
-
 	cwd, _ := os.Getwd()
 	envPath := cwd + "../../.env"
 
