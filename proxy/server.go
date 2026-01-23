@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -10,26 +11,14 @@ import (
 	"strings"
 	"time"
 
+	"github.com/joho/godotenv"
 	"github.com/kuroji-fusky/SponsorExplorer/proxy/routes"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/redis/go-redis/v9"
 )
 
-func getEnvWithFallback[T any](envKey string, fallback T) T {
-	key := os.Getenv(envKey)
-
-	if key == "" {
-		return fallback
-	}
-
-	switch any(fallback).(type) {
-	case string:
-		return any(key).(T)
-	default:
-		return fallback
-	}
-}
+const ENV_FILE_PATH = "../.env"
 
 func redisMiddleware(db *redis.Client) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
@@ -41,16 +30,37 @@ func redisMiddleware(db *redis.Client) echo.MiddlewareFunc {
 }
 
 func main() {
-	// env stuff
-	allowedURLOrigins := getEnvWithFallback("SE_CACHE_SERVER_CORS_ALLOWED_DOMAIN", "http://localhost:5173")
-	serverPort := getEnvWithFallback("SE_SERVER_PORT", 3000)
+	// localEnv stuff
+	localEnv := envManager()
 
-	// init cache
+	allowedURLOrigins := localEnv.loadWithFallback("SE_CACHE_SERVER_CORS_ALLOWED_DOMAIN", "http://localhost:5173")
+	serverPort := localEnv.loadWithFallbackInt("SE_SERVER_PORT", 4000)
+
+	ytToken := localEnv.load("YT_API_KEY")
+
+	if ytToken == "" {
+		fmt.Println(
+			"Oh sweet cheese and crackers! Looks like the proxy server can't start because\n" +
+				"no YouTube API key is provided in the .env file. To obtain one:\n ")
+		fmt.Println(
+			"1. Create project from https://console.cloud.google.com\n\n" +
+				"2. Enable https://console.cloud.google.com/apis/library/youtube.googleapis.com\n\n" +
+				"3. Once enabled, go to the Credentials tab > 'Create credentials' > 'API key'\n\n" +
+				"4. Under 'API restrictions', select 'Restrict key', tick 'YouTube Data API v3',\n" +
+				"   then create the key\n\n" +
+				"5. Copy the API key shown and add them from the .env file, labeled as \n" +
+				"   'YT_API_KEY=XXXXXXXXXX' and re-run the server.\n ")
+
+		panic("no YouTube API key found")
+	}
+
+	// init redis
 	cacheDb := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 		Password: "",
 		DB:       0,
 	})
+
 	defer cacheDb.Close()
 
 	// server stuff
@@ -128,4 +138,48 @@ func main() {
 	}
 
 	log.Println("Server shut down")
+}
+
+type envManagerPass struct {
+	Contents map[string]string
+}
+
+func envManager() *envManagerPass {
+	envPile, err := godotenv.Read(ENV_FILE_PATH)
+
+	if err != nil {
+		panic(err)
+	}
+
+	return &envManagerPass{
+		Contents: envPile,
+	}
+}
+
+func (e *envManagerPass) load(envKey string) string {
+	key := e.Contents[envKey]
+
+	return key
+}
+
+func (e *envManagerPass) loadWithFallback(envKey string, fallback string) string {
+	key := e.Contents[envKey]
+
+	if key == "" {
+		return fallback
+	}
+
+	return key
+}
+
+func (e *envManagerPass) loadWithFallbackInt(envKey string, fallback int) int {
+	key := e.Contents[envKey]
+
+	if key == "" {
+		return fallback
+	}
+
+	keyInt, _ := strconv.Atoi(key)
+
+	return keyInt
 }

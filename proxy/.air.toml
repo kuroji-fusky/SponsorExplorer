@@ -3,7 +3,7 @@ root = "."
 tmp_dir = "tmp"
 
 [build]
-exclude = ["tmp", "vendor"]
+exclude = ["tmp", "vendor", "cmd"]
 
 [color]
 main = "yellow"
