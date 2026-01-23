@@ -21,7 +21,8 @@
 
 <button
   class={twMerge(
-    "select-none hover:bg-neutral-400/20 px-2.5 py-1.5 rounded-sm border hover:dark:border-neutral-400/60 dark:border-neutral-500/50 inline-flex items-center gap-x-1.5",
+    "select-none hover:bg-neutral-400/20 rounded-sm border dark:border-neutral-500/50 border-neutral-400/50  hover:dark:border-neutral-400/60 hover:border-neutral-600/60  inline-flex items-center gap-x-1.5",
+    icon ? "p-1.5" : "px-2.5 py-1.5",
     prefix || suffix ? "inline-flex" : "inline-block",
     _class as string,
   )}

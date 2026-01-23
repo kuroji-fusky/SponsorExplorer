@@ -2,9 +2,7 @@
   import { BookmarkIcon, EllipsisIcon, ExternalLinkIcon } from "@lucide/svelte";
   import Button from "../Button.svelte";
 
-  interface Props {}
-
-  const {}: Props = $props();
+  // TODO send channel info props from setContext
 </script>
 
 <div id="channel-info-panel" class="flex items-center">

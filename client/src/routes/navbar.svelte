@@ -29,7 +29,7 @@
 <svelte:window onresize={resizeWin} />
 
 <nav
-  class="bg-neutral-950 z-10 fixed top-0 inset-x-0 flex items-center h-14 px-3 border-b border-b-neutral-500"
+  class="dark:bg-neutral-950 z-10 fixed top-0 inset-x-0 flex items-center h-14 px-3 border-b dark:border-b-neutral-500 border-b-neutral-400"
 >
   <LogoNav />
   <!-- Spacer -->

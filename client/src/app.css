@@ -9,6 +9,31 @@
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 
+@layer base {
+  button {
+    @apply cursor-pointer;
+  }
+
+  body {
+    @apply overflow-x-hidden text-sm antialiased font-body scheme-light-dark;
+  }
+}
+
+@layer components {
+  /*  border-b dark:border-b-neutral-200/20 border-b-neutral-400/50 */
+  .kuro-hoverable {
+    @apply hover:dark:bg-neutral-600/30 hover:bg-neutral-200/50;
+  }
+
+  .kuro-bg {
+    @apply dark:bg-neutral-950 bg-white;
+  }
+
+  .se-link {
+    @apply text-red-900 dark:text-red-100 relative after:absolute after:block after:h-px after:inset-x-0 after:bottom-0 after:-z-10 after:bg-red-50/40 hover:after:bg-red-100;
+  }
+}
+
 @theme {
   --font-body: "Inter", var(--default-font-family);
   --font-mono: "IBM Plex Mono", var(--default-mono-font-family);

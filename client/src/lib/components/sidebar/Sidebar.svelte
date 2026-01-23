@@ -28,7 +28,7 @@
 {#if !$IS_MOBILE}
   {#if $SIDEBAR_OPEN}
     <div
-      class="hidden xl:block sticky top-14 overflow-hidden w-(--sidebar-width) h-[calc(100dvh-theme(spacing.14))]"
+      class="hidden xl:block sticky top-14 overflow-hidden w-(--sidebar-width) h-[calc(100dvh_-_--spacing(14))]"
       style={`--sidebar-width: ${SIDEBAR_WIDTH}px`}
       transition:slide={{ duration: 280, axis: "x" }}
     >
