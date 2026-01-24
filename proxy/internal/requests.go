@@ -3,61 +3,51 @@ package internal
 import (
 	"encoding/json"
 	"io"
-	"log"
 	"net/http"
 )
 
 type fetchResponse struct {
-	Body       io.ReadCloser
+	body       []byte
 	StatusCode int
 }
 
-func requestTemplate(method string, url string, body io.Reader) *fetchResponse {
+func requestTemplate(method string, url string, body io.Reader) (*fetchResponse, error) {
 	req, err := http.NewRequest(method, url, body)
-	req.Header.Add("User-Agent", "For SponsorExplorer caching")
-
 	if err != nil {
-		log.Fatalf("Error getting request: %v", err)
+		return nil, err
+	}
+
+	req.Header.Add("User-Agent", "For SponsorExplorer caching")
+	if method == http.MethodPost {
+		req.Header.Add("Content-Type", "application/json")
 	}
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		log.Fatalf("Error parsing response: %v", err)
+		return nil, err
 	}
-
 	defer resp.Body.Close()
 
+	touchMyBody, err := io.ReadAll(resp.Body)
+
 	return &fetchResponse{
-		Body:       resp.Body,
+		body:       touchMyBody,
 		StatusCode: resp.StatusCode,
-	}
+	}, nil
 }
 
-func FetchMeDaddy(url string) *fetchResponse {
+func FetchMeDaddy(url string) (*fetchResponse, error) {
 	return requestTemplate(http.MethodGet, url, nil)
 }
 
-func PostMeDaddy(url string, body io.Reader) *fetchResponse {
-	res, err := http.Post(url, "application/json", body)
-
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	return &fetchResponse{
-		Body:       res.Body,
-		StatusCode: res.StatusCode,
-	}
+func PostMeDaddy(url string, body io.Reader) (*fetchResponse, error) {
+	return requestTemplate(http.MethodPost, url, body)
 }
 
 func (r *fetchResponse) Plaintext() string {
-	body, _ := io.ReadAll(r.Body)
-
-	return string(body)
+	return string(r.body)
 }
 
-func (r *fetchResponse) JSON() string {
-	body, _ := json.Marshal(r.Body)
-
-	return string(body)
+func (r *fetchResponse) JSON(v any) error {
+	return json.Unmarshal(r.body, v)
 }
