@@ -20,15 +20,6 @@ import (
 
 const ENV_FILE_PATH = "../.env"
 
-func redisMiddleware(db *redis.Client) echo.MiddlewareFunc {
-	return func(next echo.HandlerFunc) echo.HandlerFunc {
-		return func(c echo.Context) error {
-			c.Set("redis", db)
-			return next(c)
-		}
-	}
-}
-
 func main() {
 	// localEnv stuff
 	localEnv := envManager()
@@ -77,7 +68,16 @@ func main() {
 			Timeout: 25 * time.Second,
 		}),
 		middleware.RemoveTrailingSlash(),
-		redisMiddleware(cacheDb),
+
+		// Redis and API key
+		func(next echo.HandlerFunc) echo.HandlerFunc {
+			return func(c echo.Context) error {
+				c.Set("redis", cacheDb)
+				c.Set("yt-token", ytToken)
+
+				return next(c)
+			}
+		},
 	)
 
 	// Routes
@@ -139,6 +139,8 @@ func main() {
 
 	log.Println("Server shut down")
 }
+
+// env things, don't touch
 
 type envManagerPass struct {
 	Contents map[string]string

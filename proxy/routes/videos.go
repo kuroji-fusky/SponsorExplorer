@@ -4,11 +4,13 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/kuroji-fusky/SponsorExplorer/proxy/youtube"
 	"github.com/labstack/echo/v4"
 )
 
 func VideoRoutes(e *echo.Echo) {
 	e.GET("/yt/video/:id", func(c echo.Context) error {
+		ytToken := c.Get("yt-token").(string)
 		videoId := c.Param("id")
 
 		if len(videoId) != 11 {
@@ -17,12 +19,15 @@ func VideoRoutes(e *echo.Echo) {
 			})
 		}
 
+		yt := youtube.New(&youtube.YouToobOptions{ApiKey: ytToken})
+		yt.Video(videoId)
+
 		return c.JSON(http.StatusOK, cachedVideoMeta{
 			Details: videoMeta{
 				Channel: &videoMetaWithChannelDetails{
 					Name:   "Nick Wilde",
 					Handle: "@thewildefox",
-					// Starting characters "UC" are stripped to save some resp bytes
+					// Starting characters "UC" are stripped to save some bytes
 					ChannelId: "KeFLvCLdP3FTSEFU9rNKHg",
 					Avatar:    "https://yt.img.something/",
 				},

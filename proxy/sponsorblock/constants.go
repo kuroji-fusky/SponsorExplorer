@@ -1,5 +1,7 @@
 package sponsorblock
 
+const BASE_ENDPOINT = "https://sponsor.ajay.app/api"
+
 type SegmentCategory string
 type SegmentActionType string
 
