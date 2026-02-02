@@ -13,6 +13,7 @@
   import TabItem from "../tabs/TabItem.svelte";
   import ChannelItem from "../ChannelItem.svelte";
   import Button from "../Button.svelte";
+  import Section from "./Section.svelte";
 
   const { mobile_layout = false }: { mobile_layout?: boolean } = $props();
 
@@ -38,26 +39,7 @@
     {/if}
   </div>
   <div class="w-full grid p-2">
-    <section data-group-collapsible="">
-      <div class="flex items-center">
-        <Button icon class="border-none p-1">
-          <span class="font-semibold text-base leading-none mx-1">
-            Bookmarked
-          </span>
-          {#snippet suffix()}
-            <ChevronRightIcon size={17} />
-          {/snippet}
-        </Button>
-        <span class="flex-1"></span>
-        <div id="actions" class="flex gap-x-0.5">
-          <Button icon class="border-none">
-            <PencilIcon size={17} />
-          </Button>
-          <Button icon class="border-none">
-            <Trash2Icon size={17} />
-          </Button>
-        </div>
-      </div>
+    <Section name="Bookmark mo to gago">
       <div class="grid gap-y-1 my-2">
         {#each [...Array(2)] as _}
           <div class="relative">
@@ -78,6 +60,6 @@
           </div>
         {/each}
       </div>
-    </section>
+    </Section>
   </div>
 </aside>

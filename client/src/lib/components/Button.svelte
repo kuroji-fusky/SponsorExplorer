@@ -7,19 +7,26 @@
     icon?: boolean;
     prefix?: Snippet;
     suffix?: Snippet;
+    href?: string;
   }
 
   const {
     icon,
+    href,
     prefix,
     suffix,
     children,
     class: _class,
     ...others
   }: Props = $props();
+
+  const IS_IT_A_LINK_DOE = href ? "a" : "button";
 </script>
 
-<button
+<svelte:element
+  this={IS_IT_A_LINK_DOE}
+  {href}
+  target={href ? "_blank" : undefined}
   class={twMerge(
     "select-none hover:bg-neutral-400/20 rounded-sm border dark:border-neutral-500/50 border-neutral-400/50  hover:dark:border-neutral-400/60 hover:border-neutral-600/60  inline-flex items-center gap-x-1.5",
     icon ? "p-1.5" : "px-2.5 py-1.5",
@@ -31,4 +38,4 @@
   {@render prefix?.()}
   {@render children?.()}
   {@render suffix?.()}
-</button>
+</svelte:element>
