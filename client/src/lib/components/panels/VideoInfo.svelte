@@ -54,7 +54,7 @@
     </div>
     <!-- Actions -->
     <div class="flex gap-x-1">
-      <Button
+      <Button href={`https://sb.ltn.fi/video/${id}?source=se.fusky.dev`}
         >View on SBbrowser
         {#snippet suffix()}
           <ExternalLinkIcon size={17} />
