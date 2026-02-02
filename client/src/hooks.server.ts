@@ -1,12 +1,20 @@
 import { redirect, type Handle } from "@sveltejs/kit"
 
 export const handle: Handle = async ({ event, resolve }) => {
-  // Route matching stuff
   const { pathname, search } = event.url
   const path = `${pathname}${search}`
 
-  // `/video/:id` route path matching
+  // Search bot things
+  // Track only the landing page and nothing else mkay?
+  if (path !== "/") {
+    event.setHeaders({
+      "X-Robots-Tag": "noindex, nofollow",
+    })
+  }
+
+  // Route matching stuff
   if (path.startsWith("/v/") || path.startsWith("/video/https:")) {
+    // `/video/:id` route path matching
     const match = path.match(/(?:youtu\.be\/|v=|embed|shorts|\/|v\/)([a-zA-Z0-9_-]{11})/)
 
     if (
