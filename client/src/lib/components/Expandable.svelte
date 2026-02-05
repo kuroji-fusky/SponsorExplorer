@@ -20,7 +20,7 @@
 <svelte:element
   this={as}
   data-expandable-container=""
-  class={twMerge("grid grid-rows-(--is-open)", _class as string)}
+  class={twMerge("grid grid-rows-(--is-open) transition-[grid]", _class as string)}
   style={`--is-open: ${open ? 1 : 0}fr`}
 >
   <div class="overflow-hidden">

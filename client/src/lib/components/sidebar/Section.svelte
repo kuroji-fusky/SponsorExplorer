@@ -8,10 +8,17 @@
     isOpen?: boolean;
     name: string;
     children?: Snippet;
+    isExpandable?: boolean;
     action?: Snippet;
   }
 
-  const { isOpen, name, children, action }: Props = $props();
+  const {
+    isOpen,
+    isExpandable = true,
+    name,
+    children,
+    action,
+  }: Props = $props();
 
   let isItCumming = $state(isOpen ?? false);
   const toggleState = () => (isItCumming = !isItCumming);
@@ -19,14 +26,24 @@
 
 <section data-group-collapsible="">
   <div class="flex items-center">
-    <Button icon class="border-none p-1" onclick={toggleState}>
+    {#if isExpandable}
+      <Button variant="tritery" size="skinny" class="px-0" onclick={toggleState}>
+        <span class="font-semibold text-base leading-none mx-1">
+          {name}
+        </span>
+        {#snippet suffix()}
+          <ChevronRightIcon
+            size={17}
+            class={["transition-transform", isItCumming ? "rotate-90" : ""]}
+          />
+        {/snippet}
+      </Button>
+    {:else}
       <span class="font-semibold text-base leading-none mx-1">
         {name}
       </span>
-      {#snippet suffix()}
-        <ChevronRightIcon size={17} />
-      {/snippet}
-    </Button>
+    {/if}
+
     <span class="flex-1"></span>
     {#if action}
       <div id="actions" class="flex gap-x-0.5">
@@ -34,7 +51,13 @@
       </div>
     {/if}
   </div>
-  <Expandable open={isItCumming}>
-    {@render children?.()}
-  </Expandable>
+  {#if isExpandable}
+    <Expandable open={isItCumming}>
+      {@render children?.()}
+    </Expandable>
+  {:else}
+    <div>
+      {@render children?.()}
+    </div>
+  {/if}
 </section>

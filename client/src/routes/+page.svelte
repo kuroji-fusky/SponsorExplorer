@@ -23,7 +23,7 @@
   ];
 </script>
 
-<Meta title="Home" />
+<Meta title="SponsorExplorer - monitor SponsorBlock segments and from channels in realtime" description="D ROSE" />
 
 <main class="flex flex-col items-center space-y-32 prose-headings:font-bold">
   <section

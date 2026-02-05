@@ -13,14 +13,17 @@
 </script>
 
 <div data-test-id="video-item-grid" class="flex flex-col group">
-  <a href={link} class="block rounded-lg duration-200 transition-[border] border-2 border-transparent group-hover:border-amber-400">
+  <a
+    href={link}
+    class="block rounded-lg duration-200 transition-[border] border-2 border-transparent group-hover:border-amber-400"
+  >
     <Thumbnail {id} class="shrink-0" />
   </a>
   <div class="mt-2.5 pr-8 relative">
     <a href={link}>
       <h3 class="font-bold text-lg">((video_title))</h3>
     </a>
-    <Button icon class="absolute top-0 right-0">
+    <Button icon variant="tritery" class="absolute top-0 right-0">
       <EllipsisVerticalIcon size={17} />
     </Button>
   </div>

@@ -4,10 +4,7 @@
 
   import {
     BookmarkIcon,
-    ChevronRightIcon,
     ChevronsRightIcon,
-    ExternalLinkIcon,
-    PencilIcon,
     Trash2Icon,
   } from "@lucide/svelte";
   import TabItem from "../tabs/TabItem.svelte";
@@ -38,8 +35,13 @@
       </button>
     {/if}
   </div>
-  <div class="w-full grid p-2">
-    <Section name="Bookmark mo to gago">
+  <div class="w-full grid p-2 gap-y-0.5">
+    <Section name="Bookmarks">
+      {#snippet action()}
+        <Button icon variant="tritery">
+          <Trash2Icon size={17} />
+        </Button>
+      {/snippet}
       <div class="grid gap-y-1 my-2">
         {#each [...Array(2)] as _}
           <div class="relative">
@@ -47,10 +49,10 @@
               href="/channel/a"
               class="block hover:bg-neutral-700/40 px-1.5 py-1 rounded-md [--avatar-size:--spacing(6)]"
             >
-              <ChannelItem src="gay" name="Gaming" />
+              <ChannelItem src="gaming" name="Gaming" />
             </a>
             <div class="absolute right-0 inset-y-0 z-10 flex items-center">
-              <Button icon class="border-none">
+              <Button icon variant="tritery">
                 <BookmarkIcon size={17} />
               </Button>
               <!-- <Button icon class="border-none">
@@ -60,6 +62,13 @@
           </div>
         {/each}
       </div>
+    </Section>
+    <Section name="Recents" isExpandable={false}>
+      {#snippet action()}
+        <Button icon variant="tritery">
+          <Trash2Icon size={17} />
+        </Button>
+      {/snippet}
     </Section>
   </div>
 </aside>

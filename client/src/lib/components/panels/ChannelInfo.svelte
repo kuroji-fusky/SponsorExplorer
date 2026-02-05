@@ -10,19 +10,18 @@
   <div class="flex-1 flex flex-col gap-y-1">
     <span class="opacity-60">Channel segments for</span>
     <h1 class="font-bold text-2xl" translate="no">((channel name))</h1>
-    <div class="inline-flex items-center gap-x-1.5 mt-2">
+    <div class="inline-flex items-center gap-x-1 mt-2">
       <span># videos</span>
       <!-- Separator -->
       <hr class="mx-1 h-4 border border-l opacity-50" />
 
       <!-- Actions -->
-      <a
-        href="/#"
-        class="hover:bg-white/20 px-2.5 py-1.5 rounded-md border inline-flex items-center gap-x-1.5 *:whitespace-nowrap"
-      >
+      <Button href="/#">
         <span>Visit channel</span>
-        <ExternalLinkIcon size={16} />
-      </a>
+        {#snippet suffix()}
+          <ExternalLinkIcon size={16} />
+        {/snippet}
+      </Button>
       <Button>
         {#snippet prefix()}
           <BookmarkIcon size={17} />

@@ -2,8 +2,28 @@
   import type { Snippet } from "svelte";
   import type { HTMLButtonAttributes } from "svelte/elements";
   import { twMerge } from "tailwind-merge";
+  import { cva, type VariantProps } from "class-variance-authority";
 
-  interface Props extends Omit<HTMLButtonAttributes, "prefix"> {
+  const baseBtn = cva(null, {
+    variants: {
+      variant: {
+        primary: "border-transparent dark:bg-neutral-700 hover:dark:bg-neutral-700/60 bg-neutral-200",
+        secondary:
+          "dark:border-neutral-500/50 border-neutral-400/50 hover:dark:border-neutral-400/60 hover:border-neutral-600/60",
+        tritery: "border-transparent hover:bg-neutral-400/20",
+      },
+      size: {
+        skinny: "[--btn-size:0]",
+        smol: "[--btn-size:1.33]",
+        big: "[--btn-size:2.5]",
+      },
+    },
+    compoundVariants: [{ variant: "primary", size: "smol" }],
+  });
+
+  interface Props
+    extends Omit<HTMLButtonAttributes, "prefix">,
+      VariantProps<typeof baseBtn> {
     icon?: boolean;
     prefix?: Snippet;
     suffix?: Snippet;
@@ -16,21 +36,24 @@
     prefix,
     suffix,
     children,
+    variant = "primary",
+    size = "smol",
     class: _class,
     ...others
   }: Props = $props();
-
-  const IS_IT_A_LINK_DOE = href ? "a" : "button";
 </script>
 
 <svelte:element
-  this={IS_IT_A_LINK_DOE}
+  this={href ? "a" : "button"}
   {href}
   target={href ? "_blank" : undefined}
   class={twMerge(
-    "select-none hover:bg-neutral-400/20 rounded-sm border dark:border-neutral-500/50 border-neutral-400/50  hover:dark:border-neutral-400/60 hover:border-neutral-600/60  inline-flex items-center gap-x-1.5",
-    icon ? "p-1.5" : "px-2.5 py-1.5",
+    baseBtn({ size, variant }),
+    icon
+      ? "p-[calc(var(--spacing)*calc(var(--btn-size)+.4))]"
+      : "py-[calc(var(--spacing)*var(--btn-size))] px-[calc(var(--spacing)*calc(var(--btn-size)+1))]",
     prefix || suffix ? "inline-flex" : "inline-block",
+    "select-none rounded-sm border items-center gap-x-1.5",
     _class as string,
   )}
   {...others}

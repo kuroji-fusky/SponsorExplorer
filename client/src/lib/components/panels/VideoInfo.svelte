@@ -60,12 +60,12 @@
           <ExternalLinkIcon size={17} />
         {/snippet}
       </Button>
-      <Button>
+      <Button variant="secondary">
         {#snippet prefix()}
           <SquareGanttChartIcon size={17} />
         {/snippet}
-        Switch to Timeline View</Button
-      >
+        Switch to Timeline view
+      </Button>
     </div>
   </div>
 </section>
