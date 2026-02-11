@@ -1,16 +1,13 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
   import { fade } from "svelte/transition";
+  import type { WithChildrenSnippet } from "./shared_types";
 
-  const {
-    children,
-    hasFocusGuard,
-    ondismiss,
-  }: {
-    children?: Snippet;
+  interface Props {
     hasFocusGuard?: boolean;
     ondismiss?: () => void;
-  } = $props();
+  }
+
+  const { children, hasFocusGuard, ondismiss }: WithChildrenSnippet<Props> = $props();
 </script>
 
 <div data-focus-lock="" class="contents">

@@ -1,12 +1,11 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
   import { twMerge } from "tailwind-merge";
+  import type { WithChildrenSnippet } from "./shared_types";
 
   interface Props {
     open: boolean;
-    class: string;
-    children: Snippet;
-    as: keyof HTMLElementTagNameMap;
+    class?: string;
+    as?: keyof HTMLElementTagNameMap;
   }
 
   const {
@@ -14,7 +13,7 @@
     children,
     class: _class,
     as = "div",
-  }: Partial<Props> = $props();
+  }: WithChildrenSnippet<Props> = $props();
 </script>
 
 <svelte:element

@@ -21,9 +21,7 @@
     compoundVariants: [{ variant: "primary", size: "smol" }],
   });
 
-  interface Props
-    extends Omit<HTMLButtonAttributes, "prefix">,
-      VariantProps<typeof baseBtn> {
+  interface Props extends Omit<HTMLButtonAttributes, "prefix">, VariantProps<typeof baseBtn> {
     icon?: boolean;
     prefix?: Snippet;
     suffix?: Snippet;

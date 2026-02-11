@@ -3,11 +3,11 @@
   import Button from "../Button.svelte";
   import { ChevronRightIcon } from "@lucide/svelte";
   import Expandable from "../Expandable.svelte";
+  import type { WithChildrenSnippet } from "../shared_types";
 
   interface Props {
     isOpen?: boolean;
     name: string;
-    children?: Snippet;
     isExpandable?: boolean;
     action?: Snippet;
   }
@@ -18,23 +18,28 @@
     name,
     children,
     action,
-  }: Props = $props();
+  }: WithChildrenSnippet<Props> = $props();
 
-  let isItCumming = $state(isOpen ?? false);
-  const toggleState = () => (isItCumming = !isItCumming);
+  let open = $state(isOpen ?? false);
+  const toggleState = () => (open = !open);
 </script>
 
 <section data-group-collapsible="">
   <div class="flex items-center">
     {#if isExpandable}
-      <Button variant="tritery" size="skinny" class="px-0" onclick={toggleState}>
+      <Button
+        variant="tritery"
+        size="skinny"
+        class="px-0"
+        onclick={toggleState}
+      >
         <span class="font-semibold text-base leading-none mx-1">
           {name}
         </span>
         {#snippet suffix()}
           <ChevronRightIcon
             size={17}
-            class={["transition-transform", isItCumming ? "rotate-90" : ""]}
+            class={["transition-transform", open ? "rotate-90" : ""]}
           />
         {/snippet}
       </Button>
@@ -52,7 +57,7 @@
     {/if}
   </div>
   {#if isExpandable}
-    <Expandable open={isItCumming}>
+    <Expandable {open}>
       {@render children?.()}
     </Expandable>
   {:else}
