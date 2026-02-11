@@ -6,12 +6,12 @@ import (
 	"net/http"
 )
 
-type fetchResponse struct {
-	body       []byte
+type httpFetchResponse struct {
+	Body       []byte
 	StatusCode int
 }
 
-func requestTemplate(method string, url string, body io.Reader) (*fetchResponse, error) {
+func httpRequestTemplate(method string, url string, body io.Reader) (*httpFetchResponse, error) {
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
 		return nil, err
@@ -28,26 +28,29 @@ func requestTemplate(method string, url string, body io.Reader) (*fetchResponse,
 	}
 	defer resp.Body.Close()
 
-	touchMyBody, err := io.ReadAll(resp.Body)
+	respBody, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
 
-	return &fetchResponse{
-		body:       touchMyBody,
+	return &httpFetchResponse{
+		Body:       respBody,
 		StatusCode: resp.StatusCode,
 	}, nil
 }
 
-func FetchMeDaddy(url string) (*fetchResponse, error) {
-	return requestTemplate(http.MethodGet, url, nil)
+func Fetch(url string) (*httpFetchResponse, error) {
+	return httpRequestTemplate(http.MethodGet, url, nil)
 }
 
-func PostMeDaddy(url string, body io.Reader) (*fetchResponse, error) {
-	return requestTemplate(http.MethodPost, url, body)
+func Post(url string, body io.Reader) (*httpFetchResponse, error) {
+	return httpRequestTemplate(http.MethodPost, url, body)
 }
 
-func (r *fetchResponse) Plaintext() string {
-	return string(r.body)
+func (r *httpFetchResponse) Plaintext() string {
+	return string(r.Body)
 }
 
-func (r *fetchResponse) JSON(v any) error {
-	return json.Unmarshal(r.body, v)
+func (r *httpFetchResponse) JSON(v any) error {
+	return json.Unmarshal(r.Body, v)
 }

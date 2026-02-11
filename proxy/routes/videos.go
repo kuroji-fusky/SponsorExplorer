@@ -19,7 +19,7 @@ func VideoRoutes(e *echo.Echo) {
 			})
 		}
 
-		yt := youtube.New(&youtube.YouToobOptions{ApiKey: ytToken})
+		yt := youtube.New(&youtube.YTOptions{ApiKey: ytToken})
 		yt.Video(videoId)
 
 		return c.JSON(http.StatusOK, cachedVideoMeta{

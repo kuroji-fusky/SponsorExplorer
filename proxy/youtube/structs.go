@@ -73,4 +73,16 @@ type videoResponse []struct {
 	} `json:"contentDetails"`
 }
 
-type VideoResponse ytResponseTemplate[videoResponse]
+type YTVideoResponse ytResponseTemplate[videoResponse]
+
+////////////////////////////////////////////////////////////////
+
+type YtXMLVideoEntry []struct {
+	VideoId string `xml:"yt:videoId"`
+}
+
+type YTXMLVideoFeed struct {
+	ChannelId    string `xml:"id"`
+	ChannelTitle string `xml:"title"`
+	YtXMLVideoEntry
+}
