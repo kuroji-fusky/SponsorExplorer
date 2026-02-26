@@ -8,7 +8,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func ChannelRoutes(e *echo.Echo) {
+func (h *DepHandler) ChannelRoutes(e *echo.Echo) {
 	// Channel routes should always be the channel ID, not a handle or the username
 	e.GET("/yt/channel/:id", func(c echo.Context) error {
 		channelId := c.Param("id")

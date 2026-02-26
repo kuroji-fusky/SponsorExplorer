@@ -15,7 +15,7 @@ type VIPUsers []struct {
 	UserID   string `json:"userid"`
 }
 
-func SBUsersRoute(e *echo.Echo) {
+func (h *DepHandler) SBUsersRoute(e *echo.Echo) {
 	e.GET("/sb/user/:username_uuid", func(c echo.Context) error {
 		uuid := c.Param("username_uuid")
 		isBypassCache, _ := strconv.ParseBool(c.QueryParam("bypass_cache"))
@@ -26,15 +26,15 @@ func SBUsersRoute(e *echo.Echo) {
 	})
 
 	e.POST("/sb/uuid", func(c echo.Context) error {
-		biteMeDaddy, err := io.ReadAll(c.Request().Body)
+		rawStr, err := io.ReadAll(c.Request().Body)
 
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, map[string]any{
-				"msg": "Empty or missing body, please fill in the contents to APPEASE ME",
+				"msg": "Empty or missing body",
 			})
 		}
 
-		uuidArr := strings.Split(string(biteMeDaddy), ",")
+		uuidArr := strings.Split(string(rawStr), ",")
 
 		// TODO Validate of one of these are a vaild UUIDs; otherwise, discard them and throw an error
 

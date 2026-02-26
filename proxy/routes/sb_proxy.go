@@ -17,9 +17,9 @@ type (
 	}
 )
 
-// Direct hits from the SponsorBlock API
+// Direct calls from the SponsorBlock API
 // Note that responses from the proxy API is similar and is altered to be more... portable
-func SBProxyRoutes(e *echo.Echo) {
+func (h *DepHandler) SBProxyRoutes(e *echo.Echo) {
 	e.GET("/sb/searchSegments/:id", func(c echo.Context) error {
 		videoId := c.Param("id")
 		isBypassCache, _ := strconv.Atoi(c.QueryParam("bypass_cache"))

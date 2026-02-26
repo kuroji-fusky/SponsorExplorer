@@ -12,7 +12,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func AnalysisRoutes(e *echo.Echo) {
+func (h *DepHandler) AnalysisRoutes(e *echo.Echo) {
 	e.GET("/yt/video/:id/analysis", func(c echo.Context) error {
 		videoId := c.Param("id")
 

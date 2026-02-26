@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -8,10 +9,16 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func VideoRoutes(e *echo.Echo) {
+func (h *DepHandler) VideoRoutes(e *echo.Echo) {
+	ytToken := h.deps.YTApiKey
+	cacheDb := h.deps.Redis
+
 	e.GET("/yt/video/:id", func(c echo.Context) error {
-		ytToken := c.Get("yt-token").(string)
+
 		videoId := c.Param("id")
+
+		// temp fix for unused variable
+		fmt.Println(cacheDb)
 
 		if len(videoId) != 11 {
 			return c.JSON(http.StatusBadRequest, map[string]string{

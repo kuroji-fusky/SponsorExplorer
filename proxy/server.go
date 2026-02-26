@@ -11,50 +11,57 @@ import (
 	"strings"
 	"time"
 
-	"github.com/joho/godotenv"
+	"github.com/kuroji-fusky/SponsorExplorer/proxy/internal"
 	"github.com/kuroji-fusky/SponsorExplorer/proxy/routes"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/redis/go-redis/v9"
 )
 
-const ENV_FILE_PATH = "../.env"
-
 func main() {
-	// localEnv stuff
-	localEnv := envManager()
+	localEnv := internal.EnvManager("../.env")
 
-	allowedURLOrigins := localEnv.loadWithFallback("SE_CACHE_SERVER_CORS_ALLOWED_DOMAIN", "http://localhost:5173")
-	serverPort := localEnv.loadWithFallbackInt("SE_SERVER_PORT", 4000)
+	allowedURLOrigins := localEnv.LoadWithFallback("SE_CACHE_SERVER_CORS_ALLOWED_DOMAIN", "http://localhost:5173")
+	serverPort := localEnv.LoadWithFallbackInt("SE_SERVER_PORT", 4000)
 
-	ytToken := localEnv.load("YT_API_KEY")
+	ytToken := localEnv.Load("YT_API_KEY")
 
 	if ytToken == "" {
 		fmt.Println(
 			"Oh sweet cheese and crackers! Looks like the proxy server can't start because\n" +
 				"no YouTube API key is provided in the .env file. To obtain one:\n ")
 		fmt.Println(
-			"1. Create project from https://console.cloud.google.com\n\n" +
-				"2. Enable https://console.cloud.google.com/apis/library/youtube.googleapis.com\n\n" +
-				"3. Once enabled, go to the Credentials tab > 'Create credentials' > 'API key'\n\n" +
-				"4. Under 'API restrictions', select 'Restrict key', tick 'YouTube Data API v3',\n" +
-				"   then create the key\n\n" +
-				"5. Copy the API key shown and add them from the .env file, labeled as \n" +
-				"   'YT_API_KEY=XXXXXXXXXX' and re-run the server.\n ")
+			" 1. Create project from https://console.cloud.google.com\n\n" +
+				" 2. Enable https://console.cloud.google.com/apis/library/youtube.googleapis.com\n\n" +
+				" 3. Once enabled, go to the Credentials tab > 'Create credentials' > 'API key'\n\n" +
+				" 4. Under 'API restrictions', select 'Restrict key', tick 'YouTube Data API v3',\n" +
+				"    then create the key\n\n" +
+				" 5. Copy the API key shown and add them from the .env file, labeled as \n" +
+				"    'YT_API_KEY=XXXXXXXXXX' and re-run the server.\n ")
 
-		panic("no YouTube API key found")
+		log.Fatalf("no YouTube API key found")
 	}
 
 	// init redis
+	redisAddr := localEnv.LoadWithFallback("REDIS_ADDRESS", "localhost:6379")
+	redisPassword := localEnv.LoadWithFallback("REDIS_PASSWORD", "")
+
 	cacheDb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "",
+		Addr:     redisAddr,
+		Password: redisPassword,
 		DB:       0,
 	})
 
+	pingCtx, pingCancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer pingCancel()
+
+	if err := cacheDb.Ping(pingCtx).Err(); err != nil {
+		log.Fatalf("failed to connect to redis: %v", err)
+	}
+
 	defer cacheDb.Close()
 
-	// server stuff
+	// init server
 	e := echo.New()
 	e.HideBanner = true
 
@@ -68,25 +75,16 @@ func main() {
 			Timeout: 25 * time.Second,
 		}),
 		middleware.RemoveTrailingSlash(),
-
-		// Redis and API key
-		func(next echo.HandlerFunc) echo.HandlerFunc {
-			return func(c echo.Context) error {
-				c.Set("redis", cacheDb)
-				c.Set("yt-token", ytToken)
-
-				return next(c)
-			}
-		},
 	)
 
 	// Routes
+	h := routes.NewDepHandler(routes.ProxyDeps{
+		YTApiKey: ytToken,
+		Redis:    cacheDb,
+	})
 
 	e.GET("/", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, map[string]any{
-			"video-id":   "/video/:id{?bypass_cache}",
-			"channel-id": "/channel/:id{?bypass_cache}",
-		})
+		return c.JSON(http.StatusOK, map[string]string{})
 	})
 
 	e.GET("/ping", func(c echo.Context) error {
@@ -110,11 +108,10 @@ func main() {
 		return c.NoContent(http.StatusOK)
 	})
 
-	routes.AnalysisRoutes(e)
-	routes.ChannelRoutes(e)
-	routes.VideoRoutes(e)
-	routes.SBUsersRoute(e)
-
+	h.VideoRoutes(e)
+	h.AnalysisRoutes(e)
+	h.ChannelRoutes(e)
+	h.SBUsersRoute(e)
 	// Routes END
 
 	parsedPortAddr := ":" + strconv.Itoa(serverPort)
@@ -127,7 +124,6 @@ func main() {
 
 	closeSig := make(chan os.Signal, 1)
 	signal.Notify(closeSig, os.Interrupt)
-
 	<-closeSig
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -138,50 +134,4 @@ func main() {
 	}
 
 	log.Println("Server shut down")
-}
-
-// env things, don't touch
-
-type envManagerPass struct {
-	Contents map[string]string
-}
-
-func envManager() *envManagerPass {
-	envPile, err := godotenv.Read(ENV_FILE_PATH)
-
-	if err != nil {
-		panic(err)
-	}
-
-	return &envManagerPass{
-		Contents: envPile,
-	}
-}
-
-func (e *envManagerPass) load(envKey string) string {
-	key := e.Contents[envKey]
-
-	return key
-}
-
-func (e *envManagerPass) loadWithFallback(envKey string, fallback string) string {
-	key := e.Contents[envKey]
-
-	if key == "" {
-		return fallback
-	}
-
-	return key
-}
-
-func (e *envManagerPass) loadWithFallbackInt(envKey string, fallback int) int {
-	key := e.Contents[envKey]
-
-	if key == "" {
-		return fallback
-	}
-
-	keyInt, _ := strconv.Atoi(key)
-
-	return keyInt
 }
