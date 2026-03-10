@@ -5,7 +5,7 @@
     EllipsisVerticalIcon,
     FunnelIcon,
     ListIcon,
-    TerminalIcon,
+    ScanSearchIcon,
   } from "@lucide/svelte";
   import TabItem from "../tabs/TabItem.svelte";
 </script>
@@ -26,9 +26,10 @@
       {/snippet}
     </Button>
     <Button variant="secondary" icon>
-      <TerminalIcon size={17} />
+      <ScanSearchIcon size={17} />
     </Button>
   </div>
+  <!-- spacer -->
   <div class="flex items-center gap-x-1">
     <Button variant="secondary">
       {#snippet prefix()}

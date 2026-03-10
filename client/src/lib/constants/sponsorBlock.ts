@@ -1,21 +1,22 @@
 interface SB_FrontendModel {
   label: string
+  bg?: string
   helpLink?: string
 }
 
 export const CATEGORY_MAP = {
-  chapter: { label: "Chapter" },
-  poi_highlight: { label: "Highlight" },
-  sponsor: { label: "Sponsor" },
-  selfpromo: { label: "Unpaid/Self Promotion" },
-  preview: { label: "Preview/Recap" },
-  interaction: { label: "Interaction Reminder" },
-  intro: { label: "Intro/Intermission" },
-  outro: { label: "Endcards/Credits" },
-  filler: { label: "Tangents/Jokes" },
-  hook: { label: "Hook/Greetings" },
-  music_offtopic: { label: "Non-Music Section" },
-  exclusive_access: { label: "Exclusive Access" },
+  chapter: { label: "Chapter", bg: "bg-slate-300" },
+  poi_highlight: { label: "Highlight", bg: "bg-sb-highlight" },
+  sponsor: { label: "Sponsor", bg: "bg-sb-sponsor" },
+  selfpromo: { label: "Unpaid/Self Promotion", bg: "bg-sb-selfpromo" },
+  preview: { label: "Preview/Recap", bg: "bg-sb-preview" },
+  interaction: { label: "Interaction Reminder", bg: "bg-sb-interaction" },
+  intro: { label: "Intro/Intermission", bg: "bg-sb-intermission" },
+  outro: { label: "Endcards/Credits", bg: "bg-sb-endcards" },
+  filler: { label: "Tangents/Jokes", bg: "bg-sb-filler" },
+  hook: { label: "Hook/Greetings", bg: "bg-sb-hook" },
+  music_offtopic: { label: "Non-Music", bg: "bg-sb-non-music" },
+  exclusive_access: { label: "Exclusive Access", bg: "bg-sb-exclusive-access" },
 } as const satisfies Record<string, SB_FrontendModel>
 
 export const ACTIONTYPE_MAP = {

@@ -4,6 +4,7 @@
   import ColumnItemFilter from "./ColumnItemFilter.svelte";
   import Button from "../Button.svelte";
   import Spinner from "../Spinner.svelte";
+  import SegmentBadge from "../badges/SegmentBadge.svelte";
 </script>
 
 <table>
@@ -20,7 +21,7 @@
     }}
   />
   <tbody>
-    {#each [...Array(36)] as _}
+    {#each [...Array(5)] as _}
       <tr
         data-fragment="0"
         class="group kuro-hoverable border-b dark:border-b-neutral-200/20 border-b-neutral-400/50"
@@ -32,7 +33,9 @@
         <td><div class="px-2 py-1.5">0</div></td>
         <td><div class="px-2 py-1.5">0</div></td>
         <td id="column-filter-hoverable">
-          <ColumnItemFilter>category</ColumnItemFilter>
+          <ColumnItemFilter>
+            <SegmentBadge segment="sponsor" />
+          </ColumnItemFilter>
         </td>
         <td><div class="px-2 py-1.5">token</div></td>
         <td id="column-filter-hoverable">

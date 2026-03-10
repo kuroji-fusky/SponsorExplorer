@@ -15,11 +15,11 @@
 <section class="mt-4 flex @max-5xl:flex-col">
   <YoutubePlayer {id} class="flex-1 rounded-md overflow-hidden" />
   <div
-    class="space-y-2.5 shrink-0 w-[52%] @max-5xl:px-0 px-4 py-3 dark:bg-neutral-900/50 bg-neutral-100 @max-5xl:bg-transparent @max-5xl:rounded-none rounded-tr-md rounded-br-md"
+    class="space-y-3 shrink-0 w-[52%] @max-5xl:px-0 px-5 py-4 dark:bg-neutral-900 bg-neutral-100 @max-5xl:bg-transparent @max-5xl:rounded-none rounded-tr-md rounded-br-md"
   >
     <!-- Title -->
     <div>
-      <div class="opacity-60 mb-1">Segments from</div>
+      <div class="opacity-60 mb-1.5">Segments from</div>
       <h2 class="text-2xl font-bold">Video titles</h2>
     </div>
     <!-- Channel and date -->

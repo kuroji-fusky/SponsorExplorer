@@ -24,8 +24,8 @@
   const toggleState = () => (open = !open);
 </script>
 
-<section data-group-collapsible="">
-  <div class="flex items-center">
+<section data-group-collapsible="" class="rounded-md bg-neutral-900">
+  <div class="flex items-center sticky -top-0.5 bg-neutral-900 z-50 inset-x-0">
     {#if isExpandable}
       <Button
         variant="tritery"
@@ -33,7 +33,7 @@
         class="px-0"
         onclick={toggleState}
       >
-        <span class="font-semibold text-base leading-none mx-1">
+        <span class="font-semibold text-base leading-none mx-1 py-1">
           {name}
         </span>
         {#snippet suffix()}

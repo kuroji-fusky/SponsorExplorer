@@ -1,19 +1,18 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
   import { CopyPlusIcon, FunnelIcon } from "@lucide/svelte";
+  import type { WithChildrenSnippet } from "../shared_types";
 
   interface Props {
-    children: Snippet;
     filterAction?: () => void;
     copyAction?: () => void;
   }
 
-  const { children, filterAction, copyAction }: Props = $props();
+  const { children, filterAction, copyAction }: WithChildrenSnippet<Props> = $props();
 </script>
 
 <div class="px-2 py-1.5 flex">
   <div class="flex-1">
-    {@render children()}
+    {@render children?.()}
   </div>
 
   <div data-column-filter-actions="" class="shrink-0 inline-flex gap-x-1">
