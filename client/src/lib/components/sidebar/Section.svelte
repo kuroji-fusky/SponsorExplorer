@@ -20,20 +20,21 @@
     action,
   }: WithChildrenSnippet<Props> = $props();
 
+  // svelte-ignore state_referenced_locally
   let open = $state(isOpen ?? false);
   const toggleState = () => (open = !open);
 </script>
 
-<section data-group-collapsible="" class="rounded-md bg-neutral-900">
-  <div class="flex items-center sticky -top-0.5 bg-neutral-900 z-50 inset-x-0">
+<section data-group-collapsible="" class="rounded-md bg-neutral-950 px-2">
+  <div class="flex items-center sticky -top-0.5 bg-neutral-950 z-50 inset-x-0">
     {#if isExpandable}
       <Button
         variant="tritery"
         size="skinny"
-        class="px-0"
+        class="px-1 opacity-60 hover:opacity-100 transition-opacity hover:bg-transparent"
         onclick={toggleState}
       >
-        <span class="font-semibold text-base leading-none mx-1 py-1">
+        <span class="font-semibold text-base leading-none py-1 ">
           {name}
         </span>
         {#snippet suffix()}
@@ -44,7 +45,7 @@
         {/snippet}
       </Button>
     {:else}
-      <span class="font-semibold text-base leading-none mx-1">
+      <span class="font-semibold text-base leading-none mx-1 opacity-60">
         {name}
       </span>
     {/if}

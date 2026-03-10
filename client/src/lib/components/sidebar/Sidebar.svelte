@@ -8,7 +8,7 @@
 
   // hard code the default width for the time being
   // TODO: fetch width state from localstorage
-  const SIDEBAR_WIDTH = 300;
+  const SIDEBAR_WIDTH = 320;
 
   function closeSidebarMobile() {
     if (!$IS_MOBILE) return;
@@ -32,9 +32,12 @@
       style={`--sidebar-width: ${SIDEBAR_WIDTH}px`}
       transition:slide={{ duration: 280, axis: "x" }}
     >
-      <div class="flex h-full bg-neutral-900/20">
+      <div class="flex h-full bg-neutral-900/20 relative">
         <SidebarContents />
-        <div id="panel-grip" class="flex-1 size-full border-r-2 border-neutral-700 hover:bg-neutral-400"></div>
+        <div
+          id="panel-grip"
+          class="cursor-e-resize flex-1 h-full w-2 border-r-2 border-neutral-700 hover:bg-neutral-400 absolute -right-1 inset-y-0"
+        ></div>
       </div>
     </div>
   {/if}
