@@ -15,10 +15,7 @@
 
 <div
   data-channel-item=""
-  class={twMerge(
-    "flex items-center gap-x-2",
-    _class as string,
-  )}
+  class={twMerge("flex items-center gap-x-2 min-w-0", _class as string)}
 >
   <img
     {src}
@@ -26,11 +23,13 @@
     class="rounded-full shrink-0 aspect-square size-(--avatar-size,--spacing(7)) bg-amber-600"
   />
   {#if !otherMeta}
-    <span class="flex-1">{name}</span>
+    <span data-channel-name="" class="min-w-0">{name}</span>
   {:else}
-    <div class="flex-1">
-      <span>{name}</span>
-      <div>{@render otherMeta()}</div>
+    <div class="min-w-0">
+      <div data-channel-name="" class="min-w-0">{name}</div>
+      <div class="inline-flex items-center" data-channel-meta="">
+        {@render otherMeta()}
+      </div>
     </div>
     {@render actions?.()}
   {/if}
