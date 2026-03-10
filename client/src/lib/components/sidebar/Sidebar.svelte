@@ -36,7 +36,7 @@
         <SidebarContents />
         <div
           id="panel-grip"
-          class="cursor-e-resize flex-1 h-full w-2 border-r-2 border-neutral-700 hover:bg-neutral-400 absolute -right-1 inset-y-0"
+          class="cursor-e-resize flex-1 h-full w-2 border-l-2 border-neutral-700 hover:bg-neutral-400 absolute -right-1 inset-y-0"
         ></div>
       </div>
     </div>

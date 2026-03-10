@@ -25,9 +25,9 @@
   ></script>
 </svelte:head>
 
-<main class="flex flex-col items-center justify-center text-center">
+<main class="flex flex-col items-center justify-center text-center  prose-p:text-base">
   <div class="tenor-gif-embed w-96" data-postid={randomGif}></div>
-  <h1 class="text-5xl font-bold mb-5 mt-8 *:text-sm *:lg:text-base *:mb-2">
+  <h1 class="text-5xl font-bold mb-5 mt-8 *:text-sm *:lg:text-base">
     {page.status}
   </h1>
   {#if page.status === 404}
@@ -36,6 +36,7 @@
       somewhere?
     </p>
   {:else}
-    <p>{page.error?.message}</p>
+    <p>Oh, this isn't the typical 404 page you'd normally encounter...</p>
   {/if}
+  <code class="p-2 rounded-md bg-neutral-800 block mt-4">{JSON.stringify(page.error)}</code>
 </main>

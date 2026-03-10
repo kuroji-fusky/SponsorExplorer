@@ -31,7 +31,7 @@
       <Button
         variant="tritery"
         size="skinny"
-        class="px-1 opacity-60 hover:opacity-100 transition-opacity hover:bg-transparent"
+        class="px-1 opacity-60 hover:opacity-100 transition-opacity hover:bg-transparent flex-1"
         onclick={toggleState}
       >
         <span class="font-semibold text-base leading-none py-1 ">
@@ -45,12 +45,11 @@
         {/snippet}
       </Button>
     {:else}
-      <span class="font-semibold text-base leading-none mx-1 opacity-60">
+      <span class="font-semibold text-base leading-none mx-1 opacity-60 flex-1">
         {name}
       </span>
     {/if}
 
-    <span class="flex-1"></span>
     {#if action}
       <div id="actions" class="flex gap-x-0.5">
         {@render action()}
