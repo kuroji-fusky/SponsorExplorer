@@ -2,6 +2,7 @@ package internal
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 )
@@ -17,7 +18,7 @@ func httpRequestTemplate(method string, url string, body io.Reader) (*httpFetchR
 		return nil, err
 	}
 
-	req.Header.Add("User-Agent", "For SponsorExplorer caching")
+	req.Header.Add("User-Agent", "compatible+KuroBot/1.0; for SponsorExplorer caching <se.fusky.dev>")
 	if method == http.MethodPost {
 		req.Header.Add("Content-Type", "application/json")
 	}
@@ -32,6 +33,8 @@ func httpRequestTemplate(method string, url string, body io.Reader) (*httpFetchR
 	if err != nil {
 		return nil, err
 	}
+
+	fmt.Println("=>", method, url)
 
 	return &httpFetchResponse{
 		Body:       respBody,

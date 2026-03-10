@@ -7,6 +7,11 @@ type YTOptions struct {
 	DefaultMaxResult int    `url:"max_result,omitempty"`
 }
 
+// I might need to expand the logic here soon lmao
+func StripIdentifiers(id string) string {
+	return id[2:]
+}
+
 func New(opts *YTOptions) *YTOptions {
 	var defaultMaxResult int = 5
 

@@ -31,11 +31,12 @@ type cachedVideoMeta struct {
 }
 
 type videoMeta struct {
-	Title     string                       `json:"title"`
-	Thumbnail string                       `json:"thumbnail"`
-	Duration  string                       `json:"duration"`
-	VideoType VideoType                    `json:"_type"`
-	Channel   *videoMetaWithChannelDetails `json:"channel,omitempty"`
+	Title      string                       `json:"title"`
+	Thumbnail  string                       `json:"thumbnail"`
+	Duration   string                       `json:"duration"`
+	VideoType  VideoType                    `json:"_type"`
+	UploadDate string                       `json:"uploadDate"`
+	Channel    *videoMetaWithChannelDetails `json:"channel,omitempty"`
 }
 
 type videoMetaWithChannelDetails struct {

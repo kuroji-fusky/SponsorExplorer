@@ -3,13 +3,10 @@ root = "."
 tmp_dir = "tmp"
 
 [build]
-exclude = ["tmp", "vendor", "cmd"]
+exclude = ["tmp", "vendor", "cmd", "gocache"]
 
 [color]
 main = "yellow"
 watcher = "cyan"
 build = "green"
 log = "white"
-
-[screen]
-clear_on_rebuild = true

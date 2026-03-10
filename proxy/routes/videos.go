@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
@@ -11,14 +10,12 @@ import (
 
 func (h *DepHandler) VideoRoutes(e *echo.Echo) {
 	ytToken := h.deps.YTApiKey
-	cacheDb := h.deps.Redis
+	// cacheDb := h.deps.Redis
+	yt := youtube.New(&youtube.YTOptions{ApiKey: ytToken})
 
 	e.GET("/yt/video/:id", func(c echo.Context) error {
 
 		videoId := c.Param("id")
-
-		// temp fix for unused variable
-		fmt.Println(cacheDb)
 
 		if len(videoId) != 11 {
 			return c.JSON(http.StatusBadRequest, map[string]string{
@@ -26,17 +23,24 @@ func (h *DepHandler) VideoRoutes(e *echo.Echo) {
 			})
 		}
 
-		yt := youtube.New(&youtube.YTOptions{ApiKey: ytToken})
-		yt.Video(videoId)
+		// Kinda ridiculous that you'd call two APIs just to get the handle of a given channel
+		videoResp := yt.Video(videoId).Items[0]
+
+		videoSnippet := videoResp.Snippet
+		channelResp := yt.Channel(videoSnippet.ChannelId).Items[0].Snippet
 
 		return c.JSON(http.StatusOK, cachedVideoMeta{
 			Details: videoMeta{
+				Title:      videoSnippet.Title,
+				UploadDate: videoSnippet.PublishedAt,
+				Thumbnail:  videoSnippet.Thumbnails.High.URL,
+				Duration:   videoResp.ContentDetails.Duration,
+				VideoType:  VideoNormal,
 				Channel: &videoMetaWithChannelDetails{
-					Name:   "Nick Wilde",
-					Handle: "@thewildefox",
-					// Starting characters "UC" are stripped to save some bytes
-					ChannelId: "KeFLvCLdP3FTSEFU9rNKHg",
-					Avatar:    "https://yt.img.something/",
+					Name:      videoSnippet.ChannelTitle,
+					Handle:    channelResp.CustomUrl,
+					ChannelId: youtube.StripIdentifiers(videoSnippet.ChannelId),
+					Avatar:    videoSnippet.Thumbnails.High.URL,
 				},
 			},
 		})
