@@ -50,12 +50,12 @@ type thumbnailResponse struct {
 // - `contentDetails.licensedContent
 // - `contentDetails.projection`
 
-type videoResponse []struct {
+type videoResponse struct {
 	Kind    string `json:"kind"`
 	Etag    string `json:"etag"`
 	Id      string `json:"id"`
 	Snippet struct {
-		PublishedAt string `json:"publisedAt"`
+		PublishedAt string `json:"publishedAt"`
 		ChannelId   string `json:"channelId"`
 		Title       string `json:"title"`
 		Description string `json:"description"`
