@@ -24,4 +24,4 @@ type PlaylistItemsParams struct {
 	Common
 }
 
-func (yt *YTOptions) PlaylistItems(params PlaylistItemsParams)
+// func (yt *YTOptions) PlaylistItems(params PlaylistItemsParams)

@@ -1,5 +1,7 @@
 import { redirect, type Handle } from "@sveltejs/kit"
 
+const proxyUrl = import.meta.env.DEV ? "http://localhost:4000" : process.env.SERVER_URL
+
 export const handle: Handle = async ({ event, resolve }) => {
   const { pathname, search } = event.url
   const path = `${pathname}${search}`
@@ -39,8 +41,20 @@ export const handle: Handle = async ({ event, resolve }) => {
     throw redirect(301, `/submissions/username/${concatPath}`)
   }
 
-  // Check if proxy server is alive
-
   const res = await resolve(event)
-  return res
+
+  try {
+    // Check if proxy server is alive
+    const proxyServer = await fetch(`${proxyUrl}/ping`)
+
+    console.log(await proxyServer.json())
+  } catch (e) {
+    const err = e as Error
+
+    console.error("Proxy server errored, returned:", (err as Error).message)
+    console.error((err as Error).cause)
+    return res
+  } finally {
+    return res
+  }
 }

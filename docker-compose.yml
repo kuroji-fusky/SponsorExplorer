@@ -2,21 +2,21 @@ services:
   proxy-cache:
     image: redis:latest
     ports:
-      - "4444:6379"
+      - "6379:6379"
     volumes:
       - "redis_cache:/cache"
     command: ["redis-server"]
 
-  proxy-server:
-    image: proxy/Dockerfile
-    ports:
-      - "4000:6969"
+  # proxy-server:
+  #   image: proxy/Dockerfile
+  #   ports:
+  #     - "4000:6969"
 
-  frontend:
-    image: client/Dockerfile
-    ports:
-      - "4000:3000"
-    command: ["pnpm run start"]
+  # frontend:
+  #   image: client/Dockerfile
+  #   ports:
+  #     - "4000:3000"
+  #   command: ["pnpm run start"]
 
 volumes:
   redis_cache:

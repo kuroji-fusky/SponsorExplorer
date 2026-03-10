@@ -52,7 +52,7 @@ func main() {
 		DB:       0,
 	})
 
-	pingCtx, pingCancel := context.WithTimeout(context.Background(), 2*time.Second)
+	pingCtx, pingCancel := context.WithTimeout(context.Background(), 01*time.Second)
 	defer pingCancel()
 
 	if err := cacheDb.Ping(pingCtx).Err(); err != nil {
@@ -88,7 +88,7 @@ func main() {
 	})
 
 	e.GET("/ping", func(c echo.Context) error {
-		return c.String(http.StatusOK, "pong")
+		return c.JSON(http.StatusOK, map[string]string{"message": "pong"})
 	})
 
 	e.GET("/status", func(c echo.Context) error {
