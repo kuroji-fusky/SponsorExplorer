@@ -30,6 +30,7 @@ func (h *DepHandler) VideoRoutes(e *echo.Echo) {
 		channelResp := yt.Channel(videoSnippet.ChannelId).Items[0].Snippet
 
 		return c.JSON(http.StatusOK, cachedVideoMeta{
+			ID: videoId,
 			Details: videoMeta{
 				Title:      videoSnippet.Title,
 				UploadDate: videoSnippet.PublishedAt,
@@ -40,7 +41,7 @@ func (h *DepHandler) VideoRoutes(e *echo.Echo) {
 					Name:      videoSnippet.ChannelTitle,
 					Handle:    channelResp.CustomUrl,
 					ChannelId: youtube.StripIdentifiers(videoSnippet.ChannelId),
-					Avatar:    videoSnippet.Thumbnails.High.URL,
+					Avatar:    channelResp.Thumbnails.Medium.URL,
 				},
 			},
 		})

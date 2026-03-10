@@ -26,6 +26,7 @@ const (
 )
 
 type cachedVideoMeta struct {
+	ID       string                        `json:"id"`
 	Details  videoMeta                     `json:"details"`
 	Segments []sponsorblock.CachedSegments `json:"segments"`
 }

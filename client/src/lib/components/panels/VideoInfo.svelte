@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { getContext } from "svelte";
   import YoutubePlayer from "../YoutubePlayer.svelte";
   import ChannelItem from "../ChannelItem.svelte";
   import Button from "../Button.svelte";
@@ -8,8 +7,11 @@
     ExternalLinkIcon,
     SquareGanttChartIcon,
   } from "@lucide/svelte";
+  import { getVideoMeta } from "$lib/context";
 
-  const { id } = getContext<{ id: string }>("videoId");
+  const { id, title, channel, uploadDate } = getVideoMeta();
+
+  const channelId = `/channel/UC${channel.id}`;
 </script>
 
 <section class="mt-4 flex @max-5xl:flex-col">
@@ -20,23 +22,27 @@
     <!-- Title -->
     <div>
       <div class="opacity-60 mb-1.5">Segments from</div>
-      <h2 class="text-2xl font-bold">Video titles</h2>
+      <h2 class="text-2xl font-bold">{title}</h2>
     </div>
     <!-- Channel and date -->
     <div class="flex items-center">
-      <a href="/channel/a" class="inline-block leading-none">
-        <ChannelItem class="inline-flex" src="#" name="Channel name" />
+      <a href={channelId} class="inline-block leading-none">
+        <ChannelItem
+          class="inline-flex"
+          src={channel.avatar}
+          name={channel.name}
+        />
       </a>
       <div class="@max-5xl:hidden inline-flex items-center mx-1">
         <button class="p-1.5">
           <BookmarkIcon size={16} />
         </button>
-        <a href="http://youtube.com/channel/UCxxx" class="p-1.5">
+        <a href={`https://www.youtube.com/${channelId}`} class="p-1.5">
           <ExternalLinkIcon size={16} />
         </a>
       </div>
       <span class="size-1 rounded-md dark:bg-white/60 bg-black"></span>
-      <time class="ml-2" datetime="NaN">NaN</time>
+      <time class="ml-2" datetime={uploadDate}>{uploadDate}</time>
     </div>
     <!-- Info -->
     <div
