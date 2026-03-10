@@ -1,6 +1,5 @@
 <script lang="ts">
   import Badge from "./Badge.svelte";
-  import { twMerge } from "tailwind-merge";
   import {
     CATEGORY_MAP,
     type Category as Segment,
@@ -13,19 +12,22 @@
 
   const { segment, chapterLabel }: Props = $props();
 
+  // svelte-ignore state_referenced_locally
   const _seg = CATEGORY_MAP[segment];
 </script>
 
 <Badge
-  class="relative inline-flex items-center gap-x-1.5 rounded-2xl cursor-help"
+  style={`--badge-color: var(--${_seg.var});`}
+  class={[
+    "relative inline-flex items-center gap-x-1.5 rounded-2xl cursor-help",
+    "before:bg-(--badge-color) before:rounded-full before:size-3 before:shrink-0 before:z-[1]",
+    "after:bg-(--badge-color) after:z-0 after:absolute after:inset-0 after:opacity-25",
+  ]}
 >
-  <span class={[_seg.bg, "rounded-full size-3 flex-shrink-0 z-[1]"]}
-  ></span>
   <span
     class={[
       "text-sm font-semibold z-[1]",
       chapterLabel ? "underline decoration-dashed" : "",
     ]}>{chapterLabel ? chapterLabel : _seg.label}</span
   >
-  <div class={[_seg.bg, "z-0 absolute inset-0 opacity-25"]}></div>
 </Badge>

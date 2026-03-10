@@ -1,22 +1,39 @@
 interface SB_FrontendModel {
   label: string
   bg?: string
+  var?: string
   helpLink?: string
 }
 
 export const CATEGORY_MAP = {
-  chapter: { label: "Chapter", bg: "bg-slate-300" },
-  poi_highlight: { label: "Highlight", bg: "bg-sb-highlight" },
-  sponsor: { label: "Sponsor", bg: "bg-sb-sponsor" },
-  selfpromo: { label: "Unpaid/Self Promotion", bg: "bg-sb-selfpromo" },
-  preview: { label: "Preview/Recap", bg: "bg-sb-preview" },
-  interaction: { label: "Interaction Reminder", bg: "bg-sb-interaction" },
-  intro: { label: "Intro/Intermission", bg: "bg-sb-intermission" },
-  outro: { label: "Endcards/Credits", bg: "bg-sb-endcards" },
-  filler: { label: "Tangents/Jokes", bg: "bg-sb-filler" },
-  hook: { label: "Hook/Greetings", bg: "bg-sb-hook" },
-  music_offtopic: { label: "Non-Music", bg: "bg-sb-non-music" },
-  exclusive_access: { label: "Exclusive Access", bg: "bg-sb-exclusive-access" },
+  chapter: { label: "Chapter", bg: "bg-slate-300", var: "color-slate-300" },
+  poi_highlight: { label: "Highlight", bg: "bg-sb-highlight", var: "color-sb-highlight" },
+  sponsor: { label: "Sponsor", bg: "bg-sb-sponsor", var: "color-sb-sponsor" },
+  selfpromo: {
+    label: "Unpaid/Self Promotion",
+    bg: "bg-sb-selfpromo",
+    var: "color-sb-selfpromo)",
+  },
+  preview: { label: "Preview/Recap", bg: "bg-sb-preview", var: "color-sb-preview)" },
+  interaction: {
+    label: "Interaction Reminder",
+    bg: "bg-sb-interaction",
+    var: "color-sb-interaction)",
+  },
+  intro: {
+    label: "Intro/Intermission",
+    bg: "bg-sb-intermission",
+    var: "color-sb-intermission)",
+  },
+  outro: { label: "Endcards/Credits", bg: "bg-sb-endcards", var: "color-sb-endcards)" },
+  filler: { label: "Tangents/Jokes", bg: "bg-sb-filler", var: "color-sb-filler)" },
+  hook: { label: "Hook/Greetings", bg: "bg-sb-hook", var: "color-sb-hook)" },
+  music_offtopic: { label: "Non-Music", bg: "bg-sb-non-music", var: "color-sb-non-music)" },
+  exclusive_access: {
+    label: "Exclusive Access",
+    bg: "bg-sb-exclusive-access",
+    var: "color-sb-exclusive-access)",
+  },
 } as const satisfies Record<string, SB_FrontendModel>
 
 export const ACTIONTYPE_MAP = {
