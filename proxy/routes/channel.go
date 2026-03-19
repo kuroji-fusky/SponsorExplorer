@@ -47,7 +47,7 @@ func (h *DepHandler) ChannelRoutes(e *echo.Echo) {
 				Details: videoMeta{
 					VideoType:  VideoNormal,
 					Title:      snippet.Title,
-					Thumbnail:  strings.Split(snippet.Thumbnails.High.URL, "http:")[1],
+					Thumbnail:  strings.Split(snippet.Thumbnails.High.URL, "https:")[1],
 					UploadDate: snippet.PublishedAt,
 					Duration:   youtube.ParseYTDuration(vid.ContentDetails.Duration),
 				},
