@@ -53,7 +53,7 @@ func (h *DepHandler) VideoRoutes(e *echo.Echo) {
 			Details: videoMeta{
 				Title:      videoSnippet.Title,
 				UploadDate: videoSnippet.PublishedAt,
-				Thumbnail:  videoSnippet.Thumbnails.High.URL,
+				Thumbnail:  strings.Split(videoSnippet.Thumbnails.High.URL, "https:")[1],
 				Duration:   youtube.ParseYTDuration(duration),
 				IsPremiere: isPremiere,
 				VideoType:  VideoNormal,
