@@ -6,25 +6,26 @@ import (
 	"github.com/kuroji-fusky/SponsorExplorer/proxy/internal"
 )
 
-func (yt *YTOptions) Video(id string, params *ytCommonParams) YTVideoResponse {
+func (yt *YTOptions) PlaylistItems(playlistId string, params *ytCommonParams) YTPlaylistItemResponse {
 	start := time.Now()
 
-	endpoint := BASE_ENDPOINT + "/videos?part=snippet,contentDetails" + "&id=" + id + "&key=" + yt.ApiKey
+	endpoint := BASE_ENDPOINT + "/playlistItems?part=snippet,contentDetails" + "&playlistId=" + playlistId + "&key=" + yt.ApiKey
 	resp, _ := internal.Fetch(endpoint)
 
 	elapsed := time.Since(start).Seconds()
 
-	var videoRes YTVideoResponse
-	if err := resp.JSON(&videoRes); err != nil {
+	var playlistItemsRes YTPlaylistItemResponse
+	if err := resp.JSON(&playlistItemsRes); err != nil {
 		panic(err)
 	}
 
 	rdb := internal.NewRedisInstance(yt.Redis, yt.RedisCtx)
+
 	rdb.AddEventLog(internal.NetworkLog{
 		Url:         resp.URL,
 		Type:        "raw",
 		RequestTime: elapsed,
 	})
 
-	return videoRes
+	return playlistItemsRes
 }

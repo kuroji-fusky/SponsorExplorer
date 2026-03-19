@@ -5,9 +5,10 @@ type YTResPart string
 
 // Only including those that doesn't require OAuth 2.0
 const (
-	YtPartSnippet        YTResPart = "snippet"
+	YTPartSnippet        YTResPart = "snippet"
 	YTPartContentDetails YTResPart = "contentDetails"
 	YTPartStatistics     YTResPart = "statistics"
+	YTPartId             YTResPart = "id"
 )
 
 type ytCommonParams struct {
@@ -17,8 +18,6 @@ type ytCommonParams struct {
 	MaxResults int         `url:"maxResults"`
 	PageToken  int         `url:"pageToken"`
 }
-
-type Common ytCommonParams
 
 ////////////////////////////////////////////////////////////////
 
@@ -95,8 +94,30 @@ type channelResponse struct {
 	// contentDetails are pointless lol
 }
 
+type playlistItemResponse struct {
+	Kind    string `json:"kind"`
+	Etag    string `json:"etag"`
+	Id      string `json:"id"`
+	Snippet struct {
+		Title       string     `json:"title"`
+		Description string     `json:"description"`
+		CustomUrl   string     `json:"customUrl"`
+		PublishedAt string     `json:"publishedAt"`
+		Thumbnails  thumbnails `json:"thumbnails"`
+
+		ResourceId struct {
+			VideoId string `json:"videoId"`
+		} `json:"resourceId"`
+
+		VideoOwnerChannelTitle string `json:"videoOwnerChannelTitle"`
+		VideoOwnerChannelId    string `json:"videoOwnerChannelId"`
+	} `json:"snippet"`
+}
+
 type YTVideoResponse ytResponseTemplate[videoResponse]
 type YTChannelResponse ytResponseTemplate[channelResponse]
+
+type YTPlaylistItemResponse ytResponseTemplate[playlistItemResponse]
 
 ////////////////////////////////////////////////////////////////
 

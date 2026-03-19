@@ -26,17 +26,17 @@ const (
 )
 
 type cachedVideoMeta struct {
-	ID       string                        `json:"id"`
-	Details  videoMeta                     `json:"details"`
-	Segments []sponsorblock.CachedSegments `json:"segments"`
+	ID       string                         `json:"id"`
+	Details  videoMeta                      `json:"details"`
+	Segments *[]sponsorblock.CachedSegments `json:"segments"`
 }
 
 type videoMeta struct {
+	VideoType  VideoType                    `json:"_type"`
 	Title      string                       `json:"title"`
 	Thumbnail  string                       `json:"thumbnail"`
-	Duration   string                       `json:"duration"`
-	VideoType  VideoType                    `json:"_type"`
 	UploadDate string                       `json:"uploadDate"`
+	Duration   string                       `json:"duration"`
 	Channel    *videoMetaWithChannelDetails `json:"channel,omitempty"`
 }
 

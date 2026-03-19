@@ -22,10 +22,10 @@ func NewRedisInstance(rdb *redis.Client, ctx context.Context) *RedisBridge {
 type NetworkLog struct {
 	Type        string
 	Url         string
-	RequestTime string
+	RequestTime float64
 }
 
-func (netLog NetworkLog) RedisValues() map[string]any {
+func (netLog NetworkLog) parse() map[string]any {
 	return map[string]any{
 		"type":         netLog.Type,
 		"url":          netLog.Url,
@@ -41,7 +41,7 @@ func (bridge *RedisBridge) AddEventLog(netLog NetworkLog) {
 
 	res, err := bridge.RedisDB.XAdd(bridge.RCTX, &redis.XAddArgs{
 		Stream: "log:net_events",
-		Values: netLog.RedisValues(),
+		Values: netLog.parse(),
 	}).Result()
 
 	if err != nil {

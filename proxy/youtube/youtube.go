@@ -7,6 +7,7 @@ import (
 )
 
 const BASE_ENDPOINT = "https://www.googleapis.com/youtube/v3"
+const MAX_RESULTS_CAP = 50
 
 type YTOptions struct {
 	Redis            *redis.Client

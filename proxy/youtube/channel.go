@@ -1,10 +1,13 @@
 package youtube
 
 import (
+	"time"
+
 	"github.com/kuroji-fusky/SponsorExplorer/proxy/internal"
 )
 
-func (yt *YTOptions) Channel(channelId string) YTChannelResponse {
+func (yt *YTOptions) Channel(channelId string, params *ytCommonParams) YTChannelResponse {
+	start := time.Now()
 	// !! By default, the consumer is looking for a latest upload, so it'll use the
 	// !! RSS feed instead to fetch the latest 25 uploads of a given channel
 	// !! without relying the need for an API key
@@ -18,15 +21,24 @@ func (yt *YTOptions) Channel(channelId string) YTChannelResponse {
 	// }
 
 	// latestVideoFeed, err := internal.Fetch("https://www.youtube.com/feeds/videos.xml?channel_id" + channelId)
-	// return latestVideoFeed.Plaintext()
+
 	endpoint := BASE_ENDPOINT + "/channels?part=snippet,contentDetails" + "&id=" + channelId + "&key=" + yt.ApiKey
 	resp, _ := internal.Fetch(endpoint)
+
+	elapsed := time.Since(start).Seconds()
 
 	var channelsRes YTChannelResponse
 
 	if err := resp.JSON(&channelsRes); err != nil {
 		panic(err)
 	}
+
+	rdb := internal.NewRedisInstance(yt.Redis, yt.RedisCtx)
+	rdb.AddEventLog(internal.NetworkLog{
+		Url:         resp.URL,
+		Type:        "raw",
+		RequestTime: elapsed,
+	})
 
 	return channelsRes
 }

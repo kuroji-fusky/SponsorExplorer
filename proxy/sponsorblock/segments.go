@@ -6,6 +6,7 @@ package sponsorblock
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/kuroji-fusky/SponsorExplorer/proxy/internal"
 )
@@ -82,6 +83,8 @@ func (sb *sponBlockSync) SearchCategories(videoId string, options *SkipAndSearch
 	resp, _ := internal.Fetch(BASE_ENDPOINT + "/searchSegments" + "?videoID=" + videoId)
 	rdb := internal.NewRedisInstance(sb.RedisDB, sb.RCTX)
 
+	start := time.Now()
+
 	var searchSegmentsRes SearchCategoriesResponse
 
 	if err := resp.JSON(&searchSegmentsRes); err != nil {
@@ -95,8 +98,10 @@ func (sb *sponBlockSync) SearchCategories(videoId string, options *SkipAndSearch
 
 	fmt.Println(resp.ContentType)
 
+	elapsed := time.Since(start).Seconds()
+
 	rdb.AddEventLog(internal.NetworkLog{
-		RequestTime: "WIP",
+		RequestTime: elapsed,
 		Url:         resp.URL,
 		Type:        "raw dog me baby",
 	})
