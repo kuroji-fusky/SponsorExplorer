@@ -52,6 +52,8 @@ func main() {
 		DB:       0,
 	})
 
+	redisCtx := context.Background()
+
 	pingCtx, pingCancel := context.WithTimeout(context.Background(), 01*time.Second)
 	defer pingCancel()
 
@@ -81,6 +83,7 @@ func main() {
 	h := routes.NewDepHandler(routes.ProxyDeps{
 		YTApiKey: ytToken,
 		Redis:    cacheDb,
+		RedisCtx: redisCtx,
 	})
 
 	e.GET("/", func(c echo.Context) error {
@@ -112,6 +115,7 @@ func main() {
 	h.AnalysisRoutes(e)
 	h.ChannelRoutes(e)
 	h.SBUsersRoute(e)
+	h.SBProxyRoutes(e)
 	// Routes END
 
 	parsedPortAddr := ":" + strconv.Itoa(serverPort)

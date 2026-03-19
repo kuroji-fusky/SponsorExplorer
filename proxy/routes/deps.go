@@ -1,10 +1,15 @@
 package routes
 
-import "github.com/redis/go-redis/v9"
+import (
+	"context"
+
+	"github.com/redis/go-redis/v9"
+)
 
 type ProxyDeps struct {
 	YTApiKey string
 	Redis    *redis.Client
+	RedisCtx context.Context
 }
 
 type DepHandler struct {

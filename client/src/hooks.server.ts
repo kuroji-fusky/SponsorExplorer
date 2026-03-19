@@ -1,4 +1,4 @@
-import { redirect, type Handle } from "@sveltejs/kit"
+import { error, redirect, type Handle } from "@sveltejs/kit"
 
 const proxyUrl = import.meta.env.DEV ? "http://localhost:4000" : process.env.SERVER_URL
 
@@ -45,6 +45,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   try {
     // Check if proxy server is alive
+    // TODO to prevent from each pings on every page request, limit it per 5-10 minute cooldown
     const proxyServer = await fetch(`${proxyUrl}/ping`)
 
     console.log(await proxyServer.json())
@@ -52,9 +53,10 @@ export const handle: Handle = async ({ event, resolve }) => {
     const err = e as Error
 
     console.error("Proxy server errored, returned:", (err as Error).message)
-    console.error((err as Error).cause)
-    return res
-  } finally {
-    return res
+    console.error("You might need to run the proxy server first lol")
+
+    throw error(500, `Proxy server not running, returned: ${(err as Error).message}`)
   }
+
+  return res
 }

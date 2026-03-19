@@ -62,7 +62,7 @@
               href="/channel/a"
               class="block hover:bg-neutral-700/40 px-1.5 py-1 rounded-md [--avatar-size:--spacing(6)]"
             >
-              <ChannelItem src="gaming" name="Gaming" />
+              <ChannelItem src="#" name="Gaming" />
             </a>
             <div class="absolute right-0 inset-y-0 z-10 flex items-center">
               <Button icon variant="tritery">

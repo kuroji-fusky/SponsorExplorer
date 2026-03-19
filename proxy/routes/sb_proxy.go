@@ -1,10 +1,13 @@
 package routes
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
 
+	"github.com/kuroji-fusky/SponsorExplorer/proxy/internal"
+	"github.com/kuroji-fusky/SponsorExplorer/proxy/sponsorblock"
 	"github.com/labstack/echo/v4"
 )
 
@@ -19,14 +22,30 @@ type (
 
 // Direct calls from the SponsorBlock API
 // Note that responses from the proxy API is similar and is altered to be more... portable
+
 func (h *DepHandler) SBProxyRoutes(e *echo.Echo) {
+	sb := sponsorblock.NewSponBlocc(&internal.RedisBridge{
+		RedisDB: h.deps.Redis,
+		RCTX:    h.deps.RedisCtx,
+	})
+
 	e.GET("/sb/searchSegments/:id", func(c echo.Context) error {
 		videoId := c.Param("id")
-		isBypassCache, _ := strconv.Atoi(c.QueryParam("bypass_cache"))
-		passiveUpdate, _ := strconv.Atoi(c.QueryParam("passive_update"))
-		continueFragment, _ := strconv.ParseInt(c.QueryParam("continue_fragment"))
+		// isBypassCache, _ := strconv.Atoi(c.QueryParam("bypass_cache"))
+		// passiveUpdate, _ := strconv.Atoi(c.QueryParam("passive_update"))
+		// continueFragment, _ := strconv.ParseInt(c.QueryParam("continue_fragment"), 10, 16)
 
-		return c.JSON(http.StatusOK, skipSegmentsResponse{})
+		if !internal.CheckValidYoutubeId(videoId) {
+			return c.JSON(http.StatusBadRequest, map[string]string{
+				"_error": internal.YT_INVALID_VIDEO,
+			})
+		}
+
+		yeet := sb.SearchCategories(videoId, nil)
+
+		fmt.Println(yeet.Errors)
+
+		return c.JSON(http.StatusOK, yeet)
 	})
 
 	// Reference: https://github.com/kuroji-fusky/SponsorExplorer/blob/nextjs-legacy/client/src/app/api/sb/skippableSegments/route.ts
@@ -34,6 +53,11 @@ func (h *DepHandler) SBProxyRoutes(e *echo.Echo) {
 		videoIdList := strings.Split(c.QueryParam("id"), ",")
 		isBypassCache, _ := strconv.Atoi(c.QueryParam("bypass_cache"))
 		passiveUpdate, _ := strconv.Atoi(c.QueryParam("passive_update"))
+
+		fmt.Println(
+			isBypassCache,
+			passiveUpdate,
+		)
 
 		if len(videoIdList) == 0 {
 			return c.JSON(http.StatusBadRequest, map[string]string{

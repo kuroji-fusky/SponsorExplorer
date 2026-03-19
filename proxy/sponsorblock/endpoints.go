@@ -4,7 +4,6 @@ package sponsorblock
 //
 // Note: URL param `?service=YouTube` is omitted since it appends them automatically
 type SkipAndSearchCategoriesConfig struct {
-	VideoID    string              `url:"videoID"`
 	Categories []SegmentCategory   `url:"category,omitempty"`
 	ActionType []SegmentActionType `url:"actionType,omitempty"`
 	Page       int                 `url:"number,omitempty"`
@@ -21,5 +20,5 @@ type LockCategoriesConfig struct {
 	ActionType *SegmentActionType `url:"actionType"`
 }
 
-func LockCategoriesWithConfig(params LockCategoriesConfig) {
-}
+// func LockCategoriesWithConfig(params LockCategoriesConfig) {
+// }

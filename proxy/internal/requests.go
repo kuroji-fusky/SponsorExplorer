@@ -2,17 +2,20 @@ package internal
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
+	"log"
 	"net/http"
 )
 
-type httpFetchResponse struct {
-	Body       []byte
-	StatusCode int
+type HttpFetchResponse struct {
+	Method      string
+	URL         string
+	Body        []byte
+	StatusCode  int
+	ContentType string
 }
 
-func httpRequestTemplate(method string, url string, body io.Reader) (*httpFetchResponse, error) {
+func httpRequestTemplate(method string, url string, body io.Reader) (*HttpFetchResponse, error) {
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
 		return nil, err
@@ -34,26 +37,29 @@ func httpRequestTemplate(method string, url string, body io.Reader) (*httpFetchR
 		return nil, err
 	}
 
-	fmt.Println("=>", method, url)
+	log.Default().Println("=>", method, url)
 
-	return &httpFetchResponse{
-		Body:       respBody,
-		StatusCode: resp.StatusCode,
+	return &HttpFetchResponse{
+		Method:      method,
+		URL:         url,
+		Body:        respBody,
+		StatusCode:  resp.StatusCode,
+		ContentType: resp.Header.Get("Content-Type"),
 	}, nil
 }
 
-func Fetch(url string) (*httpFetchResponse, error) {
+func Fetch(url string) (*HttpFetchResponse, error) {
 	return httpRequestTemplate(http.MethodGet, url, nil)
 }
 
-func Post(url string, body io.Reader) (*httpFetchResponse, error) {
+func Post(url string, body io.Reader) (*HttpFetchResponse, error) {
 	return httpRequestTemplate(http.MethodPost, url, body)
 }
 
-func (r *httpFetchResponse) Plaintext() string {
+func (r *HttpFetchResponse) Plaintext() string {
 	return string(r.Body)
 }
 
-func (r *httpFetchResponse) JSON(v any) error {
+func (r *HttpFetchResponse) JSON(v any) error {
 	return json.Unmarshal(r.Body, v)
 }

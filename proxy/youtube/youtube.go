@@ -1,8 +1,16 @@
 package youtube
 
+import (
+	"context"
+
+	"github.com/redis/go-redis/v9"
+)
+
 const BASE_ENDPOINT = "https://www.googleapis.com/youtube/v3"
 
 type YTOptions struct {
+	Redis            *redis.Client
+	RedisCtx         context.Context
 	ApiKey           string `url:"key"`
 	DefaultMaxResult int    `url:"max_result,omitempty"`
 }
@@ -20,6 +28,8 @@ func New(opts *YTOptions) *YTOptions {
 	}
 
 	return &YTOptions{
+		Redis:            opts.Redis,
+		RedisCtx:         opts.RedisCtx,
 		ApiKey:           opts.ApiKey,
 		DefaultMaxResult: defaultMaxResult,
 	}

@@ -4,13 +4,15 @@
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "dev": "pnpm --filter se-frontend dev",
-    "build": "pnpm --filter se-frontend build",
-    "preview": "pnpm --filter se-frontend preview",
+    "dev": "concurrently --names client,proxy -c blue,yellow \"pnpm run client:dev\" \"cd proxy && air\" --kill-others --kill-signal SIGKILL",
+    "client:dev": "pnpm --filter se-frontend dev",
+    "client:build": "pnpm --filter se-frontend build",
+    "client:preview": "pnpm --filter se-frontend preview",
     "lint": "biome check"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "concurrently": "^9.2.1",
     "only-allow": "^1.2.1"
   },
   "packageManager": "pnpm@9.15.0"
