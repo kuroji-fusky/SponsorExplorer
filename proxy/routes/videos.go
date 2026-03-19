@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/kuroji-fusky/SponsorExplorer/proxy/internal"
@@ -39,13 +40,22 @@ func (h *DepHandler) VideoRoutes(e *echo.Echo) {
 		header := c.Response().Header()
 		header.Add("SEP-Cached", "MISS")
 
+		isPremiere := !strings.Contains(videoSnippet.LiveBroadcastContent, "none")
+
+		// Since public scheduled videos like Premiere and Upcoming livestreams, just set it to 0 as it undeterministic anyways
+		var duration string = videoResp.ContentDetails.Duration
+		if isPremiere {
+			duration = "0"
+		}
+
 		return c.JSON(http.StatusOK, cachedVideoMeta{
 			ID: videoId,
 			Details: videoMeta{
 				Title:      videoSnippet.Title,
 				UploadDate: videoSnippet.PublishedAt,
 				Thumbnail:  videoSnippet.Thumbnails.High.URL,
-				Duration:   videoResp.ContentDetails.Duration,
+				Duration:   youtube.ParseYTDuration(duration),
+				IsPremiere: isPremiere,
 				VideoType:  VideoNormal,
 				Channel: &videoMetaWithChannelDetails{
 					Name:      videoSnippet.ChannelTitle,

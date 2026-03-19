@@ -43,7 +43,18 @@ type SkipSegmentResponse struct {
 // }
 
 func (sb *sponBlockSync) SkipCategories(videoId string, options *SkipAndSearchCategoriesConfig) SkipSegmentResponse {
-	resp, _ := internal.Fetch(BASE_ENDPOINT + "/skipSegments" + "?videoID=" + videoId)
+	params := SkipAndSearchCategoriesConfig{}
+	if options != nil {
+		params = *options
+	}
+
+	resp, _ := internal.Fetch(internal.BuildURLWithQuery(BASE_ENDPOINT+"/skipSegments", struct {
+		SkipAndSearchCategoriesConfig
+		VideoID string `query:"videoID"`
+	}{
+		SkipAndSearchCategoriesConfig: params,
+		VideoID:                       videoId,
+	}))
 
 	var skipSegmentsRes SkipSegmentResponse
 
@@ -80,7 +91,18 @@ type SearchCategoriesResponse struct {
 }
 
 func (sb *sponBlockSync) SearchCategories(videoId string, options *SkipAndSearchCategoriesConfig) SearchCategoriesResponse {
-	resp, _ := internal.Fetch(BASE_ENDPOINT + "/searchSegments" + "?videoID=" + videoId)
+	params := SkipAndSearchCategoriesConfig{}
+	if options != nil {
+		params = *options
+	}
+
+	resp, _ := internal.Fetch(internal.BuildURLWithQuery(BASE_ENDPOINT+"/searchSegments", struct {
+		SkipAndSearchCategoriesConfig
+		VideoID string `query:"videoID"`
+	}{
+		SkipAndSearchCategoriesConfig: params,
+		VideoID:                       videoId,
+	}))
 	rdb := internal.NewRedisInstance(sb.RedisDB, sb.RCTX)
 
 	start := time.Now()

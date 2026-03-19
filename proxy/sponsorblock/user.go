@@ -3,11 +3,11 @@ package sponsorblock
 func UserID(username string, isExact *bool) {}
 
 type UserInfoConfig struct {
-	UserID       string    `url:"userID"`
-	PublicUserID *string   `url:"publicUserID,omitempty"`
-	Values       *[]string `url:"values,omitempty"`
+	UserID       string    `query:"userID"`
+	PublicUserID *string   `query:"publicUserID,omitempty"`
+	Values       *[]string `query:"values,omitempty"`
 }
 
-func UserInfoWithConfig(params UserInfoConfig) {
+func UserInfoWithConfig(params *UserInfoConfig) {
 
 }

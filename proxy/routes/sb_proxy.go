@@ -24,7 +24,7 @@ type (
 // Note that responses from the proxy API is similar and is altered to be more... portable
 
 func (h *DepHandler) SBProxyRoutes(e *echo.Echo) {
-	sb := sponsorblock.NewSponBlocc(&internal.RedisBridge{
+	sb := sponsorblock.NewSponBlock(&internal.RedisBridge{
 		RedisDB: h.deps.Redis,
 		RCTX:    h.deps.RedisCtx,
 	})

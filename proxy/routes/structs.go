@@ -36,7 +36,8 @@ type videoMeta struct {
 	Title      string                       `json:"title"`
 	Thumbnail  string                       `json:"thumbnail"`
 	UploadDate string                       `json:"uploadDate"`
-	Duration   string                       `json:"duration"`
+	Duration   int64                        `json:"duration"`
+	IsPremiere bool                         `json:"isPremiere"`
 	Channel    *videoMetaWithChannelDetails `json:"channel,omitempty"`
 }
 

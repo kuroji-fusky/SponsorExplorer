@@ -3,6 +3,7 @@ module github.com/kuroji-fusky/SponsorExplorer/proxy
 go 1.25
 
 require (
+	github.com/gorilla/schema v1.4.1
 	github.com/joho/godotenv v1.5.1
 	github.com/labstack/echo/v4 v4.13.4
 	github.com/redis/go-redis/v9 v9.17.2

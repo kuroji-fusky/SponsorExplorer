@@ -9,7 +9,13 @@ import (
 func (yt *YTOptions) PlaylistItems(playlistId string, params *ytCommonParams) YTPlaylistItemResponse {
 	start := time.Now()
 
-	endpoint := BASE_ENDPOINT + "/playlistItems?part=snippet,contentDetails" + "&playlistId=" + playlistId + "&key=" + yt.ApiKey
+	endpoint := yt.buildURL("/playlistItems", struct {
+		ytCommonParams
+		PlaylistID string `query:"playlistId"`
+	}{
+		ytCommonParams: *yt.prepareCommonParams(params, YTPartSnippet, YTPartContentDetails),
+		PlaylistID:     playlistId,
+	})
 	resp, _ := internal.Fetch(endpoint)
 
 	elapsed := time.Since(start).Seconds()

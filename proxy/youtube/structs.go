@@ -12,11 +12,10 @@ const (
 )
 
 type ytCommonParams struct {
-	Part       []YTResPart `url:"part"`
-	Id         string      `url:"id"`
-	Key        string      `url:"key"`
-	MaxResults int         `url:"maxResults"`
-	PageToken  int         `url:"pageToken"`
+	Part       string  `query:"part,omitempty"`
+	Key        string  `query:"key,omitempty"`
+	MaxResults *int    `query:"maxResults,omitempty"`
+	PageToken  *string `query:"pageToken,omitempty"`
 }
 
 ////////////////////////////////////////////////////////////////
@@ -40,7 +39,6 @@ type thumbnailResponse struct {
 // Fields omitted that are not required for this project:
 // - `snippet.categoryId`
 // - `snippet.localized` (for now)
-// - `snippet.liveBroadcastContent`
 // - `snippet.defaultAudioLanguage`
 // - `snippet.tags`
 // - `contentDetails.dimension
@@ -62,12 +60,13 @@ type videoResponse struct {
 	Etag    string `json:"etag"`
 	Id      string `json:"id"`
 	Snippet struct {
-		PublishedAt  string     `json:"publishedAt"`
-		ChannelId    string     `json:"channelId"`
-		Title        string     `json:"title"`
-		Description  string     `json:"description"`
-		Thumbnails   thumbnails `json:"thumbnails"`
-		ChannelTitle string     `json:"channelTitle"`
+		PublishedAt          string     `json:"publishedAt"`
+		ChannelId            string     `json:"channelId"`
+		Title                string     `json:"title"`
+		Description          string     `json:"description"`
+		Thumbnails           thumbnails `json:"thumbnails"`
+		ChannelTitle         string     `json:"channelTitle"`
+		LiveBroadcastContent string     `json:"liveBroadcastContent"`
 	} `json:"snippet"`
 	ContentDetails struct {
 		Duration string `json:"duration"`

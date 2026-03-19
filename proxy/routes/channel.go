@@ -3,6 +3,7 @@ package routes
 import (
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/kuroji-fusky/SponsorExplorer/proxy/internal"
 	"github.com/kuroji-fusky/SponsorExplorer/proxy/youtube"
@@ -18,6 +19,8 @@ func (h *DepHandler) ChannelRoutes(e *echo.Echo) {
 		channelId := c.Param("id")
 		// isBypassCache, _ := strconv.ParseBool(c.QueryParam("bypass_cache"))
 
+		// isHandle := strings.HasPrefix(channelId, "@")
+
 		channelResp := yt.Channel(channelId, nil).Items[0]
 		channelSnippet := channelResp.Snippet
 
@@ -32,28 +35,31 @@ func (h *DepHandler) ChannelRoutes(e *echo.Echo) {
 			longFormVideoIds = append(longFormVideoIds, vid.Snippet.ResourceId.VideoId)
 		}
 
-		log.Default().Println(longFormVideoIds)
+		videosWithTimestamps := yt.Video(strings.Join(longFormVideoIds, ","), nil)
 
-		// for _, vid := range playlistItemsResp.Items {
-		// 	snippet := vid.Snippet
+		longFormVids := []cachedVideoMeta{}
 
-		// 	longFormVids = append(longFormVids, cachedVideoMeta{
-		// 		ID: "lmao",
-		// 		Details: videoMeta{
-		// 			VideoType:  VideoNormal,
-		// 			Title:      snippet.Title,
-		// 			Thumbnail:  snippet.Thumbnails.High.URL,
-		// 			UploadDate: snippet.PublishedAt,
-		// 		},
-		// 	})
-		// }
+		for _, vid := range videosWithTimestamps.Items {
+			snippet := vid.Snippet
+
+			longFormVids = append(longFormVids, cachedVideoMeta{
+				ID: vid.Id,
+				Details: videoMeta{
+					VideoType:  VideoNormal,
+					Title:      snippet.Title,
+					Thumbnail:  snippet.Thumbnails.High.URL,
+					UploadDate: snippet.PublishedAt,
+					Duration:   youtube.ParseYTDuration(vid.ContentDetails.Duration),
+				},
+			})
+		}
 
 		return c.JSON(http.StatusOK, cachedChannelMeta{
 			Name:      channelSnippet.Title,
 			Handle:    channelSnippet.CustomUrl,
 			ChannelId: channelUrlStrip,
 			Avatar:    channelSnippet.Thumbnails.Medium.URL,
-			// Videos:    longFormVids,
+			Videos:    longFormVids,
 		})
 	})
 

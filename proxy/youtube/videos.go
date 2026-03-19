@@ -9,7 +9,13 @@ import (
 func (yt *YTOptions) Video(id string, params *ytCommonParams) YTVideoResponse {
 	start := time.Now()
 
-	endpoint := BASE_ENDPOINT + "/videos?part=snippet,contentDetails" + "&id=" + id + "&key=" + yt.ApiKey
+	endpoint := yt.buildURL("/videos", struct {
+		ytCommonParams
+		Id string `query:"id"`
+	}{
+		ytCommonParams: *yt.prepareCommonParams(params, YTPartSnippet, YTPartContentDetails, YTPartStatistics),
+		Id:             id,
+	})
 	resp, _ := internal.Fetch(endpoint)
 
 	elapsed := time.Since(start).Seconds()

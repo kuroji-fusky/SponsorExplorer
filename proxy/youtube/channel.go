@@ -22,7 +22,13 @@ func (yt *YTOptions) Channel(channelId string, params *ytCommonParams) YTChannel
 
 	// latestVideoFeed, err := internal.Fetch("https://www.youtube.com/feeds/videos.xml?channel_id" + channelId)
 
-	endpoint := BASE_ENDPOINT + "/channels?part=snippet,contentDetails" + "&id=" + channelId + "&key=" + yt.ApiKey
+	endpoint := yt.buildURL("/channels", struct {
+		ytCommonParams
+		Id string `query:"id"`
+	}{
+		ytCommonParams: *yt.prepareCommonParams(params, YTPartSnippet, YTPartContentDetails),
+		Id:             channelId,
+	})
 	resp, _ := internal.Fetch(endpoint)
 
 	elapsed := time.Since(start).Seconds()
