@@ -29,7 +29,7 @@ var AllActionTypes = []SegmentActionType{
 
 func NewSponBlock(rb *internal.RedisBridge) *sponBlockSync {
 	return &sponBlockSync{
-		RedisDB: rb.RedisDB,
-		RCTX:    rb.RCTX,
+		RedisDB:      rb.RedisDB,
+		RedisContext: rb.RedisContext,
 	}
 }

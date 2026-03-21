@@ -2,55 +2,6 @@ package routes
 
 import "github.com/kuroji-fusky/SponsorExplorer/proxy/sponsorblock"
 
-// CHANNEL
-//
-
-type cachedChannelMeta struct {
-	Name      string `json:"name"`
-	Handle    string `json:"handle,omitempty"`
-	ChannelId string `json:"id"`
-	Avatar    string `json:"avatar"`
-
-	Videos []cachedVideoMeta `json:"videos"`
-}
-
-// VIDEO
-//
-
-type VideoType string
-
-const (
-	VideoLive   VideoType = "live"
-	VideoShorts VideoType = "shorts"
-	VideoNormal VideoType = "uploads"
-)
-
-type cachedVideoMeta struct {
-	ID       string                         `json:"id"`
-	Details  videoMeta                      `json:"details"`
-	Segments *[]sponsorblock.CachedSegments `json:"segments"`
-}
-
-type videoMeta struct {
-	VideoType  VideoType                    `json:"_type"`
-	Title      string                       `json:"title"`
-	Thumbnail  string                       `json:"thumbnail"`
-	UploadDate string                       `json:"uploadDate"`
-	Duration   int64                        `json:"duration"`
-	IsPremiere bool                         `json:"isPremiere"`
-	Channel    *videoMetaWithChannelDetails `json:"channel,omitempty"`
-}
-
-type videoMetaWithChannelDetails struct {
-	Name      string `json:"name"`
-	Handle    string `json:"handle"`
-	ChannelId string `json:"id"`
-	Avatar    string `json:"avatar"`
-}
-
-// ANALYSIS
-//
-
 // [<total no. count>, <only hidden/downvote count>]
 type NumberTuple struct{ TotalCount, WithIgnoredCount int }
 
@@ -64,6 +15,7 @@ type categoryActionType struct {
 	TotalSubmissions NumberTuple                    `json:"total_submissions"`
 }
 
+// For `/channel/{id}/analysis`
 type videoDetails struct {
 	videoMeta
 	ChannelName   string `json:"channel_name"`
@@ -71,7 +23,6 @@ type videoDetails struct {
 	ChannelAvatar string `json:"avatar"`
 }
 
-// For `/channel/{id}/analysis`
 type channelSegmentAnalysis struct {
 	VideoDetails videoDetails `json:"video"`
 	Stats        struct {

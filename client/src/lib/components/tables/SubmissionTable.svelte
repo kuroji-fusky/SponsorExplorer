@@ -54,9 +54,15 @@
 <table></table>
 
 <div class="flex justify-center my-9">
-  <Button class="w-60 *:inline-block">
-    <Spinner size={17} />
-    <span>Load moar</span>
+  <Button
+    class="w-60 inline-flex justify-center items-center"
+    variant="secondary"
+    onclick={loadSegments}
+  >
+    {#if isLoadMoreSegments}
+      <Spinner size={15} />
+    {/if}
+    <span>Load more</span>
   </Button>
 </div>
 

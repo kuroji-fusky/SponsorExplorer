@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -27,10 +26,10 @@ func main() {
 	ytToken := localEnv.Load("YT_API_KEY")
 
 	if ytToken == "" {
-		fmt.Println(
+		log.Default().Println(
 			"Oh sweet cheese and crackers! Looks like the proxy server can't start because\n" +
 				"no YouTube API key is provided in the .env file. To obtain one:\n ")
-		fmt.Println(
+		log.Default().Println(
 			" 1. Create project from https://console.cloud.google.com\n\n" +
 				" 2. Enable https://console.cloud.google.com/apis/library/youtube.googleapis.com\n\n" +
 				" 3. Once enabled, go to the Credentials tab > 'Create credentials' > 'API key'\n\n" +
@@ -58,6 +57,7 @@ func main() {
 	defer pingCancel()
 
 	if err := cacheDb.Ping(pingCtx).Err(); err != nil {
+		log.Default().Println("TIP: Make sure Redis is running in the background!")
 		log.Fatalf("failed to connect to redis: %v", err)
 	}
 
@@ -86,6 +86,8 @@ func main() {
 		RedisCtx: redisCtx,
 	})
 
+	// rdb := internal.NewRedisInstance(cacheDb, redisCtx)
+
 	e.GET("/", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, map[string]string{})
 	})
@@ -95,7 +97,11 @@ func main() {
 	})
 
 	e.GET("/status", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, map[string]string{})
+		// rdb.GetTotalLogs()
+
+		return c.JSON(http.StatusOK, map[string]any{
+			"total_queries": 0,
+		})
 	})
 
 	// Returns the total cached values, truncated of course

@@ -14,7 +14,7 @@ import (
 
 func (h *DepHandler) VideoRoutes(e *echo.Echo) {
 	rdb := internal.NewRedisInstance(h.deps.Redis, h.deps.RedisCtx)
-	yt := youtube.New(&youtube.YTOptions{ApiKey: h.deps.YTApiKey, Redis: rdb.RedisDB, RedisCtx: rdb.RCTX})
+	yt := youtube.New(&youtube.YTOptions{ApiKey: h.deps.YTApiKey, Redis: rdb.RedisDB, RedisCtx: rdb.RedisContext})
 
 	e.GET("/yt/video/:id", func(c echo.Context) error {
 		videoId := c.Param("id")

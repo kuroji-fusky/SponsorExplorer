@@ -28,10 +28,10 @@
   {#each _forPreload as font}
     <link rel="prefetch" href={font} as="font" crossorigin="anonymous" />
   {/each}
+  <!-- Preload proxy server -->
+  <link rel="preconnect" href="http://localhost:4000/" crossorigin="anonymous" />
   <!-- Preload third-party crap -->
-  <link rel="preconnect" href="https://www.youtube.com" crossorigin="anonymous" />
-  <link rel="preload" href="https://yt3.ggpht.com" as="fetch" fetchpriority="auto" />
-  <link rel="preload" href="https://i.ytimg.com" as="fetch" fetchpriority="high" />
+  <link rel="preconnect" href="https://www.youtube-nocookie.com" crossorigin="anonymous" />
 </svelte:head>
 
 <div class="grid min-h-screen">

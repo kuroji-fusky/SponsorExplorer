@@ -6,7 +6,7 @@ import (
 	"github.com/kuroji-fusky/SponsorExplorer/proxy/internal"
 )
 
-const DEFAULT_MAX_RESULTS = 25
+const DEFAULT_MAX_RESULTS = 48
 
 func (yt *YTOptions) buildURL(path string, params any) string {
 	return internal.BuildURLWithQuery(BASE_ENDPOINT+path, params)

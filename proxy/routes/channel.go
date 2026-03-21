@@ -12,7 +12,7 @@ import (
 
 func (h *DepHandler) ChannelRoutes(e *echo.Echo) {
 	rdb := internal.NewRedisInstance(h.deps.Redis, h.deps.RedisCtx)
-	yt := youtube.New(&youtube.YTOptions{ApiKey: h.deps.YTApiKey, Redis: rdb.RedisDB, RedisCtx: rdb.RCTX})
+	yt := youtube.New(&youtube.YTOptions{ApiKey: h.deps.YTApiKey, Redis: rdb.RedisDB, RedisCtx: rdb.RedisContext})
 
 	// Channel routes should always be the channel ID, not a handle or the username
 	e.GET("/yt/channel/:id", func(c echo.Context) error {

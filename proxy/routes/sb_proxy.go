@@ -25,8 +25,8 @@ type (
 
 func (h *DepHandler) SBProxyRoutes(e *echo.Echo) {
 	sb := sponsorblock.NewSponBlock(&internal.RedisBridge{
-		RedisDB: h.deps.Redis,
-		RCTX:    h.deps.RedisCtx,
+		RedisDB:      h.deps.Redis,
+		RedisContext: h.deps.RedisCtx,
 	})
 
 	e.GET("/sb/searchSegments/:id", func(c echo.Context) error {

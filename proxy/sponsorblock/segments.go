@@ -103,7 +103,7 @@ func (sb *sponBlockSync) SearchCategories(videoId string, options *SkipAndSearch
 		SkipAndSearchCategoriesConfig: params,
 		VideoID:                       videoId,
 	}))
-	rdb := internal.NewRedisInstance(sb.RedisDB, sb.RCTX)
+	rdb := internal.NewRedisInstance(sb.RedisDB, sb.RedisContext)
 
 	start := time.Now()
 
