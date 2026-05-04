@@ -24,5 +24,4 @@
   <div role="tabpanel">
     <SubmissionTable />
   </div>
-  <SegmentBadge chapterLabel="LMAO" segment="chapter" />
 </main>

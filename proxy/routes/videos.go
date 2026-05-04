@@ -16,7 +16,7 @@ func (h *DepHandler) VideoRoutes(e *echo.Echo) {
 	rdb := internal.NewRedisInstance(h.deps.Redis, h.deps.RedisCtx)
 	yt := youtube.New(&youtube.YTOptions{ApiKey: h.deps.YTApiKey, Redis: rdb.RedisDB, RedisCtx: rdb.RedisContext})
 
-	e.GET("/yt/video/:id", func(c echo.Context) error {
+	e.GET("/video/:id", func(c echo.Context) error {
 		videoId := c.Param("id")
 
 		if !internal.CheckValidYoutubeId(videoId) {
@@ -67,7 +67,7 @@ func (h *DepHandler) VideoRoutes(e *echo.Echo) {
 		})
 	})
 
-	e.PATCH("/yt/video/:id", func(c echo.Context) error {
+	e.PATCH("/video/:id", func(c echo.Context) error {
 		videoId := c.Param("id")
 
 		// Temporary fix for unused variable
@@ -76,12 +76,21 @@ func (h *DepHandler) VideoRoutes(e *echo.Echo) {
 		return c.JSON(http.StatusOK, cachedVideoMeta{})
 	})
 
-	e.DELETE("/yt/video/:id", func(c echo.Context) error {
+	e.DELETE("/video/:id", func(c echo.Context) error {
 		videoId := c.Param("id")
 
 		// Temporary fix for unused variable
 		log.Print(videoId)
 
 		return c.JSON(http.StatusOK, cachedVideoMeta{})
+	})
+
+	// Analysis
+	e.GET("/video/:id/analysis", func(c echo.Context) error {
+		videoId := c.Param("id")
+
+		fmt.Print(videoId)
+
+		return c.NoContent(http.StatusOK)
 	})
 }

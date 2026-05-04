@@ -3,9 +3,7 @@ package routes
 import (
 	"fmt"
 	"io"
-	"log"
 	"net/http"
-	"strconv"
 	"strings"
 
 	"github.com/kuroji-fusky/SponsorExplorer/proxy/internal"
@@ -13,25 +11,6 @@ import (
 )
 
 func (h *DepHandler) AnalysisRoutes(e *echo.Echo) {
-	e.GET("/yt/video/:id/analysis", func(c echo.Context) error {
-		videoId := c.Param("id")
-
-		fmt.Print(videoId)
-
-		return c.NoContent(http.StatusOK)
-	})
-
-	e.GET("/yt/channel/:id/analysis", func(c echo.Context) error {
-		channelId := c.Param("id")
-		sampleSize, _ := strconv.Atoi(c.QueryParam("sample_size"))
-		isBypassCache, _ := strconv.ParseBool(c.QueryParam("bypass_cache"))
-
-		// Temporary fix for unused variable
-		log.Print(channelId, sampleSize, isBypassCache)
-
-		return c.NoContent(http.StatusOK)
-	})
-
 	e.POST("/sb/uuid/analysis", func(c echo.Context) error {
 		giveMeHead := internal.ManageHeaders(c)
 		giveMeHead.Etag("lmao")

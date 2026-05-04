@@ -6,17 +6,10 @@ services:
     volumes:
       - "redis_cache:/cache"
     command: ["redis-server"]
-
-  # proxy-server:
-  #   image: proxy/Dockerfile
-  #   ports:
-  #     - "4000:6969"
-
-  # frontend:
-  #   image: client/Dockerfile
-  #   ports:
-  #     - "4000:3000"
-  #   command: ["pnpm run start"]
+    deploy:
+      resources:
+        limits:
+          memory: 128M
 
 volumes:
   redis_cache:

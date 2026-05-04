@@ -3,6 +3,7 @@ package routes
 import (
 	"log"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/kuroji-fusky/SponsorExplorer/proxy/internal"
@@ -15,7 +16,7 @@ func (h *DepHandler) ChannelRoutes(e *echo.Echo) {
 	yt := youtube.New(&youtube.YTOptions{ApiKey: h.deps.YTApiKey, Redis: rdb.RedisDB, RedisCtx: rdb.RedisContext})
 
 	// Channel routes should always be the channel ID, not a handle or the username
-	e.GET("/yt/channel/:id", func(c echo.Context) error {
+	e.GET("/channel/:id", func(c echo.Context) error {
 		channelId := c.Param("id")
 		// isBypassCache, _ := strconv.ParseBool(c.QueryParam("bypass_cache"))
 
@@ -63,7 +64,8 @@ func (h *DepHandler) ChannelRoutes(e *echo.Echo) {
 		})
 	})
 
-	e.PATCH("/yt/channel/:id", func(c echo.Context) error {
+	// This endpoint updates the channel from cache
+	e.PATCH("/channel/:id", func(c echo.Context) error {
 		channelId := c.Param("id")
 
 		// Temporary fix for unused variable
@@ -72,12 +74,24 @@ func (h *DepHandler) ChannelRoutes(e *echo.Echo) {
 		return c.JSON(http.StatusOK, cachedChannelMeta{})
 	})
 
-	e.DELETE("/yt/channel/:id", func(c echo.Context) error {
+	// This endpoint deletes the channel from cache
+	e.DELETE("/channel/:id", func(c echo.Context) error {
 		channelId := c.Param("id")
 
 		// Temporary fix for unused variable
 		log.Print(channelId)
 
 		return c.JSON(http.StatusOK, cachedChannelMeta{})
+	})
+
+	e.GET("/channel/:id/analysis", func(c echo.Context) error {
+		channelId := c.Param("id")
+		sampleSize, _ := strconv.Atoi(c.QueryParam("sample_size"))
+		isBypassCache, _ := strconv.ParseBool(c.QueryParam("bypass_cache"))
+
+		// Temporary fix for unused variable
+		log.Print(channelId, sampleSize, isBypassCache)
+
+		return c.NoContent(http.StatusOK)
 	})
 }
