@@ -33,7 +33,9 @@
         transition:fly={{ duration: 280, x: "100%", opacity: 1 }}
         class="z-20 grid grid-rows-[auto_1fr] fixed w-full md:w-[40rem] inset-y-0 right-0 bg-neutral-900"
       >
-        <div class="h-14 flex items-center justify-between px-3.5 border-b border-neutral-500">
+        <div
+          class="h-14 flex items-center justify-between px-3.5 border-b border-neutral-500"
+        >
           <h1 class="pl-1 text-lg font-bold">Settings</h1>
           <button
             onclick={togglePane}
@@ -44,30 +46,32 @@
           </button>
         </div>
         <div class="px-4 h-full overflow-y-auto">
-          {#each optionsList as { heading, component, title, description, settingId, props }}
+          {#each optionsList as { heading, items }}
             {#if heading}
               <h2 class="pb-1 first:pt-1 pt-6 opacity-60 font-semibold">
                 {heading}
               </h2>
             {/if}
-            {#if component && title && description}
+            {#each items as { settingId, title, description, component, props }}
               <div data-config-item={settingId} class="py-2">
-                <h3 class="font-bold text-base mb-1">
+                <h3 class="font-bold text-lg mb-1">
                   {#await mdsvexParse(title) then val}
-                    {@html val.code}
+                    {@html val?.code}
                   {/await}
                 </h3>
                 {#await mdsvexParse(description) then val}
-                  {@html val.code}
+                  {@html val?.code}
                 {:catch}
-                  {description}
+                  <p>
+                    {description}
+                  </p>
                 {/await}
               </div>
-            {/if}
+            {/each}
           {/each}
           <section class="px-3 py-2.5 rounded-md bg-yellow-600/40">
-            Note: Settings apply only on this browser, you can export and import them
-            from another browser if you wish.
+            Note: Settings apply only on this browser, you can export and import
+            them from another browser if you wish.
           </section>
         </div>
       </div>
