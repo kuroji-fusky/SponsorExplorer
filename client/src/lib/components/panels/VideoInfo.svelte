@@ -8,6 +8,7 @@
     SquareGanttChartIcon,
   } from "@lucide/svelte";
   import { getVideoMeta } from "$lib/context";
+  import Datetime from "../Datetime.svelte";
 
   const { id, title, channel, uploadDate } = getVideoMeta();
 
@@ -17,7 +18,8 @@
 <section class="mt-4 flex @max-5xl:flex-col">
   <YoutubePlayer {id} class="flex-1 rounded-md overflow-hidden" />
   <div
-    class="space-y-3 shrink-0 w-[52%] @max-5xl:px-0 px-5 py-4 dark:bg-neutral-900 bg-neutral-100 @max-5xl:bg-transparent @max-5xl:rounded-none rounded-tr-md rounded-br-md"
+    data-info-panel=""
+    class="space-y-3 shrink-0 @max-5xl:w-full w-[52%] @max-5xl:px-0 px-5 py-4 dark:bg-neutral-900 bg-neutral-100 dark:@max-5xl:bg-transparent @max-5xl:bg-transparent @max-5xl:rounded-none rounded-tr-md rounded-br-md"
   >
     <!-- Title -->
     <div>
@@ -42,12 +44,12 @@
         </a>
       </div>
       <span class="size-1 rounded-md dark:bg-white/60 bg-black"></span>
-      <time class="ml-2" datetime={uploadDate}>{uploadDate}</time>
+      <Datetime class="ml-2" date={uploadDate} />
     </div>
     <!-- Info -->
     <div
       data-compact-info=""
-      class="px-3.5 py-3 rounded-sm border border-neutral-400 dark:border-neutral-500 grid grid-cols-2"
+      class="@max-5xl:hidden px-3.5 py-3 rounded-sm border border-neutral-400 dark:border-neutral-500 grid grid-cols-2"
     >
       <div>
         <div class="opacity-60 mb-0.5"># of segments submitted</div>
