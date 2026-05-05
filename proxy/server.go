@@ -80,7 +80,7 @@ func main() {
 	)
 
 	// Routes
-	h := routes.NewDepHandler(routes.ProxyDeps{
+	h := routes.NewDependencyHandler(routes.ProxyDeps{
 		YTApiKey: ytToken,
 		Redis:    cacheDb,
 		RedisCtx: redisCtx,
@@ -113,12 +113,10 @@ func main() {
 			maxResults = 100
 		}
 
-		// just return a success status, too lazy to setup redis atm
 		return c.NoContent(http.StatusOK)
 	})
 
 	h.VideoRoutes(e)
-	h.AnalysisRoutes(e)
 	h.ChannelRoutes(e)
 	h.SBUsersRoute(e)
 	h.SBProxyRoutes(e)

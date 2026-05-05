@@ -12,7 +12,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func (h *DepHandler) VideoRoutes(e *echo.Echo) {
+func (h *DependencyHandler) VideoRoutes(e *echo.Echo) {
 	rdb := internal.NewRedisInstance(h.deps.Redis, h.deps.RedisCtx)
 	yt := youtube.New(&youtube.YTOptions{ApiKey: h.deps.YTApiKey, Redis: rdb.RedisDB, RedisCtx: rdb.RedisContext})
 

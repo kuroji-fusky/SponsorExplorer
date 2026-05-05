@@ -11,7 +11,42 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func (h *DepHandler) ChannelRoutes(e *echo.Echo) {
+type cachedChannelMeta struct {
+	Name      string `json:"name"`
+	Handle    string `json:"handle,omitempty"`
+	ChannelId string `json:"id"`
+	Avatar    string `json:"avatar"`
+
+	Videos []cachedVideoMeta `json:"videos"`
+}
+
+type channelSegmentAnalysis struct {
+	VideoDetails videoDetails `json:"video"`
+	Stats        struct {
+		Submissions []struct {
+			Total       int `json:"total"`
+			UserRanking []struct {
+				Username         *string        `json:"username"` // Sometimes, a sponblock user would have no name and would normally be assigned by their public userID
+				UserID           string         `json:"user_id"`
+				TotalSubmissions NumberTuple    `json:"total_submissions"`
+				TotalViews       int            `json:"total_views"`
+				TotalVotes       int            `json:"total_votes"`
+				CategoryRanking  []categoryRank `json:"category_ranks"` // No "actiontype_ranks" since it would be redundant
+			} `json:"ranking"`
+		} `json:"submissions"`
+		Categories []struct {
+			TotalSegments     int                  `json:"total_segments"`
+			CategoryRanking   []categoryRank       `json:"category_ranks"`
+			ActionTypeRanking []categoryActionType `json:"actiontype_ranks"`
+		} `json:"categories"`
+
+		// This refers to the total videos fetched from the YT API, maximum is 50
+		// It's calculated based on the total videos fetched divided by the total video uploads from a channel
+		SampleRelativeTotal float32 `json:"sample_relative_total"`
+	} `json:"stats"`
+}
+
+func (h *DependencyHandler) ChannelRoutes(e *echo.Echo) {
 	rdb := internal.NewRedisInstance(h.deps.Redis, h.deps.RedisCtx)
 	yt := youtube.New(&youtube.YTOptions{ApiKey: h.deps.YTApiKey, Redis: rdb.RedisDB, RedisCtx: rdb.RedisContext})
 

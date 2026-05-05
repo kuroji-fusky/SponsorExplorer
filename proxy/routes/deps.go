@@ -12,10 +12,10 @@ type ProxyDeps struct {
 	RedisCtx context.Context
 }
 
-type DepHandler struct {
+type DependencyHandler struct {
 	deps ProxyDeps
 }
 
-func NewDepHandler(deps ProxyDeps) *DepHandler {
-	return &DepHandler{deps: deps}
+func NewDependencyHandler(deps ProxyDeps) *DependencyHandler {
+	return &DependencyHandler{deps: deps}
 }

@@ -1,3 +1,5 @@
+// Direct calls from the SponsorBlock API
+// Note that responses from the proxy API is similar and is altered to be more... portable
 package routes
 
 import (
@@ -20,10 +22,7 @@ type (
 	}
 )
 
-// Direct calls from the SponsorBlock API
-// Note that responses from the proxy API is similar and is altered to be more... portable
-
-func (h *DepHandler) SBProxyRoutes(e *echo.Echo) {
+func (h *DependencyHandler) SBProxyRoutes(e *echo.Echo) {
 	sb := sponsorblock.NewSponBlock(&internal.RedisBridge{
 		RedisDB:      h.deps.Redis,
 		RedisContext: h.deps.RedisCtx,

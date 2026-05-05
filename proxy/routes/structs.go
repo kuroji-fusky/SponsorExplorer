@@ -2,20 +2,33 @@ package routes
 
 import "github.com/kuroji-fusky/SponsorExplorer/proxy/sponsorblock"
 
-// CHANNEL
-//
+/**
+ * SponsorBlock structs
+ */
 
-type cachedChannelMeta struct {
-	Name      string `json:"name"`
-	Handle    string `json:"handle,omitempty"`
-	ChannelId string `json:"id"`
-	Avatar    string `json:"avatar"`
+// [<total no. count>, <only hidden/downvote count>]
+type NumberTuple struct{ TotalCount, WithIgnoredCount int }
 
-	Videos []cachedVideoMeta `json:"videos"`
+type categoryRank struct {
+	Category         sponsorblock.SegmentCategory `json:"category"`
+	TotalSubmissions NumberTuple                  `json:"total_submissions"`
 }
 
-// VIDEO
-//
+type categoryActionType struct {
+	ActionType       sponsorblock.SegmentActionType `json:"action_type"`
+	TotalSubmissions NumberTuple                    `json:"total_submissions"`
+}
+
+type videoDetails struct {
+	videoMeta
+	ChannelName   string `json:"channel_name"`
+	ChannelId     string `json:"channel_id"`
+	ChannelAvatar string `json:"avatar"`
+}
+
+/**
+ * YouTube structs
+ */
 
 type VideoType string
 
