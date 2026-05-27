@@ -43,6 +43,18 @@
             (breakpoint_ready - start_timer) / 1024,
           );
         },
+        onStateChange: (e) => {
+          const currentTime = e.target.getCurrentTime();
+
+          console.log("onStateChange ->", {
+            state: e.target.getPlayerState(),
+            ts: currentTime,
+            rel_ts: (currentTime / e.target.getDuration()) * 100,
+          });
+        },
+        // onApiChange: (e) => {
+        //   console.log("onApiChange ->", { ts: e.target.getCurrentTime(), rel_ts: e.target });
+        // },
         onError: (e) => {
           console.error("Error", e);
         },

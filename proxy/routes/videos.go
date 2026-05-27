@@ -35,7 +35,7 @@ func (h *DependencyHandler) VideoRoutes(e *echo.Echo) {
 
 		elapsed := time.Since(start).Seconds()
 
-		fmt.Printf("\n  -- v: %s\n  -- c: %s\n    > ts: %f\n", videoSnippet.Title, channelResp.Title, elapsed)
+		fmt.Printf("\n  -- v: %s\n  -- c: %s\n   > ts: %f\n", videoSnippet.Title, channelResp.Title, elapsed)
 
 		header := c.Response().Header()
 		header.Add("SEP-Cached", "MISS")

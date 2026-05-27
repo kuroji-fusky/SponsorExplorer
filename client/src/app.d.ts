@@ -4,6 +4,7 @@
 /// <reference types="vite-plugin-pwa/svelte" />
 /// <reference types="vite-plugin-pwa/info" />
 /// <reference types="@types/youtube" />
+import type { SWMessageTypes } from "./lib/types/sw"
 
 declare global {
   namespace App {
@@ -13,6 +14,9 @@ declare global {
     // interface PageState {}
     // interface Platform {}
   }
+  interface BroadcastChannel {
+    postMessage(message: SWMessageTypes): void
+  }
 }
 
-export {};
+export {}

@@ -6,7 +6,8 @@
   import { setChannelMeta } from "$lib/context";
 
   const { data }: PageProps = $props();
-  const { name, id, details, avatar, videos } = data;
+  // svelte-ignore state_referenced_locally
+  const { name, id, details, avatar, videos } = $derived(data);
 
   setChannelMeta({
     id,
@@ -14,6 +15,22 @@
     name,
     handle: "",
     videoCount: 69, // temp
+  });
+
+  $effect(() => {
+    const handlePrefetchSegments = () => {
+      const chan = new BroadcastChannel("sveltekit-sw");
+      const conslidatedIds = videos.map((v) => v.id);
+
+      chan.postMessage({
+        type: "APPEND_YT_IDS",
+        payload: conslidatedIds,
+      });
+    };
+
+    handlePrefetchSegments();
+
+    navigation.addEventListener("navigate", handlePrefetchSegments);
   });
 </script>
 
