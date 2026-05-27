@@ -9,29 +9,46 @@ To alleviate the issues of quota limits and repetitive, redundant requests, an A
 
 ## Endpoints
 
-- `/status`
-- `/ping`
-- `/cache`
-- `/sb/vip_users`
-- `/sb/user/:username_uuid`
-- `/sb/user/:username_uuid/analysis{?bypass_cache}`
-- `/sb/uuid/:uuid{?bypass_cache}`
-- `/sb/skipSegments{?id,bypass_cache,passive_update}`
-- `/sb/searchSegments/:id{?bypass_cache,continue_fragment}`
-- `/yt/channel/:id{?bypass_cache}`
-- `/yt/channel/:id/analysis{?bypass_cache,sample_size}`
-- `/yt/video/:id{?bypass_cache}`
+### Maintenance/Server uptime
+
+- [x] `/status`
+- [x] `/ping`
+- [ ] `/cache`
+
+### Segments
+
+### Users
+
+- [ ] `/sb/vip_users`
+- [ ] `/sb/user/:username_uuid`
+- [ ] `/sb/user/:username_uuid/analysis{?bypass_cache}`
+
+### Common
+
+- [x] `/channel/:id{?bypass_cache}`
+- [ ] `/channel/:id/analysis{?bypass_cache,sample_size}`
+- [x] `/video/:id{?bypass_cache}`
+- [ ] `/video/:id/segments{?bypass_cache,update}`
 
 ## Development
 
-Install `air`:
+1. Run Redis instance via `docker-compose.yml`:
 
-```console
-go install github.com/air-verse/air@latest
-```
+    ```bash
+    cd ..
+    docker-compose up -d
+    ```
 
-and run the server with just:
+2. Install `air`:
 
-```console
-air
-```
+    ```bash
+    cd -
+    go install github.com/air-verse/air@latest
+    ```
+
+3. Run the server with just:
+
+    ```console
+    air
+    ```
+

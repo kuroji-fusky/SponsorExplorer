@@ -60,6 +60,38 @@ As an added security layer, you can restrict the API key you've created, since t
 1. Choose "Restrict key" under "API restrictions". On the dropdown menu, choose the YouTube API by filtering the results and click on the checkmark
 1. Save your changes
 
-## Self-hosting with Docker
+## Setting up local environment
 
-WIP
+The proxy server requires Redis for it to operate properly, to cache data to prevent redundant
+API calls from SponsorBlock.
+
+From the root of the directory, simply run:
+
+```console
+docker-compose up -d
+```
+
+Once Redis is running and active - assuming you also have [`air`](https://github.com/air-verse/air)
+installed - you can run:
+
+```console
+pnpm run dev
+```
+
+This runs `concurrently` which runs the client and the server simultaneously in one terminal session.
+However, if you prefer running both of them in seprate terminals, you may which to do so:
+
+- The SvelteKit client can be ran with:
+
+  ```console
+  pnpm run client:dev
+  ```
+
+- The proxy server can be ran with using:
+
+  ```bash
+  # Assuming you're still in root directory
+  cd proxy
+  air .
+  ```
+

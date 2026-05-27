@@ -1,5 +1,6 @@
 services:
   proxy-cache:
+    container_name: "proxy_cache"
     image: redis:latest
     ports:
       - "6379:6379"
@@ -9,6 +10,7 @@ services:
     deploy:
       resources:
         limits:
+          cpus: 2
           memory: 128M
 
 volumes:

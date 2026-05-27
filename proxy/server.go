@@ -57,7 +57,14 @@ func main() {
 	defer pingCancel()
 
 	if err := cacheDb.Ping(pingCtx).Err(); err != nil {
+		var demLines string = strings.Repeat("-", 40)
+
+		log.Default().Println(demLines)
+		log.Default().Println("")
 		log.Default().Println("TIP: Make sure Redis is running in the background!")
+		log.Default().Println("")
+		log.Default().Println(demLines)
+
 		log.Fatalf("failed to connect to redis: %v", err)
 	}
 
