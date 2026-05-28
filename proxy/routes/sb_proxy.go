@@ -47,6 +47,10 @@ func (h *DependencyHandler) SBProxyRoutes(e *echo.Echo) {
 		return c.JSON(http.StatusOK, yeet)
 	})
 
+	e.PATCH("/sb/searchSegments", func(c echo.Context) error {
+		return c.NoContent(http.StatusOK)
+	})
+
 	// Reference: https://github.com/kuroji-fusky/SponsorExplorer/blob/nextjs-legacy/client/src/app/api/sb/skippableSegments/route.ts
 	e.GET("/sb/skipSegments", func(c echo.Context) error {
 		videoIdList := strings.Split(c.QueryParam("id"), ",")

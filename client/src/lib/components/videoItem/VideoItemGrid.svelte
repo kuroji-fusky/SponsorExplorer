@@ -10,7 +10,8 @@
 
   const { id, title, date }: Props = $props();
 
-  const link = `/video/${id}`;
+  // svelte-ignore state_referenced_locally
+const link = `/video/${id}`;
 </script>
 
 <div data-test-id="video-item-grid" class="flex flex-col group">

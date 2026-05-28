@@ -1,29 +1,36 @@
 import { Dexie, type EntityTable } from "dexie"
 
-export interface WatchlistClient {
+export interface PinnedItems {
   id: number
   kind: "video" | "channel" | "sb-username" | "sb-userid"
   added: string | Date
   updated: string | Date
 }
 
-export interface RecentsClient {
-  id: number
+export interface RecentChannels {
+  id?: string
   channelId: string
   channelName: string
+  channelAvatar: string
   channelHandle: string
   added: string | Date
-  updated: string | Date
+  updated?: string | Date
 }
 
-const watchlistDB = new Dexie("watchlist") as Dexie & {
-  watchlist: EntityTable<WatchlistClient, "id">
-  recentsList: EntityTable<RecentsClient, "id">
-}
+class WatchlistDB extends Dexie {
+  pinnedItems!: Dexie.Table<PinnedItems, string>
+  recentChannelsList!: Dexie.Table<RecentChannels, string>
 
-watchlistDB.version(1).stores({
-  watchlist: "++id, kind, item, added, updated",
-  recentsList: "++id, channelId, channelName, channelHandle, added, updated",
-})
+  constructor() {
+    super("watchlist")
+
+    this.version(1).stores({
+      pinnedItems: "++id, kind, item, added, updated",
+      recentChannelsList:
+        "++id, channelId, channelName, channelAvatar, channelHandle, added, updated",
+    })
+  }
+}
+const watchlistDB = new WatchlistDB()
 
 export { watchlistDB }

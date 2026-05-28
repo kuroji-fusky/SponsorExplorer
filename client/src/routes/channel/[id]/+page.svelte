@@ -1,13 +1,15 @@
 <script lang="ts">
+  import Dexie from "dexie";
   import { Meta, Pagination, TabItem, VideoItemGrid } from "$lib/components";
-  import ChannelInfoWrapper from "$lib/components/panels/ChannelInfoWrapper.svelte";
-
+  import ChannelInspectWrapper from "$lib/components/panels/ChannelInspectWrapper.svelte";
   import ChannelShelf from "$lib/components/shelf/ChannelShelf.svelte";
   import { setChannelMeta } from "$lib/context";
+  import { watchlistDB } from "$lib/db";
+  import ChannelInfo from "$lib/components/panels/ChannelInfo.svelte";
 
   const { data }: PageProps = $props();
   // svelte-ignore state_referenced_locally
-  const { name, id, details, avatar, videos } = $derived(data);
+  const { name, id, details, avatar, videos } = data;
 
   setChannelMeta({
     id,
@@ -18,6 +20,16 @@
   });
 
   $effect(() => {
+    // log channel to recents
+    watchlistDB.recentChannelsList.add({
+      channelId: id,
+      channelAvatar: avatar,
+      channelName: name,
+      channelHandle: "WIP",
+      added: new Date(),
+    });
+
+    // fetch segments
     const handlePrefetchSegments = () => {
       const chan = new BroadcastChannel("sveltekit-sw");
       const conslidatedIds = videos.map((v) => v.id);
@@ -29,14 +41,15 @@
     };
 
     handlePrefetchSegments();
-
     navigation.addEventListener("navigate", handlePrefetchSegments);
   });
 </script>
 
 <Meta title={`Channel segments for ${name}`} />
 <main class="@container max-w-screen-2xl mx-auto w-full px-6">
-  <ChannelInfoWrapper cid={`UC${id}`} />
+  <ChannelInspectWrapper cid={`UC${id}`}>
+    <ChannelInfo />
+  </ChannelInspectWrapper>
   <!-- Filters and tabs -->
   <ChannelShelf />
 

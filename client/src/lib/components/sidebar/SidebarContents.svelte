@@ -5,22 +5,24 @@
   import {
     BookmarkIcon,
     ChevronsRightIcon,
+    EllipsisIcon,
     EyeOffIcon,
     InfoIcon,
+    ScanSearchIcon,
     SearchIcon,
     SquareActivityIcon,
     Trash2Icon,
-    XIcon,
   } from "@lucide/svelte";
-  import TabItem from "../tabs/TabItem.svelte";
   import ChannelItem from "../ChannelItem.svelte";
   import Button from "../Button.svelte";
   import Section from "./Section.svelte";
 
   const { mobile_layout = false }: { mobile_layout?: boolean } = $props();
 
-  const watchlist = liveQuery(() => db.watchlist.toArray());
-  const recents = liveQuery(() => db.recentsList.toArray());
+  const pinnedItems = $derived(liveQuery(() => db.pinnedItems.toArray()));
+  const recentItems = $derived(
+    liveQuery(() => db.recentChannelsList.reverse().toArray()),
+  );
 </script>
 
 <aside
@@ -38,7 +40,12 @@
       <SearchIcon size={17} />
     </Button>
     {#if !mobile_layout}
-      <Button icon aria-label="Expand" variant="tritery" class="shrink-0 p-1.5 size-auto">
+      <Button
+        icon
+        aria-label="Expand"
+        variant="tritery"
+        class="shrink-0 p-1.5 size-auto"
+      >
         <ChevronsRightIcon size={17} />
       </Button>
     {/if}
@@ -79,9 +86,35 @@
     <Section name="Recents" isExpandable={false}>
       {#snippet action()}
         <Button icon variant="tritery">
-          <Trash2Icon size={17} />
+          <EllipsisIcon size={17} />
         </Button>
       {/snippet}
+      {#if $recentItems}
+        {#each $recentItems as channel (channel.id)}
+          <div class="relative group" data-dexie-item-id={channel.id}>
+            <a
+              href={`/channel/UC${channel.channelId}`}
+              data-sveltekit-reload
+              class="block hover:bg-neutral-700/40 px-1.5 py-1.5 rounded-md [--avatar-size:--spacing(6)]"
+            >
+              <ChannelItem
+                src={channel.channelAvatar}
+                name={channel.channelName}
+              />
+            </a>
+            <div
+              class="absolute invisible group-hover:visible right-0 inset-y-0 z-10 flex items-center"
+            >
+              <Button icon variant="tritery">
+                <ScanSearchIcon size={17} />
+              </Button>
+              <Button icon variant="tritery">
+                <EllipsisIcon size={17} />
+              </Button>
+            </div>
+          </div>
+        {/each}
+      {/if}
     </Section>
   </div>
 </aside>

@@ -52,8 +52,8 @@ func (h *DependencyHandler) SBUsersRoute(e *echo.Echo) {
 		rawStr, err := io.ReadAll(c.Request().Body)
 
 		if err != nil {
-			return c.JSON(http.StatusBadRequest, map[string]any{
-				"msg": "Empty or missing body",
+			return c.JSON(http.StatusBadRequest, internal.JsonErrorResponse{
+				ErrorMsg: "Empty or missing body",
 			})
 		}
 

@@ -10,6 +10,9 @@ const _dev = import.meta.env.DEV
 const _self = globalThis.self as unknown as ServiceWorkerGlobalScope
 
 const chan = new BroadcastChannel("sveltekit-sw")
+
+const SEGMENT_CACHE_TTL = 30 * 60 * 1000
+
 chan.addEventListener("message", async (e) => {
   const messageData = e.data as SWMessageTypes
   console.log("got the data:", messageData)

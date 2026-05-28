@@ -12,6 +12,7 @@
 
 <div class="flex items-center sticky top-14 bg-neutral-950 z-10 py-2 gap-x-3">
   <TabContainer>
+    <TabItem>All</TabItem>
     <TabItem active>Videos</TabItem>
     <TabItem>Shorts</TabItem>
   </TabContainer>

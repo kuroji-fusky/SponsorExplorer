@@ -3,5 +3,6 @@ export interface VideoItemProps {
   thumbnail: string
   title: string
   date: string
+  timestamp: string
   segments: Array<unknown>
 }

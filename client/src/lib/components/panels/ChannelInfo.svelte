@@ -13,7 +13,7 @@
     class="size-32 aspect-square rounded-xl bg-red-50 mr-4 pointer-events-none"
     draggable="false"
   />
-  <div class="flex-1 flex flex-col gap-y-1">
+  <div class="flex-1 flex flex-col gap-y-1.5">
     <span class="opacity-60">Channel segments for</span>
     <h1 class="font-bold text-3xl" translate="no">{name}</h1>
     <div class="inline-flex items-center gap-x-1 mt-2">

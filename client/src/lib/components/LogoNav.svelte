@@ -17,8 +17,6 @@
       (x) => location.pathname.startsWith(x) || location.pathname === "/",
     );
 
-    console.log(IN_PERSISTED_ROUTE, IN_PERSISTED_ROUTE && !$IS_MOBILE);
-
     if (IN_PERSISTED_ROUTE) {
       SIDEBAR_OPEN_MOBILE.set(!$SIDEBAR_OPEN_MOBILE);
       return;
